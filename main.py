@@ -14,6 +14,66 @@ import os
 import socket
 from datetime import datetime
 
+# ---- ANSI Color Codes ----
+class Colors:
+    RESET = '\033[0m'
+    BOLD = '\033[1m'
+
+    # Foreground colors
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+
+    # Bright foreground colors
+    BRIGHT_BLACK = '\033[90m'
+    BRIGHT_RED = '\033[91m'
+    BRIGHT_GREEN = '\033[92m'
+    BRIGHT_YELLOW = '\033[93m'
+    BRIGHT_BLUE = '\033[94m'
+    BRIGHT_MAGENTA = '\033[95m'
+    BRIGHT_CYAN = '\033[96m'
+    BRIGHT_WHITE = '\033[97m'
+
+class ColoredFormatter(logging.Formatter):
+    """Custom formatter that adds colors to log levels"""
+
+    LEVEL_COLORS = {
+        logging.DEBUG: Colors.BRIGHT_BLACK,
+        logging.INFO: Colors.BRIGHT_CYAN,
+        logging.WARNING: Colors.BRIGHT_YELLOW,
+        logging.ERROR: Colors.BRIGHT_RED,
+        logging.CRITICAL: Colors.RED + Colors.BOLD,
+    }
+
+    def format(self, record):
+        # Save the original format
+        original_format = self._style._fmt
+
+        # Add color to the level name
+        level_color = self.LEVEL_COLORS.get(record.levelno, Colors.RESET)
+
+        # Color the entire log message based on level
+        if record.levelno == logging.DEBUG:
+            self._style._fmt = f'{Colors.BRIGHT_BLACK}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} {Colors.BRIGHT_BLACK}%(message)s{Colors.RESET}'
+        elif record.levelno == logging.INFO:
+            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} %(message)s'
+        elif record.levelno == logging.WARNING:
+            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} {Colors.YELLOW}%(message)s{Colors.RESET}'
+        elif record.levelno >= logging.ERROR:
+            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} {Colors.RED}%(message)s{Colors.RESET}'
+
+        result = logging.Formatter.format(self, record)
+
+        # Restore the original format
+        self._style._fmt = original_format
+
+        return result
+
 # ---- Configuration ----
 SERVERS = [
     {"name": "MSSTB4", "ip": "172.29.108.42",  "user": "AUTOMA", "password": "AUTOMA-1"},
@@ -30,18 +90,22 @@ def build_logger(server_ip=None):
     logger = logging.getLogger(server_ip or "msisdn-check")
     logger.setLevel(logging.DEBUG)
 
-    # Console handler
+    # Clear existing handlers to avoid duplicates
+    logger.handlers.clear()
+
+    # Console handler with colors
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
-    formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s", "%Y-%m-%d %H:%M:%S")
-    ch.setFormatter(formatter)
+    colored_formatter = ColoredFormatter("%(asctime)s %(levelname)s %(message)s", "%Y-%m-%d %H:%M:%S")
+    ch.setFormatter(colored_formatter)
     logger.addHandler(ch)
 
-    # File handler
+    # File handler - mode='w' to overwrite instead of append (no colors in file)
     if server_ip:
-        fh = logging.FileHandler(os.path.join(LOG_DIR, f"{server_ip}.log"), mode="a")
+        fh = logging.FileHandler(os.path.join(LOG_DIR, f"{server_ip}.log"), mode="w")
         fh.setLevel(logging.DEBUG)
-        fh.setFormatter(formatter)
+        plain_formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s", "%Y-%m-%d %H:%M:%S")
+        fh.setFormatter(plain_formatter)
         logger.addHandler(fh)
 
     return logger
@@ -105,14 +169,14 @@ def connect_and_check(server, msisdn):
 
     full_output = []
     for cmd in commands:
-        logger.info("Executing command: %s", cmd)
-        chan.send(cmd + "\n")
+        logger.info(f"{Colors.BRIGHT_MAGENTA}Executing command:{Colors.RESET} {Colors.BRIGHT_GREEN}{cmd}{Colors.RESET}")
+        chan.send((cmd + "\n").encode('utf-8'))
         out = stream_channel_output(chan, timeout=READ_TIMEOUT)
         full_output.append(f"\n>>> {cmd}\n{out}\n{'-'*80}\n")
         # also log output for transparency
         logger.debug("Command output:\n%s", out)
         if "UNKNOWN SUBSCRIBER" in out.upper() or "DX ERROR" in out.upper():
-            logger.info("Detected UNKNOWN SUBSCRIBER pattern — stopping command sequence.")
+            logger.info(f"{Colors.RED}Detected UNKNOWN SUBSCRIBER pattern — stopping command sequence.{Colors.RESET}")
             break
 
     chan.close()
