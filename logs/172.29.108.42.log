@@ -1,0 +1,45 @@
+2025-11-02 21:24:20 INFO Connecting to MSSTB4 (172.29.108.42) ...
+2025-11-02 21:24:20 INFO Connected. Opening interactive shell...
+2025-11-02 21:24:22 DEBUG Initial banner/prompt:
+
+MSS       MSSTB4                    2025-11-02  21:24:20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       WELCOME TO THE DIALOGUE
+
+
+
+
+
+MAIN LEVEL COMMAND <___>
+<  
+2025-11-02 21:24:22 INFO Sending command: ZMVO
+2025-11-02 21:24:28 DEBUG Output after 'ZMVO':
+ZMVO
+2025-11-02 21:24:28 INFO Sending command: MSISDN=4915781993214
+2025-11-02 21:24:34 DEBUG Output after 'MSISDN=4915781993214':
+MSISDN=4915781993214
+2025-11-02 21:24:34 INFO Sending command: MSISDN=4915781993214::;
+2025-11-02 21:24:40 DEBUG Output after 'MSISDN=4915781993214::;':
+MSISDN=4915781993214::;
+2025-11-02 21:24:40 WARNING Unable to categorically determine presence. Treating as NOT FOUND.
+2025-11-02 21:24:40 DEBUG Full collected output:
+=== CMD: ZMVO ===
+ZMVO
+=== CMD: MSISDN=4915781993214 ===
+MSISDN=4915781993214
+=== CMD: MSISDN=4915781993214::; ===
+MSISDN=4915781993214::;
