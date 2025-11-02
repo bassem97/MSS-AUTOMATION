@@ -184,13 +184,6 @@ def connect_and_check(server, msisdn):
 
     output_text = "".join(full_output)
 
-    # --- write everything into log file explicitly ---
-    log_path = os.path.join(LOG_DIR, f"{server['ip']}.log")
-    with open(log_path, "a", encoding="utf-8") as f:
-        f.write("\n\n==== SESSION START %s ====\n" % datetime.now().isoformat())
-        f.write(output_text)
-        f.write("\n==== SESSION END ====\n")
-
     # --- Determine presence ---
     upper_out = output_text.upper()
     if "UNKNOWN SUBSCRIBER" in upper_out or "COMMAND EXECUTION FAILED" in upper_out:
@@ -210,11 +203,17 @@ def main(msisdn):
     root_logger = build_logger()
     root_logger.info("Starting MSISDN lookup for %s", msisdn)
 
+    # Clear summary file at start of new run
+    summary_file = os.path.join(LOG_DIR, "summary.txt")
+    with open(summary_file, "w", encoding="utf-8") as sf:
+        sf.write(f"MSISDN Lookup Report - {datetime.now().isoformat()}\n")
+        sf.write(f"Searching for: {msisdn}\n")
+        sf.write("="*60 + "\n\n")
+
     for server in SERVERS:
         found, output = connect_and_check(server, msisdn)
-        summary_file = os.path.join(LOG_DIR, "summary.txt")
         with open(summary_file, "a", encoding="utf-8") as sf:
-            sf.write(f"{datetime.now().isoformat()} - {server['ip']} - Found={found}\n")
+            sf.write(f"{server['name']} ({server['ip']}) - Found={found}\n")
         if found:
             root_logger.info("✅ Found MSISDN on %s (%s). Stopping search.", server["name"], server["ip"])
             return
