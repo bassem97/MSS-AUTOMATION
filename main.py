@@ -199,8 +199,8 @@ def connect_and_check(server, msisdn):
         chan.send((cmd + "\r\n").encode('utf-8'))
         out = stream_channel_output(chan, timeout=READ_TIMEOUT)
         full_output.append(f"\n>>> {cmd}\n{out}\n{'-'*80}\n")
-        # Show output in real-time in the terminal
-        logger.info(f"{Colors.BRIGHT_BLUE}Command output:{Colors.RESET}\n%s", out)
+        # Show output in real-time in the terminal with yellow color
+        logger.info(f"{Colors.BRIGHT_YELLOW}Command output:{Colors.RESET}\n{Colors.YELLOW}%s{Colors.RESET}", out)
         if "UNKNOWN SUBSCRIBER" in out.upper() or "DX ERROR" in out.upper():
             logger.info(f"{Colors.RED}Detected UNKNOWN SUBSCRIBER pattern — stopping command sequence.{Colors.RESET}")
             break
