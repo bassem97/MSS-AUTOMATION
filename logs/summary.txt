@@ -1,6 +1,5 @@
-MSISDN Lookup Report - 2025-11-03T01:56:56.317151
+MSISDN Lookup Report - 2025-11-03T02:03:56.899380
 Searching for: 4915781993214
 ============================================================
 
-MSSTB4 (172.29.108.42) - Found=False
-MSSTB5 (172.29.108.106) - Found=False
+MSSTB4 (172.29.108.42) - NOT FOUND

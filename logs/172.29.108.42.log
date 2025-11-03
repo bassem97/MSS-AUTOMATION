@@ -1,33 +1,7 @@
-2025-11-03 01:56:56 [INFO] Connecting to MSSTB4 (172.29.108.42)...
-2025-11-03 01:56:56 [INFO] Connected. Opening interactive shell...
-2025-11-03 01:56:58 [DEBUG] Initial prompt:
-
-MSS       MSSTB4                    2025-11-03  01:56:57
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                       WELCOME TO THE DIALOGUE
-
-
-
-
-
-MAIN LEVEL COMMAND <___>
-< 
-2025-11-03 01:56:58 [INFO] Executing command: ZMVO
-2025-11-03 01:57:04 [INFO] Command output:
+2025-11-03 02:03:56 [INFO] Connecting to MSSTB4 (172.29.108.42)...
+2025-11-03 02:03:57 [INFO] Connected. Opening interactive shell...
+2025-11-03 02:03:58 [INFO] Executing command: ZMVO
+2025-11-03 02:04:05 [INFO] Command output:
 ZMVO
 
 
@@ -38,8 +12,8 @@ LOADING PROGRAM VERSION 27.25-2
    SUBSCRIBER IDENTIFICATION; */
 
 MVO:
-2025-11-03 01:57:04 [INFO] Executing command: MSISDN=4915781993214
-2025-11-03 01:57:10 [INFO] Command output:
+2025-11-03 02:04:05 [INFO] Executing command: MSISDN=4915781993214
+2025-11-03 02:04:11 [INFO] Command output:
 MSISDN=4915781993214
 
 /* SELECT EXECUTION DETERMINATION OR
@@ -55,11 +29,11 @@ MSISDN=4915781993214
    DEFAULT IS CURRENT DEFINITION      */
 
 MVO:MSISDN=4915781993214::
-2025-11-03 01:57:10 [INFO] Executing command: ;
-2025-11-03 01:57:16 [INFO] Command output:
+2025-11-03 02:04:11 [INFO] Executing command: ;
+2025-11-03 02:04:17 [INFO] Command output:
 ;
 
-MSS       MSSTB4                    2025-11-03  01:57:10
+MSS       MSSTB4                    2025-11-03  02:04:11
 
 /*** DX ERROR: 196613 ***/
 /*** UNKNOWN SUBSCRIBER ***/
@@ -68,5 +42,6 @@ COMMAND EXECUTION FAILED
 
 VISITING SUBSCRIBER IDENTIFICATION HANDLING COMMAND <MV_>
 < 
-2025-11-03 01:57:16 [INFO] Detected UNKNOWN SUBSCRIBER pattern — stopping command sequence.
-2025-11-03 01:57:16 [INFO] MSISDN 4915781993214 NOT PRESENT on 172.29.108.42
+2025-11-03 02:04:17 [INFO] Detected error pattern — stopping command sequence.
+2025-11-03 02:04:17 [INFO] MSISDN NOT PRESENT on 172.29.108.42
+2025-11-03 02:04:17 [INFO] Disconnected from 172.29.108.42
