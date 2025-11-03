@@ -12,6 +12,7 @@ import argparse
 import sys
 import os
 import socket
+import re
 from datetime import datetime
 
 # ---- ANSI Color Codes ----
@@ -38,6 +39,11 @@ class Colors:
     BRIGHT_MAGENTA = '\033[95m'
     BRIGHT_CYAN = '\033[96m'
     BRIGHT_WHITE = '\033[97m'
+
+def strip_ansi_codes(text):
+    """Remove ANSI color codes from text."""
+    ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+    return ansi_escape.sub('', text)
 
 class ColoredFormatter(logging.Formatter):
     """Custom formatter that adds colors to log levels"""
@@ -74,6 +80,13 @@ class ColoredFormatter(logging.Formatter):
 
         return result
 
+class PlainFormatter(logging.Formatter):
+    """Custom formatter that strips ANSI color codes from log messages"""
+
+    def format(self, record):
+        result = logging.Formatter.format(self, record)
+        return strip_ansi_codes(result)
+
 # ---- Configuration ----
 SERVERS = [
     {"name": "MSSTB4", "ip": "172.29.108.42",  "user": "AUTOMA", "password": "AUTOMA-1"},
@@ -104,7 +117,7 @@ def build_logger(server_ip=None):
     if server_ip:
         fh = logging.FileHandler(os.path.join(LOG_DIR, f"{server_ip}.log"), mode="w")
         fh.setLevel(logging.DEBUG)
-        plain_formatter = logging.Formatter("%(asctime)s %(levelname)s %(message)s", "%Y-%m-%d %H:%M:%S")
+        plain_formatter = PlainFormatter("%(asctime)s %(levelname)s %(message)s", "%Y-%m-%d %H:%M:%S")
         fh.setFormatter(plain_formatter)
         logger.addHandler(fh)
 
