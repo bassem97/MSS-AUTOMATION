@@ -177,13 +177,13 @@ def connect_and_check(server, msisdn):
     commands = [
         "ZMVO",
         f"MSISDN={msisdn}",
-        f"MSISDN={msisdn}::;"
+        f";"
     ]
 
     full_output = []
     for cmd in commands:
         logger.info(f"{Colors.BRIGHT_MAGENTA}Executing command:{Colors.RESET} {Colors.BRIGHT_GREEN}{cmd}{Colors.RESET}")
-        chan.send((cmd + "\n").encode('utf-8'))
+        chan.send((cmd + "\r\n").encode('utf-8'))
         out = stream_channel_output(chan, timeout=READ_TIMEOUT)
         full_output.append(f"\n>>> {cmd}\n{out}\n{'-'*80}\n")
         # also log output for transparency
