@@ -123,6 +123,17 @@ def build_logger(server_ip=None):
 
     return logger
 
+def process_backspaces(output):
+    """Process backspace characters to simulate terminal behavior."""
+    result = []
+    for char in output:
+        if char == '\b' or char == '\x08':  # Backspace character
+            if result:
+                result.pop()  # Remove last character
+        else:
+            result.append(char)
+    return ''.join(result)
+
 
 def stream_channel_output(chan, timeout=READ_TIMEOUT):
     """Continuously read shell output until timeout expires."""
@@ -142,7 +153,8 @@ def stream_channel_output(chan, timeout=READ_TIMEOUT):
             time.sleep(0.1)
         if time.time() - start > timeout:
             break
-    return "".join(output)
+    raw_output = "".join(output)
+    return process_backspaces(raw_output)
 
 
 def connect_and_check(server, msisdn):
@@ -173,6 +185,7 @@ def connect_and_check(server, msisdn):
 
     banner = stream_channel_output(chan, timeout=1.0)
     logger.debug("Initial prompt:\n%s", banner)
+
 
     commands = [
         "ZMVO",
