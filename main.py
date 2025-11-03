@@ -65,13 +65,13 @@ class ColoredFormatter(logging.Formatter):
 
         # Color the entire log message based on level
         if record.levelno == logging.DEBUG:
-            self._style._fmt = f'{Colors.BRIGHT_BLACK}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} {Colors.BRIGHT_BLACK}%(message)s{Colors.RESET}'
+            self._style._fmt = f'{Colors.BRIGHT_BLACK}%(asctime)s{Colors.RESET} [{level_color}%(levelname)s{Colors.RESET}] {Colors.BRIGHT_BLACK}%(message)s{Colors.RESET}'
         elif record.levelno == logging.INFO:
-            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} %(message)s'
+            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} [{level_color}%(levelname)s{Colors.RESET}] %(message)s'
         elif record.levelno == logging.WARNING:
-            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} {Colors.YELLOW}%(message)s{Colors.RESET}'
+            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} [{level_color}%(levelname)s{Colors.RESET}] {Colors.YELLOW}%(message)s{Colors.RESET}'
         elif record.levelno >= logging.ERROR:
-            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} {level_color}%(levelname)s{Colors.RESET} {Colors.RED}%(message)s{Colors.RESET}'
+            self._style._fmt = f'{Colors.BRIGHT_WHITE}%(asctime)s{Colors.RESET} [{level_color}%(levelname)s{Colors.RESET}] {Colors.RED}%(message)s{Colors.RESET}'
 
         result = logging.Formatter.format(self, record)
 
@@ -117,7 +117,7 @@ def build_logger(server_ip=None):
     if server_ip:
         fh = logging.FileHandler(os.path.join(LOG_DIR, f"{server_ip}.log"), mode="w")
         fh.setLevel(logging.DEBUG)
-        plain_formatter = PlainFormatter("%(asctime)s %(levelname)s %(message)s", "%Y-%m-%d %H:%M:%S")
+        plain_formatter = PlainFormatter("%(asctime)s [%(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S")
         fh.setFormatter(plain_formatter)
         logger.addHandler(fh)
 
