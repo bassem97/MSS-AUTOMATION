@@ -17,11 +17,11 @@ class PhoneCallAutomation:
 
     def __init__(self, logger=None):
         self.phones = {
-            "phoneA": {
+            "phone A": {
                 "msisdn": "4915900103141",
                 "ip_port": "172.29.42.44:7437"
             },
-            "phoneB": {
+            "phone B": {
                 "msisdn": "4915781993213",
                 "ip_port": "172.29.42.44:7445"
             }
@@ -241,7 +241,7 @@ class PhoneCallAutomation:
             bool: True if call was initiated successfully
         """
         if from_phone not in self.phones or to_phone not in self.phones:
-            self.logger.error(f"✗ Invalid phone ID. Use 'phone1' or 'phone2'")
+            self.logger.error(f"✗ Invalid phone ID. Use 'phone A' or 'phone B'")
             return False
 
         caller = self.phones[from_phone]
@@ -276,8 +276,8 @@ class PhoneCallAutomation:
         print("\n" + "="*60)
         print("="*19+" PHONE CALL AUTOMATION "+"="*18)
         print("="*60)
-        print(f"Phone A: {self.phones['phoneA']['msisdn']} @ {self.phones['phoneA']['ip_port']}")
-        print(f"Phone B: {self.phones['phoneB']['msisdn']} @ {self.phones['phoneB']['ip_port']}")
+        print(f"Phone A: {self.phones['phone A']['msisdn']} @ {self.phones['phone A']['ip_port']}")
+        print(f"Phone B: {self.phones['phone B']['msisdn']} @ {self.phones['phone B']['ip_port']}")
         print("="*60)
 
         while True:
@@ -310,12 +310,12 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "3":
-                self.end_call(self.phones['phoneA']['ip_port'])
+                self.end_call(self.phones['phone A']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
             elif choice == "4":
-                self.end_call(self.phones['phoneB']['ip_port'])
+                self.end_call(self.phones['phone B']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
@@ -325,8 +325,8 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "6":
-                self.connect_device(self.phones['phoneA']['ip_port'])
-                self.connect_device(self.phones['phoneB']['ip_port'])
+                self.connect_device(self.phones['phone A']['ip_port'])
+                self.connect_device(self.phones['phone B']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
