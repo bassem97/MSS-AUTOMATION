@@ -1,13 +1,13 @@
-2025-11-05 11:21:27 [INFO] Connecting to MSSTB4 (172.29.108.42)...
-2025-11-05 11:21:27 [INFO] Connected. Opening interactive shell...
-2025-11-05 11:21:29 [INFO] Executing command: ZMVO:MSISDN=4915781993213::;
-2025-11-05 11:21:35 [INFO] Command output:
-ZMVO:MSISDN=4915781993213::;
+2025-11-05 14:48:51 [INFO] Connecting to MSSTB4 (172.29.108.42)...
+2025-11-05 14:48:51 [INFO] Connected. Opening interactive shell...
+2025-11-05 14:48:53 [INFO] Executing command: ZMVO:MSISDN=4917607017457::;
+2025-11-05 14:48:59 [INFO] Command output:
+ZMVO:MSISDN=4917607017457::;
 
 
 LOADING PROGRAM VERSION 27.25-2
 
-MSS       MSSTB4                    2025-11-05  11:21:29
+MSS       MSSTB4                    2025-11-05  14:48:53
 
 /*** DX ERROR: 196613 ***/
 /*** UNKNOWN SUBSCRIBER ***/
@@ -16,6 +16,6 @@ COMMAND EXECUTION FAILED
 
 VISITING SUBSCRIBER IDENTIFICATION HANDLING COMMAND <MV_>
 < 
-2025-11-05 11:21:35 [INFO] Detected error pattern — stopping command sequence.
-2025-11-05 11:21:35 [INFO] MSISDN NOT PRESENT on 172.29.108.42
-2025-11-05 11:21:35 [INFO] Disconnected from 172.29.108.42
+2025-11-05 14:48:59 [INFO] Detected error pattern — stopping command sequence.
+2025-11-05 14:48:59 [INFO] MSISDN NOT PRESENT on 172.29.108.42
+2025-11-05 14:48:59 [INFO] Disconnected from 172.29.108.42

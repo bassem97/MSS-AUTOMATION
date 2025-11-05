@@ -1,104 +1,21 @@
-2025-11-05 11:21:35 [INFO] Connecting to MSSTB5 (172.29.108.106)...
-2025-11-05 11:21:36 [INFO] Connected. Opening interactive shell...
-2025-11-05 11:21:37 [INFO] Executing command: ZMVO:MSISDN=4915781993213::;
-2025-11-05 11:21:44 [INFO] Command output:
-ZMVO:MSISDN=4915781993213::;
+2025-11-05 14:48:59 [INFO] Connecting to MSSTB5 (172.29.108.106)...
+2025-11-05 14:48:59 [INFO] Connected. Opening interactive shell...
+2025-11-05 14:49:01 [INFO] Executing command: ZMVO:MSISDN=4917607017457::;
+2025-11-05 14:49:07 [INFO] Command output:
+ZMVO:MSISDN=4917607017457::;
 
 
 LOADING PROGRAM VERSION 27.25-2
 
-MSS       MSSTB5                    2025-11-05  11:21:37
+MSS       MSSTB5                    2025-11-05  14:49:01
 
-                SUBSCRIBER INFORMATION:
+/*** DX ERROR: 196613 ***/
+/*** UNKNOWN SUBSCRIBER ***/
 
-        INTERNATIONAL MOBILE SUBSCRIBER IDENTITY ...... 262072000007439 
-        TEMPORARY MOBILE SUBSCRIBER IDENTITY .......... 46702BECH/1181756396D
-        ACTIVATION STATUS ............................. A     
-        MOBILE STATION CATEGORY ....................... OR            
-        EXACT MOBILE STATION CATEGORY ................. UNK
-        ROUTING CATEGORY .............................. N  
-        ADDITIONAL ROUTING CATEGORY ................... N  
-        MOBILE COUNTRY CODE ........................... 0262D
-        MOBILE NETWORK CODE ........................... 0007D
-        LOCATION AREA CODE OF IMSI .................... C793H/51091D
-        RADIO ACCESS INFO ............................. GSM  
-        MOBILE NOT REACHABLE FLAG ..................... N
-        HLR FAILURE FLAG .............................. N  
-        SUPPLEMENTARY SERVICE CHECK FLAG .............. N
-        IMSI DETACH FLAG .............................. N
-        DETACH CAUSE ..................................           
-        LAST ACTIVATE DATE ............................ 11-05 11:10
-        LAST USED CELL ID ............................. 2A99H/10905D
-        HLR-ADDRESS ................................... 491760000298    
-        ADD SUPPORTED IN HLR .......................... NO 
-        SECURITY CONTEXT TYPE.......................... UMTS 
-        SECURITY CHECKINGS DONE FLAG .................. Y
-
-        DUAL VLR REGISTRATION INFORMATION:
-        SUSPECTED USER................................. N
-        OTHER MSS ADDRESS ............................. N               
-
-        INTELLIGENT NETWORK MOBILITY MANAGEMENT:
-        SCP ADDRESS ................................... N               
-        DETECTION POINT NAME .......................... N      
-        SERVICE KEY ................................... N
-        TRANSACTION TYPE .............................. N    
-
-        INTELLIGENT NETWORK SHORT MESSAGE SERVICE:
-        SCP ADDRESS ................................... N               
-        DETECTION POINT NAME .......................... N  
-        SERVICE KEY ................................... N
-        TRIGGERING ALL MULTIPLE MESSAGES .............. N
-
-        SUBSCRIBER FRAUD OBSERVATION:
-        NUMBER OF CALL TRANSFERS ...................... 0
-        NUMBER OF OBSERVATION ACTIVATIONS ............. 0
-        NUMBER OF SAMPLING PERIOD ..................... 0
-
-        SIMULTANEOUS CALL TRANSFER IN PROGRESS ........ 0
-
-        FRAUD DETECTION AND LIMITATION:
-        TIME LIMIT OF MO CALLS ........................ DEF   
-        ACTION PARAMETER FOR MO CALLS ................. DEF   
-        TIME LIMIT OF CF CALLS ........................ DEF   
-        ACTION PARAMETER FOR CF CALLS ................. DEF   
-        TIME LIMIT OF CT CALLS ........................ DEF   
-        ACTION PARAMETER FOR CT CALLS ................. DEF   
-        MAX. NUMBER OF CT INVOCATIONS ................. DEF   
-        ACTION PARAMETER FOR CT INVOCATIONS ........... DEF   
-
-        ZONE CODES:
-                 
-
-        EMLPP PRIORITY INFORMATION:
-        EMLPP MAXIMUM ENTITLED PRIORITY................ N
-        EMLPP DEFAULT PRIORITY......................... N
-
-        SGSN ADDRESS .................................. N               
-        CONFIRMED RADIO CONTACT VIA SGSN .............. N
-
-        VLRU IDENTITY ................................. 0
-
-        MOBILE SUBSCRIBER INTERNATIONAL ISDN NUMBER ... 4915781993213   
-        MOBILE SUBSCRIBER ALTERNATE LINE SERVICE MSISDN                 
-
-        BASIC SERVICES:
-        T11 T21 T22 
-
-
-        MULTISIM INFO:
-        OWN MSISDN .................................... N               
-
-        SUPER-CHARGER:
-        AGE INDICATOR (HEX).............................N
-        SUPER-CHARGER STATE.............................ACTIVE
-        VLR UPDATE COUNTER..............................011
-        PLMN UPDATE COUNTER.............................000
-
-COMMAND EXECUTED
-
+COMMAND EXECUTION FAILED 
 
 VISITING SUBSCRIBER IDENTIFICATION HANDLING COMMAND <MV_>
 < 
-2025-11-05 11:21:44 [INFO] MSISDN PRESENT on 172.29.108.106
-2025-11-05 11:21:44 [INFO] Disconnected from 172.29.108.106
+2025-11-05 14:49:07 [INFO] Detected error pattern — stopping command sequence.
+2025-11-05 14:49:07 [INFO] MSISDN NOT PRESENT on 172.29.108.106
+2025-11-05 14:49:07 [INFO] Disconnected from 172.29.108.106

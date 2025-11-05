@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """
-main.py
-Main entry point for MSS automation tool.
-Checks if a MSISDN exists on configured MML servers.
+run_subscriber_search.py
+Entry point for subscriber management (MSISDN search) module.
 """
 
 import argparse
-
-from config import SERVERS
-from subscriber_checker import SubscriberChecker
+from configs.config import SERVERS
+from subscriber_management.subscriber_checker import SubscriberChecker
 from report_generator import ReportGenerator
-from logging_config import build_logger
+from configs.logging_config import build_logger
 
 
 def search_msisdn(msisdn):
@@ -77,6 +75,36 @@ Examples:
     
     # Exit with appropriate code
     exit(0 if found else 1)
+
+
+if __name__ == "__main__":
+    main()
+#!/usr/bin/env python3
+"""
+run_phone_automation.py
+Entry point for phone call automation module.
+"""
+
+from phone_automation.phone_call_automation import PhoneCallAutomation
+from configs.logging_config import build_logger
+import sys
+
+
+def main():
+    """Main entry point for phone call automation."""
+    # Build logger for phone call automation
+    logger = build_logger("phone_call_automation")
+    automation = PhoneCallAutomation(logger)
+
+    # Check if ADB is available
+    if not automation.check_adb_available():
+        logger.error("\nPlease install ADB and ensure it's in your system PATH.")
+        logger.error("On Ubuntu/Debian: sudo apt-get install adb")
+        logger.error("Or download Android Platform Tools from: https://developer.android.com/studio/releases/platform-tools")
+        sys.exit(1)
+
+    # Run interactive menu
+    automation.interactive_menu()
 
 
 if __name__ == "__main__":

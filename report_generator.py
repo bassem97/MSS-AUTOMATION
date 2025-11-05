@@ -6,7 +6,7 @@ Generate summary reports for MSISDN lookups.
 
 import os
 from datetime import datetime
-from config import LOG_DIR
+from configs.config import LOG_DIR
 
 
 class ReportGenerator:
@@ -60,4 +60,3 @@ class ReportGenerator:
     def get_report_path(self):
         """Get the path to the summary report file."""
         return self.summary_file
-
