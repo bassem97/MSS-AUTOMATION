@@ -17,14 +17,12 @@ class PhoneCallAutomation:
 
     def __init__(self, logger=None):
         self.phones = {
-            "phone1": {
-                "msisdn": "49 159 001 03141",
-                "msisdn_cleaned": "4915900103141",
+            "phoneA": {
+                "msisdn": "4915900103141",
                 "ip_port": "172.29.42.44:7437"
             },
-            "phone2": {
-                "msisdn": "49 157 819 93213",
-                "msisdn_cleaned": "4915781993213",
+            "phoneB": {
+                "msisdn": "4915781993213",
                 "ip_port": "172.29.42.44:7445"
             }
         }
@@ -78,19 +76,20 @@ class PhoneCallAutomation:
         except Exception as e:
             self.logger.warning(f"Error disconnecting from {ip_port}: {e}")
 
-    def make_call(self, caller_ip_port: str, recipient_msisdn: str) -> bool:
+    def make_call(self, caller_ip_port: str, caller_msisdn: str, recipient_msisdn: str) -> bool:
         """
         Make a phone call from caller device to recipient number.
 
         Args:
             caller_ip_port: IP:PORT of the calling device
+            caller_msisdn: MSISDN of the caller
             recipient_msisdn: Phone number to call (with country code, no spaces)
 
         Returns:
             bool: True if call was initiated successfully
         """
         try:
-            self.logger.info(f"Initiating call from {caller_ip_port} to {recipient_msisdn}...")
+            self.logger.info(f"Initiating call from {caller_msisdn} to {recipient_msisdn}...")
 
             # ADB command to make a call
             # Using 'am start' to launch dialer with phone number
@@ -173,6 +172,47 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error checking ADB: {e}")
             return False
 
+    def restart_adb_server(self) -> bool:
+        """Restart the ADB server by killing and starting it again."""
+        try:
+            self.logger.info("Killing ADB server...")
+            result_kill = subprocess.run(
+                ["adb", "kill-server"],
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
+
+            if result_kill.returncode == 0:
+                self.logger.info("✓ ADB server killed successfully")
+            else:
+                self.logger.warning(f"Warning: {result_kill.stderr.strip()}")
+
+            time.sleep(1)
+
+            self.logger.info("Starting ADB server...")
+            result_start = subprocess.run(
+                ["adb", "start-server"],
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
+
+            if result_start.returncode == 0:
+                self.logger.info("✓ ADB server started successfully")
+                self.logger.info("Note: You may need to authorize the connection on your device(s)")
+                return True
+            else:
+                self.logger.error(f"✗ Failed to start ADB server: {result_start.stderr.strip()}")
+                return False
+
+        except subprocess.TimeoutExpired:
+            self.logger.error("✗ ADB server restart timed out")
+            return False
+        except Exception as e:
+            self.logger.error(f"✗ Error restarting ADB server: {e}")
+            return False
+
     def list_devices(self):
         """List all connected ADB devices."""
         try:
@@ -220,7 +260,8 @@ class PhoneCallAutomation:
         # Make the call
         success = self.make_call(
             caller['ip_port'],
-            recipient['msisdn_cleaned']
+            caller['msisdn'],
+            recipient['msisdn']
         )
 
         if success and duration:
@@ -233,21 +274,22 @@ class PhoneCallAutomation:
     def interactive_menu(self):
         """Display an interactive menu for phone call automation."""
         print("\n" + "="*60)
-        print("PHONE CALL AUTOMATION - STF")
+        print("="*19+" PHONE CALL AUTOMATION "+"="*18)
         print("="*60)
-        print(f"Phone 1: {self.phones['phone1']['msisdn']} @ {self.phones['phone1']['ip_port']}")
-        print(f"Phone 2: {self.phones['phone2']['msisdn']} @ {self.phones['phone2']['ip_port']}")
+        print(f"Phone A: {self.phones['phoneA']['msisdn']} @ {self.phones['phoneA']['ip_port']}")
+        print(f"Phone B: {self.phones['phoneB']['msisdn']} @ {self.phones['phoneB']['ip_port']}")
         print("="*60)
 
         while True:
             print("\n--- MENU ---")
-            print("1. Call from Phone 1 to Phone 2")
-            print("2. Call from Phone 2 to Phone 1")
-            print("3. End call on Phone 1")
-            print("4. End call on Phone 2")
+            print("1. Call from Phone A to Phone B")
+            print("2. Call from Phone B to Phone A")
+            print("3. End call on Phone A")
+            print("4. End call on Phone B")
             print("5. List connected devices")
             print("6. Connect to both phones")
             print("7. Disconnect all devices")
+            print("8. Restart ADB server")
             print("0. Exit")
             print()
 
@@ -256,29 +298,48 @@ class PhoneCallAutomation:
             if choice == "1":
                 duration_str = input("Enter call duration in seconds (or press Enter to skip auto-end): ").strip()
                 duration = int(duration_str) if duration_str else None
-                self.make_phone_call('phone1', 'phone2', duration)
+                self.make_phone_call('phone A', 'phone B', duration)
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "2":
                 duration_str = input("Enter call duration in seconds (or press Enter to skip auto-end): ").strip()
                 duration = int(duration_str) if duration_str else None
-                self.make_phone_call('phone2', 'phone1', duration)
+                self.make_phone_call('phone B', 'phone A', duration)
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "3":
-                self.end_call(self.phones['phone1']['ip_port'])
+                self.end_call(self.phones['phoneA']['ip_port'])
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "4":
-                self.end_call(self.phones['phone2']['ip_port'])
+                self.end_call(self.phones['phoneB']['ip_port'])
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "5":
                 self.list_devices()
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "6":
-                self.connect_device(self.phones['phone1']['ip_port'])
-                self.connect_device(self.phones['phone2']['ip_port'])
+                self.connect_device(self.phones['phoneA']['ip_port'])
+                self.connect_device(self.phones['phoneB']['ip_port'])
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "7":
                 subprocess.run(["adb", "disconnect"], capture_output=True)
                 self.logger.info("✓ Disconnected all devices")
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "8":
+                self.restart_adb_server()
+                if not self._wait_for_continue():
+                    break
 
             elif choice == "0":
                 self.logger.info("Exiting...")
@@ -286,6 +347,20 @@ class PhoneCallAutomation:
 
             else:
                 self.logger.warning("Invalid choice. Please try again.")
+
+    def _wait_for_continue(self) -> bool:
+        """
+        Wait for user to press Enter to continue or 0 to exit.
+
+        Returns:
+            bool: True to continue to menu, False to exit
+        """
+        print()
+        user_input = input("Press Enter to show the menu or 0 to exit: ").strip()
+        if user_input == "0":
+            self.logger.info("Exiting...")
+            return False
+        return True
 
 
 def main():
