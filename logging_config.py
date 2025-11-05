@@ -77,7 +77,7 @@ def build_logger(server_ip=None):
 
     # Console handler with colors
     ch = logging.StreamHandler(sys.stdout)
-    ch.setLevel(logging.INFO)
+    ch.setLevel(logging.DEBUG)
     colored_formatter = ColoredFormatter(LOG_FORMAT_CONSOLE, LOG_DATE_FORMAT)
     ch.setFormatter(colored_formatter)
     logger.addHandler(ch)
@@ -91,4 +91,3 @@ def build_logger(server_ip=None):
         logger.addHandler(fh)
 
     return logger
-

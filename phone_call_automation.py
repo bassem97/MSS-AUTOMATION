@@ -273,12 +273,12 @@ class PhoneCallAutomation:
 
     def interactive_menu(self):
         """Display an interactive menu for phone call automation."""
-        print("\n" + "="*60)
-        print("="*19+" PHONE CALL AUTOMATION "+"="*18)
-        print("="*60)
-        print(f"Phone A: {self.phones['phone A']['msisdn']} @ {self.phones['phone A']['ip_port']}")
-        print(f"Phone B: {self.phones['phone B']['msisdn']} @ {self.phones['phone B']['ip_port']}")
-        print("="*60)
+        self.logger.info("=" * 60)
+        self.logger.info("=" * 19 + " PHONE CALL AUTOMATION " + "=" * 18)
+        self.logger.info("=" * 60)
+        self.logger.info(f"Phone A: {self.phones['phone A']['msisdn']} @ {self.phones['phone A']['ip_port']}")
+        self.logger.info(f"Phone B: {self.phones['phone B']['msisdn']} @ {self.phones['phone B']['ip_port']}")
+        self.logger.info("=" * 60)
 
         while True:
             print("\n--- MENU ---")
