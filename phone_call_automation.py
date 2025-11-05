@@ -9,11 +9,13 @@ import time
 import sys
 from typing import Optional
 
+from logging_config import build_logger
+
 
 class PhoneCallAutomation:
     """Handles automated phone calls between mobile devices via ADB."""
 
-    def __init__(self):
+    def __init__(self, logger=None):
         self.phones = {
             "phone1": {
                 "msisdn": "49 159 001 03141",
@@ -26,6 +28,8 @@ class PhoneCallAutomation:
                 "ip_port": "172.29.42.44:7445"
             }
         }
+        # Initialize logger
+        self.logger = logger or build_logger("phone_call_automation")
 
     def clean_msisdn(self, msisdn: str) -> str:
         """Remove spaces from MSISDN."""
@@ -34,7 +38,7 @@ class PhoneCallAutomation:
     def connect_device(self, ip_port: str) -> bool:
         """Connect to a device via ADB."""
         try:
-            print(f"Connecting to device at {ip_port}...")
+            self.logger.info(f"Connecting to device at {ip_port}...")
             result = subprocess.run(
                 ["adb", "connect", ip_port],
                 capture_output=True,
@@ -43,28 +47,28 @@ class PhoneCallAutomation:
             )
 
             if result.returncode == 0:
-                print(f"✓ Successfully connected to {ip_port}")
-                print(f"  Output: {result.stdout.strip()}")
+                self.logger.info(f"✓ Successfully connected to {ip_port}")
+                self.logger.debug(f"Output: {result.stdout.strip()}")
                 return True
             else:
-                print(f"✗ Failed to connect to {ip_port}")
-                print(f"  Error: {result.stderr.strip()}")
+                self.logger.error(f"✗ Failed to connect to {ip_port}")
+                self.logger.error(f"Error: {result.stderr.strip()}")
                 return False
 
         except subprocess.TimeoutExpired:
-            print(f"✗ Connection to {ip_port} timed out")
+            self.logger.error(f"✗ Connection to {ip_port} timed out")
             return False
         except FileNotFoundError:
-            print("✗ ADB command not found. Please ensure ADB is installed and in PATH.")
+            self.logger.error("✗ ADB command not found. Please ensure ADB is installed and in PATH.")
             return False
         except Exception as e:
-            print(f"✗ Error connecting to {ip_port}: {e}")
+            self.logger.error(f"✗ Error connecting to {ip_port}: {e}")
             return False
 
     def disconnect_device(self, ip_port: str):
         """Disconnect from a device via ADB."""
         try:
-            print(f"Disconnecting from {ip_port}...")
+            self.logger.info(f"Disconnecting from {ip_port}...")
             subprocess.run(
                 ["adb", "disconnect", ip_port],
                 capture_output=True,
@@ -72,7 +76,7 @@ class PhoneCallAutomation:
                 timeout=5
             )
         except Exception as e:
-            print(f"Warning: Error disconnecting from {ip_port}: {e}")
+            self.logger.warning(f"Error disconnecting from {ip_port}: {e}")
 
     def make_call(self, caller_ip_port: str, recipient_msisdn: str) -> bool:
         """
@@ -86,7 +90,7 @@ class PhoneCallAutomation:
             bool: True if call was initiated successfully
         """
         try:
-            print(f"\nInitiating call from {caller_ip_port} to {recipient_msisdn}...")
+            self.logger.info(f"Initiating call from {caller_ip_port} to {recipient_msisdn}...")
 
             # ADB command to make a call
             # Using 'am start' to launch dialer with phone number
@@ -100,19 +104,19 @@ class PhoneCallAutomation:
             )
 
             if result.returncode == 0:
-                print(f"✓ Call initiated successfully!")
-                print(f"  Output: {result.stdout.strip()}")
+                self.logger.info(f"✓ Call initiated successfully!")
+                self.logger.debug(f"Output: {result.stdout.strip()}")
                 return True
             else:
-                print(f"✗ Failed to initiate call")
-                print(f"  Error: {result.stderr.strip()}")
+                self.logger.error(f"✗ Failed to initiate call")
+                self.logger.error(f"Error: {result.stderr.strip()}")
                 return False
 
         except subprocess.TimeoutExpired:
-            print(f"✗ Call command timed out")
+            self.logger.error(f"✗ Call command timed out")
             return False
         except Exception as e:
-            print(f"✗ Error making call: {e}")
+            self.logger.error(f"✗ Error making call: {e}")
             return False
 
     def end_call(self, device_ip_port: str) -> bool:
@@ -126,7 +130,7 @@ class PhoneCallAutomation:
             bool: True if call was ended successfully
         """
         try:
-            print(f"\nEnding call on {device_ip_port}...")
+            self.logger.info(f"Ending call on {device_ip_port}...")
 
             # Send keyevent to end call (KEYCODE_ENDCALL = 6)
             result = subprocess.run(
@@ -137,15 +141,15 @@ class PhoneCallAutomation:
             )
 
             if result.returncode == 0:
-                print(f"✓ Call ended successfully")
+                self.logger.info(f"✓ Call ended successfully")
                 return True
             else:
-                print(f"✗ Failed to end call")
-                print(f"  Error: {result.stderr.strip()}")
+                self.logger.error(f"✗ Failed to end call")
+                self.logger.error(f"Error: {result.stderr.strip()}")
                 return False
 
         except Exception as e:
-            print(f"✗ Error ending call: {e}")
+            self.logger.error(f"✗ Error ending call: {e}")
             return False
 
     def check_adb_available(self) -> bool:
@@ -158,15 +162,15 @@ class PhoneCallAutomation:
                 timeout=5
             )
             if result.returncode == 0:
-                print(f"✓ ADB is available")
-                print(f"  Version: {result.stdout.strip().split()[4]}")
+                version = result.stdout.strip().split()[4] if len(result.stdout.strip().split()) > 4 else "unknown"
+                self.logger.info(f"✓ ADB is available (Version: {version})")
                 return True
             return False
         except FileNotFoundError:
-            print("✗ ADB is not installed or not in PATH")
+            self.logger.error("✗ ADB is not installed or not in PATH")
             return False
         except Exception as e:
-            print(f"✗ Error checking ADB: {e}")
+            self.logger.error(f"✗ Error checking ADB: {e}")
             return False
 
     def list_devices(self):
@@ -178,10 +182,11 @@ class PhoneCallAutomation:
                 text=True,
                 timeout=5
             )
-            print("\n=== Connected ADB Devices ===")
-            print(result.stdout)
+            self.logger.info("=== Connected ADB Devices ===")
+            for line in result.stdout.strip().split('\n'):
+                self.logger.info(line)
         except Exception as e:
-            print(f"Error listing devices: {e}")
+            self.logger.error(f"Error listing devices: {e}")
 
     def make_phone_call(self, from_phone: str, to_phone: str, duration: Optional[int] = None):
         """
@@ -196,17 +201,17 @@ class PhoneCallAutomation:
             bool: True if call was initiated successfully
         """
         if from_phone not in self.phones or to_phone not in self.phones:
-            print(f"✗ Invalid phone ID. Use 'phone1' or 'phone2'")
+            self.logger.error(f"✗ Invalid phone ID. Use 'phone1' or 'phone2'")
             return False
 
         caller = self.phones[from_phone]
         recipient = self.phones[to_phone]
 
-        print("\n" + "="*60)
-        print(f"CALLING: {from_phone.upper()} → {to_phone.upper()}")
-        print(f"From: {caller['msisdn']} ({caller['ip_port']})")
-        print(f"To: {recipient['msisdn']}")
-        print("="*60)
+        self.logger.info("=" * 60)
+        self.logger.info(f"CALLING: {from_phone.upper()} → {to_phone.upper()}")
+        self.logger.info(f"From: {caller['msisdn']} ({caller['ip_port']})")
+        self.logger.info(f"To: {recipient['msisdn']}")
+        self.logger.info("=" * 60)
 
         # Connect to caller device
         if not self.connect_device(caller['ip_port']):
@@ -219,7 +224,7 @@ class PhoneCallAutomation:
         )
 
         if success and duration:
-            print(f"\nCall will remain active for {duration} seconds...")
+            self.logger.info(f"Call will remain active for {duration} seconds...")
             time.sleep(duration)
             self.end_call(caller['ip_port'])
 
@@ -273,25 +278,27 @@ class PhoneCallAutomation:
 
             elif choice == "7":
                 subprocess.run(["adb", "disconnect"], capture_output=True)
-                print("✓ Disconnected all devices")
+                self.logger.info("✓ Disconnected all devices")
 
             elif choice == "0":
-                print("\nExiting...")
+                self.logger.info("Exiting...")
                 break
 
             else:
-                print("Invalid choice. Please try again.")
+                self.logger.warning("Invalid choice. Please try again.")
 
 
 def main():
     """Main function to run the phone call automation."""
-    automation = PhoneCallAutomation()
+    # Build logger for phone call automation
+    logger = build_logger("phone_call_automation")
+    automation = PhoneCallAutomation(logger)
 
     # Check if ADB is available
     if not automation.check_adb_available():
-        print("\nPlease install ADB and ensure it's in your system PATH.")
-        print("On Ubuntu/Debian: sudo apt-get install adb")
-        print("Or download Android Platform Tools from: https://developer.android.com/studio/releases/platform-tools")
+        logger.error("\nPlease install ADB and ensure it's in your system PATH.")
+        logger.error("On Ubuntu/Debian: sudo apt-get install adb")
+        logger.error("Or download Android Platform Tools from: https://developer.android.com/studio/releases/platform-tools")
         sys.exit(1)
 
     # Run interactive menu

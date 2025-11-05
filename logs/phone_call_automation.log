@@ -1,0 +1,43 @@
+2025-11-05 13:22:56 [INFO] ✓ ADB is available (Version: 1.0.39)
+2025-11-05 13:23:30 [INFO] ============================================================
+2025-11-05 13:23:30 [INFO] CALLING: PHONE1 → PHONE2
+2025-11-05 13:23:30 [INFO] From: 49 159 001 03141 (172.29.42.44:7437)
+2025-11-05 13:23:30 [INFO] To: 49 157 819 93213
+2025-11-05 13:23:30 [INFO] ============================================================
+2025-11-05 13:23:30 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 13:23:30 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 13:23:30 [DEBUG] Output: already connected to 172.29.42.44:7437
+2025-11-05 13:23:30 [INFO] Initiating call from 172.29.42.44:7437 to 4915781993213...
+2025-11-05 13:23:31 [INFO] ✓ Call initiated successfully!
+2025-11-05 13:23:31 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 13:23:31 [INFO] Call will remain active for 1 seconds...
+2025-11-05 13:23:32 [INFO] Ending call on 172.29.42.44:7437...
+2025-11-05 13:23:32 [INFO] ✓ Call ended successfully
+2025-11-05 13:25:07 [INFO] ============================================================
+2025-11-05 13:25:07 [INFO] CALLING: PHONE1 → PHONE2
+2025-11-05 13:25:07 [INFO] From: 49 159 001 03141 (172.29.42.44:7437)
+2025-11-05 13:25:07 [INFO] To: 49 157 819 93213
+2025-11-05 13:25:07 [INFO] ============================================================
+2025-11-05 13:25:07 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 13:25:07 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 13:25:07 [DEBUG] Output: already connected to 172.29.42.44:7437
+2025-11-05 13:25:07 [INFO] Initiating call from 172.29.42.44:7437 to 4915781993213...
+2025-11-05 13:25:07 [INFO] ✓ Call initiated successfully!
+2025-11-05 13:25:07 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 13:25:07 [INFO] Call will remain active for 5 seconds...
+2025-11-05 13:25:12 [INFO] Ending call on 172.29.42.44:7437...
+2025-11-05 13:25:12 [INFO] ✓ Call ended successfully
+2025-11-05 13:25:32 [INFO] ============================================================
+2025-11-05 13:25:32 [INFO] CALLING: PHONE2 → PHONE1
+2025-11-05 13:25:32 [INFO] From: 49 157 819 93213 (172.29.42.44:7445)
+2025-11-05 13:25:32 [INFO] To: 49 159 001 03141
+2025-11-05 13:25:32 [INFO] ============================================================
+2025-11-05 13:25:32 [INFO] Connecting to device at 172.29.42.44:7445...
+2025-11-05 13:25:32 [INFO] ✓ Successfully connected to 172.29.42.44:7445
+2025-11-05 13:25:32 [DEBUG] Output: already connected to 172.29.42.44:7445
+2025-11-05 13:25:32 [INFO] Initiating call from 172.29.42.44:7445 to 4915900103141...
+2025-11-05 13:25:32 [INFO] ✓ Call initiated successfully!
+2025-11-05 13:25:32 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 13:25:32 [INFO] Call will remain active for 10 seconds...
+2025-11-05 13:25:42 [INFO] Ending call on 172.29.42.44:7445...
+2025-11-05 13:25:42 [INFO] ✓ Call ended successfully
