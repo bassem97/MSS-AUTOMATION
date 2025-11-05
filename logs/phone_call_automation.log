@@ -1,52 +1,107 @@
-2025-11-05 15:09:58 [INFO] ✓ ADB is available (Version: 1.0.39)
-2025-11-05 15:09:58 [INFO] ============================================================
-2025-11-05 15:09:58 [INFO] =================== PHONE CALL AUTOMATION ==================
-2025-11-05 15:09:58 [INFO] ============================================================
-2025-11-05 15:09:58 [INFO] Phone A: 4915900103141 @ 172.29.42.44:7437
-2025-11-05 15:09:58 [INFO] Phone B: 4915781993213 @ 172.29.42.44:7445
-2025-11-05 15:09:58 [INFO] ============================================================
-2025-11-05 15:10:09 [INFO] ============================================================
-2025-11-05 15:10:09 [INFO] CALLING: PHONEB → PHONEA
-2025-11-05 15:10:09 [INFO] From: 4915781993213 (172.29.42.44:7445)
-2025-11-05 15:10:09 [INFO] To: 4915900103141
-2025-11-05 15:10:09 [INFO] ============================================================
-2025-11-05 15:10:09 [INFO] Connecting to device at 172.29.42.44:7445...
-2025-11-05 15:10:09 [INFO] ✓ Successfully connected to 172.29.42.44:7445
-2025-11-05 15:10:09 [DEBUG] Output: connected to 172.29.42.44:7445
-2025-11-05 15:10:09 [INFO] Initiating call from 4915781993213 to 4915900103141...
-2025-11-05 15:10:09 [ERROR] ✗ Failed to initiate call
-2025-11-05 15:10:09 [ERROR] Error: error: device unauthorized.
+2025-11-05 15:37:45 [INFO] ✓ ADB is available (Version: 1.0.39)
+2025-11-05 15:37:45 [INFO] ============================================================
+2025-11-05 15:37:45 [INFO] =================== PHONE CALL AUTOMATION ==================
+2025-11-05 15:37:45 [INFO] ============================================================
+2025-11-05 15:37:45 [INFO] Phone A: 4915900103141 @ 172.29.42.44:7437
+2025-11-05 15:37:45 [INFO] Phone B: 4915781993213 @ 172.29.42.44:7445
+2025-11-05 15:37:45 [INFO] ============================================================
+2025-11-05 15:37:49 [INFO] ============================================================
+2025-11-05 15:37:49 [INFO] CALLING: PHONEA → PHONEB
+2025-11-05 15:37:49 [INFO] From: 4915900103141 (172.29.42.44:7437)
+2025-11-05 15:37:49 [INFO] To: 4915781993213
+2025-11-05 15:37:49 [INFO] ============================================================
+2025-11-05 15:37:49 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 15:37:49 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 15:37:49 [DEBUG] Output: unable to connect to 172.29.42.44:7437: Connection refused
+2025-11-05 15:37:49 [INFO] Initiating call from 4915900103141 to 4915781993213...
+2025-11-05 15:37:49 [ERROR] ✗ Failed to initiate call
+2025-11-05 15:37:49 [ERROR] Error: error: device '172.29.42.44:7437' not found
+2025-11-05 15:37:53 [INFO] ============================================================
+2025-11-05 15:37:53 [INFO] CALLING: PHONEB → PHONEA
+2025-11-05 15:37:53 [INFO] From: 4915781993213 (172.29.42.44:7445)
+2025-11-05 15:37:53 [INFO] To: 4915900103141
+2025-11-05 15:37:53 [INFO] ============================================================
+2025-11-05 15:37:53 [INFO] Connecting to device at 172.29.42.44:7445...
+2025-11-05 15:37:53 [INFO] ✓ Successfully connected to 172.29.42.44:7445
+2025-11-05 15:37:53 [DEBUG] Output: connected to 172.29.42.44:7445
+2025-11-05 15:37:53 [INFO] Initiating call from 4915781993213 to 4915900103141...
+2025-11-05 15:37:53 [ERROR] ✗ Failed to initiate call
+2025-11-05 15:37:53 [ERROR] Error: error: device offline
+2025-11-05 15:38:06 [INFO] ============================================================
+2025-11-05 15:38:06 [INFO] CALLING: PHONEB → PHONEA
+2025-11-05 15:38:06 [INFO] From: 4915781993213 (172.29.42.44:7445)
+2025-11-05 15:38:06 [INFO] To: 4915900103141
+2025-11-05 15:38:06 [INFO] ============================================================
+2025-11-05 15:38:06 [INFO] Connecting to device at 172.29.42.44:7445...
+2025-11-05 15:38:06 [INFO] ✓ Successfully connected to 172.29.42.44:7445
+2025-11-05 15:38:06 [DEBUG] Output: already connected to 172.29.42.44:7445
+2025-11-05 15:38:06 [INFO] Initiating call from 4915781993213 to 4915900103141...
+2025-11-05 15:38:06 [INFO] ✓ Call initiated successfully!
+2025-11-05 15:38:06 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 15:38:06 [INFO] Call will remain active for 5 seconds...
+2025-11-05 15:38:11 [INFO] Ending call on 172.29.42.44:7445...
+2025-11-05 15:38:11 [INFO] ✓ Call ended successfully
+2025-11-05 15:38:15 [INFO] ============================================================
+2025-11-05 15:38:15 [INFO] CALLING: PHONEB → PHONEA
+2025-11-05 15:38:15 [INFO] From: 4915781993213 (172.29.42.44:7445)
+2025-11-05 15:38:15 [INFO] To: 4915900103141
+2025-11-05 15:38:15 [INFO] ============================================================
+2025-11-05 15:38:15 [INFO] Connecting to device at 172.29.42.44:7445...
+2025-11-05 15:38:15 [INFO] ✓ Successfully connected to 172.29.42.44:7445
+2025-11-05 15:38:15 [DEBUG] Output: already connected to 172.29.42.44:7445
+2025-11-05 15:38:15 [INFO] Initiating call from 4915781993213 to 4915900103141...
+2025-11-05 15:38:15 [INFO] ✓ Call initiated successfully!
+2025-11-05 15:38:15 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 15:38:24 [INFO] Ending call on 172.29.42.44:7445...
+2025-11-05 15:38:24 [INFO] ✓ Call ended successfully
+2025-11-05 15:40:04 [INFO] ============================================================
+2025-11-05 15:40:04 [INFO] CALLING: PHONEA → PHONEB
+2025-11-05 15:40:04 [INFO] From: 4915900103141 (172.29.42.44:7437)
+2025-11-05 15:40:04 [INFO] To: 4915781993213
+2025-11-05 15:40:04 [INFO] ============================================================
+2025-11-05 15:40:04 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 15:40:04 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 15:40:04 [DEBUG] Output: connected to 172.29.42.44:7437
+2025-11-05 15:40:04 [INFO] Initiating call from 4915900103141 to 4915781993213...
+2025-11-05 15:40:04 [ERROR] ✗ Failed to initiate call
+2025-11-05 15:40:04 [ERROR] Error: error: device unauthorized.
 This adb server's $ADB_VENDOR_KEYS is not set
 Try 'adb kill-server' if that seems wrong.
 Otherwise check for a confirmation dialog on your device.
-2025-11-05 15:10:20 [INFO] ============================================================
-2025-11-05 15:10:20 [INFO] CALLING: PHONEA → PHONEB
-2025-11-05 15:10:20 [INFO] From: 4915900103141 (172.29.42.44:7437)
-2025-11-05 15:10:20 [INFO] To: 4915781993213
-2025-11-05 15:10:20 [INFO] ============================================================
-2025-11-05 15:10:20 [INFO] Connecting to device at 172.29.42.44:7437...
-2025-11-05 15:10:20 [INFO] ✓ Successfully connected to 172.29.42.44:7437
-2025-11-05 15:10:20 [DEBUG] Output: unable to connect to 172.29.42.44:7437: Connection refused
-2025-11-05 15:10:20 [INFO] Initiating call from 4915900103141 to 4915781993213...
-2025-11-05 15:10:20 [ERROR] ✗ Failed to initiate call
-2025-11-05 15:10:20 [ERROR] Error: error: device '172.29.42.44:7437' not found
-2025-11-05 15:10:28 [INFO] Connecting to device at 172.29.42.44:7437...
-2025-11-05 15:10:28 [INFO] ✓ Successfully connected to 172.29.42.44:7437
-2025-11-05 15:10:28 [DEBUG] Output: unable to connect to 172.29.42.44:7437: Connection refused
-2025-11-05 15:10:28 [INFO] Connecting to device at 172.29.42.44:7445...
-2025-11-05 15:10:28 [INFO] ✓ Successfully connected to 172.29.42.44:7445
-2025-11-05 15:10:28 [DEBUG] Output: already connected to 172.29.42.44:7445
-2025-11-05 15:10:38 [INFO] ============================================================
-2025-11-05 15:10:38 [INFO] CALLING: PHONEB → PHONEA
-2025-11-05 15:10:38 [INFO] From: 4915781993213 (172.29.42.44:7445)
-2025-11-05 15:10:38 [INFO] To: 4915900103141
-2025-11-05 15:10:38 [INFO] ============================================================
-2025-11-05 15:10:38 [INFO] Connecting to device at 172.29.42.44:7445...
-2025-11-05 15:10:38 [INFO] ✓ Successfully connected to 172.29.42.44:7445
-2025-11-05 15:10:38 [DEBUG] Output: already connected to 172.29.42.44:7445
-2025-11-05 15:10:38 [INFO] Initiating call from 4915781993213 to 4915900103141...
-2025-11-05 15:10:39 [INFO] ✓ Call initiated successfully!
-2025-11-05 15:10:39 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
-2025-11-05 15:10:39 [INFO] Call will remain active for 5 seconds...
-2025-11-05 15:10:44 [INFO] Ending call on 172.29.42.44:7445...
-2025-11-05 15:10:44 [INFO] ✓ Call ended successfully
+2025-11-05 15:40:11 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 15:40:11 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 15:40:11 [DEBUG] Output: already connected to 172.29.42.44:7437
+2025-11-05 15:40:11 [INFO] Connecting to device at 172.29.42.44:7445...
+2025-11-05 15:40:11 [INFO] ✓ Successfully connected to 172.29.42.44:7445
+2025-11-05 15:40:11 [DEBUG] Output: already connected to 172.29.42.44:7445
+2025-11-05 15:40:17 [INFO] === Connected ADB Devices ===
+2025-11-05 15:40:17 [INFO] List of devices attached
+2025-11-05 15:40:17 [INFO] 172.29.42.44:7437	device
+2025-11-05 15:40:17 [INFO] 172.29.42.44:7445	device
+2025-11-05 15:40:26 [INFO] ============================================================
+2025-11-05 15:40:26 [INFO] CALLING: PHONEA → PHONEB
+2025-11-05 15:40:26 [INFO] From: 4915900103141 (172.29.42.44:7437)
+2025-11-05 15:40:26 [INFO] To: 4915781993213
+2025-11-05 15:40:26 [INFO] ============================================================
+2025-11-05 15:40:26 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 15:40:26 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 15:40:26 [DEBUG] Output: already connected to 172.29.42.44:7437
+2025-11-05 15:40:26 [INFO] Initiating call from 4915900103141 to 4915781993213...
+2025-11-05 15:40:26 [INFO] ✓ Call initiated successfully!
+2025-11-05 15:40:26 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 15:40:26 [INFO] Call will remain active for 5 seconds...
+2025-11-05 15:40:31 [INFO] Ending call on 172.29.42.44:7437...
+2025-11-05 15:40:31 [INFO] ✓ Call ended successfully
+2025-11-05 15:40:39 [INFO] ============================================================
+2025-11-05 15:40:39 [INFO] CALLING: PHONEA → PHONEB
+2025-11-05 15:40:39 [INFO] From: 4915900103141 (172.29.42.44:7437)
+2025-11-05 15:40:39 [INFO] To: 4915781993213
+2025-11-05 15:40:39 [INFO] ============================================================
+2025-11-05 15:40:39 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-05 15:40:39 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-05 15:40:39 [DEBUG] Output: already connected to 172.29.42.44:7437
+2025-11-05 15:40:39 [INFO] Initiating call from 4915900103141 to 4915781993213...
+2025-11-05 15:40:39 [INFO] ✓ Call initiated successfully!
+2025-11-05 15:40:39 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx }
+2025-11-05 15:40:50 [INFO] Ending call on 172.29.42.44:7437...
+2025-11-05 15:40:50 [INFO] ✓ Call ended successfully

@@ -1,0 +1,13 @@
+# MSS Server Configuration
+# SSH servers for MML command execution
+
+SERVERS:
+  MSSTB4:
+    ip: 172.29.108.42
+    user: AUTOMA
+    password: AUTOMA-1
+
+  MSSTB5:
+    ip: 172.29.108.106
+    user: AUTOMA
+    password: AUTOMA-1
