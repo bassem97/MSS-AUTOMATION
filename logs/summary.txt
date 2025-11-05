@@ -1,9 +1,9 @@
-MSISDN Lookup Report - 2025-11-03T02:03:56.899380
-Searching for: 4915781993214
+MSISDN Lookup Report - 2025-11-05T11:21:27.367246
+Searching for: 4915781993213
 ============================================================
 
 MSSTB4 (172.29.108.42) - NOT FOUND
-MSSTB5 (172.29.108.106) - NOT FOUND
+MSSTB5 (172.29.108.106) - FOUND
 
 ============================================================
-RESULT: MSISDN not found on any server
+RESULT: MSISDN found on one or more servers

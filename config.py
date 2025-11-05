@@ -9,7 +9,7 @@ import os
 # ---- Server Configuration ----
 SERVERS = [
     {"name": "MSSTB4", "ip": "172.29.108.42", "user": "AUTOMA", "password": "AUTOMA-1"},
-    {"name": "MSSTB5", "ip": "172.29.108.106", "user": "AUTOMA", "password": "AUTOMA-1"},
+    {"name": "MSSTB5", "ip": "172.29.108.106", "user": "AUTOMA", "password": "AUTOMA-1"}
 ]
 
 # ---- Timeout Settings ----
@@ -28,9 +28,7 @@ LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 # ---- MML Command Configuration ----
 MML_COMMANDS = {
     "CHECK_SUBSCRIBER": [
-        "ZMVO",
-        "MSISDN={msisdn}",
-        ";"
+        "ZMVO:MSISDN={msisdn}::;"
     ]
 }
 
