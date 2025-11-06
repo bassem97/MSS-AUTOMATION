@@ -41,13 +41,19 @@ class PhoneCallAutomation:
                 timeout=10
             )
 
-            if result.returncode == 0:
+            output = result.stdout.strip()
+
+            # Check for success indicators in the output
+            # ADB returns 0 even on failure, so we need to parse the output text
+            if "connected" in output.lower() and "unable to connect" not in output.lower():
                 self.logger.info(f"✓ Successfully connected to {ip_port}")
-                self.logger.debug(f"Output: {result.stdout.strip()}")
+                self.logger.debug(f"Output: {output}")
                 return True
             else:
                 self.logger.error(f"✗ Failed to connect to {ip_port}")
-                self.logger.error(f"Error: {result.stderr.strip()}")
+                self.logger.error(f"Output: {output}")
+                if result.stderr.strip():
+                    self.logger.error(f"Error: {result.stderr.strip()}")
                 return False
 
         except subprocess.TimeoutExpired:
