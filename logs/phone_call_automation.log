@@ -1,11 +1,39 @@
-2025-11-06 15:41:18 [INFO] ✓ ADB is available (Version: 1.0.39)
-2025-11-06 15:41:18 [INFO] ============================================================
-2025-11-06 15:41:18 [INFO] =================== PHONE CALL AUTOMATION ==================
-2025-11-06 15:41:18 [INFO] ============================================================
-2025-11-06 15:41:18 [INFO] Phone A: 4915900103141 @ 172.29.42.44:7437
-2025-11-06 15:41:18 [INFO] Phone B: 4917604017183 @ 172.29.42.44:7409
-2025-11-06 15:41:18 [INFO] ============================================================
-2025-11-06 15:41:22 [DEBUG] Call state for 172.29.42.44:7437: IDLE
-2025-11-06 15:41:22 [DEBUG] Call state for 172.29.42.44:7409: IDLE
-2025-11-06 15:41:22 [INFO] 📞 Phone A call state: IDLE
-2025-11-06 15:41:22 [INFO] 📞 Phone B call state: IDLE
+2025-11-06 15:54:17 [INFO] ✓ ADB is available (Version: 1.0.39)
+2025-11-06 15:54:17 [INFO] ============================================================
+2025-11-06 15:54:17 [INFO] =================== PHONE CALL AUTOMATION ==================
+2025-11-06 15:54:17 [INFO] ============================================================
+2025-11-06 15:54:17 [INFO] Phone A: 4915900103141 @ 172.29.42.44:7437
+2025-11-06 15:54:17 [INFO] Phone B: 4917604017183 @ 172.29.42.44:7409
+2025-11-06 15:54:17 [INFO] ============================================================
+2025-11-06 15:54:22 [INFO] ============================================================
+2025-11-06 15:54:22 [INFO] CALLING: PHONEA → PHONEB
+2025-11-06 15:54:22 [INFO] From: 4915900103141 (172.29.42.44:7437)
+2025-11-06 15:54:22 [INFO] To: 4917604017183
+2025-11-06 15:54:22 [INFO] ============================================================
+2025-11-06 15:54:22 [INFO] Connecting to device at 172.29.42.44:7437...
+2025-11-06 15:54:22 [INFO] ✓ Successfully connected to 172.29.42.44:7437
+2025-11-06 15:54:22 [DEBUG] Output: already connected to 172.29.42.44:7437
+2025-11-06 15:54:22 [INFO] Initiating call from 4915900103141 to +4917604017183...
+2025-11-06 15:54:22 [INFO] ✓ Call initiated successfully!
+2025-11-06 15:54:22 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
+2025-11-06 15:54:29 [DEBUG] Call state for 172.29.42.44:7437: OFFHOOK
+2025-11-06 15:54:29 [WARNING] Cannot answer call on 172.29.42.44:7437 - phone is not ringing (current state: OFFHOOK)
+2025-11-06 15:54:32 [DEBUG] Call state for 172.29.42.44:7409: RINGING
+2025-11-06 15:54:32 [INFO] Answering call on 172.29.42.44:7409...
+2025-11-06 15:54:32 [INFO] ✓ Call answered successfully on 172.29.42.44:7409
+2025-11-06 15:54:33 [DEBUG] Call state for 172.29.42.44:7409: OFFHOOK
+2025-11-06 15:54:33 [INFO] ✓ Call is now active (state: OFFHOOK)
+2025-11-06 15:54:40 [INFO] Ending call on 172.29.42.44:7437...
+2025-11-06 15:54:40 [INFO] ✓ Call ended successfully on 172.29.42.44:7437
+2025-11-06 15:54:40 [INFO] Also ending call on 172.29.42.44:7409...
+2025-11-06 15:54:40 [INFO] ✓ Call ended on 172.29.42.44:7409
+2025-11-06 15:55:48 [DEBUG] Call state for 172.29.42.44:7437: IDLE
+2025-11-06 15:55:48 [WARNING] Cannot answer call on 172.29.42.44:7437 - phone is not ringing (current state: IDLE)
+2025-11-06 15:55:56 [INFO] Ending call on 172.29.42.44:7437...
+2025-11-06 15:55:56 [INFO] ✓ Call ended successfully on 172.29.42.44:7437
+2025-11-06 15:55:56 [INFO] Also ending call on 172.29.42.44:7409...
+2025-11-06 15:55:56 [INFO] ✓ Call ended on 172.29.42.44:7409
+2025-11-06 15:56:01 [INFO] Ending call on 172.29.42.44:7409...
+2025-11-06 15:56:01 [INFO] ✓ Call ended successfully on 172.29.42.44:7409
+2025-11-06 15:56:01 [INFO] Also ending call on 172.29.42.44:7437...
+2025-11-06 15:56:01 [INFO] ✓ Call ended on 172.29.42.44:7437

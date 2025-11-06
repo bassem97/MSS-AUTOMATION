@@ -176,6 +176,58 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error ending call: {e}")
             return False
 
+    def answer_call(self, device_ip_port: str) -> bool:
+        """
+        Answer an incoming call on a device.
+
+        Args:
+            device_ip_port: IP:PORT of the device
+
+        Returns:
+            bool: True if call was answered successfully
+        """
+        try:
+            # First, check the call state
+            call_state = self.get_call_state(device_ip_port)
+
+            if call_state != 'RINGING':
+                self.logger.warning(f"Cannot answer call on {device_ip_port} - phone is not ringing (current state: {call_state})")
+                return False
+
+            self.logger.info(f"Answering call on {device_ip_port}...")
+
+            # Send keyevent to answer call (KEYCODE_CALL = 5)
+            result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell", "input", "keyevent", "5"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result.returncode == 0:
+                self.logger.info(f"✓ Call answered successfully on {device_ip_port}")
+
+                # Verify the call was answered by checking state again
+                time.sleep(1)  # Give it a moment to transition
+                new_state = self.get_call_state(device_ip_port)
+                if new_state == 'OFFHOOK':
+                    self.logger.info(f"✓ Call is now active (state: {new_state})")
+                else:
+                    self.logger.warning(f"Call state after answering: {new_state}")
+
+                return True
+            else:
+                self.logger.error(f"✗ Failed to answer call")
+                self.logger.error(f"Error: {result.stderr.strip()}")
+                return False
+
+        except subprocess.TimeoutExpired:
+            self.logger.error(f"✗ Answer call command timed out for {device_ip_port}")
+            return False
+        except Exception as e:
+            self.logger.error(f"✗ Error answering call: {e}")
+            return False
+
     def get_call_state(self, device_ip_port: str) -> str:
         """
         Get the current call state of a device.
@@ -366,12 +418,14 @@ class PhoneCallAutomation:
             print("1. Call from Phone A to Phone B")
             print("2. Call from Phone B to Phone A")
             print("3. Check call state (both phones)")
-            print("4. End call on Phone A")
-            print("5. End call on Phone B")
-            print("6. List connected devices")
-            print("7. Connect to both phones")
-            print("8. Disconnect all devices")
-            print("9. Restart ADB server")
+            print("4. Answer call on Phone A")
+            print("5. Answer call on Phone B")
+            print("6. End call on Phone A")
+            print("7. End call on Phone B")
+            print("8. List connected devices")
+            print("9. Connect to both phones")
+            print("10. Disconnect all devices")
+            print("11. Restart ADB server")
             print("0. Exit")
             print()
 
@@ -400,33 +454,43 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "4":
-                self.end_call(self.phones['phoneA']['ip_port'], end_all=True)
+                self.answer_call(self.phones['phoneA']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
             elif choice == "5":
-                self.end_call(self.phones['phoneB']['ip_port'], end_all=True)
+                self.answer_call(self.phones['phoneB']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
             elif choice == "6":
-                self.list_devices()
+                self.end_call(self.phones['phoneA']['ip_port'], end_all=True)
                 if not self._wait_for_continue():
                     break
 
             elif choice == "7":
+                self.end_call(self.phones['phoneB']['ip_port'], end_all=True)
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "8":
+                self.list_devices()
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "9":
                 self.connect_device(self.phones['phoneA']['ip_port'])
                 self.connect_device(self.phones['phoneB']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
-            elif choice == "8":
+            elif choice == "10":
                 subprocess.run(["adb", "disconnect"], capture_output=True)
                 self.logger.info("✓ Disconnected all devices")
                 if not self._wait_for_continue():
                     break
 
-            elif choice == "9":
+            elif choice == "11":
                 self.restart_adb_server()
                 if not self._wait_for_continue():
                     break
