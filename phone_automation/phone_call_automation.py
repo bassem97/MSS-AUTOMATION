@@ -176,6 +176,62 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error ending call: {e}")
             return False
 
+    def get_call_state(self, device_ip_port: str) -> str:
+        """
+        Get the current call state of a device.
+
+        Args:
+            device_ip_port: IP:PORT of the device
+
+        Returns:
+            str: Call state - 'IDLE', 'RINGING', 'OFFHOOK', or 'UNKNOWN' on error
+                - IDLE: No call activity
+                - RINGING: Incoming call (not answered yet)
+                - OFFHOOK: Call is active (answered or outgoing)
+        """
+        try:
+            # Use dumpsys to get telephony state
+            result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell", "dumpsys", "telephony.registry"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result.returncode == 0:
+                output = result.stdout.strip()
+
+                # Parse the output to find call state
+                # Looking for lines like: mCallState=0 (or 1, or 2)
+                # 0 = IDLE, 1 = RINGING, 2 = OFFHOOK
+                for line in output.split('\n'):
+                    if 'mCallState=' in line:
+                        # Extract the state number
+                        if '=0' in line or 'IDLE' in line.upper():
+                            self.logger.debug(f"Call state for {device_ip_port}: IDLE")
+                            return 'IDLE'
+                        elif '=1' in line or 'RINGING' in line.upper():
+                            self.logger.debug(f"Call state for {device_ip_port}: RINGING")
+                            return 'RINGING'
+                        elif '=2' in line or 'OFFHOOK' in line.upper():
+                            self.logger.debug(f"Call state for {device_ip_port}: OFFHOOK")
+                            return 'OFFHOOK'
+
+                # Default to IDLE if we can't find the state
+                self.logger.warning(f"Could not parse call state for {device_ip_port}, defaulting to IDLE")
+                return 'IDLE'
+            else:
+                self.logger.error(f"✗ Failed to get call state from {device_ip_port}")
+                self.logger.error(f"Error: {result.stderr.strip()}")
+                return 'UNKNOWN'
+
+        except subprocess.TimeoutExpired:
+            self.logger.error(f"✗ Get call state command timed out for {device_ip_port}")
+            return 'UNKNOWN'
+        except Exception as e:
+            self.logger.error(f"✗ Error getting call state: {e}")
+            return 'UNKNOWN'
+
     def check_adb_available(self) -> bool:
         """Check if ADB is available in the system."""
         try:
@@ -309,12 +365,13 @@ class PhoneCallAutomation:
             print("\n--- MENU ---")
             print("1. Call from Phone A to Phone B")
             print("2. Call from Phone B to Phone A")
-            print("3. End call on Phone A")
-            print("4. End call on Phone B")
-            print("5. List connected devices")
-            print("6. Connect to both phones")
-            print("7. Disconnect all devices")
-            print("8. Restart ADB server")
+            print("3. Check call state (both phones)")
+            print("4. End call on Phone A")
+            print("5. End call on Phone B")
+            print("6. List connected devices")
+            print("7. Connect to both phones")
+            print("8. Disconnect all devices")
+            print("9. Restart ADB server")
             print("0. Exit")
             print()
 
@@ -335,33 +392,41 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "3":
-                self.end_call(self.phones['phoneA']['ip_port'], end_all=True)
+                state_a = self.get_call_state(self.phones['phoneA']['ip_port'])
+                state_b = self.get_call_state(self.phones['phoneB']['ip_port'])
+                self.logger.info(f"📞 Phone A call state: {state_a}")
+                self.logger.info(f"📞 Phone B call state: {state_b}")
                 if not self._wait_for_continue():
                     break
 
             elif choice == "4":
-                self.end_call(self.phones['phoneB']['ip_port'], end_all=True)
+                self.end_call(self.phones['phoneA']['ip_port'], end_all=True)
                 if not self._wait_for_continue():
                     break
 
             elif choice == "5":
-                self.list_devices()
+                self.end_call(self.phones['phoneB']['ip_port'], end_all=True)
                 if not self._wait_for_continue():
                     break
 
             elif choice == "6":
+                self.list_devices()
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "7":
                 self.connect_device(self.phones['phoneA']['ip_port'])
                 self.connect_device(self.phones['phoneB']['ip_port'])
                 if not self._wait_for_continue():
                     break
 
-            elif choice == "7":
+            elif choice == "8":
                 subprocess.run(["adb", "disconnect"], capture_output=True)
                 self.logger.info("✓ Disconnected all devices")
                 if not self._wait_for_continue():
                     break
 
-            elif choice == "8":
+            elif choice == "9":
                 self.restart_adb_server()
                 if not self._wait_for_continue():
                     break
