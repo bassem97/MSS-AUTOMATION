@@ -136,6 +136,16 @@ class PhoneCallAutomation:
             bool: True if call was ended successfully
         """
         try:
+            # First, check the call state
+            call_state = self.get_call_state(device_ip_port)
+
+            if call_state == 'IDLE':
+                self.logger.warning(f"Cannot end call on {device_ip_port} - no active call (current state: {call_state})")
+                return False
+
+            if call_state == 'UNKNOWN':
+                self.logger.warning(f"Cannot determine call state on {device_ip_port} - proceeding with caution")
+
             self.logger.info(f"Ending call on {device_ip_port}...")
 
             # Send keyevent to end call (KEYCODE_ENDCALL = 6)
@@ -154,17 +164,30 @@ class PhoneCallAutomation:
                     for phone_key, phone_data in self.phones.items():
                         other_ip_port = phone_data['ip_port']
                         if other_ip_port != device_ip_port:
-                            self.logger.info(f"Also ending call on {other_ip_port}...")
-                            try:
-                                subprocess.run(
-                                    ["adb", "-s", other_ip_port, "shell", "input", "keyevent", "6"],
-                                    capture_output=True,
-                                    text=True,
-                                    timeout=5
-                                )
-                                self.logger.info(f"✓ Call ended on {other_ip_port}")
-                            except Exception as e:
-                                self.logger.warning(f"Could not end call on {other_ip_port}: {e}")
+                            # Check state before ending call on other device
+                            other_state = self.get_call_state(other_ip_port)
+                            if other_state in ['RINGING', 'OFFHOOK']:
+                                self.logger.info(f"Also ending call on {other_ip_port}...")
+                                try:
+                                    subprocess.run(
+                                        ["adb", "-s", other_ip_port, "shell", "input", "keyevent", "6"],
+                                        capture_output=True,
+                                        text=True,
+                                        timeout=5
+                                    )
+                                    self.logger.info(f"✓ Call ended on {other_ip_port}")
+                                except Exception as e:
+                                    self.logger.warning(f"Could not end call on {other_ip_port}: {e}")
+                            else:
+                                self.logger.debug(f"Skipping {other_ip_port} - not in a call (state: {other_state})")
+
+                # Verify the call was ended by checking state again
+                time.sleep(1)  # Give it a moment to transition
+                new_state = self.get_call_state(device_ip_port)
+                if new_state == 'IDLE':
+                    self.logger.info(f"✓ Phone is now idle (state: {new_state})")
+                else:
+                    self.logger.warning(f"Call state after ending: {new_state}")
 
                 return True
             else:
