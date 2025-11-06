@@ -23,8 +23,12 @@ class PhoneCallAutomation:
         self.logger = logger or build_logger("phone_call_automation")
 
     def clean_msisdn(self, msisdn: str) -> str:
-        """Remove spaces from MSISDN."""
-        return msisdn.replace(" ", "")
+        """Remove spaces from MSISDN and add prefix (+) if needed."""
+        cleaned = msisdn.replace(" ", "")
+        if not cleaned.startswith("+"):
+            cleaned = "+" + cleaned
+        return cleaned
+
 
     def connect_device(self, ip_port: str) -> bool:
         """Connect to a device via ADB."""
@@ -82,11 +86,14 @@ class PhoneCallAutomation:
             bool: True if call was initiated successfully
         """
         try:
-            self.logger.info(f"Initiating call from {caller_msisdn} to {recipient_msisdn}...")
+            # Clean the recipient MSISDN (remove spaces, add + prefix if needed)
+            cleaned_recipient = self.clean_msisdn(recipient_msisdn)
+
+            self.logger.info(f"Initiating call from {caller_msisdn} to {cleaned_recipient}...")
 
             # ADB command to make a call
             # Using 'am start' to launch dialer with phone number
-            call_command = f"am start -a android.intent.action.CALL -d tel:{recipient_msisdn}"
+            call_command = f"am start -a android.intent.action.CALL -d tel:{cleaned_recipient}"
 
             result = subprocess.run(
                 ["adb", "-s", caller_ip_port, "shell", call_command],

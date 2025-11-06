@@ -9,5 +9,15 @@ PHONES:
 
   phoneB:
     name: Phone B
-    msisdn: "4915781993213"
-    ip_port: 172.29.42.44:7445
+    msisdn: "4917604017183"
+    ip_port: 172.29.42.44:7409
+
+#  phoneA:
+#    name: Phone A
+#    msisdn: "4917607017457"
+#    ip_port: 172.29.42.44:7445
+#
+#  phoneB:
+#    name: Phone B
+#    msisdn: "4915781993213"
+#    ip_port: 172.29.42.44:7453
