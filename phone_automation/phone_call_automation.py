@@ -329,12 +329,12 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "3":
-                self.end_call(self.phones['phoneA']['ip_port'],end_all=True)
+                self.end_call(self.phones['phoneA']['ip_port'], end_all=True)
                 if not self._wait_for_continue():
                     break
 
             elif choice == "4":
-                self.end_call(self.phones['phoneB']['ip_port'],end_all=True)
+                self.end_call(self.phones['phoneB']['ip_port'], end_all=True)
                 if not self._wait_for_continue():
                     break
 
