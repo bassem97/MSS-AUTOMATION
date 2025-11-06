@@ -118,12 +118,13 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error making call: {e}")
             return False
 
-    def end_call(self, device_ip_port: str) -> bool:
+    def end_call(self, device_ip_port: str, end_all: bool = True) -> bool:
         """
         End the current call on a device.
 
         Args:
             device_ip_port: IP:PORT of the device
+            end_all: If True, end call on all connected devices (default: True)
 
         Returns:
             bool: True if call was ended successfully
@@ -140,7 +141,25 @@ class PhoneCallAutomation:
             )
 
             if result.returncode == 0:
-                self.logger.info(f"✓ Call ended successfully")
+                self.logger.info(f"✓ Call ended successfully on {device_ip_port}")
+
+                # If end_all is True, end call on all other phones too
+                if end_all:
+                    for phone_key, phone_data in self.phones.items():
+                        other_ip_port = phone_data['ip_port']
+                        if other_ip_port != device_ip_port:
+                            self.logger.info(f"Also ending call on {other_ip_port}...")
+                            try:
+                                subprocess.run(
+                                    ["adb", "-s", other_ip_port, "shell", "input", "keyevent", "6"],
+                                    capture_output=True,
+                                    text=True,
+                                    timeout=5
+                                )
+                                self.logger.info(f"✓ Call ended on {other_ip_port}")
+                            except Exception as e:
+                                self.logger.warning(f"Could not end call on {other_ip_port}: {e}")
+
                 return True
             else:
                 self.logger.error(f"✗ Failed to end call")
@@ -310,12 +329,12 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "3":
-                self.end_call(self.phones['phoneA']['ip_port'])
+                self.end_call(self.phones['phoneA']['ip_port'],end_all=True)
                 if not self._wait_for_continue():
                     break
 
             elif choice == "4":
-                self.end_call(self.phones['phoneB']['ip_port'])
+                self.end_call(self.phones['phoneB']['ip_port'],end_all=True)
                 if not self._wait_for_continue():
                     break
 
