@@ -503,6 +503,17 @@ class PhoneCallAutomation:
             network_value = network_map[network_type.upper()]
             self.logger.info(f"Setting network type to {network_type.upper()} (value: {network_value})...")
 
+            # Get current mode before changing
+            current_mode_result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "settings", "get", "global", "preferred_network_mode"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            current_value = current_mode_result.stdout.strip() if current_mode_result.returncode == 0 else "unknown"
+            self.logger.info(f"Current mode value: {current_value}, changing to: {network_value}")
+
             # Method 1: Try settings command (most reliable for Samsung)
             self.logger.debug(f"Attempting Method 1: settings command...")
             result1 = subprocess.run(
@@ -572,10 +583,73 @@ class PhoneCallAutomation:
             if success:
                 self.logger.info(f"✓ Network type setting commands executed successfully")
 
-                # Wait a moment and verify the change
-                time.sleep(2)
-                self.get_network_type(device_ip_port)
-                return True
+                # Force the change to take effect by toggling airplane mode
+                self.logger.info("Applying changes by toggling airplane mode...")
+
+                # Turn airplane mode ON
+                subprocess.run(
+                    ["adb", "-s", device_ip_port, "shell",
+                     "settings", "put", "global", "airplane_mode_on", "1"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                subprocess.run(
+                    ["adb", "-s", device_ip_port, "shell",
+                     "am", "broadcast", "-a", "android.intent.action.AIRPLANE_MODE",
+                     "--ez", "state", "true"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+
+                self.logger.info("Airplane mode enabled, waiting 3 seconds...")
+                time.sleep(3)
+
+                # Turn airplane mode OFF
+                subprocess.run(
+                    ["adb", "-s", device_ip_port, "shell",
+                     "settings", "put", "global", "airplane_mode_on", "0"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+                subprocess.run(
+                    ["adb", "-s", device_ip_port, "shell",
+                     "am", "broadcast", "-a", "android.intent.action.AIRPLANE_MODE",
+                     "--ez", "state", "false"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+
+                self.logger.info("Airplane mode disabled, waiting for network to reconnect...")
+                time.sleep(5)
+
+                # Verify the change was applied
+                self.logger.info("Verifying network mode change...")
+                verify_result = subprocess.run(
+                    ["adb", "-s", device_ip_port, "shell",
+                     "settings", "get", "global", "preferred_network_mode"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+
+                if verify_result.returncode == 0:
+                    new_value = verify_result.stdout.strip()
+                    if new_value == network_value:
+                        self.logger.info(f"✓ Network mode successfully changed and applied!")
+                        self.get_network_type(device_ip_port)
+                        return True
+                    else:
+                        self.logger.warning(f"⚠ Setting shows value {new_value} instead of {network_value}")
+                        self.logger.info("The change may not have been applied. Try manually:")
+                        self.logger.info(f"Settings > Connections > Mobile networks > Network mode > {network_type.upper()}")
+                        return False
+                else:
+                    self.logger.warning(f"Could not verify the change")
+                    return True
             else:
                 self.logger.warning(f"⚠ All programmatic methods failed. Opening network settings UI...")
                 self.logger.info(f"You will need to manually select '{network_type.upper()}' in the network settings.")
