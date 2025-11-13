@@ -523,11 +523,21 @@ class PhoneCallAutomation:
                 timeout=5
             )
 
-            # Method 3: Try service call method
+            # Method 3: Try service call method (requires more permissions)
             self.logger.debug(f"Attempting Method 3: service call...")
             result3 = subprocess.run(
                 ["adb", "-s", device_ip_port, "shell",
                  "service", "call", "phone", "27", "i32", network_value],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            # Method 4: Try Samsung-specific service call
+            self.logger.debug(f"Attempting Method 4: Samsung-specific service call...")
+            result4 = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "service", "call", "phone", "27", "i32", "0", "i32", network_value],
                 capture_output=True,
                 text=True,
                 timeout=5
@@ -539,38 +549,113 @@ class PhoneCallAutomation:
                 self.logger.debug(f"✓ Method 1 succeeded")
                 success = True
             else:
-                self.logger.debug(f"✗ Method 1 failed: {result1.stderr.strip()}")
+                self.logger.debug(f"✗ Method 1 failed: {result1.stderr.strip() or 'No error output'}")
 
             if result2.returncode == 0:
                 self.logger.debug(f"✓ Method 2 succeeded")
                 success = True
             else:
-                self.logger.debug(f"✗ Method 2 failed: {result2.stderr.strip()}")
+                self.logger.debug(f"✗ Method 2 failed: {result2.stderr.strip() or 'No error output'}")
 
             if result3.returncode == 0:
                 self.logger.debug(f"✓ Method 3 succeeded")
                 success = True
             else:
-                self.logger.debug(f"✗ Method 3 failed: {result3.stderr.strip()}")
+                self.logger.debug(f"✗ Method 3 failed: {result3.stderr.strip() or 'No error output'}")
+
+            if result4.returncode == 0:
+                self.logger.debug(f"✓ Method 4 succeeded")
+                success = True
+            else:
+                self.logger.debug(f"✗ Method 4 failed: {result4.stderr.strip() or 'No error output'}")
 
             if success:
-                self.logger.info(f"✓ Network type set to {network_type.upper()} successfully")
-                self.logger.info(f"Note: Go to Settings > Connections > Mobile networks > Network mode to verify")
+                self.logger.info(f"✓ Network type setting commands executed successfully")
 
                 # Wait a moment and verify the change
                 time.sleep(2)
                 self.get_network_type(device_ip_port)
                 return True
             else:
-                self.logger.error(f"✗ Failed to set network type using all methods")
-                self.logger.error(f"Note: This may require root access or manual setting via device UI")
-                return False
+                self.logger.warning(f"⚠ All programmatic methods failed. Opening network settings UI...")
+                self.logger.info(f"You will need to manually select '{network_type.upper()}' in the network settings.")
+
+                # Open network settings UI as fallback
+                if self.open_network_settings_ui(device_ip_port):
+                    self.logger.info(f"✓ Network settings opened. Please manually select '{network_type.upper()}'")
+                    input("\nPress Enter when you have changed the network type manually...")
+                    return True
+                else:
+                    self.logger.error(f"✗ Failed to open network settings UI")
+                    self.logger.error(f"Note: This may require root access or the device may have restricted ADB permissions")
+                    return False
 
         except subprocess.TimeoutExpired:
             self.logger.error(f"✗ Network type setting timed out")
             return False
         except Exception as e:
             self.logger.error(f"✗ Error setting network type: {e}")
+            return False
+
+    def open_network_settings_ui(self, device_ip_port: str) -> bool:
+        """
+        Open the network settings UI on the device as a fallback for manual configuration.
+
+        Args:
+            device_ip_port: IP:PORT of the device
+
+        Returns:
+            bool: True if settings were opened successfully
+        """
+        try:
+            self.logger.info(f"Opening network settings UI on {device_ip_port}...")
+
+            # Try multiple intents to open network settings
+            intents = [
+                # Samsung-specific network settings
+                "com.samsung.android.app.telephonyui/.netsettings.ui.NetSettingsActivity",
+                # Standard Android network settings
+                "android.settings.DATA_ROAMING_SETTINGS",
+                # Mobile network settings
+                "android.settings.NETWORK_OPERATOR_SETTINGS",
+                # General wireless settings
+                "android.settings.WIRELESS_SETTINGS",
+            ]
+
+            for intent in intents:
+                self.logger.debug(f"Trying intent: {intent}")
+
+                if "." in intent and "/" in intent:
+                    # Component name format
+                    result = subprocess.run(
+                        ["adb", "-s", device_ip_port, "shell",
+                         "am", "start", "-n", intent],
+                        capture_output=True,
+                        text=True,
+                        timeout=5
+                    )
+                else:
+                    # Action format
+                    result = subprocess.run(
+                        ["adb", "-s", device_ip_port, "shell",
+                         "am", "start", "-a", intent],
+                        capture_output=True,
+                        text=True,
+                        timeout=5
+                    )
+
+                if result.returncode == 0 and "Error" not in result.stdout:
+                    self.logger.info(f"✓ Opened network settings UI")
+                    return True
+
+            self.logger.warning(f"Could not open network settings UI")
+            return False
+
+        except subprocess.TimeoutExpired:
+            self.logger.error(f"✗ Opening settings UI timed out")
+            return False
+        except Exception as e:
+            self.logger.error(f"✗ Error opening settings UI: {e}")
             return False
 
     def get_network_type(self, device_ip_port: str) -> Optional[str]:
@@ -645,21 +730,70 @@ class PhoneCallAutomation:
                 output = result.stdout
 
                 # Parse relevant information
-                for line in output.split('\n'):
-                    if 'mServiceState' in line or 'ServiceState' in line:
-                        if 'voice' in line.lower():
-                            info['voice_network'] = line.strip()
-                        if 'data' in line.lower():
-                            info['data_network'] = line.strip()
-                    elif 'mDataNetworkType' in line:
-                        network_type = line.split('=')[-1].strip() if '=' in line else 'Unknown'
-                        info['data_type'] = network_type
-                    elif 'mSignalStrength' in line:
-                        info['signal'] = line.strip()
+                data_network_type = None
+                voice_network_type = None
 
-                self.logger.info(f"=== Network Info for {device_ip_port} ===")
-                for key, value in info.items():
-                    self.logger.info(f"{key}: {value}")
+                for line in output.split('\n'):
+                    # Look for data network type
+                    if 'mDataNetworkType' in line or 'mVoiceNetworkType' in line:
+                        # Extract the network type number
+                        if '=' in line:
+                            type_value = line.split('=')[-1].strip()
+
+                            # Map network type codes to readable names
+                            # Reference: Android TelephonyManager constants
+                            network_type_map = {
+                                '0': 'Unknown',
+                                '1': '2G (GPRS)',
+                                '2': '2G (EDGE)',
+                                '3': '3G (UMTS)',
+                                '4': '2G (CDMA)',
+                                '5': '2G (CDMA - EVDO rev. 0)',
+                                '6': '2G (CDMA - EVDO rev. A)',
+                                '7': '2G (1xRTT)',
+                                '8': '3G (HSDPA)',
+                                '9': '3G (HSUPA)',
+                                '10': '3G (HSPA)',
+                                '11': '2G (iDen)',
+                                '12': '2G (CDMA - eHRPD)',
+                                '13': '4G (LTE)',
+                                '14': '3G (HSPA+)',
+                                '15': '2G (GSM)',
+                                '16': '3G (TD-SCDMA)',
+                                '17': '3G (IWLAN)',
+                                '18': '4G (LTE CA)',
+                                '19': '5G (NR)',
+                                '20': '5G (NR)',
+                            }
+
+                            if 'mDataNetworkType' in line:
+                                data_network_type = network_type_map.get(type_value, f'Unknown ({type_value})')
+                            elif 'mVoiceNetworkType' in line:
+                                voice_network_type = network_type_map.get(type_value, f'Unknown ({type_value})')
+
+                # Get current preferred network mode
+                current_mode = self.get_network_type(device_ip_port)
+
+                # Display clean information
+                self.logger.info(f"\n{'='*60}")
+                self.logger.info(f"📡 Network Info for {device_ip_port}")
+                self.logger.info(f"{'='*60}")
+
+                if data_network_type:
+                    self.logger.info(f"📶 Current Data Network: {data_network_type}")
+                    info['data_network'] = data_network_type
+                else:
+                    self.logger.info(f"📶 Current Data Network: Not detected")
+
+                if voice_network_type:
+                    self.logger.info(f"📞 Voice Network: {voice_network_type}")
+                    info['voice_network'] = voice_network_type
+
+                if current_mode:
+                    self.logger.info(f"⚙️  Preferred Mode: {current_mode}")
+                    info['preferred_mode'] = current_mode
+
+                self.logger.info(f"{'='*60}\n")
 
             return info
 
