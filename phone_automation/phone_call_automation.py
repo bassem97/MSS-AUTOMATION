@@ -681,19 +681,31 @@ class PhoneCallAutomation:
                 mode_value = result.stdout.strip()
 
                 # Samsung-specific network mode value mappings
+                # Updated for newer Samsung devices (SM-A546U and similar)
                 mode_descriptions = {
                     '0': 'WCDMA preferred',
                     '1': '2G only (GSM)',
                     '2': '3G only (WCDMA)',
                     '3': 'WCDMA preferred',
                     '9': 'LTE/WCDMA/GSM',
-                    '10': 'LTE/WCDMA/GSM (AUTO)',
+                    '10': 'AUTO (LTE/WCDMA/GSM)',
                     '11': '4G only (LTE)',
+                    '12': 'LTE/CDMA',
+                    '13': 'Global',
+                    '17': 'TD-SCDMA/GSM/WCDMA',
+                    '18': 'TD-SCDMA/LTE/GSM/WCDMA',
+                    '19': 'LTE/CDMA/EVDO/GSM/WCDMA',
                     '20': '5G/LTE/WCDMA/GSM',
-                    '23': '5G/LTE preferred',
+                    '22': 'LTE/WCDMA',
+                    '23': '5G preferred (NR/LTE)',
+                    '24': 'Global (5G)',
+                    '25': 'NR only (5G only)',
+                    '26': '5G/LTE/3G/2G (AUTO)',
+                    '27': 'NR/LTE/TDSCDMA/CDMA/EVDO/GSM/WCDMA',
+                    '33': 'NR/LTE',
                 }
 
-                description = mode_descriptions.get(mode_value, f'Unknown ({mode_value})')
+                description = mode_descriptions.get(mode_value, f'Unknown mode ({mode_value})')
                 self.logger.info(f"Current network type: {description}")
                 return description
             else:
