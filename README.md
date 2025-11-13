@@ -14,6 +14,9 @@ A comprehensive Python-based automation toolkit for MSS (Mobile Switching System
 - 🔌 **Remote device connection** via ADB over network
 - ⏱️ **Call duration control** with automatic hangup
 - 🔄 **ADB server management** with restart capability
+- ✈️ **Flight mode control** - Enable/disable airplane mode remotely
+- 📡 **Network type switching** - Switch between 2G/3G/4G/5G networks
+- 📶 **Network information** - Get detailed network status and signal info
 
 ### Common Features
 - 🎨 **Colored terminal output** for better readability
@@ -121,12 +124,21 @@ python run_phone_automation.py
 **Interactive Menu:**
 1. Call from Phone A to Phone B
 2. Call from Phone B to Phone A
-3. End call on Phone A
-4. End call on Phone B
-5. List connected devices
-6. Connect to both phones
-7. Disconnect all devices
-8. Restart ADB server
+3. Check call state (both phones)
+4. Answer call on Phone A
+5. Answer call on Phone B
+6. End call on Phone A
+7. End call on Phone B
+8. List connected devices
+9. Connect to both phones
+10. Disconnect all devices
+11. Restart ADB server
+12. **Toggle flight mode on Phone A**
+13. **Toggle flight mode on Phone B**
+14. **Check flight mode status (both phones)**
+15. **Set network type on Phone A (2G/3G/4G/AUTO)**
+16. **Set network type on Phone B (2G/3G/4G/AUTO)**
+17. **Get network info (both phones)**
 0. Exit
 
 **Features:**
@@ -134,6 +146,80 @@ python run_phone_automation.py
 - Set call duration with automatic hangup
 - Manage ADB connections
 - Restart ADB server when needed
+- Flight mode control for testing connectivity scenarios
+- Network type switching for different generation testing (2G/3G/4G/5G)
+- Comprehensive network information retrieval
+
+### Flight Mode Control
+
+Control airplane mode remotely via ADB:
+
+```python
+from phone_automation.phone_call_automation import PhoneCallAutomation
+
+automation = PhoneCallAutomation()
+
+# Enable flight mode
+automation.toggle_flight_mode("172.29.42.44:7437", enable=True)
+
+# Disable flight mode
+automation.toggle_flight_mode("172.29.42.44:7437", enable=False)
+
+# Check status
+status = automation.get_flight_mode_status("172.29.42.44:7437")
+print(f"Flight mode enabled: {status}")
+```
+
+**Use Cases:**
+- Test call behavior during network disconnection
+- Simulate connectivity issues
+- Automated network switching tests
+- Emergency mode testing
+
+### Network Type Switching
+
+Switch between different mobile network generations:
+
+```python
+from phone_automation.phone_call_automation import PhoneCallAutomation
+
+automation = PhoneCallAutomation()
+
+# Switch to 2G only
+automation.set_network_type("172.29.42.44:7437", "2G")
+
+# Switch to 3G
+automation.set_network_type("172.29.42.44:7437", "3G")
+
+# Switch to 4G/LTE
+automation.set_network_type("172.29.42.44:7437", "4G")
+
+# Switch to AUTO (LTE/WCDMA/GSM)
+automation.set_network_type("172.29.42.44:7437", "AUTO")
+
+# Get current network type
+current = automation.get_network_type("172.29.42.44:7437")
+print(f"Current network: {current}")
+
+# Get detailed network info
+info = automation.get_network_info("172.29.42.44:7437")
+```
+
+**Supported Network Types:**
+- `2G` - GSM only (slowest, maximum coverage)
+- `3G` - WCDMA/HSPA (moderate speed)
+- `4G` or `LTE` - 4G LTE (high speed)
+- `5G` - 5G NR (newest, if device supports)
+- `AUTO` - Automatic selection (LTE/WCDMA/GSM)
+
+**Use Cases:**
+- Test call quality on different network types
+- VoLTE vs circuit-switched voice testing
+- Network handover simulation
+- Coverage area testing
+- Voice quality comparison across generations
+
+**Note:** Network type switching may require special permissions or root access on some devices.
 
 ## Output
 

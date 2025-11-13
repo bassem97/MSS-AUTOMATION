@@ -2,13 +2,17 @@
 # Mobile devices for automated call testing via ADB
 
 PHONES:
-  phoneA:
-    name: Phone A
-    msisdn: "4915900103141"
-    ip_port: 172.29.42.44:7437
-
+#  phoneA:
+#    name: Phone A
+#    msisdn: "4915900103141"
+#    ip_port: 172.29.42.44:7437
   phoneB:
     name: Phone B
+    msisdn: "4915781993213"
+    ip_port: 172.29.42.44:7445
+
+  phoneA:
+    name: Phone A
     msisdn: "4917604017183"
     ip_port: 172.29.42.44:7409
 

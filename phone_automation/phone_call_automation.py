@@ -384,48 +384,345 @@ class PhoneCallAutomation:
         except Exception as e:
             self.logger.error(f"Error listing devices: {e}")
 
-    def make_phone_call(self, from_phone: str, to_phone: str, duration: Optional[int] = None):
+    def toggle_flight_mode(self, device_ip_port: str, enable: bool) -> bool:
         """
-        Make a phone call from one device to another.
+        Enable or disable flight mode on a device.
 
         Args:
-            from_phone: Caller phone ID ('phone1' or 'phone2')
-            to_phone: Recipient phone ID ('phone1' or 'phone2')
-            duration: Optional duration in seconds to keep the call active before ending
+            device_ip_port: IP:PORT of the device
+            enable: True to enable flight mode, False to disable
 
         Returns:
-            bool: True if call was initiated successfully
+            bool: True if successful
         """
-        if from_phone not in self.phones or to_phone not in self.phones:
-            self.logger.error(f"✗ Invalid phone ID. Use 'phone A' or 'phone B'")
+        try:
+            state = "1" if enable else "0"
+            action = "Enabling" if enable else "Disabling"
+            self.logger.info(f"{action} flight mode on {device_ip_port}...")
+
+            # Use settings command to toggle airplane mode
+            result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "settings", "put", "global", "airplane_mode_on", state],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result.returncode != 0:
+                self.logger.error(f"✗ Failed to set flight mode setting")
+                self.logger.error(f"Error: {result.stderr.strip()}")
+                return False
+
+            # Broadcast the change to trigger the mode change
+            result_broadcast = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "am", "broadcast", "-a", "android.intent.action.AIRPLANE_MODE",
+                 "--ez", "state", "true" if enable else "false"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result_broadcast.returncode == 0:
+                mode_str = "enabled" if enable else "disabled"
+                self.logger.info(f"✓ Flight mode {mode_str} successfully")
+                return True
+            else:
+                self.logger.warning(f"Setting changed but broadcast may have failed")
+                return True
+
+        except subprocess.TimeoutExpired:
+            self.logger.error(f"✗ Flight mode toggle timed out")
+            return False
+        except Exception as e:
+            self.logger.error(f"✗ Error toggling flight mode: {e}")
             return False
 
-        caller = self.phones[from_phone]
-        recipient = self.phones[to_phone]
+    def get_flight_mode_status(self, device_ip_port: str) -> Optional[bool]:
+        """
+        Get the current flight mode status.
 
-        self.logger.info("=" * 60)
-        self.logger.info(f"CALLING: {from_phone.upper()} → {to_phone.upper()}")
-        self.logger.info(f"From: {caller['msisdn']} ({caller['ip_port']})")
-        self.logger.info(f"To: {recipient['msisdn']}")
-        self.logger.info("=" * 60)
+        Args:
+            device_ip_port: IP:PORT of the device
 
-        # Connect to caller device
-        if not self.connect_device(caller['ip_port']):
+        Returns:
+            bool: True if enabled, False if disabled, None on error
+        """
+        try:
+            result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "settings", "get", "global", "airplane_mode_on"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result.returncode == 0:
+                status = result.stdout.strip()
+                is_enabled = status == "1"
+                status_str = "enabled" if is_enabled else "disabled"
+                self.logger.info(f"Flight mode is {status_str} on {device_ip_port}")
+                return is_enabled
+            else:
+                self.logger.error(f"✗ Failed to get flight mode status")
+                return None
+
+        except Exception as e:
+            self.logger.error(f"✗ Error getting flight mode status: {e}")
+            return None
+
+    def set_network_type(self, device_ip_port: str, network_type: str) -> bool:
+        """
+        Set the preferred network type (2G, 3G, 4G, or AUTO).
+        Uses Samsung-specific values for SM-A546U compatibility.
+
+        Args:
+            device_ip_port: IP:PORT of the device
+            network_type: Network type - '2G', '3G', '4G', or 'AUTO'
+
+        Returns:
+            bool: True if successful
+        """
+        try:
+            # Samsung SM-A546U specific network mode values
+            network_map = {
+                '2G': '1',      # GSM only
+                '3G': '2',      # WCDMA only (3G)
+                '4G': '11',     # LTE only (4G)
+                'LTE': '11',    # LTE only (alias)
+                'AUTO': '10',   # LTE/WCDMA/GSM auto (default)
+                '5G': '23',     # NR/LTE (5G preferred)
+            }
+
+            if network_type.upper() not in network_map:
+                self.logger.error(f"✗ Invalid network type: {network_type}")
+                self.logger.error(f"Valid types: 2G, 3G, 4G, LTE, AUTO, 5G")
+                return False
+
+            network_value = network_map[network_type.upper()]
+            self.logger.info(f"Setting network type to {network_type.upper()} (value: {network_value})...")
+
+            # Method 1: Try settings command (most reliable for Samsung)
+            self.logger.debug(f"Attempting Method 1: settings command...")
+            result1 = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "settings", "put", "global", "preferred_network_mode", network_value],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            # Method 2: Try with subscription ID (for dual-SIM devices)
+            self.logger.debug(f"Attempting Method 2: settings with subscription ID...")
+            result2 = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "settings", "put", "global", "preferred_network_mode1", network_value],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            # Method 3: Try service call method
+            self.logger.debug(f"Attempting Method 3: service call...")
+            result3 = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "service", "call", "phone", "27", "i32", network_value],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            # Check if any method succeeded
+            success = False
+            if result1.returncode == 0:
+                self.logger.debug(f"✓ Method 1 succeeded")
+                success = True
+            else:
+                self.logger.debug(f"✗ Method 1 failed: {result1.stderr.strip()}")
+
+            if result2.returncode == 0:
+                self.logger.debug(f"✓ Method 2 succeeded")
+                success = True
+            else:
+                self.logger.debug(f"✗ Method 2 failed: {result2.stderr.strip()}")
+
+            if result3.returncode == 0:
+                self.logger.debug(f"✓ Method 3 succeeded")
+                success = True
+            else:
+                self.logger.debug(f"✗ Method 3 failed: {result3.stderr.strip()}")
+
+            if success:
+                self.logger.info(f"✓ Network type set to {network_type.upper()} successfully")
+                self.logger.info(f"Note: Go to Settings > Connections > Mobile networks > Network mode to verify")
+
+                # Wait a moment and verify the change
+                time.sleep(2)
+                self.get_network_type(device_ip_port)
+                return True
+            else:
+                self.logger.error(f"✗ Failed to set network type using all methods")
+                self.logger.error(f"Note: This may require root access or manual setting via device UI")
+                return False
+
+        except subprocess.TimeoutExpired:
+            self.logger.error(f"✗ Network type setting timed out")
+            return False
+        except Exception as e:
+            self.logger.error(f"✗ Error setting network type: {e}")
             return False
 
-        # Make the call
-        success = self.make_call(
-            caller['ip_port'],
-            caller['msisdn'],
-            recipient['msisdn']
-        )
+    def get_network_type(self, device_ip_port: str) -> Optional[str]:
+        """
+        Get the current preferred network type.
 
-        if success and duration:
-            self.logger.info(f"Call will remain active for {duration} seconds...")
-            time.sleep(duration)
-            self.end_call(caller['ip_port'])
+        Args:
+            device_ip_port: IP:PORT of the device
 
-        return success
+        Returns:
+            str: Network type description, or None on error
+        """
+        try:
+            result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "settings", "get", "global", "preferred_network_mode"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result.returncode == 0:
+                mode_value = result.stdout.strip()
+
+                # Samsung-specific network mode value mappings
+                mode_descriptions = {
+                    '0': 'WCDMA preferred',
+                    '1': '2G only (GSM)',
+                    '2': '3G only (WCDMA)',
+                    '3': 'WCDMA preferred',
+                    '9': 'LTE/WCDMA/GSM',
+                    '10': 'LTE/WCDMA/GSM (AUTO)',
+                    '11': '4G only (LTE)',
+                    '20': '5G/LTE/WCDMA/GSM',
+                    '23': '5G/LTE preferred',
+                }
+
+                description = mode_descriptions.get(mode_value, f'Unknown ({mode_value})')
+                self.logger.info(f"Current network type: {description}")
+                return description
+            else:
+                self.logger.error(f"✗ Failed to get network type")
+                return None
+
+        except Exception as e:
+            self.logger.error(f"✗ Error getting network type: {e}")
+            return None
+
+    def get_network_info(self, device_ip_port: str) -> dict:
+        """
+        Get comprehensive network information from the device.
+
+        Args:
+            device_ip_port: IP:PORT of the device
+
+        Returns:
+            dict: Network information including operator, signal, type
+        """
+        info = {}
+
+        try:
+            # Get dumpsys telephony info
+            result = subprocess.run(
+                ["adb", "-s", device_ip_port, "shell",
+                 "dumpsys", "telephony.registry"],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            if result.returncode == 0:
+                output = result.stdout
+
+                # Parse relevant information
+                for line in output.split('\n'):
+                    if 'mServiceState' in line or 'ServiceState' in line:
+                        if 'voice' in line.lower():
+                            info['voice_network'] = line.strip()
+                        if 'data' in line.lower():
+                            info['data_network'] = line.strip()
+                    elif 'mDataNetworkType' in line:
+                        network_type = line.split('=')[-1].strip() if '=' in line else 'Unknown'
+                        info['data_type'] = network_type
+                    elif 'mSignalStrength' in line:
+                        info['signal'] = line.strip()
+
+                self.logger.info(f"=== Network Info for {device_ip_port} ===")
+                for key, value in info.items():
+                    self.logger.info(f"{key}: {value}")
+
+            return info
+
+        except Exception as e:
+            self.logger.error(f"✗ Error getting network info: {e}")
+            return info
+
+    def make_phone_call(self, caller_key: str, recipient_key: str, duration: Optional[int] = None) -> bool:
+        """
+        Make a phone call from one phone to another with optional auto-answer and duration.
+
+        Args:
+            caller_key: Key of the calling phone ('phoneA' or 'phoneB')
+            recipient_key: Key of the recipient phone ('phoneA' or 'phoneB')
+            duration: Optional call duration in seconds. If provided, call will be ended automatically.
+
+        Returns:
+            bool: True if call was successful
+        """
+        try:
+            caller = self.phones[caller_key]
+            recipient = self.phones[recipient_key]
+
+            self.logger.info(f"\n{'='*60}")
+            self.logger.info(f"Making call from {caller['msisdn']} to {recipient['msisdn']}")
+            self.logger.info(f"{'='*60}")
+
+            # Make the call
+            if not self.make_call(caller['ip_port'], caller['msisdn'], recipient['msisdn']):
+                return False
+
+            self.logger.info("Waiting for call to connect...")
+            time.sleep(3)
+
+            # Check if recipient is ringing
+            recipient_state = self.get_call_state(recipient['ip_port'])
+            if recipient_state == 'RINGING':
+                self.logger.info(f"📞 {recipient['msisdn']} is ringing!")
+
+                # Ask if user wants to auto-answer
+                answer = input("Do you want to auto-answer? (y/n): ").strip().lower()
+                if answer == 'y':
+                    time.sleep(1)
+                    if self.answer_call(recipient['ip_port']):
+                        self.logger.info("✓ Call answered successfully!")
+
+                        # If duration is specified, wait and then end call
+                        if duration:
+                            self.logger.info(f"Call will end automatically in {duration} seconds...")
+                            time.sleep(duration)
+                            self.end_call(caller['ip_port'], end_all=True)
+                            self.logger.info("✓ Call ended after duration")
+                    else:
+                        self.logger.error("✗ Failed to answer call")
+                        return False
+            else:
+                self.logger.warning(f"Recipient state: {recipient_state} (expected RINGING)")
+
+            return True
+
+        except Exception as e:
+            self.logger.error(f"✗ Error in make_phone_call: {e}")
+            return False
 
     def interactive_menu(self):
         """Display an interactive menu for phone call automation."""
@@ -437,23 +734,44 @@ class PhoneCallAutomation:
         self.logger.info("=" * 60)
 
         while True:
-            print("\n--- MENU ---")
-            print("1. Call from Phone A to Phone B")
-            print("2. Call from Phone B to Phone A")
-            print("3. Check call state (both phones)")
-            print("4. Answer call on Phone A")
-            print("5. Answer call on Phone B")
-            print("6. End call on Phone A")
-            print("7. End call on Phone B")
-            print("8. List connected devices")
-            print("9. Connect to both phones")
-            print("10. Disconnect all devices")
-            print("11. Restart ADB server")
-            print("0. Exit")
-            print()
+            print("\n" + "=" * 60)
+            print(" " * 22 + "MAIN MENU")
+            print("=" * 60)
 
-            choice = input("Enter your choice: ").strip()
+            print("\n📞 CALL MANAGEMENT:")
+            print("=" * 60)
+            print("  1. Call from Phone A to Phone B")
+            print("  2. Call from Phone B to Phone A")
+            print("  3. Check call state (both phones)")
+            print("  4. Answer call on Phone A")
+            print("  5. Answer call on Phone B")
+            print("  6. End call on Phone A")
+            print("  7. End call on Phone B")
 
+            print("\n📱 DEVICE MANAGEMENT:")
+            print("=" * 60)
+            print("  8. List connected devices")
+            print("  9. Connect to both phones")
+            print(" 10. Disconnect all devices")
+            print(" 11. Restart ADB server")
+
+            print("\n📡 NETWORK MANAGEMENT:")
+            print("=" * 60)
+            print(" 12. Toggle flight mode on Phone A")
+            print(" 13. Toggle flight mode on Phone B")
+            print(" 14. Get network info for Phone A")
+            print(" 15. Get network info for Phone B")
+            print(" 16. Set network type on Phone A")
+            print(" 17. Set network type on Phone B")
+
+            print("\n🚪 EXIT:")
+            print("=" * 60)
+            print("  0. Exit")
+            print("=" * 60)
+
+            choice = input("\nEnter your choice: ").strip()
+
+            # Call Management
             if choice == "1":
                 duration_str = input("Enter call duration in seconds (or press Enter to skip auto-end): ").strip()
                 duration = int(duration_str) if duration_str else None
@@ -496,6 +814,7 @@ class PhoneCallAutomation:
                 if not self._wait_for_continue():
                     break
 
+            # Device Management
             elif choice == "8":
                 self.list_devices()
                 if not self._wait_for_continue():
@@ -518,6 +837,46 @@ class PhoneCallAutomation:
                 if not self._wait_for_continue():
                     break
 
+            # Network Management
+            elif choice == "12":
+                status = self.get_flight_mode_status(self.phones['phoneA']['ip_port'])
+                if status is not None:
+                    self.toggle_flight_mode(self.phones['phoneA']['ip_port'], not status)
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "13":
+                status = self.get_flight_mode_status(self.phones['phoneB']['ip_port'])
+                if status is not None:
+                    self.toggle_flight_mode(self.phones['phoneB']['ip_port'], not status)
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "14":
+                self.get_network_info(self.phones['phoneA']['ip_port'])
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "15":
+                self.get_network_info(self.phones['phoneB']['ip_port'])
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "16":
+                print("\nNetwork types: 2G, 3G, 4G, AUTO, 5G")
+                network_type = input("Enter network type: ").strip()
+                self.set_network_type(self.phones['phoneA']['ip_port'], network_type)
+                if not self._wait_for_continue():
+                    break
+
+            elif choice == "17":
+                print("\nNetwork types: 2G, 3G, 4G, AUTO, 5G")
+                network_type = input("Enter network type: ").strip()
+                self.set_network_type(self.phones['phoneB']['ip_port'], network_type)
+                if not self._wait_for_continue():
+                    break
+
+            # Exit
             elif choice == "0":
                 self.logger.info("Exiting...")
                 break
@@ -538,24 +897,3 @@ class PhoneCallAutomation:
             self.logger.info("Exiting...")
             return False
         return True
-
-
-def main():
-    """Main function to run the phone call automation."""
-    # Build logger for phone call automation
-    logger = build_logger("phone_call_automation")
-    automation = PhoneCallAutomation(logger)
-
-    # Check if ADB is available
-    if not automation.check_adb_available():
-        logger.error("\nPlease install ADB and ensure it's in your system PATH.")
-        logger.error("On Ubuntu/Debian: sudo apt-get install adb")
-        logger.error("Or download Android Platform Tools from: https://developer.android.com/studio/releases/platform-tools")
-        sys.exit(1)
-
-    # Run interactive menu
-    automation.interactive_menu()
-
-
-if __name__ == "__main__":
-    main()
