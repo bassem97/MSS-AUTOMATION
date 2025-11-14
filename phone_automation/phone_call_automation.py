@@ -124,29 +124,33 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error making call: {e}")
             return False
 
-    def end_call(self, device_ip_port: str, end_all: bool = True) -> bool:
+    def end_call(self, device_ip_port: str, end_all: bool = True, phone_number: Optional[str] = None) -> bool:
         """
         End the current call on a device.
 
         Args:
             device_ip_port: IP:PORT of the device
             end_all: If True, end call on all connected devices (default: True)
+            phone_number: Optional phone number for logging (if not provided, uses IP:PORT)
 
         Returns:
             bool: True if call was ended successfully
         """
         try:
+            # Use phone number for logging if provided, otherwise use IP:PORT
+            display_id = f"+{phone_number}" if phone_number and not phone_number.startswith('+') else (phone_number or device_ip_port)
+
             # First, check the call state
-            call_state = self.get_call_state(device_ip_port)
+            call_state = self.get_call_state(device_ip_port, phone_number)
 
             if call_state == 'IDLE':
-                self.logger.warning(f"Cannot end call on {device_ip_port} - no active call (current state: {call_state})")
+                self.logger.warning(f"Cannot end call on {display_id} - no active call (current state: {call_state})")
                 return False
 
             if call_state == 'UNKNOWN':
-                self.logger.warning(f"Cannot determine call state on {device_ip_port} - proceeding with caution")
+                self.logger.warning(f"Cannot determine call state on {display_id} - proceeding with caution")
 
-            self.logger.info(f"Ending call on {device_ip_port}...")
+            self.logger.info(f"Ending call on {display_id}...")
 
             # Send keyevent to end call (KEYCODE_ENDCALL = 6)
             result = subprocess.run(
@@ -157,17 +161,19 @@ class PhoneCallAutomation:
             )
 
             if result.returncode == 0:
-                self.logger.info(f"✓ Call ended successfully on {device_ip_port}")
+                self.logger.info(f"✓ Call ended successfully on {display_id}")
 
                 # If end_all is True, end call on all other phones too
                 if end_all:
                     for phone_key, phone_data in self.phones.items():
                         other_ip_port = phone_data['ip_port']
                         if other_ip_port != device_ip_port:
+                            other_msisdn = phone_data['msisdn']
+                            other_display_id = f"+{other_msisdn}" if not other_msisdn.startswith('+') else other_msisdn
                             # Check state before ending call on other device
-                            other_state = self.get_call_state(other_ip_port)
+                            other_state = self.get_call_state(other_ip_port, other_msisdn)
                             if other_state in ['RINGING', 'OFFHOOK']:
-                                self.logger.info(f"Also ending call on {other_ip_port}...")
+                                self.logger.info(f"Also ending call on {other_display_id}...")
                                 try:
                                     subprocess.run(
                                         ["adb", "-s", other_ip_port, "shell", "input", "keyevent", "6"],
@@ -175,11 +181,11 @@ class PhoneCallAutomation:
                                         text=True,
                                         timeout=5
                                     )
-                                    self.logger.info(f"✓ Call ended on {other_ip_port}")
+                                    self.logger.info(f"✓ Call ended on {other_display_id}")
                                 except Exception as e:
-                                    self.logger.warning(f"Could not end call on {other_ip_port}: {e}")
+                                    self.logger.warning(f"Could not end call on {other_display_id}: {e}")
                             else:
-                                self.logger.debug(f"Skipping {other_ip_port} - not in a call (state: {other_state})")
+                                self.logger.debug(f"Skipping {other_display_id} - not in a call (state: {other_state})")
 
                 # Verify the call was ended by checking state again
                 time.sleep(1)  # Give it a moment to transition
@@ -199,25 +205,29 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error ending call: {e}")
             return False
 
-    def answer_call(self, device_ip_port: str) -> bool:
+    def answer_call(self, device_ip_port: str, phone_number: Optional[str] = None) -> bool:
         """
         Answer an incoming call on a device.
 
         Args:
             device_ip_port: IP:PORT of the device
+            phone_number: Optional phone number for logging (if not provided, uses IP:PORT)
 
         Returns:
             bool: True if call was answered successfully
         """
         try:
+            # Use phone number for logging if provided, otherwise use IP:PORT
+            display_id = f"+{phone_number}" if phone_number and not phone_number.startswith('+') else (phone_number or device_ip_port)
+
             # First, check the call state
-            call_state = self.get_call_state(device_ip_port)
+            call_state = self.get_call_state(device_ip_port, phone_number)
 
             if call_state != 'RINGING':
-                self.logger.warning(f"Cannot answer call on {device_ip_port} - phone is not ringing (current state: {call_state})")
+                self.logger.warning(f"Cannot answer call on {display_id} - phone is not ringing (current state: {call_state})")
                 return False
 
-            self.logger.info(f"Answering call on {device_ip_port}...")
+            self.logger.info(f"Answering call on {display_id}...")
 
             # Send keyevent to answer call (KEYCODE_CALL = 5)
             result = subprocess.run(
@@ -228,7 +238,7 @@ class PhoneCallAutomation:
             )
 
             if result.returncode == 0:
-                self.logger.info(f"✓ Call answered successfully on {device_ip_port}")
+                self.logger.info(f"✓ Call answered successfully on {display_id}")
 
                 # Verify the call was answered by checking state again
                 time.sleep(1)  # Give it a moment to transition
@@ -245,18 +255,20 @@ class PhoneCallAutomation:
                 return False
 
         except subprocess.TimeoutExpired:
-            self.logger.error(f"✗ Answer call command timed out for {device_ip_port}")
+            display_id = f"+{phone_number}" if phone_number and not phone_number.startswith('+') else (phone_number or device_ip_port)
+            self.logger.error(f"✗ Answer call command timed out for {display_id}")
             return False
         except Exception as e:
             self.logger.error(f"✗ Error answering call: {e}")
             return False
 
-    def get_call_state(self, device_ip_port: str) -> str:
+    def get_call_state(self, device_ip_port: str, phone_number: Optional[str] = None) -> str:
         """
         Get the current call state of a device.
 
         Args:
             device_ip_port: IP:PORT of the device
+            phone_number: Optional phone number for logging (if not provided, uses IP:PORT)
 
         Returns:
             str: Call state - 'IDLE', 'RINGING', 'OFFHOOK', or 'UNKNOWN' on error
@@ -265,6 +277,9 @@ class PhoneCallAutomation:
                 - OFFHOOK: Call is active (answered or outgoing)
         """
         try:
+            # Use phone number for logging if provided, otherwise use IP:PORT
+            display_id = f"+{phone_number}" if phone_number and not phone_number.startswith('+') else (phone_number or device_ip_port)
+
             # Use dumpsys to get telephony state
             result = subprocess.run(
                 ["adb", "-s", device_ip_port, "shell", "dumpsys", "telephony.registry"],
@@ -283,25 +298,26 @@ class PhoneCallAutomation:
                     if 'mCallState=' in line:
                         # Extract the state number
                         if '=0' in line or 'IDLE' in line.upper():
-                            self.logger.debug(f"Call state for {device_ip_port}: IDLE")
+                            self.logger.debug(f"Call state for {display_id}: IDLE")
                             return 'IDLE'
                         elif '=1' in line or 'RINGING' in line.upper():
-                            self.logger.debug(f"Call state for {device_ip_port}: RINGING")
+                            self.logger.debug(f"Call state for {display_id}: RINGING")
                             return 'RINGING'
                         elif '=2' in line or 'OFFHOOK' in line.upper():
-                            self.logger.debug(f"Call state for {device_ip_port}: OFFHOOK")
+                            self.logger.debug(f"Call state for {display_id}: OFFHOOK")
                             return 'OFFHOOK'
 
                 # Default to IDLE if we can't find the state
-                self.logger.warning(f"Could not parse call state for {device_ip_port}, defaulting to IDLE")
+                self.logger.warning(f"Could not parse call state for {display_id}, defaulting to IDLE")
                 return 'IDLE'
             else:
-                self.logger.error(f"✗ Failed to get call state from {device_ip_port}")
+                self.logger.error(f"✗ Failed to get call state from {display_id}")
                 self.logger.error(f"Error: {result.stderr.strip()}")
                 return 'UNKNOWN'
 
         except subprocess.TimeoutExpired:
-            self.logger.error(f"✗ Get call state command timed out for {device_ip_port}")
+            display_id = f"+{phone_number}" if phone_number and not phone_number.startswith('+') else (phone_number or device_ip_port)
+            self.logger.error(f"✗ Get call state command timed out for {display_id}")
             return 'UNKNOWN'
         except Exception as e:
             self.logger.error(f"✗ Error getting call state: {e}")
@@ -932,8 +948,8 @@ class PhoneCallAutomation:
             
             for attempt in range(max_ring_wait):
                 time.sleep(1)
-                recipient_state = self.get_call_state(recipient['ip_port'])
-                
+                recipient_state = self.get_call_state(recipient['ip_port'], recipient['msisdn'])
+
                 if recipient_state == 'RINGING':
                     recipient_ringing = True
                     self.logger.info(f"📞 {recipient['msisdn']} is ringing! (after {attempt + 1} seconds)")
@@ -955,7 +971,7 @@ class PhoneCallAutomation:
                 return False
 
             # Only proceed if recipient is actually ringing
-            recipient_state = self.get_call_state(recipient['ip_port'])
+            recipient_state = self.get_call_state(recipient['ip_port'], recipient['msisdn'])
             if recipient_state == 'RINGING':
                 # Ask if user wants to auto-answer
                 answer = input("\nDo you want to auto-answer? (y/n): ").strip().lower()
@@ -963,7 +979,7 @@ class PhoneCallAutomation:
                     self.logger.info("Auto-answering in 2 seconds...")
                     time.sleep(2)
                     
-                    if self.answer_call(recipient['ip_port']):
+                    if self.answer_call(recipient['ip_port'], recipient['msisdn']):
                         self.logger.info("✓ Call answered successfully!")
 
                         # Wait for BOTH phones to be in OFFHOOK state (call fully connected)
@@ -975,9 +991,9 @@ class PhoneCallAutomation:
                         
                         for attempt in range(max_connect_wait):
                             time.sleep(1)
-                            caller_state = self.get_call_state(caller['ip_port'])
-                            recipient_state_check = self.get_call_state(recipient['ip_port'])
-                            
+                            caller_state = self.get_call_state(caller['ip_port'], caller['msisdn'])
+                            recipient_state_check = self.get_call_state(recipient['ip_port'], recipient['msisdn'])
+
                             if caller_state == 'OFFHOOK' and recipient_state_check == 'OFFHOOK':
                                 connected = True
                                 self.logger.info(f"✓ Call is now fully connected! (OFFHOOK on both sides after {attempt + 1}s)")
@@ -995,7 +1011,7 @@ class PhoneCallAutomation:
                             self.logger.info(f"\n⏱️  Call timer started! Call will end in {duration} seconds from now...")
                             time.sleep(duration)
                             self.logger.info(f"\n⏱️  Duration elapsed ({duration}s). Ending call...")
-                            self.end_call(caller['ip_port'], end_all=True)
+                            self.end_call(caller['ip_port'], end_all=True, phone_number=caller['msisdn'])
                             self.logger.info("✓ Call ended after duration")
                         else:
                             self.logger.info("\n✓ Call is active. Press Enter when ready to return to menu, or manually end the call.")
@@ -1010,7 +1026,7 @@ class PhoneCallAutomation:
                 if duration:
                     self.logger.info(f"⏱️  Call will end in {duration} seconds from now...")
                     time.sleep(duration)
-                    self.end_call(caller['ip_port'], end_all=True)
+                    self.end_call(caller['ip_port'], end_all=True, phone_number=caller['msisdn'])
                     self.logger.info("✓ Call ended after duration")
 
             return True
@@ -1082,30 +1098,30 @@ class PhoneCallAutomation:
                     break
 
             elif choice == "3":
-                state_a = self.get_call_state(self.phones['phoneA']['ip_port'])
-                state_b = self.get_call_state(self.phones['phoneB']['ip_port'])
+                state_a = self.get_call_state(self.phones['phoneA']['ip_port'], self.phones['phoneA']['msisdn'])
+                state_b = self.get_call_state(self.phones['phoneB']['ip_port'], self.phones['phoneB']['msisdn'])
                 self.logger.info(f"📞 Phone A call state: {state_a}")
                 self.logger.info(f"📞 Phone B call state: {state_b}")
                 if not self._wait_for_continue():
                     break
 
             elif choice == "4":
-                self.answer_call(self.phones['phoneA']['ip_port'])
+                self.answer_call(self.phones['phoneA']['ip_port'], self.phones['phoneA']['msisdn'])
                 if not self._wait_for_continue():
                     break
 
             elif choice == "5":
-                self.answer_call(self.phones['phoneB']['ip_port'])
+                self.answer_call(self.phones['phoneB']['ip_port'], self.phones['phoneB']['msisdn'])
                 if not self._wait_for_continue():
                     break
 
             elif choice == "6":
-                self.end_call(self.phones['phoneA']['ip_port'], end_all=True)
+                self.end_call(self.phones['phoneA']['ip_port'], end_all=True, phone_number=self.phones['phoneA']['msisdn'])
                 if not self._wait_for_continue():
                     break
 
             elif choice == "7":
-                self.end_call(self.phones['phoneB']['ip_port'], end_all=True)
+                self.end_call(self.phones['phoneB']['ip_port'], end_all=True, phone_number=self.phones['phoneB']['msisdn'])
                 if not self._wait_for_continue():
                     break
 
