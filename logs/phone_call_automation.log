@@ -1,36 +1,19 @@
-2025-11-26 10:32:55 [INFO] ✓ ADB is available (Version: 1.0.39)
-2025-11-26 10:32:55 [INFO] ============================================================
-2025-11-26 10:32:55 [INFO] =================== PHONE CALL AUTOMATION ==================
-2025-11-26 10:32:55 [INFO] ============================================================
-2025-11-26 10:32:55 [INFO] Phone A: 4915900104513 @ 172.29.42.44:7497
-2025-11-26 10:32:55 [INFO] Phone B: 4915900103141 @ 172.29.42.44:7457
-2025-11-26 10:32:55 [INFO] ============================================================
-2025-11-26 10:33:00 [INFO] 
-============================================================
-2025-11-26 10:33:00 [INFO] Making call from 4915900104513 to 4915900103141
-2025-11-26 10:33:00 [INFO] ============================================================
-2025-11-26 10:33:00 [INFO] Initiating call from 4915900104513 to +4915900103141...
-2025-11-26 10:33:00 [INFO] ✓ Call initiated successfully!
-2025-11-26 10:33:00 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
-2025-11-26 10:33:00 [INFO] Waiting for call to connect...
-2025-11-26 10:33:03 [DEBUG] Call state for 172.29.42.44:7457: RINGING
-2025-11-26 10:33:03 [INFO] 📞 4915900103141 is ringing!
-2025-11-26 10:33:08 [DEBUG] Call state for 172.29.42.44:7457: RINGING
-2025-11-26 10:33:08 [INFO] Answering call on 172.29.42.44:7457...
-2025-11-26 10:33:08 [INFO] ✓ Call answered successfully on 172.29.42.44:7457
-2025-11-26 10:33:09 [DEBUG] Call state for 172.29.42.44:7457: OFFHOOK
-2025-11-26 10:33:09 [INFO] ✓ Call is now active (state: OFFHOOK)
-2025-11-26 10:33:09 [INFO] ✓ Call answered successfully!
-2025-11-26 10:33:09 [INFO] Waiting for call to be fully connected...
-2025-11-26 10:33:09 [DEBUG] Call state for 172.29.42.44:7497: OFFHOOK
-2025-11-26 10:33:09 [INFO] ✓ Call is now connected (OFFHOOK state)
-2025-11-26 10:33:09 [INFO] ⏱️  Call timer started! Call will end in 10 seconds from now...
-2025-11-26 10:33:19 [DEBUG] Call state for 172.29.42.44:7497: OFFHOOK
-2025-11-26 10:33:19 [INFO] Ending call on 172.29.42.44:7497...
-2025-11-26 10:33:19 [INFO] ✓ Call ended successfully on 172.29.42.44:7497
-2025-11-26 10:33:19 [DEBUG] Call state for 172.29.42.44:7457: OFFHOOK
-2025-11-26 10:33:19 [INFO] Also ending call on 172.29.42.44:7457...
-2025-11-26 10:33:19 [INFO] ✓ Call ended on 172.29.42.44:7457
-2025-11-26 10:33:20 [DEBUG] Call state for 172.29.42.44:7497: IDLE
-2025-11-26 10:33:20 [INFO] ✓ Phone is now idle (state: IDLE)
-2025-11-26 10:33:20 [INFO] ✓ Call ended after duration
+2025-11-26 11:15:14 [INFO] ✓ ADB is available (Version: 1.0.39)
+2025-11-26 11:15:14 [INFO] ============================================================
+2025-11-26 11:15:14 [INFO] =================== PHONE CALL AUTOMATION ==================
+2025-11-26 11:15:14 [INFO] ============================================================
+2025-11-26 11:15:14 [INFO] Phone A: 4915900104513 @ 172.29.42.44:7465
+2025-11-26 11:15:14 [INFO] Phone B: 4915900104513 @ 172.29.42.44:7461
+2025-11-26 11:15:14 [INFO] ============================================================
+2025-11-26 11:15:14 [WARNING] Invalid choice. Please try again.
+2025-11-26 11:15:16 [INFO] Killing ADB server...
+2025-11-26 11:15:16 [INFO] ✓ ADB server killed successfully
+2025-11-26 11:15:17 [INFO] Starting ADB server...
+2025-11-26 11:15:20 [INFO] ✓ ADB server started successfully
+2025-11-26 11:15:20 [INFO] Note: You may need to authorize the connection on your device(s)
+2025-11-26 11:15:24 [INFO] Connecting to device at 172.29.42.44:7465...
+2025-11-26 11:15:24 [INFO] ✓ Successfully connected to 172.29.42.44:7465
+2025-11-26 11:15:24 [DEBUG] Output: connected to 172.29.42.44:7465
+2025-11-26 11:15:24 [INFO] Connecting to device at 172.29.42.44:7461...
+2025-11-26 11:15:24 [ERROR] ✗ Failed to connect to 172.29.42.44:7461
+2025-11-26 11:15:24 [ERROR] Output: unable to connect to 172.29.42.44:7461: Connection refused

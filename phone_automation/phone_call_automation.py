@@ -887,7 +887,7 @@ class PhoneCallAutomation:
             self.logger.error(f"✗ Error getting network info: {e}")
             return info
 
-    def make_phone_call(self, caller_key: str, recipient_key: str, duration: Optional[int] = None) -> bool:
+    def make_phone_call(self, caller_key: str, recipient_key: str, duration: Optional[int] = None, switch_to_2g: bool = False) -> bool:
         """
         Make a phone call from one phone to another with optional auto-answer and duration.
 
@@ -895,6 +895,7 @@ class PhoneCallAutomation:
             caller_key: Key of the calling phone ('phoneA' or 'phoneB')
             recipient_key: Key of the recipient phone ('phoneA' or 'phoneB')
             duration: Optional call duration in seconds. If provided, call will be ended automatically.
+            switch_to_2g: If True, switch caller to 2G before making the call
 
         Returns:
             bool: True if call was successful
@@ -907,51 +908,110 @@ class PhoneCallAutomation:
             self.logger.info(f"Making call from {caller['msisdn']} to {recipient['msisdn']}")
             self.logger.info(f"{'='*60}")
 
+            # Switch to 2G if requested
+            if switch_to_2g:
+                self.logger.info(f"Switching {caller['msisdn']} to 2G network before call...")
+                if not self.set_network_type(caller['ip_port'], '2G'):
+                    self.logger.warning("Failed to switch to 2G, but continuing with call...")
+                else:
+                    self.logger.info("✓ Successfully switched to 2G")
+                    # Give network a moment to stabilize
+                    self.logger.info("Waiting for network to stabilize...")
+                    time.sleep(3)
+
             # Make the call
             if not self.make_call(caller['ip_port'], caller['msisdn'], recipient['msisdn']):
                 return False
 
-            self.logger.info("Waiting for call to connect...")
-            time.sleep(3)
+            self.logger.info("Waiting for recipient to start ringing...")
 
-            # Check if recipient is ringing
+            # Wait for recipient to start ringing (with retry mechanism)
+            max_ring_wait = 15  # Maximum wait time for recipient to start ringing
+            recipient_ringing = False
+            recipient_state = 'UNKNOWN'  # Initialize state
+
+            for attempt in range(max_ring_wait):
+                time.sleep(1)
+                recipient_state = self.get_call_state(recipient['ip_port'])
+
+                if recipient_state == 'RINGING':
+                    recipient_ringing = True
+                    self.logger.info(f"📞 {recipient['msisdn']} is ringing! (after {attempt + 1} seconds)")
+                    break
+                elif recipient_state == 'OFFHOOK':
+                    # Recipient already answered (shouldn't happen but handle it)
+                    self.logger.info(f"📞 {recipient['msisdn']} already answered the call!")
+                    recipient_ringing = True
+                    break
+                else:
+                    # Still waiting, show progress every 3 seconds
+                    if (attempt + 1) % 3 == 0:
+                        self.logger.info(f"⏳ Still waiting for ring... ({attempt + 1}/{max_ring_wait}s)")
+
+            if not recipient_ringing:
+                self.logger.error(f"✗ Recipient never started ringing after {max_ring_wait} seconds")
+                self.logger.error(f"Final recipient state: {recipient_state}")
+                self.logger.warning("Call may have failed or recipient may be unreachable")
+                return False
+
+            # Only proceed if recipient is actually ringing
             recipient_state = self.get_call_state(recipient['ip_port'])
             if recipient_state == 'RINGING':
-                self.logger.info(f"📞 {recipient['msisdn']} is ringing!")
-
                 # Ask if user wants to auto-answer
-                answer = input("Do you want to auto-answer? (y/n): ").strip().lower()
+                answer = input("\nDo you want to auto-answer? (y/n): ").strip().lower()
                 if answer == 'y':
-                    time.sleep(1)
+                    self.logger.info("Auto-answering in 2 seconds...")
+                    time.sleep(2)
+
                     if self.answer_call(recipient['ip_port']):
                         self.logger.info("✓ Call answered successfully!")
 
-                        # Wait for call to actually be in OFFHOOK state (call connected)
+                        # Wait for BOTH phones to be in OFFHOOK state (call fully connected)
                         self.logger.info("Waiting for call to be fully connected...")
-                        max_wait = 10  # Maximum wait time for call to connect
+                        max_connect_wait = 10  # Maximum wait time for call to fully connect
                         connected = False
-                        for _ in range(max_wait):
-                            caller_state = self.get_call_state(caller['ip_port'])
-                            if caller_state == 'OFFHOOK':
-                                connected = True
-                                self.logger.info("✓ Call is now connected (OFFHOOK state)")
-                                break
+                        caller_state = 'UNKNOWN'  # Initialize state
+                        recipient_state_check = 'UNKNOWN'  # Initialize state
+
+                        for attempt in range(max_connect_wait):
                             time.sleep(1)
+                            caller_state = self.get_call_state(caller['ip_port'])
+                            recipient_state_check = self.get_call_state(recipient['ip_port'])
+
+                            if caller_state == 'OFFHOOK' and recipient_state_check == 'OFFHOOK':
+                                connected = True
+                                self.logger.info(f"✓ Call is now fully connected! (OFFHOOK on both sides after {attempt + 1}s)")
+                                break
+                            else:
+                                if (attempt + 1) % 2 == 0:
+                                    self.logger.debug(f"Caller: {caller_state}, Recipient: {recipient_state_check} - waiting...")
 
                         if not connected:
-                            self.logger.warning("Call may not be fully connected, but proceeding...")
+                            self.logger.warning("⚠ Call may not be fully connected (timeout reached)")
+                            self.logger.warning(f"Final states - Caller: {caller_state}, Recipient: {recipient_state_check}")
 
                         # If duration is specified, wait AFTER call is connected and then end call
                         if duration:
-                            self.logger.info(f"⏱️  Call timer started! Call will end in {duration} seconds from now...")
+                            self.logger.info(f"\n⏱️  Call timer started! Call will end in {duration} seconds from now...")
                             time.sleep(duration)
+                            self.logger.info(f"\n⏱️  Duration elapsed ({duration}s). Ending call...")
                             self.end_call(caller['ip_port'], end_all=True)
                             self.logger.info("✓ Call ended after duration")
+                        else:
+                            self.logger.info("\n✓ Call is active. Press Enter when ready to return to menu, or manually end the call.")
                     else:
                         self.logger.error("✗ Failed to answer call")
                         return False
-            else:
-                self.logger.warning(f"Recipient state: {recipient_state} (expected RINGING)")
+                else:
+                    self.logger.info("ℹ️  Call not auto-answered. Recipient is still ringing.")
+                    self.logger.info("You can manually answer the call or end it from the menu.")
+            elif recipient_state == 'OFFHOOK':
+                self.logger.info("✓ Call is already connected (recipient answered)")
+                if duration:
+                    self.logger.info(f"⏱️  Call will end in {duration} seconds from now...")
+                    time.sleep(duration)
+                    self.end_call(caller['ip_port'], end_all=True)
+                    self.logger.info("✓ Call ended after duration")
 
             return True
 
@@ -1010,14 +1070,14 @@ class PhoneCallAutomation:
             if choice == "1":
                 duration_str = input("Enter call duration in seconds (or press Enter to skip auto-end): ").strip()
                 duration = int(duration_str) if duration_str else None
-                self.make_phone_call('phoneA', 'phoneB', duration)
+                self.make_phone_call('phoneA', 'phoneB', duration, switch_to_2g=True)
                 if not self._wait_for_continue():
                     break
 
             elif choice == "2":
                 duration_str = input("Enter call duration in seconds (or press Enter to skip auto-end): ").strip()
                 duration = int(duration_str) if duration_str else None
-                self.make_phone_call('phoneB', 'phoneA', duration)
+                self.make_phone_call('phoneB', 'phoneA', duration, switch_to_2g=True)
                 if not self._wait_for_continue():
                     break
 
