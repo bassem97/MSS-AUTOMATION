@@ -926,9 +926,24 @@ class PhoneCallAutomation:
                     if self.answer_call(recipient['ip_port']):
                         self.logger.info("✓ Call answered successfully!")
 
-                        # If duration is specified, wait and then end call
+                        # Wait for call to actually be in OFFHOOK state (call connected)
+                        self.logger.info("Waiting for call to be fully connected...")
+                        max_wait = 10  # Maximum wait time for call to connect
+                        connected = False
+                        for _ in range(max_wait):
+                            caller_state = self.get_call_state(caller['ip_port'])
+                            if caller_state == 'OFFHOOK':
+                                connected = True
+                                self.logger.info("✓ Call is now connected (OFFHOOK state)")
+                                break
+                            time.sleep(1)
+
+                        if not connected:
+                            self.logger.warning("Call may not be fully connected, but proceeding...")
+
+                        # If duration is specified, wait AFTER call is connected and then end call
                         if duration:
-                            self.logger.info(f"Call will end automatically in {duration} seconds...")
+                            self.logger.info(f"⏱️  Call timer started! Call will end in {duration} seconds from now...")
                             time.sleep(duration)
                             self.end_call(caller['ip_port'], end_all=True)
                             self.logger.info("✓ Call ended after duration")
