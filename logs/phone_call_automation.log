@@ -1,19 +1,58 @@
-2025-11-26 11:15:14 [INFO] ✓ ADB is available (Version: 1.0.39)
-2025-11-26 11:15:14 [INFO] ============================================================
-2025-11-26 11:15:14 [INFO] =================== PHONE CALL AUTOMATION ==================
-2025-11-26 11:15:14 [INFO] ============================================================
-2025-11-26 11:15:14 [INFO] Phone A: 4915900104513 @ 172.29.42.44:7465
-2025-11-26 11:15:14 [INFO] Phone B: 4915900104513 @ 172.29.42.44:7461
-2025-11-26 11:15:14 [INFO] ============================================================
-2025-11-26 11:15:14 [WARNING] Invalid choice. Please try again.
-2025-11-26 11:15:16 [INFO] Killing ADB server...
-2025-11-26 11:15:16 [INFO] ✓ ADB server killed successfully
-2025-11-26 11:15:17 [INFO] Starting ADB server...
-2025-11-26 11:15:20 [INFO] ✓ ADB server started successfully
-2025-11-26 11:15:20 [INFO] Note: You may need to authorize the connection on your device(s)
-2025-11-26 11:15:24 [INFO] Connecting to device at 172.29.42.44:7465...
-2025-11-26 11:15:24 [INFO] ✓ Successfully connected to 172.29.42.44:7465
-2025-11-26 11:15:24 [DEBUG] Output: connected to 172.29.42.44:7465
-2025-11-26 11:15:24 [INFO] Connecting to device at 172.29.42.44:7461...
-2025-11-26 11:15:24 [ERROR] ✗ Failed to connect to 172.29.42.44:7461
-2025-11-26 11:15:24 [ERROR] Output: unable to connect to 172.29.42.44:7461: Connection refused
+2025-11-26 11:45:38 [INFO] ✓ ADB is available (Version: 1.0.39)
+2025-11-26 11:45:38 [INFO] ============================================================
+2025-11-26 11:45:38 [INFO] =================== PHONE CALL AUTOMATION ==================
+2025-11-26 11:45:38 [INFO] ============================================================
+2025-11-26 11:45:38 [INFO] Phone A: 4915781993444 @ 172.29.42.44:7413
+2025-11-26 11:45:38 [INFO] Phone B: 4915900103141 @ 172.29.42.44:7437
+2025-11-26 11:45:38 [INFO] ============================================================
+2025-11-26 11:45:46 [INFO] 
+============================================================
+2025-11-26 11:45:46 [INFO] Making call from 4915781993444 to 4915900103141
+2025-11-26 11:45:46 [INFO] ============================================================
+2025-11-26 11:45:46 [INFO] Switching 4915781993444 to 2G network before call...
+2025-11-26 11:45:46 [INFO] Setting network type to 2G (value: 1)...
+2025-11-26 11:45:46 [INFO] Current mode value: 1, changing to: 1
+2025-11-26 11:45:46 [DEBUG] Attempting Method 1: settings command...
+2025-11-26 11:45:46 [DEBUG] Attempting Method 2: settings with subscription ID...
+2025-11-26 11:45:46 [DEBUG] Attempting Method 3: service call...
+2025-11-26 11:45:46 [DEBUG] Attempting Method 4: Samsung-specific service call...
+2025-11-26 11:45:46 [DEBUG] ✓ Method 1 succeeded
+2025-11-26 11:45:46 [DEBUG] ✓ Method 2 succeeded
+2025-11-26 11:45:46 [DEBUG] ✓ Method 3 succeeded
+2025-11-26 11:45:46 [DEBUG] ✓ Method 4 succeeded
+2025-11-26 11:45:46 [INFO] ✓ Network type setting commands executed successfully
+2025-11-26 11:45:46 [INFO] Applying changes by toggling airplane mode...
+2025-11-26 11:45:47 [INFO] Airplane mode enabled, waiting 3 seconds...
+2025-11-26 11:45:50 [INFO] Airplane mode disabled, waiting for network to reconnect...
+2025-11-26 11:45:55 [INFO] Verifying network mode change...
+2025-11-26 11:45:55 [INFO] ✓ Network mode successfully changed and applied!
+2025-11-26 11:45:55 [INFO] Current network type: 2G only (GSM)
+2025-11-26 11:45:55 [INFO] ✓ Successfully switched to 2G
+2025-11-26 11:45:55 [INFO] Waiting for network to stabilize...
+2025-11-26 11:45:58 [INFO] Initiating call from 4915781993444 to +4915900103141...
+2025-11-26 11:45:58 [INFO] ✓ Call initiated successfully!
+2025-11-26 11:45:58 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
+2025-11-26 11:45:58 [INFO] Waiting for recipient to start ringing...
+2025-11-26 11:45:59 [DEBUG] Call state for 172.29.42.44:7437: IDLE
+2025-11-26 11:46:00 [DEBUG] Call state for 172.29.42.44:7437: IDLE
+2025-11-26 11:46:01 [DEBUG] Call state for 172.29.42.44:7437: RINGING
+2025-11-26 11:46:01 [INFO] 📞 4915900103141 is ringing! (after 3 seconds)
+2025-11-26 11:46:01 [DEBUG] Call state for 172.29.42.44:7437: RINGING
+2025-11-26 11:46:11 [INFO] Auto-answering in 2 seconds...
+2025-11-26 11:46:13 [DEBUG] Call state for 172.29.42.44:7437: RINGING
+2025-11-26 11:46:13 [INFO] Answering call on 172.29.42.44:7437...
+2025-11-26 11:46:13 [INFO] ✓ Call answered successfully on 172.29.42.44:7437
+2025-11-26 11:46:14 [DEBUG] Call state for 172.29.42.44:7437: OFFHOOK
+2025-11-26 11:46:14 [INFO] ✓ Call is now active (state: OFFHOOK)
+2025-11-26 11:46:14 [INFO] ✓ Call answered successfully!
+2025-11-26 11:46:14 [INFO] Waiting for call to be fully connected...
+2025-11-26 11:46:15 [DEBUG] Call state for 172.29.42.44:7413: OFFHOOK
+2025-11-26 11:46:15 [DEBUG] Call state for 172.29.42.44:7437: OFFHOOK
+2025-11-26 11:46:15 [INFO] ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
+2025-11-26 11:46:15 [INFO] 
+⏱️  Call timer started! Call will end in 10 seconds from now...
+2025-11-26 11:46:25 [INFO] 
+⏱️  Duration elapsed (10s). Ending call...
+2025-11-26 11:46:25 [DEBUG] Call state for 172.29.42.44:7413: IDLE
+2025-11-26 11:46:25 [WARNING] Cannot end call on 172.29.42.44:7413 - no active call (current state: IDLE)
+2025-11-26 11:46:25 [INFO] ✓ Call ended after duration

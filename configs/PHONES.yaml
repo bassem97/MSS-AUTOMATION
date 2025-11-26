@@ -2,22 +2,22 @@
 # Mobile devices for automated call testing via ADB
 
 PHONES:
-  phoneA:
-    name: Phone A
-    msisdn: "4915900104513"
-    ip_port: 172.29.42.44:7465
-    notes : "SM-A546B - SPIE 3, SPIE 3: IMS HAM 1+2: 4915900104513 & 4915900104514  (UE SN: R5CWA1TBCYZ)"
+#  phoneA:
+#    name: Phone A
+#    msisdn: "4915900104513"
+#    ip_port: 172.29.42.44:7465
+#    notes : "SM-A546B - SPIE 3, SPIE 3: IMS HAM 1+2: 4915900104513 & 4915900104514  (UE SN: R5CWA1TBCYZ)"
 #  phoneA:
 #    name: Phone A
 #    msisdn: "4915781993444"
 #    ip_port: 172.29.42.44:7417
 #    notes : "SPIE New: Nokia 1 million: 4915781993444"
 
-#  phoneA:
-#    name: Phone A
-#    msisdn: "4915781993444"
-#    ip_port: 172.29.42.44:7445
-#    notes: "SPIE New: Nokia 1 million: 4915781993444"
+  phoneA:
+    name: Phone A
+    msisdn: "4915781993444"
+    ip_port: 172.29.42.44:7413
+    notes: "SPIE New: Nokia 1 million: 4915781993444"
 ##
 #  phoneA:
 #    name: Phone A
@@ -42,8 +42,8 @@ PHONES:
 
   phoneB:
     name: Phone B
-    msisdn: "4915900104513"
-    ip_port: 172.29.42.44:7445
+    msisdn: "4915900103141"
+    ip_port: 172.29.42.44:7437
     notes : "SM-A546B - SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & 4917607019222  (UE SN: R5CWA1TBD9Y)  (UE SN: R5CWA1TBD9Y)"
 
 

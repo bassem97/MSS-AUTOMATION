@@ -924,16 +924,16 @@ class PhoneCallAutomation:
                 return False
 
             self.logger.info("Waiting for recipient to start ringing...")
-
+            
             # Wait for recipient to start ringing (with retry mechanism)
             max_ring_wait = 15  # Maximum wait time for recipient to start ringing
             recipient_ringing = False
             recipient_state = 'UNKNOWN'  # Initialize state
-
+            
             for attempt in range(max_ring_wait):
                 time.sleep(1)
                 recipient_state = self.get_call_state(recipient['ip_port'])
-
+                
                 if recipient_state == 'RINGING':
                     recipient_ringing = True
                     self.logger.info(f"📞 {recipient['msisdn']} is ringing! (after {attempt + 1} seconds)")
@@ -947,7 +947,7 @@ class PhoneCallAutomation:
                     # Still waiting, show progress every 3 seconds
                     if (attempt + 1) % 3 == 0:
                         self.logger.info(f"⏳ Still waiting for ring... ({attempt + 1}/{max_ring_wait}s)")
-
+            
             if not recipient_ringing:
                 self.logger.error(f"✗ Recipient never started ringing after {max_ring_wait} seconds")
                 self.logger.error(f"Final recipient state: {recipient_state}")
@@ -962,7 +962,7 @@ class PhoneCallAutomation:
                 if answer == 'y':
                     self.logger.info("Auto-answering in 2 seconds...")
                     time.sleep(2)
-
+                    
                     if self.answer_call(recipient['ip_port']):
                         self.logger.info("✓ Call answered successfully!")
 
@@ -972,12 +972,12 @@ class PhoneCallAutomation:
                         connected = False
                         caller_state = 'UNKNOWN'  # Initialize state
                         recipient_state_check = 'UNKNOWN'  # Initialize state
-
+                        
                         for attempt in range(max_connect_wait):
                             time.sleep(1)
                             caller_state = self.get_call_state(caller['ip_port'])
                             recipient_state_check = self.get_call_state(recipient['ip_port'])
-
+                            
                             if caller_state == 'OFFHOOK' and recipient_state_check == 'OFFHOOK':
                                 connected = True
                                 self.logger.info(f"✓ Call is now fully connected! (OFFHOOK on both sides after {attempt + 1}s)")
@@ -989,7 +989,7 @@ class PhoneCallAutomation:
                         if not connected:
                             self.logger.warning("⚠ Call may not be fully connected (timeout reached)")
                             self.logger.warning(f"Final states - Caller: {caller_state}, Recipient: {recipient_state_check}")
-
+                        
                         # If duration is specified, wait AFTER call is connected and then end call
                         if duration:
                             self.logger.info(f"\n⏱️  Call timer started! Call will end in {duration} seconds from now...")
