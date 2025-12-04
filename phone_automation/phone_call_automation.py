@@ -7,6 +7,7 @@ Automates phone calls between mobile devices using ADB commands through STF.
 import subprocess
 import time
 from typing import Optional, Dict, Any
+from robot.api.deco import keyword, not_keyword
 
 from configs.logging_config import build_logger
 from configs.config import PHONES, STF_CONFIG
@@ -15,6 +16,9 @@ from phone_automation.stf_manager import STFManager
 
 class PhoneCallAutomation:
     """Handles automated phone calls between mobile devices via ADB."""
+
+    ROBOT_LIBRARY_SCOPE = "GLOBAL"
+    ROBOT_LIBRARY_DOC_FORMAT = "ROBOT"
 
     def __init__(self, logger=None, phones=None, stf_config=None, auto_connect_stf=True):
         """

@@ -1,197 +1,51 @@
-2025-12-04 14:33:49 [INFO] ============================================================
-2025-12-04 14:33:49 [INFO] =============== CUSTOM CALL SCENARIO =======================
-2025-12-04 14:33:49 [INFO] ============================================================
-2025-12-04 14:33:49 [INFO] Scenario Steps:
-2025-12-04 14:33:49 [INFO]   1. Restart ADB server
-2025-12-04 14:33:49 [INFO]   2. Auto-select two available STF devices
-2025-12-04 14:33:49 [INFO]   3. Connect both via STF (serial → IP:PORT)
-2025-12-04 14:33:49 [INFO]   4. Switch Phone A to 2G
-2025-12-04 14:33:49 [INFO]   5. Phone A calls Phone B
-2025-12-04 14:33:49 [INFO]   6. Phone B answers after 5 seconds of ringing
-2025-12-04 14:33:49 [INFO]   7. Call lasts 30 seconds then ends
-2025-12-04 14:33:49 [INFO] ============================================================
-2025-12-04 14:33:49 [DEBUG] Found 23 devices in STF
-2025-12-04 14:33:49 [INFO] Selected STF devices:
-2025-12-04 14:33:49 [INFO]   Phone A: QV70006W1B - H8216 (OS 8.0.0)
-2025-12-04 14:33:49 [INFO]   Phone B: R5CWA1TBD9Y - SM-A546B (OS 15)
-2025-12-04 14:33:49 [INFO] 
-============================================================
-2025-12-04 14:33:49 [INFO] STEP 0: Determining MSISDNs for the devices...
-2025-12-04 14:33:49 [INFO] ============================================================
-2025-12-04 14:33:49 [INFO] Using MSISDN for Phone A: +4915781993213
-2025-12-04 14:33:49 [INFO] Using MSISDN for Phone B: +4915900103141
-2025-12-04 14:33:49 [INFO] ✓ STF Manager initialized
-2025-12-04 14:33:49 [INFO] 
-============================================================
-2025-12-04 14:33:49 [INFO] STEP 0: Connecting selected STF devices via serial...
-2025-12-04 14:33:49 [INFO] ============================================================
-2025-12-04 14:33:49 [INFO] Connecting to STF device QV70006W1B...
-2025-12-04 14:33:49 [INFO] ✓ Device QV70006W1B added to user
-2025-12-04 14:33:49 [INFO] ✓ Remote connect URL for QV70006W1B: 172.29.42.44:7497
-2025-12-04 14:33:49 [DEBUG] Connecting to 172.29.42.44:7497 via ADB (attempt 1/2)...
-2025-12-04 14:33:49 [DEBUG] connected to 172.29.42.44:7497
-2025-12-04 14:33:49 [DEBUG] Connecting to 172.29.42.44:7497 via ADB (attempt 2/2)...
-2025-12-04 14:33:49 [DEBUG] already connected to 172.29.42.44:7497
-2025-12-04 14:33:49 [INFO] ✓ Successfully connected to device QV70006W1B at 172.29.42.44:7497
-2025-12-04 14:33:49 [INFO] Connecting to STF device R5CWA1TBD9Y...
-2025-12-04 14:33:49 [INFO] ✓ Device R5CWA1TBD9Y added to user
-2025-12-04 14:33:49 [INFO] ✓ Remote connect URL for R5CWA1TBD9Y: 172.29.42.44:7433
-2025-12-04 14:33:49 [DEBUG] Connecting to 172.29.42.44:7433 via ADB (attempt 1/2)...
-2025-12-04 14:33:49 [DEBUG] connected to 172.29.42.44:7433
-2025-12-04 14:33:49 [DEBUG] Connecting to 172.29.42.44:7433 via ADB (attempt 2/2)...
-2025-12-04 14:33:49 [DEBUG] already connected to 172.29.42.44:7433
-2025-12-04 14:33:49 [INFO] ✓ Successfully connected to device R5CWA1TBD9Y at 172.29.42.44:7433
-2025-12-04 14:33:49 [INFO] Phone A ADB target: 172.29.42.44:7497
-2025-12-04 14:33:49 [INFO] Phone B ADB target: 172.29.42.44:7433
-2025-12-04 14:33:49 [INFO] Phone A: +4915781993213 @ 172.29.42.44:7497 (serial QV70006W1B)
-2025-12-04 14:33:49 [INFO] Phone B: +4915900103141 @ 172.29.42.44:7433 (serial R5CWA1TBD9Y)
-2025-12-04 14:33:53 [INFO] 
-============================================================
-2025-12-04 14:33:53 [INFO] STEP 1: Restarting ADB server...
-2025-12-04 14:33:53 [INFO] ============================================================
-2025-12-04 14:33:53 [INFO] Killing ADB server...
-2025-12-04 14:33:53 [INFO] ✓ ADB server killed successfully
-2025-12-04 14:33:54 [INFO] Starting ADB server...
-2025-12-04 14:33:57 [INFO] ✓ ADB server started successfully
-2025-12-04 14:33:57 [INFO] Note: You may need to authorize the connection on your device(s)
-2025-12-04 14:33:57 [INFO] ✓ ADB server restarted successfully
-2025-12-04 14:33:59 [INFO] 
-============================================================
-2025-12-04 14:33:59 [INFO] STEP 2: Connecting to both phones (via ADB)...
-2025-12-04 14:33:59 [INFO] ============================================================
-2025-12-04 14:33:59 [INFO] Connecting to Phone A (+4915781993213)...
-2025-12-04 14:33:59 [INFO] Connecting to device at 172.29.42.44:7497...
-2025-12-04 14:33:59 [INFO] ✓ Successfully connected to 172.29.42.44:7497
-2025-12-04 14:33:59 [DEBUG] Output: connected to 172.29.42.44:7497
-2025-12-04 14:33:59 [INFO] Connecting to Phone B (+4915900103141)...
-2025-12-04 14:33:59 [INFO] Connecting to device at 172.29.42.44:7433...
-2025-12-04 14:33:59 [INFO] ✓ Successfully connected to 172.29.42.44:7433
-2025-12-04 14:33:59 [DEBUG] Output: connected to 172.29.42.44:7433
-2025-12-04 14:33:59 [INFO] ✓ Both phones connected successfully
-2025-12-04 14:34:01 [INFO] 
-============================================================
-2025-12-04 14:34:01 [INFO] STEP 3: Switching Phone A (+4915781993213) to 2G...
-2025-12-04 14:34:01 [INFO] ============================================================
-2025-12-04 14:34:01 [INFO] Setting network type to 2G (value: 1)...
-2025-12-04 14:34:01 [INFO] Current mode value: 1, changing to: 1
-2025-12-04 14:34:01 [DEBUG] Attempting Method 1: settings command...
-2025-12-04 14:34:01 [DEBUG] Attempting Method 2: settings with subscription ID...
-2025-12-04 14:34:01 [DEBUG] Attempting Method 3: service call...
-2025-12-04 14:34:01 [DEBUG] Attempting Method 4: Samsung-specific service call...
-2025-12-04 14:34:01 [DEBUG] ✓ Method 1 succeeded
-2025-12-04 14:34:01 [DEBUG] ✓ Method 2 succeeded
-2025-12-04 14:34:01 [DEBUG] ✓ Method 3 succeeded
-2025-12-04 14:34:01 [DEBUG] ✓ Method 4 succeeded
-2025-12-04 14:34:01 [INFO] ✓ Network type setting commands executed successfully
-2025-12-04 14:34:01 [INFO] Applying changes by toggling airplane mode...
-2025-12-04 14:34:01 [INFO] Airplane mode enabled, waiting 3 seconds...
-2025-12-04 14:34:04 [INFO] Airplane mode disabled, waiting for network to reconnect...
-2025-12-04 14:34:09 [INFO] Verifying network mode change...
-2025-12-04 14:34:09 [INFO] ✓ Network mode successfully changed and applied!
-2025-12-04 14:34:09 [INFO] Current network type: 2G only (GSM)
-2025-12-04 14:34:09 [INFO] ✓ Successfully switched Phone A to 2G
-2025-12-04 14:34:09 [INFO] Waiting for network to stabilize...
-2025-12-04 14:34:12 [INFO] 
-============================================================
-2025-12-04 14:34:12 [INFO] STEP 4: Phone A (+4915781993213) calling Phone B (+4915900103141)...
-2025-12-04 14:34:12 [INFO] ============================================================
-2025-12-04 14:34:12 [INFO] Initiating call from +4915781993213 to +4915900103141...
-2025-12-04 14:34:13 [INFO] ✓ Call initiated successfully!
-2025-12-04 14:34:13 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
-2025-12-04 14:34:13 [INFO] ✓ Call initiated successfully
-2025-12-04 14:34:13 [INFO] 
-============================================================
-2025-12-04 14:34:13 [INFO] STEP 5: Waiting for Phone B to ring...
-2025-12-04 14:34:13 [INFO] ============================================================
-2025-12-04 14:34:14 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:15 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:16 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:16 [INFO] ⏳ Still waiting for ring... (3/30s)
-2025-12-04 14:34:17 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:18 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:19 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:19 [INFO] ⏳ Still waiting for ring... (6/30s)
-2025-12-04 14:34:20 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:21 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:23 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:23 [INFO] ⏳ Still waiting for ring... (9/30s)
-2025-12-04 14:34:24 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:25 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:26 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:26 [INFO] ⏳ Still waiting for ring... (12/30s)
-2025-12-04 14:34:27 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:28 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:29 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:29 [INFO] ⏳ Still waiting for ring... (15/30s)
-2025-12-04 14:34:30 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 14:34:32 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:32 [INFO] 📞 Phone B (+4915900103141) is ringing! (after 17 seconds)
-2025-12-04 14:34:32 [INFO] ⏳ Waiting to answer... (5.0s remaining)
-2025-12-04 14:34:33 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:33 [INFO] ⏳ Waiting to answer... (3.9s remaining)
-2025-12-04 14:34:34 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:34 [INFO] ⏳ Waiting to answer... (2.8s remaining)
-2025-12-04 14:34:35 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:35 [INFO] ⏳ Waiting to answer... (1.7s remaining)
-2025-12-04 14:34:36 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:36 [INFO] ⏳ Waiting to answer... (0.6s remaining)
-2025-12-04 14:34:37 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:37 [INFO] 
-⏱️  Phone B has been ringing for 5.5 seconds
-2025-12-04 14:34:37 [INFO] Answering call on Phone B (+4915900103141)...
-2025-12-04 14:34:37 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 14:34:37 [INFO] Answering call on +4915900103141...
-2025-12-04 14:34:37 [INFO] ✓ Call answered successfully on +4915900103141
-2025-12-04 14:34:38 [DEBUG] Call state for 172.29.42.44:7433: OFFHOOK
-2025-12-04 14:34:38 [INFO] ✓ Call is now active (state: OFFHOOK)
-2025-12-04 14:34:38 [INFO] ✓ Call answered successfully!
-2025-12-04 14:34:38 [INFO] 
-============================================================
-2025-12-04 14:34:38 [INFO] Waiting for call to be fully connected...
-2025-12-04 14:34:38 [INFO] ============================================================
-2025-12-04 14:34:39 [DEBUG] Call state for +4915781993213: OFFHOOK
-2025-12-04 14:34:40 [DEBUG] Call state for +4915900103141: OFFHOOK
-2025-12-04 14:34:40 [INFO] ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
-2025-12-04 14:34:40 [INFO] 
-============================================================
-2025-12-04 14:34:40 [INFO] STEP 6: Call in progress...
-2025-12-04 14:34:40 [INFO] ============================================================
-2025-12-04 14:34:40 [INFO] ⏱️  Call timer started! Call will last 30 seconds...
-2025-12-04 14:34:40 [INFO] ⏳ Call in progress... 30s remaining
-2025-12-04 14:34:45 [INFO] ⏳ Call in progress... 25s remaining
-2025-12-04 14:34:50 [INFO] ⏳ Call in progress... 20s remaining
-2025-12-04 14:34:55 [INFO] ⏳ Call in progress... 15s remaining
-2025-12-04 14:35:00 [INFO] ⏳ Call in progress... 10s remaining
-2025-12-04 14:35:05 [INFO] ⏳ Call in progress... 5s remaining
-2025-12-04 14:35:10 [INFO] 
-⏱️  30 seconds elapsed. Ending call...
-2025-12-04 14:35:10 [DEBUG] Call state for +4915781993213: OFFHOOK
-2025-12-04 14:35:10 [INFO] Ending call on +4915781993213...
-2025-12-04 14:35:10 [INFO] ✓ Call ended successfully on +4915781993213
-2025-12-04 14:35:10 [DEBUG] Call state for +4915900103141: OFFHOOK
-2025-12-04 14:35:10 [INFO] Also ending call on +4915900103141...
-2025-12-04 14:35:10 [INFO] ✓ Call ended on +4915900103141
-2025-12-04 14:35:11 [DEBUG] Call state for 172.29.42.44:7497: IDLE
-2025-12-04 14:35:11 [INFO] ✓ Phone is now idle (state: IDLE)
-2025-12-04 14:35:11 [INFO] ✓ Call ended successfully
-2025-12-04 14:35:11 [INFO] 
-============================================================
-2025-12-04 14:35:11 [INFO] ================= SCENARIO COMPLETE ========================
-2025-12-04 14:35:11 [INFO] ============================================================
-2025-12-04 14:35:11 [INFO] ✓ All steps completed successfully!
-2025-12-04 14:35:11 [INFO]   • Both phones connected via STF (serial-based)
-2025-12-04 14:35:11 [INFO]   • Phone A switched to 2G
-2025-12-04 14:35:11 [INFO]   • Call initiated from Phone A to Phone B
-2025-12-04 14:35:11 [INFO]   • Phone B answered after 5 seconds of ringing
-2025-12-04 14:35:11 [INFO]   • Call lasted 30 seconds and ended
-2025-12-04 14:35:11 [INFO] ============================================================
-2025-12-04 14:35:11 [INFO] Disconnecting STF device QV70006W1B...
-2025-12-04 14:35:11 [DEBUG] Disconnecting 172.29.42.44:7497 from ADB...
-2025-12-04 14:35:11 [INFO] ✓ Device QV70006W1B disconnected
-2025-12-04 14:35:11 [INFO] ✓ Device QV70006W1B removed from user
-2025-12-04 14:35:11 [INFO] ✓ Successfully disconnected device QV70006W1B
-2025-12-04 14:35:11 [INFO] Disconnecting STF device R5CWA1TBD9Y...
-2025-12-04 14:35:11 [DEBUG] Disconnecting 172.29.42.44:7433 from ADB...
-2025-12-04 14:35:11 [INFO] ✓ Device R5CWA1TBD9Y disconnected
-2025-12-04 14:35:11 [INFO] ✓ Device R5CWA1TBD9Y removed from user
-2025-12-04 14:35:11 [INFO] ✓ Successfully disconnected device R5CWA1TBD9Y
+2025-12-04 15:16:57 [INFO] ✓ STF Manager initialized
+2025-12-04 15:16:57 [INFO] Connecting to device at 172.29.42.44:7497...
+2025-12-04 15:16:57 [INFO] ✓ Successfully connected to 172.29.42.44:7497
+2025-12-04 15:16:57 [DEBUG] Output: already connected to 172.29.42.44:7497
+2025-12-04 15:16:59 [INFO] Connecting to device at 172.29.42.44:7433...
+2025-12-04 15:16:59 [INFO] ✓ Successfully connected to 172.29.42.44:7433
+2025-12-04 15:16:59 [DEBUG] Output: already connected to 172.29.42.44:7433
+2025-12-04 15:17:01 [INFO] Setting network type to 2G (value: 1)...
+2025-12-04 15:17:01 [INFO] Current mode value: 1, changing to: 1
+2025-12-04 15:17:01 [DEBUG] Attempting Method 1: settings command...
+2025-12-04 15:17:01 [DEBUG] Attempting Method 2: settings with subscription ID...
+2025-12-04 15:17:01 [DEBUG] Attempting Method 3: service call...
+2025-12-04 15:17:01 [DEBUG] Attempting Method 4: Samsung-specific service call...
+2025-12-04 15:17:02 [DEBUG] ✓ Method 1 succeeded
+2025-12-04 15:17:02 [DEBUG] ✓ Method 2 succeeded
+2025-12-04 15:17:02 [DEBUG] ✓ Method 3 succeeded
+2025-12-04 15:17:02 [DEBUG] ✓ Method 4 succeeded
+2025-12-04 15:17:02 [INFO] ✓ Network type setting commands executed successfully
+2025-12-04 15:17:02 [INFO] Applying changes by toggling airplane mode...
+2025-12-04 15:17:02 [INFO] Airplane mode enabled, waiting 3 seconds...
+2025-12-04 15:17:05 [INFO] Airplane mode disabled, waiting for network to reconnect...
+2025-12-04 15:17:10 [INFO] Verifying network mode change...
+2025-12-04 15:17:10 [INFO] ✓ Network mode successfully changed and applied!
+2025-12-04 15:17:10 [INFO] Current network type: 2G only (GSM)
+2025-12-04 15:17:13 [INFO] Initiating call from +4915781993213 to +4915900103141...
+2025-12-04 15:17:13 [INFO] ✓ Call initiated successfully!
+2025-12-04 15:17:13 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
+2025-12-04 15:17:14 [DEBUG] Call state for +4915900103141: IDLE
+2025-12-04 15:17:16 [DEBUG] Call state for +4915900103141: IDLE
+2025-12-04 15:17:17 [DEBUG] Call state for +4915900103141: IDLE
+2025-12-04 15:17:18 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:19 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:20 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:21 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:22 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:23 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:24 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-04 15:17:24 [INFO] Answering call on +4915900103141...
+2025-12-04 15:17:24 [INFO] ✓ Call answered successfully on +4915900103141
+2025-12-04 15:17:25 [DEBUG] Call state for 172.29.42.44:7433: OFFHOOK
+2025-12-04 15:17:25 [INFO] ✓ Call is now active (state: OFFHOOK)
+2025-12-04 15:17:26 [DEBUG] Call state for +4915781993213: OFFHOOK
+2025-12-04 15:17:26 [DEBUG] Call state for +4915900103141: OFFHOOK
+2025-12-04 15:17:56 [DEBUG] Call state for +4915781993213: OFFHOOK
+2025-12-04 15:17:56 [INFO] Ending call on +4915781993213...
+2025-12-04 15:17:56 [INFO] ✓ Call ended successfully on +4915781993213
+2025-12-04 15:17:56 [DEBUG] Call state for +4915900103141: OFFHOOK
+2025-12-04 15:17:56 [INFO] Also ending call on +4915900103141...
+2025-12-04 15:17:57 [INFO] ✓ Call ended on +4915900103141
+2025-12-04 15:17:58 [DEBUG] Call state for 172.29.42.44:7497: IDLE
+2025-12-04 15:17:58 [INFO] ✓ Phone is now idle (state: IDLE)

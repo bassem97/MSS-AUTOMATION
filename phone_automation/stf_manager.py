@@ -9,10 +9,14 @@ import json
 import requests
 import subprocess
 from typing import Optional, Dict, Any
+from robot.api.deco import keyword, not_keyword
 
 
 class STFManager:
     """Manages STF device connections using the OpenSTF API."""
+
+    ROBOT_LIBRARY_SCOPE = "GLOBAL"
+    ROBOT_LIBRARY_DOC_FORMAT = "ROBOT"
 
     def __init__(self, base_url: str, user_auth: str, logger=None):
         """
@@ -32,6 +36,7 @@ class STFManager:
         self.logger = logger
         self.connected_devices = {}  # Track connected devices by serial
 
+    @not_keyword
     def _log(self, level: str, message: str):
         """Internal logging helper."""
         if self.logger:
@@ -46,6 +51,7 @@ class STFManager:
         else:
             print(f"[{level.upper()}] {message}")
 
+    @not_keyword
     def check_status(self, status_code: int, response_text: str = "") -> bool:
         """
         Check HTTP status code and log appropriate error.
@@ -65,6 +71,7 @@ class STFManager:
             self._log('error', f"Unknown error (status {status_code}): {response_text}")
         return False
 
+    @keyword
     def get_device_list(self) -> Optional[list]:
         """
         List all STF devices (including disconnected or otherwise inaccessible devices).
@@ -85,6 +92,7 @@ class STFManager:
             self._log('error', f"Error getting device list: {e}")
             return None
 
+    @keyword
     def get_device_by_serial(self, serial: str) -> Optional[Dict[str, Any]]:
         """
         Get device information by serial number.
@@ -106,6 +114,7 @@ class STFManager:
             self._log('error', f"Error getting device {serial}: {e}")
             return None
 
+    @keyword
     def find_device_by_ip_port(self, ip_port: str) -> Optional[str]:
         """
         Find device serial by IP:PORT address.
@@ -136,6 +145,7 @@ class STFManager:
             self._log('error', f"Error finding device by IP:PORT: {e}")
             return None
 
+    @keyword
     def add_device_to_user(self, serial: str) -> bool:
         """
         Add a device to the authenticated user's control.
@@ -165,6 +175,7 @@ class STFManager:
             self._log('error', f"Error adding device {serial} to user: {e}")
             return False
 
+    @keyword
     def remove_device_from_user(self, serial: str) -> bool:
         """
         Remove a device from the authenticated user's device list.
@@ -192,6 +203,7 @@ class STFManager:
             self._log('error', f"Error removing device {serial} from user: {e}")
             return False
 
+    @keyword
     def remote_connect_device(self, serial: str) -> Optional[str]:
         """
         Connect to a device remotely via ADB.
@@ -235,6 +247,7 @@ class STFManager:
             self._log('error', f"Error remote connecting to device {serial}: {e}")
             return None
 
+    @keyword
     def remote_disconnect_device(self, serial: str) -> bool:
         """
         Disconnect a remote debugging session.
@@ -268,6 +281,7 @@ class STFManager:
             self._log('error', f"Error disconnecting device {serial}: {e}")
             return False
 
+    @keyword
     def connect_device_by_serial(self, serial: str) -> Optional[str]:
         """
         Full workflow to connect a device via STF:
@@ -303,6 +317,7 @@ class STFManager:
             self._log('error', f"Error in connect workflow for {serial}: {e}")
             return None
 
+    @keyword
     def disconnect_device_by_serial(self, serial: str) -> bool:
         """
         Full workflow to disconnect a device from STF:
@@ -331,6 +346,3 @@ class STFManager:
         except Exception as e:
             self._log('error', f"Error in disconnect workflow for {serial}: {e}")
             return False
-
-
-

@@ -50,11 +50,18 @@ MSS-AUTOMATION/
 │   └── text_processing.py     # Text processing utilities
 │
 ├── logs/                       # Generated log files
+├── tests/                      # Robot Framework test suites
+│   └── CustomCall.robot        # Automated call test scenarios
+├── resources/                  # Robot Framework resources
+│   └── PhoneAutomation.resource # Reusable keywords for automation
 ├── run_subscriber_search.py    # Entry point for MSISDN search
 ├── run_phone_automation.py     # Entry point for phone automation
+├── run_robot_tests.py          # Entry point for Robot Framework tests
+├── custom_call.py              # Custom call scenario automation
 ├── report_generator.py         # Report generation
 ├── requirements.txt            # Python dependencies
-└── README.md                   # This file
+├── README.md                   # This file
+└── ROBOT_FRAMEWORK_GUIDE.md    # Robot Framework usage guide
 ```
 
 ## Installation
@@ -220,6 +227,71 @@ info = automation.get_network_info("172.29.42.44:7437")
 - Voice quality comparison across generations
 
 **Note:** Network type switching may require special permissions or root access on some devices.
+
+### Custom Call Automation (Python)
+
+Execute a predefined call scenario using STF devices:
+
+```bash
+python custom_call.py
+```
+
+**Scenario Steps:**
+1. Auto-select two available STF devices
+2. Connect both via STF (serial → IP:PORT)
+3. Switch Phone A to 2G
+4. Phone A calls Phone B
+5. Phone B answers after 5 seconds of ringing
+6. Call lasts 30 seconds and ends
+
+**Features:**
+- Automatic STF device selection
+- MSISDN auto-detection from device metadata
+- Interactive prompts for missing information
+- Automatic cleanup on exit
+
+### Robot Framework Tests
+
+Execute automated tests using Robot Framework:
+
+```bash
+# Install Robot Framework
+pip install robotframework
+
+# Run all tests
+python run_robot_tests.py
+
+# Run specific test
+python run_robot_tests.py --test "Custom Call Scenario - Two STF Devices"
+
+# Run with custom parameters
+python run_robot_tests.py --call-duration 60 --ring-wait 10 --network 4G
+
+# Run with tags
+python run_robot_tests.py --include 2G
+
+# Alternative: Use robot command directly
+robot tests/CustomCall.robot
+```
+
+**Available Robot Tests:**
+1. **Custom Call Scenario - Two STF Devices** - Basic automated call test
+2. **Custom Call Scenario - Specific Network Types** - Template test for 2G/3G/4G
+
+**Robot Framework Features:**
+- ✅ Keyword-driven test automation
+- 📊 Detailed HTML reports (log.html, report.html)
+- 🏷️ Tag-based test selection
+- 🔄 Template-based testing for multiple scenarios
+- 📝 Readable test syntax for non-programmers
+- 🔌 Easy CI/CD integration
+
+**Output Files:**
+- `robot_results/output.xml` - Machine-readable results
+- `robot_results/log.html` - Detailed execution log
+- `robot_results/report.html` - High-level test report
+
+For detailed Robot Framework usage, see [ROBOT_FRAMEWORK_GUIDE.md](ROBOT_FRAMEWORK_GUIDE.md)
 
 ## Output
 
