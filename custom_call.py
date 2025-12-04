@@ -425,8 +425,8 @@ def run_custom_scenario():
             log_and_print("⚠ Failed to switch to 2G, but continuing with scenario...", "WARNING")
         else:
             log_and_print("✓ Successfully switched Phone A to 2G")
-            log_and_print("Waiting for network to stabilize (8 seconds)...")
-            time.sleep(10)
+            log_and_print("Waiting for network to stabilize (15 seconds)...")
+            time.sleep(15)
 
         # Step 4: Phone A calls Phone B
         log_and_print("\n" + "=" * 60)

@@ -83,9 +83,15 @@ class AnritsuServer:
         self.service = Service(driver_path)
 
         # Set download directory for PCAP files
-        self.pcap_download_dir = testcase_dir
-        prefs = {'download.default_directory': self.pcap_download_dir}
+        self.pcap_download_dir = os.path.abspath(testcase_dir)
+        prefs = {
+            'download.default_directory': self.pcap_download_dir,
+            'download.prompt_for_download': False,
+            'download.directory_upgrade': True,
+            'safebrowsing.enabled': False
+        }
         self.options.add_experimental_option('prefs', prefs)
+        logging.info(f"PCAP download directory set to: {self.pcap_download_dir}")
 
         # Initialize Chrome WebDriver with service and options
         self.driver = webdriver.Chrome(

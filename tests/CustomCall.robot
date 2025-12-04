@@ -49,11 +49,6 @@ Collect Anritsu Trace
     # Create output directory
     Create Directory    ${TC_OUTPUT_DIR}
 
-    # Step 1: Initialize Anritsu driver
-    Log To Console    \n[1/3] Initializing Anritsu driver...
-    ${init_result}=    AnritsuLib.initialize_anritsu_driver    CustomCall    ${TC_OUTPUT_DIR}
-    Should Be True    ${init_result}    Anritsu driver initialization failed
-    Log To Console    ✓ Anritsu driver initialized successfully
 
     # Prepare device info structure
     ${device_1_sim}=    Create Dictionary
@@ -75,6 +70,71 @@ Collect Anritsu Trace
     ${device_2}=    Create Dictionary    sims=${device_2_sims}
 
     ${devices_info}=    Create Dictionary    device_1=${device_1}    device_2=${device_2}
+
+    # Save input data to JSON file BEFORE starting Anritsu trace
+    ${json_file}=    Set Variable    ${TC_OUTPUT_DIR}/anritsu_input_data.json
+    ${current_time}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
+    ${json_content}=    Catenate    SEPARATOR=\n
+    ...    {
+    ...    ${SPACE*2}"metadata": {
+    ...    ${SPACE*4}"test_case": "CustomCall",
+    ...    ${SPACE*4}"timestamp": "${current_time}",
+    ...    ${SPACE*4}"template": "${ANRITSU_TEMPLATE}",
+    ...    ${SPACE*4}"output_directory": "${TC_OUTPUT_DIR}"
+    ...    ${SPACE*2}},
+    ...    ${SPACE*2}"trace_parameters": {
+    ...    ${SPACE*4}"start_time": "${start_time}",
+    ...    ${SPACE*4}"end_time": "${end_time}",
+    ...    ${SPACE*4}"template": "${ANRITSU_TEMPLATE}",
+    ...    ${SPACE*4}"is_fixed_call": false
+    ...    ${SPACE*2}},
+    ...    ${SPACE*2}"device_information": {
+    ...    ${SPACE*4}"phone_a": {
+    ...    ${SPACE*6}"msisdn": "${phone_a_msisdn}",
+    ...    ${SPACE*6}"imsi": "${phone_a_imsi}"
+    ...    ${SPACE*4}},
+    ...    ${SPACE*4}"phone_b": {
+    ...    ${SPACE*6}"msisdn": "${phone_b_msisdn}",
+    ...    ${SPACE*6}"imsi": "${phone_b_imsi}"
+    ...    ${SPACE*4}}
+    ...    ${SPACE*2}},
+    ...    ${SPACE*2}"devices_info_structure": {
+    ...    ${SPACE*4}"device_1": {
+    ...    ${SPACE*6}"sims": {
+    ...    ${SPACE*8}"sim_slot_1": {
+    ...    ${SPACE*10}"sim_MSISDN": "${phone_a_msisdn}",
+    ...    ${SPACE*10}"sim_IMSI": "${phone_a_imsi}",
+    ...    ${SPACE*10}"sim_Calling_Number": "${phone_a_msisdn}",
+    ...    ${SPACE*10}"sim_Calling_Number_0": "${phone_a_msisdn}"
+    ...    ${SPACE*8}}
+    ...    ${SPACE*6}}
+    ...    ${SPACE*4}},
+    ...    ${SPACE*4}"device_2": {
+    ...    ${SPACE*6}"sims": {
+    ...    ${SPACE*8}"sim_slot_1": {
+    ...    ${SPACE*10}"sim_MSISDN": "${phone_b_msisdn}",
+    ...    ${SPACE*10}"sim_IMSI": "${phone_b_imsi}",
+    ...    ${SPACE*10}"sim_Calling_Number": "${phone_b_msisdn}",
+    ...    ${SPACE*10}"sim_Calling_Number_0": "${phone_b_msisdn}"
+    ...    ${SPACE*8}}
+    ...    ${SPACE*6}}
+    ...    ${SPACE*4}}
+    ...    ${SPACE*2}},
+    ...    ${SPACE*2}"anritsu_server_config": {
+    ...    ${SPACE*4}"server_ip": "${ANRITSU}[ANRITSU_SERVER_IP]",
+    ...    ${SPACE*4}"username": "${ANRITSU}[ANRITSU_SERVER_USERNAME]"
+    ...    ${SPACE*2}}
+    ...    }
+
+    Create File    ${json_file}    ${json_content}
+    Log To Console    \n📄 Anritsu input data saved to: ${json_file}
+    Log    Anritsu input data saved to: ${json_file}
+
+    # Step 1: Initialize Anritsu driver
+    Log To Console    \n[1/3] Initializing Anritsu driver...
+    ${init_result}=    AnritsuLib.initialize_anritsu_driver    CustomCall    ${TC_OUTPUT_DIR}
+    Should Be True    ${init_result}    Anritsu driver initialization failed
+    Log To Console    ✓ Anritsu driver initialized successfully
 
     # Step 2: Start OESearch trace
     Log To Console    \n[2/3] Starting Anritsu OESearch trace...
@@ -156,16 +216,22 @@ Custom Call Scenario - Two STF Devices
     [Tags]    phone-automation    stf    call-test    2G
 
     # Capture start time
-    ${START_TIME}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
+    ${START_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
+    ${START_TIME}=    Set Variable    ${START_TIME_RAW[:23]}
     Log To Console    \n${\n}Test Start Time: ${START_TIME}
     Log    Test Start Time: ${START_TIME}
     Set Suite Variable    ${START_TIME}
+
+    # Update TC_OUTPUT_DIR with actual timestamp
+    ${TC_OUTPUT_DIR}=    Set Variable    ${CURDIR}/../tc_output_dir/CustomCall_${START_TIME}
+    Set Suite Variable    ${TC_OUTPUT_DIR}
 
     # Run the entire custom scenario from the Python module
     ${result}=    Run Custom Scenario
 
     # Capture end time
-    ${END_TIME}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
+    ${END_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
+    ${END_TIME}=    Set Variable    ${END_TIME_RAW[:23]}
     Log To Console    Test End Time: ${END_TIME}
     Log    Test End Time: ${END_TIME}
     Set Suite Variable    ${END_TIME}
