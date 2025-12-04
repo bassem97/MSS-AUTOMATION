@@ -1,0 +1,131 @@
+CNOM_DATA_collection:
+
+      Data_collection_and_analysis : "//a[@class='eaHome-AppList-appLink' and @test='Data Collection & Analysis'] " 
+      Clear_section : "//button[@class='ebBtn ebBtn_color_white' and .//span[@class='ebBtn-caption'][text()='Clear Selection']]"
+      PCCMM : "//div[@class='ebTreeItem-content']//div[@class='ebTreeItem-labelContent ebTreeItem-label']//span[@class='el-nodetypelabel'][text()='PCC-MM']"
+      EAMFTB1: "//input[@class='ebCheckbox' and @value='EAMFTB1(NL)']" 
+      EAMFTB2: "//input[@class='ebCheckbox' and @value='EAMFTB2(NL)']"
+      EAMFTB3: "//input[@class='ebCheckbox' and @value='EAMFTB3(NL)']"      #Apply : "//button[.//text()='Apply']"
+      Start_collect : "//button[@type='button' and text()='Collect']"
+      DC_name : "//input[@e-id='DCName']" 
+      Start_time : "//input[@class='ebInput elWidgets-PopupDatePicker-input'][@type='text'][@placeholder='MM/DD/YYYY hh:mm:ss']"
+      Start_collecting : "//button[@class='ebBtn ebBtn_color_darkBlue' and @type='button']/span[text()='Collect']"
+      Apply_button: "/html/body/div[3]/div/div/div[1]/div[4]/div/div[1]/div/div[2]/div/div[3]/span[1]/button" 
+      Source_field: "/html/body/div[5]/div/div/div[1]/div/div[2]/div/form/div[2]/label/span[2]/div/button" 
+
+    
+CNOM_Event_Trace: 
+
+      UE_Trace: "//a[@test='UE Trace']"
+      Event_Trace: "/html/body/div[3]/div/div/div[1]/div[4]/div/div[3]/div/div[2]/div/div[1]/div[2]/div[3]/div"
+      PCCMM: "//span[text()='PCC-MM']"
+      EAMFTB1: "//div[@title='EAMFTB1(NL)']"
+      EAMFTB2: "//div[@title='EAMFTB2(NL)']"
+      EAMFTB3: "//div[@title='EAMFTB3(NL)']"
+      EAMFTB4: "//div[@title='EAMFTB4(NL)']"
+
+CNOM_Create_Event_Trace:
+
+      Cancel : "/html/body/eui-container//main/div/div/div[2]/e-status-overview//e-cnom-lib-tree-view-flyout//eui-flyout-panel/div[2]/e-cnom-lib-button-group/eui-button[1]//button"      
+      Menu : "/html/body/eui-container//main/div/eui-app-bar//div/div[1]/div[1]"
+      Tracing : "/html/body/eui-container/eui-navigation-menu//eui-navigation-group/eui-navigation-item[11]//div/a"
+      Event_tracing : "/html/body/eui-container/eui-navigation-menu//eui-navigation-group/eui-navigation-item[11]/eui-navigation-group/eui-navigation-item[3]//div/a"
+      Select_item: "/html/body/eui-container//main/div/eui-app-bar/shadow/div/div[1]/div[2]/e-cnom-lib-label-action//div/ol/li/a"
+      Create_event_trace: "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-event-trace-list/shadow/eui-multi-panel-tile/div:nth-of-type(1)/eui-button:nth-of-type:nth-child(1)/shadow/button"
+      Node_type : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(1)/e-cnom-lib-tree-view-widget/shadow/e-cnom-lib-tree-view/shadow/eui-tree/e-tree-view-item/shadow/li/span/div/span"
+      PCCMM : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(1)/e-cnom-lib-tree-view-widget/shadow/e-cnom-lib-tree-view/shadow/eui-tree/e-tree-view-item/e-tree-view-item[label='PCC-MM']/shadow/li/span/div/span"
+      EAMFTB1 : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(1)/e-cnom-lib-tree-view-widget/shadow/e-cnom-lib-tree-view/shadow/eui-tree/e-tree-view-item/e-tree-view-item[label='PCC-MM']/e-tree-view-item[label='EAMFTB1']/shadow/li/span/div/span"
+      EAMFTB2 : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(1)/e-cnom-lib-tree-view-widget/shadow/e-cnom-lib-tree-view/shadow/eui-tree/e-tree-view-item/e-tree-view-item[label='PCC-MM']/e-tree-view-item[label='EAMFTB2']/shadow/li/span/div/span"
+      EAMFTB3 : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(1)/e-cnom-lib-tree-view-widget/shadow/e-cnom-lib-tree-view/shadow/eui-tree/e-tree-view-item/e-tree-view-item[label='PCC-MM']/e-tree-view-item[label='EAMFTB3']/shadow/li/span/div/span"
+      EAMFTB4 : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(1)/e-cnom-lib-tree-view-widget/shadow/e-cnom-lib-tree-view/shadow/eui-tree/e-tree-view-item/e-tree-view-item[label='PCC-MM']/e-tree-view-item[label='EAMFTB4']/shadow/li/span/div/span"
+      Select : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-cnom-lib-tree-view-flyout/shadow/eui-flyout-panel/div:nth-of-type(2)/e-cnom-lib-button-group/eui-button:nth-child(2)/shadow/button"
+      
+      Create_evemt_trace_description: "/html/body/eui-container//main/div/div/div[2]/e-event-trace//e-event-trace-list//e-cnom-create-event-trace-by-ue-id//eui-flyout-panel/div[1]/div[1]/div/eui-text-field//div/div/input"
+      Create_event_trace: "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-event-trace-list/shadow/eui-multi-panel-tile/div:nth-of-type(1)/eui-button:nth-child(1)/shadow/button"
+      Description_field : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-event-trace-list/shadow/e-cnom-create-event-trace-by-ue-id/shadow/eui-flyout-panel/div:nth-of-type(1)/div:nth-of-type(1)/div/eui-text-field/shadow/div/div/input"
+      Source_field : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-event-trace-list/shadow/e-cnom-create-event-trace-by-ue-id/shadow/eui-flyout-panel/div:nth-of-type(1)/div:nth-of-type(5)/div/div/eui-radio-button:nth-child(1)"
+
+CNOM_View_download_Event_Trace:
+
+      view_trace : "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-event-trace-list/shadow/eui-multi-panel-tile/div:nth-of-type(2)/e-cnom-lib-table/shadow/div:nth-of-type(2)/e-cnom-internal-extended-table/shadow/div/div/table/tbody/tr/td:nth-of-type(11)/div/span/eui-dropdown/shadow/div/eui-actionable-icon"
+      Current_IMSI: "/html/body/eui-container/shadow/main/div/div/div:nth-of-type(2)/e-event-trace/shadow/e-event-trace-list/shadow/eui-multi-panel-tile/div:nth-of-type(2)/e-cnom-lib-table/shadow/div:nth-of-type(2)/e-cnom-internal-extended-table/shadow/div/div/table/tbody/tr:nth-child(1)/td:nth-child(9)/div/span"
+
+Oesearch:
+      Templete_menu_button : '//*[@id="gwt-debug-searchStd_ContainerTemplateCollapse"]/div/button'
+      Templete_input_field : '/html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[1]/div[2]/div/div/div/div/input'
+      Start_time_field : '/html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/div[1]/div/input'
+      End_time_field : '/html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/div[2]/div/input'
+      Filter_button : '/html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[4]/div[1]/h4/span'
+      Delete_summary_button: ' /html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[4]/div[2]/div/div[2]/div/div[1]/button[2]'
+      Filter_by_filed : '/html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[4]/div[2]/div/div[1]/div/div/div/button'
+      IMSI_menu: "//button[@data-id='gwt-debug-paletteWidget_SelectOperator_1']"
+      IMSI_equal : '/html/body/div[3]/div[2]/div/div[2]/div/div[3]/div[1]/div/div/div/div/div[1]/div/div[4]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div[2]/span/div/div/div/ul/li[3]/a'  
+      IMSI_field : "//div[@id='gwt-debug-listTextEditor_TextValues']"         
+      Search_button  : '/html/body/div[3]/div[2]/div/div[2]/div/div[5]/div/span/button[1]'
+   
+Oesearch_pcap_download :
+
+      Export_button : '/html/body/div[3]/div[2]/div/div[2]/div/div/div[2]/div[1]/nav/div/ul/li[2]/a'
+      PCAP_selection_button :  '/html/body/div[3]/div[2]/div/div[2]/div/div/div[2]/div[1]/nav/div/ul/li[2]/ul/li[4]/a'
+      Download_list_button : ' /html/body/div[3]/div[2]/div/div[1]/div/div[2]/div[2]/div/button'
+      Delete_all_download: ' /html/body/div[3]/div[2]/div/div[1]/div/div[2]/div[2]/div/ul/button'
+      Confirm_Download_pcap : '/html/body/div[5]/div/div/div[3]/button[1]'
+      Download_pcap : '/html/body/div[3]/div[2]/div/div[1]/div/div[2]/div[2]/div/ul/div[2]/div[3]/button[1]'
+
+Oesearch_NewUi:
+  Switch_to_new: //button[@id='gwt-debug-userPreferences_Button']
+  Templete_menu_button: '//*[@id="gwt-debug-searchStd_ContainerTemplateCollapse"]/div/button'
+  Templete_input_field: //input[@id='input-text-id-template-filter']
+  Templete_Done_button: //button[@id='template-btn-done']
+  Start_time_field: //input[@aria-label='Presets Starting Interval']
+  End_time_field: //input[@aria-label='Presets Ending Interval']
+  Time_intrval_Done_button: //button[@id='timesel-btn-done']
+  Delete_schema_button: //button[@aria-label='Delete schema']
+  Summury_Button: //div[contains(@class, 'p-treenode-content')]//span[text()='SUMMARY']
+  IMSI_menu: //div[contains(@class, 'p-treenode-content')]//span[contains(text(),'IMSI')]
+  Dropdown_trigger: //span[@role='combobox' and contains(@class, 'p-dropdown-label') and @aria-label='present']
+  IMSI_equal: //li[@role='option' and @aria-label='equal']
+  Search_button: //button[@id='home-button-search']
+  Search_cancel_button: //button[@id='on-search-cancel']
+  Network_check_box: //div[@class='p-checkbox-box' and @data-pc-section='input']
+  Network_Done_button: //button[@id='network-btn-done']
+  Filter_Select_filed: //span[@role='combobox' and @aria-label='Select field']
+  Search_box: //input[@type='text' and @role='searchbox']
+  Filter_IMSI: //li[@role='option' and @aria-label='IMSI']
+  MSISDN_dropdown: //span[@role='combobox' and contains(@class, 'p-dropdown-label') and @aria-label='equal']
+  MSISDN_contains: //span[text()="contains"]
+  Calling_number_dropdown: //span[@role='combobox' and contains(@class, 'p-dropdown-label') and @aria-label='equal']
+  Calling_number_contains: (//span[text()="contains"])[2] 
+  Called_number_dropdown: //span[@role='combobox' and contains(@class, 'p-dropdown-label') and @aria-label='equal']
+  Called_number_contains: (//span[text()="contains"])[3] 
+  IMSI_dropdown: //span[@role='combobox' and contains(@class, 'p-dropdown-label') and @aria-label='equal']
+  IMSI_contains: (//span[text()="contains"])[4]    
+  MSISDN_field:  //input[@class='p-element' and starts-with(@id, 'chips-id-')]
+  Calling_number_field: (//input[@class='p-element' and starts-with(@id, 'chips-id-')])[2]  
+  Called_number_field: (//input[@class='p-element' and starts-with(@id, 'chips-id-')])[3]
+  IMSI_field: (//input[@class='p-element' and starts-with(@id, 'chips-id-')])[4]
+  Search_anyway :  //button[@id='on-search-search-anyway']
+  Filter_Button: //a[@id='p-accordiontab-filters_header_action']
+  Time_intrval_button : //a[@id='p-accordiontab-timeinterval_header_action']
+
+Oesearch_pcap_download_NewUi:
+      Export_button : //div[@class='p-dialog-footer']//button[.//span[text()='Export']]
+      PCAP_selection_button :  //ul[@role='menu']//li[@aria-label='pcap']//a[contains(@class, 'p-menuitem-link')]
+      Confirm_Download_pcap : //div[@class='p-dialog-footer']//button[@label='Export']
+      File_mangment_button : //a[@class='p-ripple p-element p-menuitem-link ng-star-inserted']//span[text()='File Management']
+      Confirm_file_mangment_button :  //span[@class='p-menuitem-text ng-star-inserted' and text()='Go to file management page']/parent::a
+      Download_Pcap_button : //button[.//label[text()='Download']]
+      Delete_Pcap_button:  //button[@ptooltip='Delete file']
+      Confirm_Pcap_delete : //button[contains(@class, 'p-confirm-dialog-accept')]
+
+CNOM_UE_Trace: 
+      Cancel : "/html/body/eui-container//main/div/div/div[2]/e-status-overview//e-cnom-lib-tree-view-flyout//eui-flyout-panel/div[2]/e-cnom-lib-button-group/eui-button[1]//button"      
+      Menu : "/html/body/eui-container//main/div/eui-app-bar//div/div[1]/div[1]"
+      Tracing : "/html/body/eui-container/eui-navigation-menu//eui-navigation-group/eui-navigation-item[11]//div/a"
+      UE_trace : "/html/body/eui-container/eui-navigation-menu//eui-navigation-group/eui-navigation-item[11]/eui-navigation-group/eui-navigation-item[1]//div/a"
+      Start_UE_trace : "/html/body/eui-container//main/div/div/div[2]/e-ue-trace//eui-tabs/div[1]/e-trace-sessions//eui-multi-panel-tile/div[1]/eui-button[1]/button"
+
+Network_Monitoring:
+      Network Monitor : "//a[@test='Network Monitor']"
+      Apply : "//button[span[text()='Apply'] and contains(@class, 'ebBtn_color_blue')]"
+

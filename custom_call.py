@@ -102,13 +102,58 @@ def pick_two_available_devices(stf_manager, logger):
         logger.error("No devices returned from STF API")
         return None
 
-    usable = [
-        d for d in devices
-        if d.get("present") and d.get("ready") and not d.get("using")
-    ]
+    logger.info(f"Total devices in STF: {len(devices)}")
+
+    # More robust filtering - check multiple conditions
+    usable = []
+    for d in devices:
+        serial = d.get("serial", "UNKNOWN")
+        present = d.get("present", False)
+        ready = d.get("ready", False)
+        using = d.get("using", False)
+        owner = d.get("owner")
+
+        # Log status of each device for debugging
+        logger.debug(
+            f"Device {serial}: present={present}, ready={ready}, "
+            f"using={using}, owner={owner}"
+        )
+
+        # A device is available if:
+        # - It's physically present
+        # - It's in ready state
+        # - It's not being used (using=False)
+        # - It has no owner (owner is None or empty)
+        is_available = (
+            present
+            and ready
+            and not using
+            and (owner is None or owner == "" or owner == {})
+        )
+
+        if is_available:
+            usable.append(d)
+            logger.info(f"✓ Device {serial} ({d.get('model')}) is available")
+        else:
+            reasons = []
+            if not present:
+                reasons.append("not present")
+            if not ready:
+                reasons.append("not ready")
+            if using:
+                reasons.append("in use")
+            if owner:
+                reasons.append(f"owned by {owner}")
+            logger.debug(f"✗ Device {serial} unavailable: {', '.join(reasons)}")
 
     if len(usable) < 2:
-        logger.error(f"Not enough usable devices in STF (found {len(usable)}, need 2)")
+        logger.error(
+            f"Not enough available devices in STF (found {len(usable)}, need 2). "
+            f"Total devices: {len(devices)}"
+        )
+        # Show available devices
+        if usable:
+            logger.info(f"Available devices: {[d.get('serial') for d in usable]}")
         return None
 
     # Sort for determinism (by model + serial)
@@ -134,6 +179,19 @@ def run_custom_scenario():
     # Build logger for custom scenario
     logger = build_logger("phone_call_automation")
 
+    # Also print to console for Robot Framework visibility
+    def log_and_print(msg, level="INFO"):
+        """Log message and print to console for Robot Framework."""
+        if level == "INFO":
+            logger.info(msg)
+        elif level == "ERROR":
+            logger.error(msg)
+        elif level == "WARNING":
+            logger.warning(msg)
+        elif level == "DEBUG":
+            logger.debug(msg)
+        print(msg)  # This will be captured by Robot Framework
+
     # Initialize STF manager from config
     stf_cfg = STF_CONFIG
     if not stf_cfg or not stf_cfg.get("enabled", False):
@@ -148,18 +206,18 @@ def run_custom_scenario():
 
     stf_manager = STFManager(base_url, user_auth, logger)
 
-    logger.info("=" * 60)
-    logger.info("=" * 15 + " CUSTOM CALL SCENARIO " + "=" * 23)
-    logger.info("=" * 60)
-    logger.info("Scenario Steps:")
-    logger.info("  1. Restart ADB server")
-    logger.info("  2. Auto-select two available STF devices")
-    logger.info("  3. Connect both via STF (serial → IP:PORT)")
-    logger.info("  4. Switch Phone A to 2G")
-    logger.info("  5. Phone A calls Phone B")
-    logger.info("  6. Phone B answers after 5 seconds of ringing")
-    logger.info("  7. Call lasts 30 seconds then ends")
-    logger.info("=" * 60)
+    log_and_print("=" * 60)
+    log_and_print("=" * 15 + " CUSTOM CALL SCENARIO " + "=" * 23)
+    log_and_print("=" * 60)
+    log_and_print("Scenario Steps:")
+    log_and_print("  1. Restart ADB server")
+    log_and_print("  2. Auto-select two available STF devices")
+    log_and_print("  3. Connect both via STF (serial → IP:PORT)")
+    log_and_print("  4. Switch Phone A to 2G")
+    log_and_print("  5. Phone A calls Phone B")
+    log_and_print("  6. Phone B answers after 5 seconds of ringing")
+    log_and_print("  7. Call lasts 30 seconds then ends")
+    log_and_print("=" * 60)
 
     # Pick two available STF devices
     picked = pick_two_available_devices(stf_manager, logger)
@@ -172,23 +230,23 @@ def run_custom_scenario():
     phone_b_serial = phone_b_dev.get("serial")
 
     # Derive MSISDNs from device metadata or prompt the user
-    logger.info("\n" + "=" * 60)
-    logger.info("STEP 0: Determining MSISDNs for the devices...")
-    logger.info("=" * 60)
+    log_and_print("\n" + "=" * 60)
+    log_and_print("STEP 0: Determining MSISDNs for the devices...")
+    log_and_print("=" * 60)
 
     phone_a_msisdn = extract_msisdn_from_device(phone_a_dev)
     phone_b_msisdn = extract_msisdn_from_device(phone_b_dev)
 
     if not phone_a_msisdn:
-        logger.warning("⚠ MSISDN for Phone A could not be auto-detected")
+        log_and_print("⚠ MSISDN for Phone A could not be auto-detected", "WARNING")
         phone_a_msisdn = ask_msisdn_for_device("Phone A", phone_a_dev)
 
     if not phone_b_msisdn:
-        logger.warning("⚠ MSISDN for Phone B could not be auto-detected")
+        log_and_print("⚠ MSISDN for Phone B could not be auto-detected", "WARNING")
         phone_b_msisdn = ask_msisdn_for_device("Phone B", phone_b_dev)
 
-    logger.info(f"Using MSISDN for Phone A: {phone_a_msisdn}")
-    logger.info(f"Using MSISDN for Phone B: {phone_b_msisdn}")
+    log_and_print(f"Using MSISDN for Phone A: {phone_a_msisdn}")
+    log_and_print(f"Using MSISDN for Phone B: {phone_b_msisdn}")
 
     # Build a minimal phones dict compatible with PhoneCallAutomation.
     dynamic_phones = {
@@ -209,24 +267,50 @@ def run_custom_scenario():
     automation = PhoneCallAutomation(logger=logger, phones=dynamic_phones, stf_config=stf_cfg, auto_connect_stf=False)
 
     # Connect via STF using serial numbers and get ADB targets (IP:PORT)
-    logger.info("\n" + "=" * 60)
-    logger.info("STEP 0: Connecting selected STF devices via serial...")
-    logger.info("=" * 60)
+    log_and_print("\n" + "=" * 60)
+    log_and_print("STEP 0: Connecting selected STF devices via serial...")
+    log_and_print("=" * 60)
+
+    # Double-check device availability before attempting to connect
+    log_and_print(f"Verifying Phone A ({phone_a_serial}) availability...")
+    fresh_device_a = stf_manager.get_device_by_serial(phone_a_serial)
+    if fresh_device_a:
+        if fresh_device_a.get("using") or fresh_device_a.get("owner"):
+            log_and_print(
+                f"⚠ WARNING: Phone A ({phone_a_serial}) appears to be in use! "
+                f"using={fresh_device_a.get('using')}, owner={fresh_device_a.get('owner')}",
+                "WARNING"
+            )
+            log_and_print("Attempting to connect anyway...", "WARNING")
 
     phone_a_ip_port = stf_manager.connect_device_by_serial(phone_a_serial)
     if not phone_a_ip_port:
-        logger.error(f"Failed to connect Phone A (serial {phone_a_serial}) via STF")
+        log_and_print(f"✗ Failed to connect Phone A (serial {phone_a_serial}) via STF", "ERROR")
+        log_and_print("This usually means the device is already in use by another user", "ERROR")
         return False
+
+    log_and_print(f"Verifying Phone B ({phone_b_serial}) availability...")
+    fresh_device_b = stf_manager.get_device_by_serial(phone_b_serial)
+    if fresh_device_b:
+        if fresh_device_b.get("using") or fresh_device_b.get("owner"):
+            log_and_print(
+                f"⚠ WARNING: Phone B ({phone_b_serial}) appears to be in use! "
+                f"using={fresh_device_b.get('using')}, owner={fresh_device_b.get('owner')}",
+                "WARNING"
+            )
+            log_and_print("Attempting to connect anyway...", "WARNING")
 
     phone_b_ip_port = stf_manager.connect_device_by_serial(phone_b_serial)
     if not phone_b_ip_port:
-        logger.error(f"Failed to connect Phone B (serial {phone_b_serial}) via STF")
+        log_and_print(f"✗ Failed to connect Phone B (serial {phone_b_serial}) via STF", "ERROR")
+        log_and_print("This usually means the device is already in use by another user", "ERROR")
         # Clean up A
+        log_and_print("Cleaning up Phone A connection...", "WARNING")
         stf_manager.disconnect_device_by_serial(phone_a_serial)
         return False
 
-    logger.info(f"Phone A ADB target: {phone_a_ip_port}")
-    logger.info(f"Phone B ADB target: {phone_b_ip_port}")
+    log_and_print(f"Phone A ADB target: {phone_a_ip_port}")
+    log_and_print(f"Phone B ADB target: {phone_b_ip_port}")
 
     # Update automation phones with resolved IP:PORTs
     dynamic_phones["phoneA"]["ip_port"] = phone_a_ip_port
@@ -235,73 +319,67 @@ def run_custom_scenario():
     phone_a = dynamic_phones["phoneA"]
     phone_b = dynamic_phones["phoneB"]
 
-    logger.info(f"Phone A: {phone_a['msisdn']} @ {phone_a['ip_port']} (serial {phone_a_serial})")
-    logger.info(f"Phone B: {phone_b['msisdn']} @ {phone_b['ip_port']} (serial {phone_b_serial})")
+    log_and_print(f"Phone A: {phone_a['msisdn']} @ {phone_a['ip_port']} (serial {phone_a_serial})")
+    log_and_print(f"Phone B: {phone_b['msisdn']} @ {phone_b['ip_port']} (serial {phone_b_serial})")
 
-    # Confirm before starting
-    print("\n" + "=" * 60)
-    confirmation = input("Press Enter to start the scenario (or 'q' to quit): ").strip().lower()
-    if confirmation == "q":
-        logger.info("Scenario cancelled by user")
-        return False
 
     try:
         # Step 1: Restart ADB server
-        logger.info("\n" + "=" * 60)
-        logger.info("STEP 1: Restarting ADB server...")
-        logger.info("=" * 60)
+        log_and_print("\n" + "=" * 60)
+        log_and_print("STEP 1: Restarting ADB server...")
+        log_and_print("=" * 60)
         if not automation.restart_adb_server():
-            logger.error("✗ Failed to restart ADB server. Aborting scenario.")
+            log_and_print("✗ Failed to restart ADB server. Aborting scenario.", "ERROR")
             return False
-        logger.info("✓ ADB server restarted successfully")
+        log_and_print("✓ ADB server restarted successfully")
         time.sleep(2)  # Wait for ADB to stabilize
 
         # Step 2: Connect to both phones (using resolved IP:PORT)
-        logger.info("\n" + "=" * 60)
-        logger.info("STEP 2: Connecting to both phones (via ADB)...")
-        logger.info("=" * 60)
+        log_and_print("\n" + "=" * 60)
+        log_and_print("STEP 2: Connecting to both phones (via ADB)...")
+        log_and_print("=" * 60)
 
-        logger.info(f"Connecting to Phone A ({phone_a['msisdn']})...")
+        log_and_print(f"Connecting to Phone A ({phone_a['msisdn']})...")
         if not automation.connect_device(phone_a["ip_port"]):
-            logger.error("✗ Failed to connect to Phone A. Aborting scenario.")
+            log_and_print("✗ Failed to connect to Phone A. Aborting scenario.", "ERROR")
             return False
 
-        logger.info(f"Connecting to Phone B ({phone_b['msisdn']})...")
+        log_and_print(f"Connecting to Phone B ({phone_b['msisdn']})...")
         if not automation.connect_device(phone_b["ip_port"]):
-            logger.error("✗ Failed to connect to Phone B. Aborting scenario.")
+            log_and_print("✗ Failed to connect to Phone B. Aborting scenario.", "ERROR")
             return False
 
-        logger.info("✓ Both phones connected successfully")
+        log_and_print("✓ Both phones connected successfully")
         time.sleep(2)  # Wait for connections to stabilize
 
         # Step 3: Switch Phone A to 2G
-        logger.info("\n" + "=" * 60)
-        logger.info(f"STEP 3: Switching Phone A ({phone_a['msisdn']}) to 2G...")
-        logger.info("=" * 60)
+        log_and_print("\n" + "=" * 60)
+        log_and_print(f"STEP 3: Switching Phone A ({phone_a['msisdn']}) to 2G...")
+        log_and_print("=" * 60)
         if not automation.set_network_type(phone_a["ip_port"], "2G"):
-            logger.warning("⚠ Failed to switch to 2G, but continuing with scenario...")
+            log_and_print("⚠ Failed to switch to 2G, but continuing with scenario...", "WARNING")
         else:
-            logger.info("✓ Successfully switched Phone A to 2G")
-            logger.info("Waiting for network to stabilize...")
+            log_and_print("✓ Successfully switched Phone A to 2G")
+            log_and_print("Waiting for network to stabilize...")
             time.sleep(3)
 
         # Step 4: Phone A calls Phone B
-        logger.info("\n" + "=" * 60)
-        logger.info(
+        log_and_print("\n" + "=" * 60)
+        log_and_print(
             f"STEP 4: Phone A ({phone_a['msisdn']}) calling Phone B ({phone_b['msisdn']})..."
         )
-        logger.info("=" * 60)
+        log_and_print("=" * 60)
 
         if not automation.make_call(phone_a["ip_port"], phone_a["msisdn"], phone_b["msisdn"]):
-            logger.error("✗ Failed to initiate call. Aborting scenario.")
+            log_and_print("✗ Failed to initiate call. Aborting scenario.", "ERROR")
             return False
 
-        logger.info("✓ Call initiated successfully")
+        log_and_print("✓ Call initiated successfully")
 
         # Step 5: Wait for Phone B to ring, then answer after 5 seconds
-        logger.info("\n" + "=" * 60)
-        logger.info("STEP 5: Waiting for Phone B to ring...")
-        logger.info("=" * 60)
+        log_and_print("\n" + "=" * 60)
+        log_and_print("STEP 5: Waiting for Phone B to ring...")
+        log_and_print("=" * 60)
 
         max_ring_wait = 30  # Maximum wait time for recipient to start ringing
         phone_b_ringing = False
@@ -315,7 +393,7 @@ def run_custom_scenario():
                 if not phone_b_ringing:
                     phone_b_ringing = True
                     ring_start_time = time.time()
-                    logger.info(
+                    log_and_print(
                         f"📞 Phone B ({phone_b['msisdn']}) is ringing! (after {attempt + 1} seconds)"
                     )
 
@@ -324,37 +402,37 @@ def run_custom_scenario():
 
                 # Answer after 5 seconds of ringing
                 if ring_duration >= 5:
-                    logger.info(f"\n⏱️  Phone B has been ringing for {ring_duration:.1f} seconds")
-                    logger.info(f"Answering call on Phone B ({phone_b['msisdn']})...")
+                    log_and_print(f"\n⏱️  Phone B has been ringing for {ring_duration:.1f} seconds")
+                    log_and_print(f"Answering call on Phone B ({phone_b['msisdn']})...")
 
                     if automation.answer_call(phone_b["ip_port"], phone_b["msisdn"]):
-                        logger.info("✓ Call answered successfully!")
+                        log_and_print("✓ Call answered successfully!")
                         break
                     else:
-                        logger.error("✗ Failed to answer call. Aborting scenario.")
+                        log_and_print("✗ Failed to answer call. Aborting scenario.", "ERROR")
                         return False
                 else:
                     # Still waiting for 5 seconds to pass
                     remaining = 5 - ring_duration
-                    logger.info(f"⏳ Waiting to answer... ({remaining:.1f}s remaining)")
+                    log_and_print(f"⏳ Waiting to answer... ({remaining:.1f}s remaining)")
             elif phone_b_state == "OFFHOOK":
-                logger.info(f"📞 Phone B ({phone_b['msisdn']}) already answered!")
+                log_and_print(f"📞 Phone B ({phone_b['msisdn']}) already answered!")
                 phone_b_ringing = True
                 break
             else:
                 if (attempt + 1) % 3 == 0:
-                    logger.info(f"⏳ Still waiting for ring... ({attempt + 1}/{max_ring_wait}s)")
+                    log_and_print(f"⏳ Still waiting for ring... ({attempt + 1}/{max_ring_wait}s)")
 
         if not phone_b_ringing:
-            logger.error(
+            log_and_print(
                 f"✗ Phone B never started ringing after {max_ring_wait} seconds. Aborting scenario."
             )
             return False
 
         # Wait for call to be fully connected
-        logger.info("\n" + "=" * 60)
-        logger.info("Waiting for call to be fully connected...")
-        logger.info("=" * 60)
+        log_and_print("\n" + "=" * 60)
+        log_and_print("Waiting for call to be fully connected...")
+        log_and_print("=" * 60)
 
         max_connect_wait = 10
         connected = False
@@ -366,54 +444,54 @@ def run_custom_scenario():
 
             if phone_a_state == "OFFHOOK" and phone_b_state == "OFFHOOK":
                 connected = True
-                logger.info(
+                log_and_print(
                     f"✓ Call is now fully connected! (OFFHOOK on both sides after {attempt + 1}s)"
                 )
                 break
             else:
                 if (attempt + 1) % 2 == 0:
-                    logger.debug(
-                        f"Phone A: {phone_a_state}, Phone B: {phone_b_state} - waiting..."
+                    log_and_print(
+                        f"Phone A: {phone_a_state}, Phone B: {phone_b_state} - waiting...", "DEBUG"
                     )
 
         if not connected:
-            logger.warning("⚠ Call may not be fully connected, but continuing...")
+            log_and_print("⚠ Call may not be fully connected, but continuing...", "WARNING")
 
         # Step 6: Call lasts 30 seconds then ends
-        logger.info("\n" + "=" * 60)
-        logger.info("STEP 6: Call in progress...")
-        logger.info("=" * 60)
-        logger.info("⏱️  Call timer started! Call will last 30 seconds...")
+        log_and_print("\n" + "=" * 60)
+        log_and_print("STEP 6: Call in progress...")
+        log_and_print("=" * 60)
+        log_and_print("⏱️  Call timer started! Call will last 30 seconds...")
 
         # Count down with progress updates
         for remaining in range(30, 0, -5):
-            logger.info(f"⏳ Call in progress... {remaining}s remaining")
+            log_and_print(f"⏳ Call in progress... {remaining}s remaining")
             time.sleep(5)
 
-        logger.info("\n⏱️  30 seconds elapsed. Ending call...")
+        log_and_print("\n⏱️  30 seconds elapsed. Ending call...")
 
         if automation.end_call(phone_a["ip_port"], end_all=True, phone_number=phone_a["msisdn"]):
-            logger.info("✓ Call ended successfully")
+            log_and_print("✓ Call ended successfully")
         else:
-            logger.warning("⚠ Call end command sent (may have already ended)")
+            log_and_print("⚠ Call end command sent (may have already ended)", "WARNING")
 
         # Final summary
-        logger.info("\n" + "=" * 60)
-        logger.info("=" * 17 + " SCENARIO COMPLETE " + "=" * 24)
-        logger.info("=" * 60)
-        logger.info("✓ All steps completed successfully!")
-        logger.info("  • Both phones connected via STF (serial-based)")
-        logger.info("  • Phone A switched to 2G")
-        logger.info("  • Call initiated from Phone A to Phone B")
-        logger.info("  • Phone B answered after 5 seconds of ringing")
-        logger.info("  • Call lasted 30 seconds and ended")
-        logger.info("=" * 60)
+        log_and_print("\n" + "=" * 60)
+        log_and_print("=" * 17 + " SCENARIO COMPLETE " + "=" * 24)
+        log_and_print("=" * 60)
+        log_and_print("✓ All steps completed successfully!")
+        log_and_print("  • Both phones connected via STF (serial-based)")
+        log_and_print("  • Phone A switched to 2G")
+        log_and_print("  • Call initiated from Phone A to Phone B")
+        log_and_print("  • Phone B answered after 5 seconds of ringing")
+        log_and_print("  • Call lasted 30 seconds and ended")
+        log_and_print("=" * 60)
 
         return True
 
     except KeyboardInterrupt:
-        logger.warning("\n\n⚠ Scenario interrupted by user (Ctrl+C)")
-        logger.info("Attempting to clean up...")
+        log_and_print("\n\n⚠ Scenario interrupted by user (Ctrl+C)", "WARNING")
+        log_and_print("Attempting to clean up...", "WARNING")
         try:
             automation.end_call(phone_a["ip_port"], end_all=True, phone_number=phone_a["msisdn"])
         except Exception:
@@ -421,7 +499,7 @@ def run_custom_scenario():
         return False
 
     except Exception as e:
-        logger.error(f"\n✗ Error during scenario execution: {e}")
+        log_and_print(f"\n✗ Error during scenario execution: {e}", "ERROR")
         logger.exception("Full traceback:")
         return False
     finally:

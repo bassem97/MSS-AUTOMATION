@@ -1,51 +1,158 @@
-2025-12-04 15:16:57 [INFO] ✓ STF Manager initialized
-2025-12-04 15:16:57 [INFO] Connecting to device at 172.29.42.44:7497...
-2025-12-04 15:16:57 [INFO] ✓ Successfully connected to 172.29.42.44:7497
-2025-12-04 15:16:57 [DEBUG] Output: already connected to 172.29.42.44:7497
-2025-12-04 15:16:59 [INFO] Connecting to device at 172.29.42.44:7433...
-2025-12-04 15:16:59 [INFO] ✓ Successfully connected to 172.29.42.44:7433
-2025-12-04 15:16:59 [DEBUG] Output: already connected to 172.29.42.44:7433
-2025-12-04 15:17:01 [INFO] Setting network type to 2G (value: 1)...
-2025-12-04 15:17:01 [INFO] Current mode value: 1, changing to: 1
-2025-12-04 15:17:01 [DEBUG] Attempting Method 1: settings command...
-2025-12-04 15:17:01 [DEBUG] Attempting Method 2: settings with subscription ID...
-2025-12-04 15:17:01 [DEBUG] Attempting Method 3: service call...
-2025-12-04 15:17:01 [DEBUG] Attempting Method 4: Samsung-specific service call...
-2025-12-04 15:17:02 [DEBUG] ✓ Method 1 succeeded
-2025-12-04 15:17:02 [DEBUG] ✓ Method 2 succeeded
-2025-12-04 15:17:02 [DEBUG] ✓ Method 3 succeeded
-2025-12-04 15:17:02 [DEBUG] ✓ Method 4 succeeded
-2025-12-04 15:17:02 [INFO] ✓ Network type setting commands executed successfully
-2025-12-04 15:17:02 [INFO] Applying changes by toggling airplane mode...
-2025-12-04 15:17:02 [INFO] Airplane mode enabled, waiting 3 seconds...
-2025-12-04 15:17:05 [INFO] Airplane mode disabled, waiting for network to reconnect...
-2025-12-04 15:17:10 [INFO] Verifying network mode change...
-2025-12-04 15:17:10 [INFO] ✓ Network mode successfully changed and applied!
-2025-12-04 15:17:10 [INFO] Current network type: 2G only (GSM)
-2025-12-04 15:17:13 [INFO] Initiating call from +4915781993213 to +4915900103141...
-2025-12-04 15:17:13 [INFO] ✓ Call initiated successfully!
-2025-12-04 15:17:13 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
-2025-12-04 15:17:14 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 15:17:16 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 15:17:17 [DEBUG] Call state for +4915900103141: IDLE
-2025-12-04 15:17:18 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:19 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:20 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:21 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:22 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:23 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:24 [DEBUG] Call state for +4915900103141: RINGING
-2025-12-04 15:17:24 [INFO] Answering call on +4915900103141...
-2025-12-04 15:17:24 [INFO] ✓ Call answered successfully on +4915900103141
-2025-12-04 15:17:25 [DEBUG] Call state for 172.29.42.44:7433: OFFHOOK
-2025-12-04 15:17:25 [INFO] ✓ Call is now active (state: OFFHOOK)
-2025-12-04 15:17:26 [DEBUG] Call state for +4915781993213: OFFHOOK
-2025-12-04 15:17:26 [DEBUG] Call state for +4915900103141: OFFHOOK
-2025-12-04 15:17:56 [DEBUG] Call state for +4915781993213: OFFHOOK
-2025-12-04 15:17:56 [INFO] Ending call on +4915781993213...
-2025-12-04 15:17:56 [INFO] ✓ Call ended successfully on +4915781993213
-2025-12-04 15:17:56 [DEBUG] Call state for +4915900103141: OFFHOOK
-2025-12-04 15:17:56 [INFO] Also ending call on +4915900103141...
-2025-12-04 15:17:57 [INFO] ✓ Call ended on +4915900103141
-2025-12-04 15:17:58 [DEBUG] Call state for 172.29.42.44:7497: IDLE
-2025-12-04 15:17:58 [INFO] ✓ Phone is now idle (state: IDLE)
+2025-12-04 17:09:27 [INFO] ============================================================
+2025-12-04 17:09:27 [INFO] =============== CUSTOM CALL SCENARIO =======================
+2025-12-04 17:09:27 [INFO] ============================================================
+2025-12-04 17:09:27 [INFO] Scenario Steps:
+2025-12-04 17:09:27 [INFO]   1. Restart ADB server
+2025-12-04 17:09:27 [INFO]   2. Auto-select two available STF devices
+2025-12-04 17:09:27 [INFO]   3. Connect both via STF (serial → IP:PORT)
+2025-12-04 17:09:27 [INFO]   4. Switch Phone A to 2G
+2025-12-04 17:09:27 [INFO]   5. Phone A calls Phone B
+2025-12-04 17:09:27 [INFO]   6. Phone B answers after 5 seconds of ringing
+2025-12-04 17:09:27 [INFO]   7. Call lasts 30 seconds then ends
+2025-12-04 17:09:27 [INFO] ============================================================
+2025-12-04 17:09:27 [DEBUG] Found 23 devices in STF
+2025-12-04 17:09:27 [INFO] Total devices in STF: 23
+2025-12-04 17:09:27 [DEBUG] Device QV70006W1B: present=True, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [INFO] ✓ Device QV70006W1B (H8216) is available
+2025-12-04 17:09:27 [DEBUG] Device R5CR217D85N: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CR217D85N unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device RZCX20HCQQW: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device RZCX20HCQQW unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R38MB03ZNYJ: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R38MB03ZNYJ unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R3CW70CMBJH: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R3CW70CMBJH unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device 2791689f0822: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device 2791689f0822 unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CR217D8AR: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CR217D8AR unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device BH90017AAX: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device BH90017AAX unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CWA1TBCYZ: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CWA1TBCYZ unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CR2184PXT: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CR2184PXT unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CWA1TBC2F: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CWA1TBC2F unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CR217E16N: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CR217E16N unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R3CTC079E8V: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R3CTC079E8V unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device RZCY22CQ4FE: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device RZCY22CQ4FE unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device RZCY22CQ3ZZ: present=False, ready=False, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device RZCY22CQ3ZZ unavailable: not present, not ready
+2025-12-04 17:09:27 [DEBUG] Device R5CX130T0YK: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CX130T0YK unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CWA1TAA6R: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CWA1TAA6R unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CWA1TAAXX: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CWA1TAAXX unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CWA2RSCTV: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CWA2RSCTV unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device RZCX20HC60M: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device RZCX20HC60M unavailable: not present
+2025-12-04 17:09:27 [DEBUG] Device R5CWA1TBD9Y: present=True, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [INFO] ✓ Device R5CWA1TBD9Y (SM-A546B) is available
+2025-12-04 17:09:27 [DEBUG] Device RZCX20HCFEF: present=True, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [INFO] ✓ Device RZCX20HCFEF (SM-A546B) is available
+2025-12-04 17:09:27 [DEBUG] Device R5CWA1TBDQF: present=False, ready=True, using=False, owner=None
+2025-12-04 17:09:27 [DEBUG] ✗ Device R5CWA1TBDQF unavailable: not present
+2025-12-04 17:09:27 [INFO] Selected STF devices:
+2025-12-04 17:09:27 [INFO]   Phone A: QV70006W1B - H8216 (OS 8.0.0)
+2025-12-04 17:09:27 [INFO]   Phone B: R5CWA1TBD9Y - SM-A546B (OS 15)
+2025-12-04 17:09:27 [INFO] 
+============================================================
+2025-12-04 17:09:27 [INFO] STEP 0: Determining MSISDNs for the devices...
+2025-12-04 17:09:27 [INFO] ============================================================
+2025-12-04 17:09:27 [INFO] Using MSISDN for Phone A: +4915781993213
+2025-12-04 17:09:27 [INFO] Using MSISDN for Phone B: +4915900103141
+2025-12-04 17:09:27 [INFO] ✓ STF Manager initialized
+2025-12-04 17:09:27 [INFO] 
+============================================================
+2025-12-04 17:09:27 [INFO] STEP 0: Connecting selected STF devices via serial...
+2025-12-04 17:09:27 [INFO] ============================================================
+2025-12-04 17:09:27 [INFO] Verifying Phone A (QV70006W1B) availability...
+2025-12-04 17:09:27 [INFO] Connecting to STF device QV70006W1B...
+2025-12-04 17:09:27 [INFO] ✓ Device QV70006W1B added to user
+2025-12-04 17:09:27 [INFO] ✓ Remote connect URL for QV70006W1B: 172.29.42.44:7497
+2025-12-04 17:09:27 [DEBUG] Connecting to 172.29.42.44:7497 via ADB (attempt 1/2)...
+2025-12-04 17:09:27 [DEBUG] connected to 172.29.42.44:7497
+2025-12-04 17:09:27 [DEBUG] Connecting to 172.29.42.44:7497 via ADB (attempt 2/2)...
+2025-12-04 17:09:27 [DEBUG] already connected to 172.29.42.44:7497
+2025-12-04 17:09:27 [INFO] ✓ Successfully connected to device QV70006W1B at 172.29.42.44:7497
+2025-12-04 17:09:27 [INFO] Verifying Phone B (R5CWA1TBD9Y) availability...
+2025-12-04 17:09:27 [INFO] Connecting to STF device R5CWA1TBD9Y...
+2025-12-04 17:09:27 [INFO] ✓ Device R5CWA1TBD9Y added to user
+2025-12-04 17:09:27 [INFO] ✓ Remote connect URL for R5CWA1TBD9Y: 172.29.42.44:7433
+2025-12-04 17:09:27 [DEBUG] Connecting to 172.29.42.44:7433 via ADB (attempt 1/2)...
+2025-12-04 17:09:27 [DEBUG] connected to 172.29.42.44:7433
+2025-12-04 17:09:27 [DEBUG] Connecting to 172.29.42.44:7433 via ADB (attempt 2/2)...
+2025-12-04 17:09:27 [DEBUG] already connected to 172.29.42.44:7433
+2025-12-04 17:09:27 [INFO] ✓ Successfully connected to device R5CWA1TBD9Y at 172.29.42.44:7433
+2025-12-04 17:09:27 [INFO] Phone A ADB target: 172.29.42.44:7497
+2025-12-04 17:09:27 [INFO] Phone B ADB target: 172.29.42.44:7433
+2025-12-04 17:09:27 [INFO] Phone A: +4915781993213 @ 172.29.42.44:7497 (serial QV70006W1B)
+2025-12-04 17:09:27 [INFO] Phone B: +4915900103141 @ 172.29.42.44:7433 (serial R5CWA1TBD9Y)
+2025-12-04 17:09:27 [INFO] 
+============================================================
+2025-12-04 17:09:27 [INFO] STEP 1: Restarting ADB server...
+2025-12-04 17:09:27 [INFO] ============================================================
+2025-12-04 17:09:27 [INFO] Killing ADB server...
+2025-12-04 17:09:27 [INFO] ✓ ADB server killed successfully
+2025-12-04 17:09:28 [INFO] Starting ADB server...
+2025-12-04 17:09:31 [INFO] ✓ ADB server started successfully
+2025-12-04 17:09:31 [INFO] Note: You may need to authorize the connection on your device(s)
+2025-12-04 17:09:31 [INFO] ✓ ADB server restarted successfully
+2025-12-04 17:09:33 [INFO] 
+============================================================
+2025-12-04 17:09:33 [INFO] STEP 2: Connecting to both phones (via ADB)...
+2025-12-04 17:09:33 [INFO] ============================================================
+2025-12-04 17:09:33 [INFO] Connecting to Phone A (+4915781993213)...
+2025-12-04 17:09:33 [INFO] Connecting to device at 172.29.42.44:7497...
+2025-12-04 17:09:33 [INFO] ✓ Successfully connected to 172.29.42.44:7497
+2025-12-04 17:09:33 [DEBUG] Output: connected to 172.29.42.44:7497
+2025-12-04 17:09:33 [INFO] Connecting to Phone B (+4915900103141)...
+2025-12-04 17:09:33 [INFO] Connecting to device at 172.29.42.44:7433...
+2025-12-04 17:09:33 [INFO] ✓ Successfully connected to 172.29.42.44:7433
+2025-12-04 17:09:33 [DEBUG] Output: connected to 172.29.42.44:7433
+2025-12-04 17:09:33 [INFO] ✓ Both phones connected successfully
+2025-12-04 17:09:35 [INFO] 
+============================================================
+2025-12-04 17:09:35 [INFO] STEP 3: Switching Phone A (+4915781993213) to 2G...
+2025-12-04 17:09:35 [INFO] ============================================================
+2025-12-04 17:09:35 [INFO] Setting network type to 2G (value: 1)...
+2025-12-04 17:09:35 [INFO] Current mode value: 1, changing to: 1
+2025-12-04 17:09:35 [DEBUG] Attempting Method 1: settings command...
+2025-12-04 17:09:35 [DEBUG] Attempting Method 2: settings with subscription ID...
+2025-12-04 17:09:35 [DEBUG] Attempting Method 3: service call...
+2025-12-04 17:09:35 [DEBUG] Attempting Method 4: Samsung-specific service call...
+2025-12-04 17:09:35 [DEBUG] ✓ Method 1 succeeded
+2025-12-04 17:09:35 [DEBUG] ✓ Method 2 succeeded
+2025-12-04 17:09:35 [DEBUG] ✓ Method 3 succeeded
+2025-12-04 17:09:35 [DEBUG] ✓ Method 4 succeeded
+2025-12-04 17:09:35 [INFO] ✓ Network type setting commands executed successfully
+2025-12-04 17:09:35 [INFO] Applying changes by toggling airplane mode...
+2025-12-04 17:09:36 [INFO] Airplane mode enabled, waiting 3 seconds...
+2025-12-04 17:09:39 [INFO] Airplane mode disabled, waiting for network to reconnect...
+2025-12-04 17:09:44 [INFO] Verifying network mode change...
+2025-12-04 17:09:44 [INFO] ✓ Network mode successfully changed and applied!
+2025-12-04 17:09:44 [INFO] Current network type: 2G only (GSM)
+2025-12-04 17:09:44 [INFO] ✓ Successfully switched Phone A to 2G
+2025-12-04 17:09:44 [INFO] Waiting for network to stabilize...
+2025-12-04 17:09:47 [INFO] 
+============================================================
+2025-12-04 17:09:47 [INFO] STEP 4: Phone A (+4915781993213) calling Phone B (+4915900103141)...
+2025-12-04 17:09:47 [INFO] ============================================================
+2025-12-04 17:09:47 [INFO] Initiating call from +4915781993213 to +4915900103141...
+2025-12-04 17:09:47 [ERROR] ✗ Failed to initiate call
+2025-12-04 17:09:47 [ERROR] Error: error: device '172.29.42.44:7497' not found
+2025-12-04 17:09:47 [ERROR] ✗ Failed to initiate call. Aborting scenario.
+2025-12-04 17:09:47 [INFO] Disconnecting STF device QV70006W1B...
+2025-12-04 17:09:47 [ERROR] Forbidden: Device is being used or not available - {"success":false,"description":"Device is not owned by you or is not available"}
+2025-12-04 17:09:47 [ERROR] Forbidden: Device is being used or not available - {"success":false,"description":"You cannot release this device. Not owned by you"}
+2025-12-04 17:09:47 [INFO] Disconnecting STF device R5CWA1TBD9Y...
+2025-12-04 17:09:47 [DEBUG] Disconnecting 172.29.42.44:7433 from ADB...
+2025-12-04 17:09:47 [INFO] ✓ Device R5CWA1TBD9Y disconnected
+2025-12-04 17:09:47 [INFO] ✓ Device R5CWA1TBD9Y removed from user
+2025-12-04 17:09:47 [INFO] ✓ Successfully disconnected device R5CWA1TBD9Y
