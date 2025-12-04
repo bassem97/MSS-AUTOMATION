@@ -182,6 +182,10 @@ def run_custom_scenario():
     # Also print to console for Robot Framework visibility
     def log_and_print(msg, level="INFO"):
         """Log message and print to console for Robot Framework."""
+        # Always print to stdout first (Robot Framework captures this)
+        print(msg, flush=True)
+
+        # Then log to file
         if level == "INFO":
             logger.info(msg)
         elif level == "ERROR":
@@ -190,7 +194,6 @@ def run_custom_scenario():
             logger.warning(msg)
         elif level == "DEBUG":
             logger.debug(msg)
-        print(msg)  # This will be captured by Robot Framework
 
     # Initialize STF manager from config
     stf_cfg = STF_CONFIG
