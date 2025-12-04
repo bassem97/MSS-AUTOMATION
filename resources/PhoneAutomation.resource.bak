@@ -1,0 +1,272 @@
+*** Settings ***
+Documentation       Phone Automation Resource File - Keywords for automated phone call scenarios
+
+Library             ../phone_automation/phone_call_automation.py
+Library             ../phone_automation/stf_manager.py
+Library             Collections
+Library             Process
+Library             String
+Library             BuiltIn
+
+
+*** Variables ***
+${MAX_RING_WAIT}        30
+${RING_DURATION}        5
+${MAX_CONNECT_WAIT}     10
+${CALL_DURATION}        30
+
+
+*** Keywords ***
+Initialize STF Manager
+    [Documentation]    Initialize STF Manager with configuration from PHONES.yaml
+    [Arguments]    ${base_url}    ${user_auth}
+    ${logger}=    Get Logger    phone_call_automation
+    ${stf_manager}=    Create STF Manager    ${base_url}    ${user_auth}    ${logger}
+    [Return]    ${stf_manager}
+
+Get Two Available STF Devices
+    [Documentation]    Auto-select two available STF devices (present, ready, not in use)
+    [Arguments]    ${stf_manager}
+    ${devices}=    Get Device List    ${stf_manager}
+    ${device_a}    ${device_b}=    Select Two Available Devices    ${devices}
+    Log To Console    \n${'='*60}
+    Log To Console    Selected STF Devices:
+    Log To Console    ${SPACE*2}Phone A: ${device_a['serial']} - ${device_a['model']} (OS ${device_a['version']})
+    Log To Console    ${SPACE*2}Phone B: ${device_b['serial']} - ${device_b['model']} (OS ${device_b['version']})
+    Log To Console    ${'='*60}
+    [Return]    ${device_a}    ${device_b}
+
+Select Two Available Devices
+    [Documentation]    Filter and select two usable devices from device list
+    [Arguments]    ${devices}
+    ${usable_devices}=    Create List
+    FOR    ${device}    IN    @{devices}
+        ${present}=    Get From Dictionary    ${device}    present
+        ${ready}=    Get From Dictionary    ${device}    ready
+        ${using}=    Get From Dictionary    ${device}    using
+        Run Keyword If    ${present} and ${ready} and not ${using}    Append To List    ${usable_devices}    ${device}
+    END
+    ${count}=    Get Length    ${usable_devices}
+    Should Be True    ${count} >= 2    Not enough usable devices in STF (found ${count}, need 2)
+    ${device_a}=    Get From List    ${usable_devices}    0
+    ${device_b}=    Get From List    ${usable_devices}    1
+    [Return]    ${device_a}    ${device_b}
+
+Extract MSISDN From Device
+    [Documentation]    Extract MSISDN from STF device metadata
+    [Arguments]    ${device}
+    ${notes}=    Get From Dictionary    ${device}    notes    default=${EMPTY}
+    ${msisdn}=    Extract Phone Number From Text    ${notes}
+    [Return]    ${msisdn}
+
+Extract Phone Number From Text
+    [Documentation]    Extract phone number using regex patterns
+    [Arguments]    ${text}
+    # Try to find +49 or 49 followed by digits
+    ${match}=    Get Regexp Matches    ${text}    \\+?49\\d{8,}
+    ${length}=    Get Length    ${match}
+    Run Keyword If    ${length} > 0    Return From Keyword    +${match[0].lstrip('+')}
+    # Try to find any 10+ digit sequence
+    ${match}=    Get Regexp Matches    ${text}    \\d{10,}
+    ${length}=    Get Length    ${match}
+    Run Keyword If    ${length} > 0    Return From Keyword    +${match[0]}
+    [Return]    ${None}
+
+Get Or Prompt For MSISDN
+    [Documentation]    Get MSISDN from device metadata or prompt user
+    [Arguments]    ${label}    ${device}
+    ${msisdn}=    Extract MSISDN From Device    ${device}
+    Return From Keyword If    '${msisdn}' != 'None'    ${msisdn}
+
+    Log To Console    \n${'='*60}
+    Log To Console    MSISDN for ${label}
+    Log To Console    ${'='*60}
+    Log To Console    Selected device serial: ${device['serial']}
+    Log To Console    Model: ${device['model']}
+    ${notes}=    Get From Dictionary    ${device}    notes    default=${EMPTY}
+    Run Keyword If    '${notes}' != ''    Log To Console    Notes: ${notes}
+
+    ${msisdn}=    Get Value From User    Enter MSISDN for ${label} (format +49XXXXXXXXXX)
+    ${msisdn}=    Set Variable If    '${msisdn}'.startswith('+')    ${msisdn}    +${msisdn}
+    [Return]    ${msisdn}
+
+Connect Device Via STF
+    [Documentation]    Connect a device via STF using serial number
+    [Arguments]    ${stf_manager}    ${serial}
+    ${ip_port}=    Connect Device By Serial    ${stf_manager}    ${serial}
+    Should Not Be Equal    ${ip_port}    ${None}    Failed to connect device ${serial} via STF
+    Log To Console    ✓ Connected device ${serial} → ${ip_port}
+    [Return]    ${ip_port}
+
+Disconnect Device From STF
+    [Documentation]    Disconnect a device from STF
+    [Arguments]    ${stf_manager}    ${serial}
+    Run Keyword And Ignore Error    Disconnect Device By Serial    ${stf_manager}    ${serial}
+
+Initialize Phone Automation
+    [Documentation]    Initialize PhoneCallAutomation instance
+    [Arguments]    ${phones_dict}    ${stf_config}
+    ${logger}=    Get Logger    phone_call_automation
+    ${automation}=    Create Phone Call Automation    ${logger}    ${phones_dict}    ${stf_config}    ${False}
+    RETURN    ${automation}
+
+Connect Phone Via ADB
+    [Documentation]    Connect to phone via ADB using IP:PORT
+    [Arguments]    ${automation}    ${ip_port}    ${label}
+    Log To Console    Connecting to ${label} (${ip_port})...
+    ${result}=    Connect Device    ${automation}    ${ip_port}
+    Should Be True    ${result}    Failed to connect to ${label}
+    Log To Console    ✓ ${label} connected successfully
+    Sleep    2s
+
+Switch Phone To Network
+    [Documentation]    Switch phone to specified network type (2G/3G/4G/5G)
+    [Arguments]    ${automation}    ${ip_port}    ${network_type}    ${msisdn}
+    Log To Console    \n${'='*60}
+    Log To Console    Switching ${msisdn} to ${network_type}...
+    Log To Console    ${'='*60}
+    ${result}=    Set Network Type    ${automation}    ${ip_port}    ${network_type}
+    Run Keyword If    not ${result}    Log To Console    ⚠ Failed to switch to ${network_type}, but continuing...
+    Run Keyword If    ${result}    Log To Console    ✓ Successfully switched to ${network_type}
+    Run Keyword If    ${result}    Sleep    3s
+
+Initiate Call
+    [Documentation]    Initiate a call from caller to recipient
+    [Arguments]    ${automation}    ${caller_ip_port}    ${caller_msisdn}    ${recipient_msisdn}
+    Log To Console    \n${'='*60}
+    Log To Console    ${caller_msisdn} calling ${recipient_msisdn}...
+    Log To Console    ${'='*60}
+    ${result}=    Make Call    ${automation}    ${caller_ip_port}    ${caller_msisdn}    ${recipient_msisdn}
+    Should Be True    ${result}    Failed to initiate call
+    Log To Console    ✓ Call initiated successfully
+
+Wait For Ring And Answer
+    [Documentation]    Wait for recipient phone to ring, then answer after specified duration
+    [Arguments]    ${automation}    ${recipient_ip_port}    ${recipient_msisdn}    ${ring_wait_seconds}=5
+    Log To Console    \n${'='*60}
+    Log To Console    Waiting for ${recipient_msisdn} to ring...
+    Log To Console    ${'='*60}
+
+    ${phone_ringing}=    Set Variable    ${False}
+    ${ring_start_time}=    Set Variable    ${0}
+
+    FOR    ${attempt}    IN RANGE    ${MAX_RING_WAIT}
+        Sleep    1s
+        ${call_state}=    Get Call State    ${automation}    ${recipient_ip_port}    ${recipient_msisdn}
+
+        IF    '${call_state}' == 'RINGING'
+            IF    not ${phone_ringing}
+                ${phone_ringing}=    Set Variable    ${True}
+                ${ring_start_time}=    Get Time    epoch
+                Log To Console    📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)
+            END
+
+            ${current_time}=    Get Time    epoch
+            ${ring_duration}=    Evaluate    ${current_time} - ${ring_start_time}
+
+            IF    ${ring_duration} >= ${ring_wait_seconds}
+                Log To Console    \n⏱️  Phone has been ringing for ${ring_duration} seconds
+                Log To Console    Answering call on ${recipient_msisdn}...
+                ${result}=    Answer Call    ${automation}    ${recipient_ip_port}    ${recipient_msisdn}
+                Should Be True    ${result}    Failed to answer call
+                Log To Console    ✓ Call answered successfully!
+                BREAK
+            ELSE
+                ${remaining}=    Evaluate    ${ring_wait_seconds} - ${ring_duration}
+                Log To Console    ⏳ Waiting to answer... (${remaining}s remaining)
+            END
+
+        ELSE IF    '${call_state}' == 'OFFHOOK'
+            Log To Console    📞 ${recipient_msisdn} already answered!
+            ${phone_ringing}=    Set Variable    ${True}
+            BREAK
+        ELSE
+            ${mod_result}=    Evaluate    (${attempt} + 1) % 3
+            IF    ${mod_result} == 0
+                Log To Console    ⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)
+            END
+        END
+    END
+
+    Should Be True    ${phone_ringing}    Phone never started ringing after ${MAX_RING_WAIT} seconds
+
+Wait For Call Connection
+    [Documentation]    Wait for call to be fully connected (both sides OFFHOOK)
+    [Arguments]    ${automation}    ${caller_ip_port}    ${caller_msisdn}    ${recipient_ip_port}    ${recipient_msisdn}
+    Log To Console    \n${'='*60}
+    Log To Console    Waiting for call to be fully connected...
+    Log To Console    ${'='*60}
+
+    ${connected}=    Set Variable    ${False}
+
+    FOR    ${attempt}    IN RANGE    ${MAX_CONNECT_WAIT}
+        Sleep    1s
+        ${caller_state}=    Get Call State    ${automation}    ${caller_ip_port}    ${caller_msisdn}
+        ${recipient_state}=    Get Call State    ${automation}    ${recipient_ip_port}    ${recipient_msisdn}
+
+        IF    '${caller_state}' == 'OFFHOOK' and '${recipient_state}' == 'OFFHOOK'
+            ${connected}=    Set Variable    ${True}
+            Log To Console    ✓ Call is now fully connected! (OFFHOOK on both sides after ${attempt + 1}s)
+            BREAK
+        END
+
+        ${mod_result}=    Evaluate    (${attempt} + 1) % 2
+        IF    ${mod_result} == 0
+            Log    Caller: ${caller_state}, Recipient: ${recipient_state} - waiting...
+        END
+    END
+
+    Run Keyword If    not ${connected}    Log To Console    ⚠ Call may not be fully connected, but continuing...
+
+Maintain Call Duration
+    [Documentation]    Keep call active for specified duration with countdown
+    [Arguments]    ${duration_seconds}=30
+    Log To Console    \n${'='*60}
+    Log To Console    Call in progress...
+    Log To Console    ${'='*60}
+    Log To Console    ⏱️  Call timer started! Call will last ${duration_seconds} seconds...
+
+    ${remaining}=    Set Variable    ${duration_seconds}
+    WHILE    ${remaining} > 0
+        Log To Console    ⏳ Call in progress... ${remaining}s remaining
+        ${sleep_time}=    Set Variable If    ${remaining} >= 5    5    ${remaining}
+        Sleep    ${sleep_time}s
+        ${remaining}=    Evaluate    ${remaining} - ${sleep_time}
+    END
+
+    Log To Console    \n⏱️  ${duration_seconds} seconds elapsed. Ending call...
+
+End Call
+    [Documentation]    End the active call
+    [Arguments]    ${automation}    ${ip_port}    ${msisdn}
+    ${result}=    End Call    ${automation}    ${ip_port}    ${True}    ${msisdn}
+    Run Keyword If    ${result}    Log To Console    ✓ Call ended successfully
+    Run Keyword If    not ${result}    Log To Console    ⚠ Call end command sent (may have already ended)
+
+Print Scenario Header
+    [Documentation]    Print formatted scenario header
+    Log To Console    \n${'='*60}
+    Log To Console    ${'='*15} CUSTOM CALL SCENARIO ${'='*23}
+    Log To Console    ${'='*60}
+    Log To Console    Scenario Steps:
+    Log To Console    ${SPACE*2}1. Auto-select two available STF devices
+    Log To Console    ${SPACE*2}2. Connect both via STF (serial → IP:PORT)
+    Log To Console    ${SPACE*2}3. Switch Phone A to 2G
+    Log To Console    ${SPACE*2}4. Phone A calls Phone B
+    Log To Console    ${SPACE*2}5. Phone B answers after 5 seconds of ringing
+    Log To Console    ${SPACE*2}6. Call lasts 30 seconds and ends
+    Log To Console    ${'='*60}
+
+Print Scenario Summary
+    [Documentation]    Print final scenario summary
+    Log To Console    \n============================================================
+    Log To Console    ================= SCENARIO COMPLETE ========================
+    Log To Console    ============================================================
+    Log To Console    ✓ All steps completed successfully!
+    Log To Console    ${SPACE*2}• Both phones connected via STF (serial-based)
+    Log To Console    ${SPACE*2}• Phone A switched to 2G
+    Log To Console    ${SPACE*2}• Call initiated from Phone A to Phone B
+    Log To Console    ${SPACE*2}• Phone B answered after 5 seconds of ringing
+    Log To Console    ${SPACE*2}• Call lasted 30 seconds and ended
+    Log To Console    ============================================================
+

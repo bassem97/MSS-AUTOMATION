@@ -1,0 +1,59 @@
+2025-12-04 13:24:50 [INFO] ============================================================
+2025-12-04 13:24:50 [INFO] STF Integration Example - Phone Call Automation
+2025-12-04 13:24:50 [INFO] ============================================================
+2025-12-04 13:24:50 [INFO] ✓ STF Manager initialized
+2025-12-04 13:24:50 [INFO] === Auto-connecting to phones via STF ===
+2025-12-04 13:24:50 [INFO] Connecting to device 172.29.42.44:7413 via STF...
+2025-12-04 13:24:50 [ERROR] Error getting device list: HTTPConnectionPool(host='172.29.42.44', port=80): Max retries exceeded with url: /api/v1/devices (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fd3dc0854f0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-12-04 13:24:50 [DEBUG] Could not find device by IP:PORT, checking user devices...
+2025-12-04 13:24:50 [ERROR] Error getting user devices: HTTPConnectionPool(host='172.29.42.44', port=80): Max retries exceeded with url: /api/v1/user/devices (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fd3dc085f10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-12-04 13:24:50 [WARNING] Could not find device serial for 172.29.42.44:7413
+2025-12-04 13:24:50 [INFO] Attempting direct ADB connection...
+2025-12-04 13:24:50 [INFO] Connecting to device at 172.29.42.44:7413...
+2025-12-04 13:24:50 [ERROR] ✗ Failed to connect to 172.29.42.44:7413
+2025-12-04 13:24:50 [ERROR] Output: unable to connect to 172.29.42.44:7413: Connection refused
+2025-12-04 13:24:50 [ERROR] ✗ Failed to connect Phone A
+2025-12-04 13:24:50 [INFO] Connecting to device 172.29.42.44:7481 via STF...
+2025-12-04 13:24:50 [ERROR] Error getting device list: HTTPConnectionPool(host='172.29.42.44', port=80): Max retries exceeded with url: /api/v1/devices (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fd3dc0288b0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-12-04 13:24:50 [DEBUG] Could not find device by IP:PORT, checking user devices...
+2025-12-04 13:24:50 [ERROR] Error getting user devices: HTTPConnectionPool(host='172.29.42.44', port=80): Max retries exceeded with url: /api/v1/user/devices (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fd3dc0288b0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-12-04 13:24:50 [WARNING] Could not find device serial for 172.29.42.44:7481
+2025-12-04 13:24:50 [INFO] Attempting direct ADB connection...
+2025-12-04 13:24:50 [INFO] Connecting to device at 172.29.42.44:7481...
+2025-12-04 13:24:50 [ERROR] ✗ Failed to connect to 172.29.42.44:7481
+2025-12-04 13:24:50 [ERROR] Output: unable to connect to 172.29.42.44:7481: Connection refused
+2025-12-04 13:24:50 [ERROR] ✗ Failed to connect Phone B
+2025-12-04 13:24:50 [INFO] 
+✓ STF integration is ENABLED
+2025-12-04 13:24:50 [INFO]   - STF Server: http://172.29.42.44
+2025-12-04 13:24:50 [INFO]   - Connected devices: 0
+2025-12-04 13:24:50 [INFO] 
+=== Configured Phones ===
+2025-12-04 13:24:50 [INFO]   Phone A: 4915781993444 @ 172.29.42.44:7413
+2025-12-04 13:24:50 [INFO]   Phone B: 4915900104513 @ 172.29.42.44:7481
+2025-12-04 13:24:50 [INFO] 
+=== Checking ADB ===
+2025-12-04 13:24:50 [INFO] ✓ ADB is available (Version: 1.0.39)
+2025-12-04 13:24:50 [INFO] === Connected ADB Devices ===
+2025-12-04 13:24:50 [INFO] List of devices attached
+2025-12-04 13:24:50 [INFO] 
+=== Phone Automation Ready ===
+2025-12-04 13:24:50 [INFO] All phones are connected and ready for automation!
+2025-12-04 13:24:50 [INFO] 
+Example usage:
+2025-12-04 13:24:50 [INFO]   - phone_automation.make_call(caller_ip, caller_msisdn, recipient_msisdn)
+2025-12-04 13:24:50 [INFO]   - phone_automation.answer_call(device_ip_port)
+2025-12-04 13:24:50 [INFO]   - phone_automation.end_call(device_ip_port)
+2025-12-04 13:24:50 [INFO]   - phone_automation.get_call_state(device_ip_port)
+2025-12-04 13:24:50 [INFO] 
+=== Cleanup ===
+2025-12-04 13:24:50 [INFO] Disconnecting phones from STF...
+2025-12-04 13:24:50 [INFO] === Disconnecting all phones from STF ===
+2025-12-04 13:24:50 [WARNING] No serial found for 172.29.42.44:7413, using direct disconnect
+2025-12-04 13:24:50 [INFO] Disconnecting from 172.29.42.44:7413...
+2025-12-04 13:24:50 [INFO] ✓ Phone A disconnected successfully
+2025-12-04 13:24:50 [WARNING] No serial found for 172.29.42.44:7481, using direct disconnect
+2025-12-04 13:24:50 [INFO] Disconnecting from 172.29.42.44:7481...
+2025-12-04 13:24:50 [INFO] ✓ Phone B disconnected successfully
+2025-12-04 13:24:50 [INFO] 
+✓ Example completed successfully!

@@ -1,0 +1,3882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.8.10 on linux)" generated="2025-12-04T15:16:57.209225" rpa="false" schemaversion="5">
+<suite id="s1" name="MSS-AUTOMATION" source="/DATA/bjadoui/MSS-AUTOMATION">
+<suite id="s1-s1" name="Tests" source="/DATA/bjadoui/MSS-AUTOMATION/tests">
+<suite id="s1-s1-s1" name="CustomCall" source="/DATA/bjadoui/MSS-AUTOMATION/tests/CustomCall.robot">
+<test id="s1-s1-s1-t1" name="Custom Call Scenario - Two STF Devices" line="29">
+<kw name="Print Scenario Header" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.350681" elapsed="0.000286"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>=============== CUSTOM CALL SCENARIO =======================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.351118" elapsed="0.000149"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.351392" elapsed="0.000135"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Scenario Steps:</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.351650" elapsed="0.000133"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}1. Auto-select two available STF devices</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.351905" elapsed="0.000678"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}2. Connect both via STF (serial → IP:PORT)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.352715" elapsed="0.000619"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}3. Switch Phone A to 2G</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.353462" elapsed="0.000598"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}4. Phone A calls Phone B</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.354196" elapsed="0.000626"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}5. Phone B answers after 5 seconds of ringing</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.354954" elapsed="0.000591"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}6. Call lasts 30 seconds and ends</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.355711" elapsed="0.000614"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.356479" elapsed="0.000157"/>
+</kw>
+<doc>Print formatted scenario header</doc>
+<status status="PASS" start="2025-12-04T15:16:57.349983" elapsed="0.006746"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.357943" level="INFO">${PHONE_A_SERIAL} = None</msg>
+<arg>${PHONE_A_SERIAL}</arg>
+<arg>${None}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.356933" elapsed="0.001074"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.359305" level="INFO">${PHONE_B_SERIAL} = None</msg>
+<arg>${PHONE_B_SERIAL}</arg>
+<arg>${None}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.358223" elapsed="0.001143"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.360770" level="INFO">${STF_MANAGER} = None</msg>
+<arg>${STF_MANAGER}</arg>
+<arg>${None}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.359577" elapsed="0.001246"/>
+</kw>
+<try>
+<branch type="TRY">
+<kw name="Get Variable Value" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.362156" level="INFO">${stf_base_url} = http://172.29.42.44:7100</msg>
+<var>${stf_base_url}</var>
+<arg>${STF_CONFIG['base_url']}</arg>
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.361139" elapsed="0.001051"/>
+</kw>
+<kw name="Get Variable Value" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.363268" level="INFO">${stf_user_auth} = Bearer 4f4321c6b5354a9b98003feebda60a0062113ef6e2ee46ed86e5d0a816474276</msg>
+<var>${stf_user_auth}</var>
+<arg>${STF_CONFIG['user_auth']}</arg>
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.362339" elapsed="0.000963"/>
+</kw>
+<kw name="Initialize STF Manager" owner="PhoneAutomation">
+<kw name="Create STF Manager" owner="robot_helpers">
+<msg time="2025-12-04T15:16:57.364224" level="INFO">${stf_manager} = &lt;phone_automation.stf_manager.STFManager object at 0x7fbe940863d0&gt;</msg>
+<var>${stf_manager}</var>
+<arg>${base_url}</arg>
+<arg>${user_auth}</arg>
+<arg>${None}</arg>
+<doc>Create an STF Manager instance.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.363946" elapsed="0.000311"/>
+</kw>
+<return>
+<value>${stf_manager}</value>
+<status status="PASS" start="2025-12-04T15:16:57.364326" elapsed="0.000053"/>
+</return>
+<msg time="2025-12-04T15:16:57.364529" level="INFO">${STF_MANAGER} = &lt;phone_automation.stf_manager.STFManager object at 0x7fbe940863d0&gt;</msg>
+<var>${STF_MANAGER}</var>
+<arg>${stf_base_url}</arg>
+<arg>${stf_user_auth}</arg>
+<doc>Initialize STF Manager with configuration from PHONES.yaml</doc>
+<status status="PASS" start="2025-12-04T15:16:57.363510" elapsed="0.001048"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.364893" level="INFO">${STF_MANAGER} = &lt;phone_automation.stf_manager.STFManager object at 0x7fbe940863d0&gt;</msg>
+<arg>${STF_MANAGER}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.364707" elapsed="0.000234"/>
+</kw>
+<kw name="Get Two Available STF Devices" owner="PhoneAutomation">
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.386055" level="INFO">[DEBUG] Found 23 devices in STF</msg>
+<msg time="2025-12-04T15:16:57.386798" level="INFO">${devices} = [{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.5, 'voltage': 4.199}, 'browser': {'apps': [{'id': '...</msg>
+<var>${devices}</var>
+<arg>${stf_manager}</arg>
+<arg>get_device_list</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.365515" elapsed="0.021327"/>
+</kw>
+<kw name="Select Two Available Devices" owner="PhoneAutomation">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.387788" level="INFO">${usable_devices} = []</msg>
+<var>${usable_devices}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.387631" elapsed="0.000188"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.388478" level="INFO">${present} = True</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.388274" elapsed="0.000238"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.388825" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.388636" elapsed="0.000217"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.389218" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.389026" elapsed="0.000222"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.389719" elapsed="0.000184"/>
+</kw>
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.389389" elapsed="0.000577"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.5, 'voltage': 4.199}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.388165" elapsed="0.001841"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.390472" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.390263" elapsed="0.000242"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.390823" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.390630" elapsed="0.000223"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.391156" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.390972" elapsed="0.000229"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.391371" elapsed="0.000223"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 25.6, 'voltage': 4.362}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.390160" elapsed="0.001484"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.392088" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.391898" elapsed="0.000219"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.392438" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.392242" elapsed="0.000225"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.392771" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.392585" elapsed="0.000213"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.392927" elapsed="0.000214"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.8, 'voltage': 4.367}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.391802" elapsed="0.001387"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.393618" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.393440" elapsed="0.000205"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.393932" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.393758" elapsed="0.000204"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.394245" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.394073" elapsed="0.000200"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.394415" elapsed="0.000212"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': True, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 28.3, 'voltage': 4.336}, 'browser': {'apps': [{'id': 'co...</var>
+<status status="PASS" start="2025-12-04T15:16:57.393341" elapsed="0.001334"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.395107" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.394926" elapsed="0.000209"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.395435" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.395254" elapsed="0.000209"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.395751" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.395578" elapsed="0.000200"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.395901" elapsed="0.000209"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 47, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 27.5, 'voltage': 3.883}, 'browser': {'apps': [{'id':...</var>
+<status status="PASS" start="2025-12-04T15:16:57.394826" elapsed="0.001334"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.396665" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.396463" elapsed="0.000232"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.397010" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.396820" elapsed="0.000219"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.397331" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.397153" elapsed="0.000205"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.397479" elapsed="0.000225"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 98, 'scale': 100, 'source': 'ac', 'status': 'charging', 'temp': 25, 'voltage': 4.374}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.396357" elapsed="0.001395"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.398175" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.397993" elapsed="0.000210"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.398508" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.398330" elapsed="0.000206"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.398818" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.398649" elapsed="0.000197"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.398966" elapsed="0.000207"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 96, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 28.5, 'voltage': 4.266}, 'browser': {'apps': [{'id':...</var>
+<status status="PASS" start="2025-12-04T15:16:57.397896" elapsed="0.001326"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.399658" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.399468" elapsed="0.000221"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.399993" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.399808" elapsed="0.000213"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.400411" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.400134" elapsed="0.000304"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.400560" elapsed="0.000202"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': True, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 31.5, 'voltage': 4.141}, 'browser': {'apps': [{'id':...</var>
+<status status="PASS" start="2025-12-04T15:16:57.399367" elapsed="0.001442"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.401244" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.401051" elapsed="0.000223"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.401571" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.401392" elapsed="0.000207"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.401883" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.401710" elapsed="0.000201"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.402031" elapsed="0.000204"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.6, 'voltage': 4.415}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.400952" elapsed="0.001329"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.402712" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.402535" elapsed="0.000204"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.403025" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.402851" elapsed="0.000201"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.403332" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.403161" elapsed="0.000198"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.403516" elapsed="0.000217"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 25.7, 'voltage': 4.322}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.402441" elapsed="0.001344"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.404223" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.404032" elapsed="0.000220"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.404551" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.404370" elapsed="0.000209"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.404872" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.404693" elapsed="0.000207"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.405020" elapsed="0.000205"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 0, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 27, 'voltage': 3.271}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.403934" elapsed="0.001338"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.405691" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.405510" elapsed="0.000208"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.406002" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.405830" elapsed="0.000199"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.406314" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.406138" elapsed="0.000205"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.406471" elapsed="0.000207"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 25.1, 'voltage': 4.368}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.405416" elapsed="0.001312"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.407171" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.406983" elapsed="0.000218"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.407497" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.407320" elapsed="0.000204"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.407831" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.407646" elapsed="0.000212"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.407982" elapsed="0.000203"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 97, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 27.7, 'voltage': 4.36}, 'browser': {'apps': [{'id': ...</var>
+<status status="PASS" start="2025-12-04T15:16:57.406881" elapsed="0.001350"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.408656" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.408476" elapsed="0.000208"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.408978" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.408795" elapsed="0.000212"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.409290" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.409120" elapsed="0.000197"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.409442" elapsed="0.000209"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'unknown', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'not_charging', 'temp': 25, 'voltage': 4.38}, 'browser': {'apps': [{...</var>
+<status status="PASS" start="2025-12-04T15:16:57.408381" elapsed="0.001317"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.410128" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.409944" elapsed="0.000212"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.410463" level="INFO">${ready} = False</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.410275" elapsed="0.000249"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.410836" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.410646" elapsed="0.000217"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.410986" elapsed="0.000208"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': True, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.8, 'voltage': 4.411}, 'browser': {'apps': [{'id': 'co...</var>
+<status status="PASS" start="2025-12-04T15:16:57.409847" elapsed="0.001396"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.411689" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.411492" elapsed="0.000229"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.412025" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.411842" elapsed="0.000211"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.412352" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.412168" elapsed="0.000213"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.412502" elapsed="0.000205"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 64, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 33, 'voltage': 3.931}, 'browser': {'apps': [{'id': '...</var>
+<status status="PASS" start="2025-12-04T15:16:57.411389" elapsed="0.001365"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.413169" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.412990" elapsed="0.000207"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.413482" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.413310" elapsed="0.000199"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.413788" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.413619" elapsed="0.000195"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.413948" elapsed="0.000209"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 30, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 26.2, 'voltage': 3.875}, 'browser': {'apps': [{'id':...</var>
+<status status="PASS" start="2025-12-04T15:16:57.412897" elapsed="0.001307"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.414670" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.414474" elapsed="0.000226"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.414999" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.414819" elapsed="0.000209"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.415435" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.415139" elapsed="0.000324"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.415586" elapsed="0.000206"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 28.1, 'voltage': 4.438}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.414370" elapsed="0.001469"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.416250" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.416073" elapsed="0.000206"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.416563" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.416390" elapsed="0.000200"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.416871" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.416698" elapsed="0.000201"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.417022" elapsed="0.000210"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': True, 'battery': {'health': 'good', 'level': 79, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 22.9, 'voltage': 4.166}, 'browser': {'apps': [{'id': ...</var>
+<status status="PASS" start="2025-12-04T15:16:57.415981" elapsed="0.001299"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.417745" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.417559" elapsed="0.000215"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.418080" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.417900" elapsed="0.000208"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.418406" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.418220" elapsed="0.000215"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.418556" elapsed="0.000203"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 84, 'scale': 100, 'source': 'usb', 'status': 'not_charging', 'temp': 23.6, 'voltage': 4.22}, 'browser': {'apps': [{'i...</var>
+<status status="PASS" start="2025-12-04T15:16:57.417459" elapsed="0.001347"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.419219" level="INFO">${present} = True</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.419042" elapsed="0.000205"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.419547" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.419364" elapsed="0.000210"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.419859" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.419687" elapsed="0.000199"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.420274" elapsed="0.000168"/>
+</kw>
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.420006" elapsed="0.000492"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 22.7, 'voltage': 4.374}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.418950" elapsed="0.001587"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.420950" level="INFO">${present} = True</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.420774" elapsed="0.000204"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.421255" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.421087" elapsed="0.000195"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.421559" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.421388" elapsed="0.000199"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.421980" elapsed="0.000178"/>
+</kw>
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.421706" elapsed="0.000511"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 22.4, 'voltage': 4.399}, 'browser': {'apps': [{'id': 'c...</var>
+<status status="PASS" start="2025-12-04T15:16:57.420682" elapsed="0.001574"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.422702" level="INFO">${present} = False</msg>
+<var>${present}</var>
+<arg>${device}</arg>
+<arg>present</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.422514" elapsed="0.000219"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.423044" level="INFO">${ready} = True</msg>
+<var>${ready}</var>
+<arg>${device}</arg>
+<arg>ready</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.422859" elapsed="0.000215"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.423369" level="INFO">${using} = False</msg>
+<var>${using}</var>
+<arg>${device}</arg>
+<arg>using</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.423193" elapsed="0.000204"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${present} and ${ready} and not ${using}</arg>
+<arg>Append To List</arg>
+<arg>${usable_devices}</arg>
+<arg>${device}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.423525" elapsed="0.000205"/>
+</kw>
+<var name="${device}">{'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 99, 'scale': 100, 'source': 'usb', 'status': 'charging', 'temp': 27.4, 'voltage': 4.369}, 'browser': {'apps': [{'id':...</var>
+<status status="PASS" start="2025-12-04T15:16:57.422414" elapsed="0.001364"/>
+</iter>
+<var>${device}</var>
+<value>@{devices}</value>
+<status status="PASS" start="2025-12-04T15:16:57.387887" elapsed="0.035922"/>
+</for>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.424054" level="INFO">Length is 3.</msg>
+<msg time="2025-12-04T15:16:57.424135" level="INFO">${count} = 3</msg>
+<var>${count}</var>
+<arg>${usable_devices}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.423922" elapsed="0.000239"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${count} &gt;= 2</arg>
+<arg>Not enough usable devices in STF (found ${count}, need 2)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.424270" elapsed="0.000295"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-12-04T15:16:57.424946" level="INFO">${device_a} = {'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.5, 'voltage': 4.199}, 'browser': {'apps': [{'id': 'c...</msg>
+<var>${device_a}</var>
+<arg>${usable_devices}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.424725" elapsed="0.000254"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2025-12-04T15:16:57.425337" level="INFO">${device_b} = {'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 22.7, 'voltage': 4.374}, 'browser': {'apps': [{'id': 'c...</msg>
+<var>${device_b}</var>
+<arg>${usable_devices}</arg>
+<arg>1</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.425105" elapsed="0.000263"/>
+</kw>
+<return>
+<value>${device_a}</value>
+<value>${device_b}</value>
+<status status="PASS" start="2025-12-04T15:16:57.425423" elapsed="0.000038"/>
+</return>
+<msg time="2025-12-04T15:16:57.425684" level="INFO">${device_a} = {'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.5, 'voltage': 4.199}, 'browser': {'apps': [{'id': 'c...</msg>
+<msg time="2025-12-04T15:16:57.425766" level="INFO">${device_b} = {'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 22.7, 'voltage': 4.374}, 'browser': {'apps': [{'id': 'c...</msg>
+<var>${device_a}</var>
+<var>${device_b}</var>
+<arg>${devices}</arg>
+<doc>Filter and select two usable devices from device list</doc>
+<status status="PASS" start="2025-12-04T15:16:57.387171" elapsed="0.038624"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.425917" elapsed="0.000178"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Selected STF Devices:</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.426245" elapsed="0.000154"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}Phone A: ${device_a['serial']} - ${device_a['model']} (OS ${device_a['version']})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.426541" elapsed="0.001990"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}Phone B: ${device_b['serial']} - ${device_b['model']} (OS ${device_b['version']})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.428710" elapsed="0.001861"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.430745" elapsed="0.000166"/>
+</kw>
+<return>
+<value>${device_a}</value>
+<value>${device_b}</value>
+<status status="PASS" start="2025-12-04T15:16:57.430989" elapsed="0.000039"/>
+</return>
+<msg time="2025-12-04T15:16:57.431265" level="INFO">${device_a} = {'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 23.5, 'voltage': 4.199}, 'browser': {'apps': [{'id': 'c...</msg>
+<msg time="2025-12-04T15:16:57.431357" level="INFO">${device_b} = {'abi': 'arm64-v8a', 'airplaneMode': False, 'battery': {'health': 'good', 'level': 100, 'scale': 100, 'source': 'usb', 'status': 'full', 'temp': 22.7, 'voltage': 4.374}, 'browser': {'apps': [{'id': 'c...</msg>
+<var>${device_a}</var>
+<var>${device_b}</var>
+<arg>${STF_MANAGER}</arg>
+<doc>Auto-select two available STF devices (present, ready, not in use)</doc>
+<status status="PASS" start="2025-12-04T15:16:57.365153" elapsed="0.066232"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.432107" level="INFO">${PHONE_A_SERIAL} = QV70006W1B</msg>
+<var>${PHONE_A_SERIAL}</var>
+<arg>${device_a['serial']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.431522" elapsed="0.000617"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.432877" level="INFO">${PHONE_B_SERIAL} = R5CWA1TBD9Y</msg>
+<var>${PHONE_B_SERIAL}</var>
+<arg>${device_b['serial']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.432272" elapsed="0.000636"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.433254" level="INFO">${PHONE_A_SERIAL} = QV70006W1B</msg>
+<arg>${PHONE_A_SERIAL}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.433053" elapsed="0.000251"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.433601" level="INFO">${PHONE_B_SERIAL} = R5CWA1TBD9Y</msg>
+<arg>${PHONE_B_SERIAL}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.433429" elapsed="0.000218"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.433761" elapsed="0.000189"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 0: Determining MSISDNs for the devices...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.434119" elapsed="0.000150"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.434421" elapsed="0.000150"/>
+</kw>
+<kw name="Get Or Prompt For MSISDN" owner="PhoneAutomation">
+<kw name="Extract MSISDN From Device" owner="PhoneAutomation">
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.437129" level="INFO">${notes} = SONY UE  -  Ericsson Device  epdg2   MSISDN: 4915781993213</msg>
+<var>${notes}</var>
+<arg>${device}</arg>
+<arg>notes</arg>
+<arg>default=${EMPTY}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.436250" elapsed="0.000919"/>
+</kw>
+<kw name="Extract Phone Number From Text" owner="PhoneAutomation">
+<kw name="Get Regexp Matches" owner="String">
+<msg time="2025-12-04T15:16:57.438274" level="INFO">${match} = ['4915781993213']</msg>
+<var>${match}</var>
+<arg>${text}</arg>
+<arg>\\+?49\\d{8,}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.437921" elapsed="0.000398"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.438592" level="INFO">Length is 1.</msg>
+<msg time="2025-12-04T15:16:57.438680" level="INFO">${length} = 1</msg>
+<var>${length}</var>
+<arg>${match}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.438454" elapsed="0.000252"/>
+</kw>
+<if>
+<branch type="IF" condition="${length} &gt; 0">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.439675" level="INFO">${number} = 4915781993213</msg>
+<var>${number}</var>
+<arg>${match[0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.439006" elapsed="0.000702"/>
+</kw>
+<kw name="Remove String" owner="String">
+<msg time="2025-12-04T15:16:57.440072" level="INFO">${number} = 4915781993213</msg>
+<var>${number}</var>
+<arg>${number}</arg>
+<arg>+</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.439838" elapsed="0.000264"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.440412" level="INFO">${number} = +4915781993213</msg>
+<var>${number}</var>
+<arg>+${number}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.440228" elapsed="0.000212"/>
+</kw>
+<return>
+<value>${number}</value>
+<status status="PASS" start="2025-12-04T15:16:57.440493" elapsed="0.000037"/>
+</return>
+<status status="PASS" start="2025-12-04T15:16:57.438795" elapsed="0.001768"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:16:57.438771" elapsed="0.001817"/>
+</if>
+<kw name="Get Regexp Matches" owner="String">
+<var>${match}</var>
+<arg>${text}</arg>
+<arg>\\d{10,}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.440701" elapsed="0.000024"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<var>${length}</var>
+<arg>${match}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.440837" elapsed="0.000021"/>
+</kw>
+<if>
+<branch type="IF" condition="${length} &gt; 0">
+<return>
+<value>+${match[0]}</value>
+<status status="NOT RUN" start="2025-12-04T15:16:57.440976" elapsed="0.000013"/>
+</return>
+<status status="NOT RUN" start="2025-12-04T15:16:57.440934" elapsed="0.000081"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:16:57.440916" elapsed="0.000118"/>
+</if>
+<return>
+<value>${None}</value>
+<status status="NOT RUN" start="2025-12-04T15:16:57.441063" elapsed="0.000013"/>
+</return>
+<msg time="2025-12-04T15:16:57.441209" level="INFO">${msisdn} = +4915781993213</msg>
+<var>${msisdn}</var>
+<arg>${notes}</arg>
+<doc>Extract phone number using regex patterns</doc>
+<status status="PASS" start="2025-12-04T15:16:57.437536" elapsed="0.003701"/>
+</kw>
+<return>
+<value>${msisdn}</value>
+<status status="PASS" start="2025-12-04T15:16:57.441288" elapsed="0.000026"/>
+</return>
+<msg time="2025-12-04T15:16:57.441444" level="INFO">${msisdn} = +4915781993213</msg>
+<var>${msisdn}</var>
+<arg>${device}</arg>
+<doc>Extract MSISDN from STF device metadata</doc>
+<status status="PASS" start="2025-12-04T15:16:57.435838" elapsed="0.005633"/>
+</kw>
+<if>
+<branch type="IF" condition="'${msisdn}' != 'None'">
+<return>
+<value>${msisdn}</value>
+<status status="PASS" start="2025-12-04T15:16:57.441658" elapsed="0.000024"/>
+</return>
+<status status="PASS" start="2025-12-04T15:16:57.441546" elapsed="0.000168"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:16:57.441529" elapsed="0.000206"/>
+</if>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.441844" elapsed="0.000022"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>MSISDN for ${label}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.441970" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.442086" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Selected device serial: ${device['serial']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.442201" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Model: ${device['model']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.442327" elapsed="0.000020"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${notes}</var>
+<arg>${device}</arg>
+<arg>notes</arg>
+<arg>default=${EMPTY}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.442448" elapsed="0.000021"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${notes}' != ''</arg>
+<arg>Log To Console</arg>
+<arg>Notes: ${notes}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.442589" elapsed="0.000019"/>
+</kw>
+<msg time="2025-12-04T15:16:57.442752" level="INFO">${phone_a_msisdn} = +4915781993213</msg>
+<var>${phone_a_msisdn}</var>
+<arg>Phone A</arg>
+<arg>${device_a}</arg>
+<doc>Get MSISDN from device metadata or prompt user</doc>
+<status status="PASS" start="2025-12-04T15:16:57.435213" elapsed="0.007568"/>
+</kw>
+<kw name="Get Or Prompt For MSISDN" owner="PhoneAutomation">
+<kw name="Extract MSISDN From Device" owner="PhoneAutomation">
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-04T15:16:57.444643" level="INFO">${notes} = SPIE 2: IMS MUC 2+HAM 3: 4915900103141 &amp; 4917607019222  (UE SN: R5CWA1TBD9Y)</msg>
+<var>${notes}</var>
+<arg>${device}</arg>
+<arg>notes</arg>
+<arg>default=${EMPTY}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.443944" elapsed="0.000732"/>
+</kw>
+<kw name="Extract Phone Number From Text" owner="PhoneAutomation">
+<kw name="Get Regexp Matches" owner="String">
+<msg time="2025-12-04T15:16:57.445536" level="INFO">${match} = ['4915900103141', '4917607019222']</msg>
+<var>${match}</var>
+<arg>${text}</arg>
+<arg>\\+?49\\d{8,}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.445322" elapsed="0.000245"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.445833" level="INFO">Length is 2.</msg>
+<msg time="2025-12-04T15:16:57.445915" level="INFO">${length} = 2</msg>
+<var>${length}</var>
+<arg>${match}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.445696" elapsed="0.000244"/>
+</kw>
+<if>
+<branch type="IF" condition="${length} &gt; 0">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.447048" level="INFO">${number} = 4915900103141</msg>
+<var>${number}</var>
+<arg>${match[0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.446212" elapsed="0.000867"/>
+</kw>
+<kw name="Remove String" owner="String">
+<msg time="2025-12-04T15:16:57.447377" level="INFO">${number} = 4915900103141</msg>
+<var>${number}</var>
+<arg>${number}</arg>
+<arg>+</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.447201" elapsed="0.000204"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.447694" level="INFO">${number} = +4915900103141</msg>
+<var>${number}</var>
+<arg>+${number}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.447521" elapsed="0.000201"/>
+</kw>
+<return>
+<value>${number}</value>
+<status status="PASS" start="2025-12-04T15:16:57.447770" elapsed="0.000029"/>
+</return>
+<status status="PASS" start="2025-12-04T15:16:57.446020" elapsed="0.001809"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:16:57.445999" elapsed="0.001852"/>
+</if>
+<kw name="Get Regexp Matches" owner="String">
+<var>${match}</var>
+<arg>${text}</arg>
+<arg>\\d{10,}</arg>
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.447957" elapsed="0.000022"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<var>${length}</var>
+<arg>${match}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.448088" elapsed="0.000021"/>
+</kw>
+<if>
+<branch type="IF" condition="${length} &gt; 0">
+<return>
+<value>+${match[0]}</value>
+<status status="NOT RUN" start="2025-12-04T15:16:57.448287" elapsed="0.000014"/>
+</return>
+<status status="NOT RUN" start="2025-12-04T15:16:57.448232" elapsed="0.000098"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:16:57.448207" elapsed="0.000142"/>
+</if>
+<return>
+<value>${None}</value>
+<status status="NOT RUN" start="2025-12-04T15:16:57.448378" elapsed="0.000013"/>
+</return>
+<msg time="2025-12-04T15:16:57.448530" level="INFO">${msisdn} = +4915900103141</msg>
+<var>${msisdn}</var>
+<arg>${notes}</arg>
+<doc>Extract phone number using regex patterns</doc>
+<status status="PASS" start="2025-12-04T15:16:57.444972" elapsed="0.003587"/>
+</kw>
+<return>
+<value>${msisdn}</value>
+<status status="PASS" start="2025-12-04T15:16:57.448607" elapsed="0.000025"/>
+</return>
+<msg time="2025-12-04T15:16:57.448759" level="INFO">${msisdn} = +4915900103141</msg>
+<var>${msisdn}</var>
+<arg>${device}</arg>
+<doc>Extract MSISDN from STF device metadata</doc>
+<status status="PASS" start="2025-12-04T15:16:57.443470" elapsed="0.005315"/>
+</kw>
+<if>
+<branch type="IF" condition="'${msisdn}' != 'None'">
+<return>
+<value>${msisdn}</value>
+<status status="PASS" start="2025-12-04T15:16:57.448967" elapsed="0.000024"/>
+</return>
+<status status="PASS" start="2025-12-04T15:16:57.448857" elapsed="0.000165"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:16:57.448841" elapsed="0.000202"/>
+</if>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449149" elapsed="0.000022"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>MSISDN for ${label}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449275" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449392" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Selected device serial: ${device['serial']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449507" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Model: ${device['model']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449623" elapsed="0.000020"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${notes}</var>
+<arg>${device}</arg>
+<arg>notes</arg>
+<arg>default=${EMPTY}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449743" elapsed="0.000022"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${notes}' != ''</arg>
+<arg>Log To Console</arg>
+<arg>Notes: ${notes}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:16:57.449884" elapsed="0.000021"/>
+</kw>
+<msg time="2025-12-04T15:16:57.450056" level="INFO">${phone_b_msisdn} = +4915900103141</msg>
+<var>${phone_b_msisdn}</var>
+<arg>Phone B</arg>
+<arg>${device_b}</arg>
+<doc>Get MSISDN from device metadata or prompt user</doc>
+<status status="PASS" start="2025-12-04T15:16:57.443045" elapsed="0.007040"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.450481" level="INFO">${phone_a_msisdn} = +4915781993213</msg>
+<var>${phone_a_msisdn}</var>
+<arg>'${phone_a_msisdn}' == 'None'</arg>
+<arg>+4915900103141</arg>
+<arg>${phone_a_msisdn}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.450210" elapsed="0.000300"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.450873" level="INFO">${phone_b_msisdn} = +4915900103141</msg>
+<var>${phone_b_msisdn}</var>
+<arg>'${phone_b_msisdn}' == 'None'</arg>
+<arg>+4915781993213</arg>
+<arg>${phone_b_msisdn}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.450636" elapsed="0.000268"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Using MSISDN for Phone A: ${phone_a_msisdn}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.451027" elapsed="0.000202"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Using MSISDN for Phone B: ${phone_b_msisdn}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.451384" elapsed="0.000234"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.451736" elapsed="0.000151"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 0: Connecting selected STF devices via serial...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.452000" elapsed="0.000121"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.452230" elapsed="0.000124"/>
+</kw>
+<kw name="Connect Device Via STF" owner="PhoneAutomation">
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.511344" level="INFO">[INFO] Connecting to STF device QV70006W1B...
+[INFO] ✓ Device QV70006W1B added to user
+[INFO] ✓ Remote connect URL for QV70006W1B: 172.29.42.44:7497
+[DEBUG] Connecting to 172.29.42.44:7497 via ADB (attempt 1/2)...
+[DEBUG] connected to 172.29.42.44:7497
+[DEBUG] Connecting to 172.29.42.44:7497 via ADB (attempt 2/2)...
+[DEBUG] already connected to 172.29.42.44:7497
+[INFO] ✓ Successfully connected to device QV70006W1B at 172.29.42.44:7497</msg>
+<msg time="2025-12-04T15:16:57.511853" level="INFO">${ip_port} = 172.29.42.44:7497</msg>
+<var>${ip_port}</var>
+<arg>${stf_manager}</arg>
+<arg>connect_device_by_serial</arg>
+<arg>${serial}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.452989" elapsed="0.058927"/>
+</kw>
+<kw name="Should Not Be Equal" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.513127" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<arg>${ip_port}</arg>
+<arg>${None}</arg>
+<arg>Failed to connect device ${serial} via STF</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.512465" elapsed="0.000767"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Connected device ${serial} → ${ip_port}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.513467" elapsed="0.000690"/>
+</kw>
+<return>
+<value>${ip_port}</value>
+<status status="PASS" start="2025-12-04T15:16:57.514274" elapsed="0.000117"/>
+</return>
+<msg time="2025-12-04T15:16:57.514682" level="INFO">${phone_a_ip_port} = 172.29.42.44:7497</msg>
+<var>${phone_a_ip_port}</var>
+<arg>${STF_MANAGER}</arg>
+<arg>${PHONE_A_SERIAL}</arg>
+<doc>Connect a device via STF using serial number</doc>
+<status status="PASS" start="2025-12-04T15:16:57.452549" elapsed="0.062179"/>
+</kw>
+<kw name="Connect Device Via STF" owner="PhoneAutomation">
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.572365" level="INFO">[INFO] Connecting to STF device R5CWA1TBD9Y...
+[INFO] ✓ Device R5CWA1TBD9Y added to user
+[INFO] ✓ Remote connect URL for R5CWA1TBD9Y: 172.29.42.44:7433
+[DEBUG] Connecting to 172.29.42.44:7433 via ADB (attempt 1/2)...
+[DEBUG] connected to 172.29.42.44:7433
+[DEBUG] Connecting to 172.29.42.44:7433 via ADB (attempt 2/2)...
+[DEBUG] already connected to 172.29.42.44:7433
+[INFO] ✓ Successfully connected to device R5CWA1TBD9Y at 172.29.42.44:7433</msg>
+<msg time="2025-12-04T15:16:57.573199" level="INFO">${ip_port} = 172.29.42.44:7433</msg>
+<var>${ip_port}</var>
+<arg>${stf_manager}</arg>
+<arg>connect_device_by_serial</arg>
+<arg>${serial}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.515862" elapsed="0.057424"/>
+</kw>
+<kw name="Should Not Be Equal" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.574617" level="INFO">Argument types are:
+&lt;class 'str'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<arg>${ip_port}</arg>
+<arg>${None}</arg>
+<arg>Failed to connect device ${serial} via STF</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.573860" elapsed="0.000889"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Connected device ${serial} → ${ip_port}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.575059" elapsed="0.000890"/>
+</kw>
+<return>
+<value>${ip_port}</value>
+<status status="PASS" start="2025-12-04T15:16:57.576103" elapsed="0.000119"/>
+</return>
+<msg time="2025-12-04T15:16:57.576588" level="INFO">${phone_b_ip_port} = 172.29.42.44:7433</msg>
+<var>${phone_b_ip_port}</var>
+<arg>${STF_MANAGER}</arg>
+<arg>${PHONE_B_SERIAL}</arg>
+<doc>Connect a device via STF using serial number</doc>
+<status status="PASS" start="2025-12-04T15:16:57.515155" elapsed="0.061490"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.578021" level="INFO">${phone_a_dict} = {'name': 'STF-QV70006W1B', 'msisdn': '+4915781993213', 'ip_port': '172.29.42.44:7497', 'serial': 'QV70006W1B'}</msg>
+<var>${phone_a_dict}</var>
+<arg>name=STF-${PHONE_A_SERIAL}</arg>
+<arg>msisdn=${phone_a_msisdn}</arg>
+<arg>ip_port=${phone_a_ip_port}</arg>
+<arg>serial=${PHONE_A_SERIAL}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.576969" elapsed="0.001117"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.578898" level="INFO">${phone_b_dict} = {'name': 'STF-R5CWA1TBD9Y', 'msisdn': '+4915900103141', 'ip_port': '172.29.42.44:7433', 'serial': 'R5CWA1TBD9Y'}</msg>
+<var>${phone_b_dict}</var>
+<arg>name=STF-${PHONE_B_SERIAL}</arg>
+<arg>msisdn=${phone_b_msisdn}</arg>
+<arg>ip_port=${phone_b_ip_port}</arg>
+<arg>serial=${PHONE_B_SERIAL}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.578387" elapsed="0.000546"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.579403" level="INFO">${phones_dict} = {'phoneA': {'name': 'STF-QV70006W1B', 'msisdn': '+4915781993213', 'ip_port': '172.29.42.44:7497', 'serial': 'QV70006W1B'}, 'phoneB': {'name': 'STF-R5CWA1TBD9Y', 'msisdn': '+4915900103141', 'ip_port': ...</msg>
+<var>${phones_dict}</var>
+<arg>phoneA=${phone_a_dict}</arg>
+<arg>phoneB=${phone_b_dict}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.579099" elapsed="0.000337"/>
+</kw>
+<kw name="Initialize Phone Automation" owner="PhoneAutomation">
+<kw name="Create Phone Call Automation" owner="robot_helpers">
+<msg time="2025-12-04T15:16:57.581329" level="INFO">✓ STF Manager initialized</msg>
+<msg time="2025-12-04T15:16:57.581402" level="INFO">[97m2025-12-04 15:16:57[0m [[96mINFO[0m] ✓ STF Manager initialized</msg>
+<msg time="2025-12-04T15:16:57.581503" level="INFO">${automation} = &lt;phone_automation.phone_call_automation.PhoneCallAutomation object at 0x7fbe9406ffd0&gt;</msg>
+<var>${automation}</var>
+<arg>${None}</arg>
+<arg>${phones_dict}</arg>
+<arg>${stf_config}</arg>
+<arg>${False}</arg>
+<doc>Create a PhoneCallAutomation instance.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.580167" elapsed="0.001365"/>
+</kw>
+<return>
+<value>${automation}</value>
+<status status="PASS" start="2025-12-04T15:16:57.581606" elapsed="0.000043"/>
+</return>
+<msg time="2025-12-04T15:16:57.581803" level="INFO">${automation} = &lt;phone_automation.phone_call_automation.PhoneCallAutomation object at 0x7fbe9406ffd0&gt;</msg>
+<var>${automation}</var>
+<arg>${phones_dict}</arg>
+<arg>${STF_CONFIG}</arg>
+<doc>Initialize PhoneCallAutomation instance</doc>
+<status status="PASS" start="2025-12-04T15:16:57.579700" elapsed="0.002132"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Phone A: ${phone_a_msisdn} @ ${phone_a_ip_port} (serial ${PHONE_A_SERIAL})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.581973" elapsed="0.000274"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Phone B: ${phone_b_msisdn} @ ${phone_b_ip_port} (serial ${PHONE_B_SERIAL})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.582413" elapsed="0.000253"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.582811" elapsed="0.000167"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 1: Connecting to both phones (via ADB)...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.583113" elapsed="0.000131"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.583376" elapsed="0.000146"/>
+</kw>
+<kw name="Connect Phone Via ADB" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${label} (${ip_port})...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.584212" elapsed="0.000213"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:16:57.584860" level="INFO">Connecting to device at 172.29.42.44:7497...</msg>
+<msg time="2025-12-04T15:16:57.590199" level="INFO">✓ Successfully connected to 172.29.42.44:7497</msg>
+<msg time="2025-12-04T15:16:57.590956" level="INFO">${result} = True</msg>
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>connect_device</arg>
+<arg>${ip_port}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.584582" elapsed="0.006434"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to connect to ${label}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.591482" elapsed="0.000453"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ ${label} connected successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.592114" elapsed="0.000251"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:16:59.592904" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:16:57.592519" elapsed="2.000509"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_a_ip_port}</arg>
+<arg>Phone A (${phone_a_msisdn})</arg>
+<doc>Connect to phone via ADB using IP:PORT</doc>
+<status status="PASS" start="2025-12-04T15:16:57.583740" elapsed="2.009423"/>
+</kw>
+<kw name="Connect Phone Via ADB" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${label} (${ip_port})...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:59.594071" elapsed="0.000255"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:16:59.594854" level="INFO">Connecting to device at 172.29.42.44:7433...</msg>
+<msg time="2025-12-04T15:16:59.599766" level="INFO">✓ Successfully connected to 172.29.42.44:7433</msg>
+<msg time="2025-12-04T15:16:59.600266" level="INFO">${result} = True</msg>
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>connect_device</arg>
+<arg>${ip_port}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:16:59.594567" elapsed="0.005741"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to connect to ${label}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-12-04T15:16:59.600687" elapsed="0.000407"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ ${label} connected successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:16:59.601246" elapsed="0.000238"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:01.602232" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:16:59.601625" elapsed="2.000739"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_b_ip_port}</arg>
+<arg>Phone B (${phone_b_msisdn})</arg>
+<doc>Connect to phone via ADB using IP:PORT</doc>
+<status status="PASS" start="2025-12-04T15:16:59.593497" elapsed="2.008991"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Both phones connected successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.602675" elapsed="0.000196"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.603006" elapsed="0.000186"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 2: Switching Phone A (${phone_a_msisdn}) to ${NETWORK_TYPE}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.603310" elapsed="0.000226"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.603654" elapsed="0.000145"/>
+</kw>
+<kw name="Switch Phone To Network" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.604586" elapsed="0.000172"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Switching ${msisdn} to ${network_type}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.604882" elapsed="0.000208"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.605206" elapsed="0.000134"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:01.605778" level="INFO">Setting network type to 2G (value: 1)...</msg>
+<msg time="2025-12-04T15:17:01.710915" level="INFO">Current mode value: 1, changing to: 1</msg>
+<msg time="2025-12-04T15:17:02.021929" level="INFO">✓ Network type setting commands executed successfully</msg>
+<msg time="2025-12-04T15:17:02.022090" level="INFO">Applying changes by toggling airplane mode...</msg>
+<msg time="2025-12-04T15:17:02.256506" level="INFO">Airplane mode enabled, waiting 3 seconds...</msg>
+<msg time="2025-12-04T15:17:05.482919" level="INFO">Airplane mode disabled, waiting for network to reconnect...</msg>
+<msg time="2025-12-04T15:17:10.486532" level="INFO">Verifying network mode change...</msg>
+<msg time="2025-12-04T15:17:10.550716" level="INFO">✓ Network mode successfully changed and applied!</msg>
+<msg time="2025-12-04T15:17:10.656185" level="INFO">Current network type: 2G only (GSM)</msg>
+<msg time="2025-12-04T15:17:10.656655" level="INFO">${result} = True</msg>
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>set_network_type</arg>
+<arg>${ip_port}</arg>
+<arg>${network_type}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:01.605465" elapsed="9.051237"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${result}</arg>
+<arg>Log To Console</arg>
+<arg>⚠ Failed to switch to ${network_type}, but continuing...</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:10.657117" elapsed="0.000331"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Successfully switched to ${network_type}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:10.657841" elapsed="0.000242"/>
+</kw>
+<arg>${result}</arg>
+<arg>Log To Console</arg>
+<arg>✓ Successfully switched to ${network_type}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:10.657607" elapsed="0.000544"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:13.658839" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:10.658546" elapsed="3.000412"/>
+</kw>
+<arg>${result}</arg>
+<arg>Sleep</arg>
+<arg>3s</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:10.658295" elapsed="3.000740"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_a_ip_port}</arg>
+<arg>${NETWORK_TYPE}</arg>
+<arg>${phone_a_msisdn}</arg>
+<doc>Switch phone to specified network type (2G/3G/4G/5G)</doc>
+<status status="PASS" start="2025-12-04T15:17:01.604059" elapsed="12.055082"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.659341" elapsed="0.000237"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 3: Phone A (${phone_a_msisdn}) calling Phone B (${phone_b_msisdn})...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.659715" elapsed="0.000242"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.660080" elapsed="0.000140"/>
+</kw>
+<kw name="Initiate Call" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.661034" elapsed="0.000159"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${caller_msisdn} calling ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.661311" elapsed="0.000205"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.661637" elapsed="0.000128"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:13.662222" level="INFO">Initiating call from +4915781993213 to +4915900103141...</msg>
+<msg time="2025-12-04T15:17:13.742790" level="INFO">✓ Call initiated successfully!</msg>
+<msg time="2025-12-04T15:17:13.743349" level="INFO">${result} = True</msg>
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>make_call</arg>
+<arg>${caller_ip_port}</arg>
+<arg>${caller_msisdn}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.661882" elapsed="0.081510"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to initiate call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.743778" elapsed="0.000358"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call initiated successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.744280" elapsed="0.000163"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_a_ip_port}</arg>
+<arg>${phone_a_msisdn}</arg>
+<arg>${phone_b_msisdn}</arg>
+<doc>Initiate a call from caller to recipient</doc>
+<status status="PASS" start="2025-12-04T15:17:13.660487" elapsed="0.084063"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.744698" elapsed="0.000174"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 4: Waiting for Phone B to ring...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.744996" elapsed="0.000133"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.745244" elapsed="0.000134"/>
+</kw>
+<kw name="Wait For Ring And Answer" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.746620" elapsed="0.000175"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Waiting for ${recipient_msisdn} to ring...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.746941" elapsed="0.000193"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.747264" elapsed="0.000135"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:17:13.747885" level="INFO">${phone_ringing} = False</msg>
+<var>${phone_ringing}</var>
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.747528" elapsed="0.000388"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:17:13.748585" level="INFO">${ring_start_time} = 0</msg>
+<var>${ring_start_time}</var>
+<arg>${0}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.748035" elapsed="0.000583"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:14.749627" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:13.749316" elapsed="1.000434"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:14.906640" level="INFO">${call_state} = IDLE</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:14.749949" elapsed="0.156796"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.907470" elapsed="0.000033"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.907642" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.907783" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:14.907214" elapsed="0.000627"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:14.907196" elapsed="0.000670"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.907970" elapsed="0.000022"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908104" elapsed="0.000022"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908301" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908431" elapsed="0.000021"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908557" elapsed="0.000021"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908693" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908815" elapsed="0.000020"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908889" elapsed="0.000029"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908199" elapsed="0.000743"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.909069" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.909192" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908962" elapsed="0.000284"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:14.908182" elapsed="0.001084"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:14.906997" elapsed="0.002291"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.909498" elapsed="0.000022"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.909684" elapsed="0.000028"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:14.909760" elapsed="0.000015"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:14.909308" elapsed="0.000488"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:14.910256" level="INFO">${mod_result} = 1</msg>
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:14.909922" elapsed="0.000365"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:14.910627" elapsed="0.000029"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:14.910393" elapsed="0.000311"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:14.910370" elapsed="0.000363"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:14.909815" elapsed="0.000947"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:14.906943" elapsed="0.003841"/>
+</if>
+<var name="${attempt}">0</var>
+<status status="PASS" start="2025-12-04T15:17:13.749203" elapsed="1.161610"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:15.911620" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:14.911339" elapsed="1.000404"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:16.044636" level="INFO">${call_state} = IDLE</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:15.911942" elapsed="0.132800"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.045498" elapsed="0.000030"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.045667" elapsed="0.000025"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.045809" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:16.045232" elapsed="0.000636"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:16.045209" elapsed="0.000686"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046004" elapsed="0.000022"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046140" elapsed="0.000021"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046352" elapsed="0.000022"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046490" elapsed="0.000022"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046617" elapsed="0.000021"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046753" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046874" elapsed="0.000020"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046946" elapsed="0.000020"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046233" elapsed="0.000756"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047121" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047246" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047010" elapsed="0.000290"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:16.046217" elapsed="0.001103"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:16.044996" elapsed="0.002346"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047560" elapsed="0.000021"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047689" elapsed="0.000021"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047757" elapsed="0.000014"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:16.047363" elapsed="0.000429"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:16.048256" level="INFO">${mod_result} = 2</msg>
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:16.047913" elapsed="0.000378"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:16.048562" elapsed="0.000023"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:16.048378" elapsed="0.000245"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:16.048356" elapsed="0.000289"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:16.047811" elapsed="0.000855"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:16.044944" elapsed="0.003739"/>
+</if>
+<var name="${attempt}">1</var>
+<status status="PASS" start="2025-12-04T15:17:14.911238" elapsed="1.137467"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:17.049503" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:16.049216" elapsed="1.000471"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:17.204133" level="INFO">${call_state} = IDLE</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:17.049893" elapsed="0.154347"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205144" elapsed="0.000033"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205321" elapsed="0.000024"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205462" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:17.204709" elapsed="0.000813"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:17.204689" elapsed="0.000858"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205654" elapsed="0.000022"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205788" elapsed="0.000020"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205984" elapsed="0.000020"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206112" elapsed="0.000021"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206239" elapsed="0.000021"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206384" elapsed="0.000022"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206508" elapsed="0.000021"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206580" elapsed="0.000021"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205881" elapsed="0.000744"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206756" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206878" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206646" elapsed="0.000287"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:17.205864" elapsed="0.001090"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:17.204492" elapsed="0.002485"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.207195" elapsed="0.000021"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:17.207323" elapsed="0.000021"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:17.207389" elapsed="0.000015"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:17.206995" elapsed="0.000429"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:17.207879" level="INFO">${mod_result} = 0</msg>
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:17.207543" elapsed="0.000367"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:17.208162" elapsed="0.000876"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:17.207988" elapsed="0.001111"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:17.207970" elapsed="0.001166"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:17.207443" elapsed="0.001726"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:17.204441" elapsed="0.004754"/>
+</if>
+<var name="${attempt}">2</var>
+<status status="PASS" start="2025-12-04T15:17:16.049114" elapsed="1.160115"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.210112" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:17.209805" elapsed="1.000429"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.383346" level="INFO">${call_state} = RINGING</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.210439" elapsed="0.173014"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.384547" level="INFO">${phone_ringing} = True</msg>
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.384250" elapsed="0.000330"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.384972" level="INFO">${ring_start_time} = 1764857838</msg>
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.384727" elapsed="0.000273"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.385127" elapsed="0.000868"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:18.383918" elapsed="0.002126"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:18.383896" elapsed="0.002244"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.386524" level="INFO">${current_time} = 1764857838</msg>
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.386284" elapsed="0.000272"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.386951" level="INFO">${ring_duration} = 0</msg>
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.386689" elapsed="0.000292"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387281" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387416" elapsed="0.000023"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387546" elapsed="0.000021"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387682" elapsed="0.000021"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387804" elapsed="0.000029"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387887" elapsed="0.000020"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:18.387062" elapsed="0.000870"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:18.388339" level="INFO">${remaining} = 5</msg>
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.388066" elapsed="0.000308"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.388498" elapsed="0.000195"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:18.387952" elapsed="0.000782"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:18.387042" elapsed="0.001714"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:18.383700" elapsed="0.005078"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.388914" elapsed="0.000022"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389055" elapsed="0.000022"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389125" elapsed="0.000015"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:18.388800" elapsed="0.000362"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389288" elapsed="0.000021"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389485" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389380" elapsed="0.000162"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389363" elapsed="0.000200"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:18.389183" elapsed="0.000400"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:18.383651" elapsed="0.005951"/>
+</if>
+<var name="${attempt}">3</var>
+<status status="PASS" start="2025-12-04T15:17:17.209692" elapsed="1.179931"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:19.390445" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:18.390117" elapsed="1.000482"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:19.474761" level="INFO">${call_state} = RINGING</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:19.390802" elapsed="0.084070"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.475705" elapsed="0.000032"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.475876" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.476017" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:19.475360" elapsed="0.000716"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:19.475340" elapsed="0.000760"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:19.476542" level="INFO">${current_time} = 1764857839</msg>
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:19.476218" elapsed="0.000360"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:19.477002" level="INFO">${ring_duration} = 1</msg>
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:19.476716" elapsed="0.000317"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477331" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477469" elapsed="0.000022"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477593" elapsed="0.000021"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477786" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477914" elapsed="0.000020"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477985" elapsed="0.000020"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:19.477117" elapsed="0.000911"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:19.478423" level="INFO">${remaining} = 4</msg>
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:19.478158" elapsed="0.000295"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:19.478564" elapsed="0.001140"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:19.478052" elapsed="0.001703"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:19.477094" elapsed="0.002685"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:19.475130" elapsed="0.004672"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.479957" elapsed="0.000026"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480102" elapsed="0.000022"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480173" elapsed="0.000015"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:19.479823" elapsed="0.000387"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480334" elapsed="0.000021"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480532" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480429" elapsed="0.000163"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480412" elapsed="0.000202"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:19.480229" elapsed="0.000406"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:19.475077" elapsed="0.005576"/>
+</if>
+<var name="${attempt}">4</var>
+<status status="PASS" start="2025-12-04T15:17:18.390023" elapsed="1.090650"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:20.481463" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:19.481152" elapsed="1.000433"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:20.566869" level="INFO">${call_state} = RINGING</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:20.481787" elapsed="0.085190"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.567787" elapsed="0.000030"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.567957" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.568098" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:20.567446" elapsed="0.000710"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:20.567427" elapsed="0.000753"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:20.568610" level="INFO">${current_time} = 1764857840</msg>
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:20.568289" elapsed="0.000352"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:20.569310" level="INFO">${ring_duration} = 2</msg>
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:20.568785" elapsed="0.000603"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.569787" elapsed="0.000026"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.569942" elapsed="0.000024"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.570081" elapsed="0.000023"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.570236" elapsed="0.000022"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.570404" elapsed="0.000033"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:20.570514" elapsed="0.000031"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:20.569535" elapsed="0.001042"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:20.571093" level="INFO">${remaining} = 3</msg>
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:20.570743" elapsed="0.000382"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:20.571243" elapsed="0.000222"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:20.570602" elapsed="0.000905"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:20.569513" elapsed="0.002017"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:20.567231" elapsed="0.004381"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.571760" elapsed="0.000022"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.571892" elapsed="0.000021"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:20.571960" elapsed="0.000015"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:20.571640" elapsed="0.000357"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.572117" elapsed="0.000021"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:20.572309" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:20.572212" elapsed="0.000155"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:20.572194" elapsed="0.000194"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:20.572016" elapsed="0.000392"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:20.567180" elapsed="0.005246"/>
+</if>
+<var name="${attempt}">5</var>
+<status status="PASS" start="2025-12-04T15:17:19.481055" elapsed="1.091392"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:21.573282" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:20.572961" elapsed="1.000446"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:21.669161" level="INFO">${call_state} = RINGING</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:21.573613" elapsed="0.095698"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.670519" elapsed="0.000046"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.670777" elapsed="0.000031"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.670978" elapsed="0.000030"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:21.670017" elapsed="0.001045"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:21.669991" elapsed="0.001108"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:21.671744" level="INFO">${current_time} = 1764857841</msg>
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:21.671255" elapsed="0.000538"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:21.672408" level="INFO">${ring_duration} = 3</msg>
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:21.671983" elapsed="0.000470"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.672888" elapsed="0.000032"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.673088" elapsed="0.000030"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.673271" elapsed="0.000030"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.673479" elapsed="0.000029"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.673661" elapsed="0.000028"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:21.673763" elapsed="0.000027"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:21.672571" elapsed="0.001257"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:21.674419" level="INFO">${remaining} = 2</msg>
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:21.674016" elapsed="0.000453"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:21.674656" elapsed="0.000307"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:21.673860" elapsed="0.001177"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:21.672545" elapsed="0.002529"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:21.669692" elapsed="0.005420"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675326" elapsed="0.000031"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675525" elapsed="0.000031"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675629" elapsed="0.000023"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675147" elapsed="0.000540"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675869" elapsed="0.000030"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:21.676165" elapsed="0.000030"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:21.676010" elapsed="0.000238"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675986" elapsed="0.000364"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:21.675717" elapsed="0.000673"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:21.669618" elapsed="0.006801"/>
+</if>
+<var name="${attempt}">6</var>
+<status status="PASS" start="2025-12-04T15:17:20.572853" elapsed="1.103601"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:22.677598" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:21.677242" elapsed="1.000528"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:22.784698" level="INFO">${call_state} = RINGING</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:22.678065" elapsed="0.106781"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.785977" elapsed="0.000042"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.786218" elapsed="0.000032"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.786436" elapsed="0.000030"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:22.785503" elapsed="0.001019"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:22.785475" elapsed="0.001084"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:22.787163" level="INFO">${current_time} = 1764857842</msg>
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:22.786713" elapsed="0.000493"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:22.787778" level="INFO">${ring_duration} = 4</msg>
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:22.787388" elapsed="0.000432"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.788267" elapsed="0.000032"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.788468" elapsed="0.000029"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.788650" elapsed="0.000029"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.788853" elapsed="0.000029"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.789033" elapsed="0.000029"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:22.789137" elapsed="0.000029"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:22.787942" elapsed="0.001260"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:22.789774" level="INFO">${remaining} = 1</msg>
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:22.789390" elapsed="0.000433"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:22.789996" elapsed="0.000325"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:22.789234" elapsed="0.001148"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:22.787909" elapsed="0.002506"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:22.785198" elapsed="0.005257"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.790660" elapsed="0.000031"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.790860" elapsed="0.000031"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:22.790967" elapsed="0.000024"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:22.790489" elapsed="0.000535"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.791211" elapsed="0.000030"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:22.791507" elapsed="0.000033"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:22.791355" elapsed="0.000242"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:22.791330" elapsed="0.000300"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:22.791055" elapsed="0.000613"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:22.785129" elapsed="0.006567"/>
+</if>
+<var name="${attempt}">7</var>
+<status status="PASS" start="2025-12-04T15:17:21.677095" elapsed="1.114638"/>
+</iter>
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:23.792999" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:22.792611" elapsed="1.000510"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:23.918606" level="INFO">${call_state} = RINGING</msg>
+<var>${call_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:23.793314" elapsed="0.125403"/>
+</kw>
+<if>
+<branch type="IF" condition="'${call_state}' == 'RINGING'">
+<if>
+<branch type="IF" condition="not ${phone_ringing}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:23.919577" elapsed="0.000033"/>
+</kw>
+<kw name="Get Time" owner="BuiltIn">
+<var>${ring_start_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:23.919753" elapsed="0.000083"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} is ringing! (after ${attempt + 1} seconds)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:23.919969" elapsed="0.000023"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:23.919204" elapsed="0.000826"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:23.919179" elapsed="0.000876"/>
+</if>
+<kw name="Get Time" owner="BuiltIn">
+<msg time="2025-12-04T15:17:23.920500" level="INFO">${current_time} = 1764857843</msg>
+<var>${current_time}</var>
+<arg>epoch</arg>
+<doc>Returns the given time in the requested format.</doc>
+<status status="PASS" start="2025-12-04T15:17:23.920167" elapsed="0.000364"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:23.920931" level="INFO">${ring_duration} = 5</msg>
+<var>${ring_duration}</var>
+<arg>${current_time} - ${ring_start_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:23.920659" elapsed="0.000301"/>
+</kw>
+<if>
+<branch type="IF" condition="${ring_duration} &gt;= ${ring_wait_seconds}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>Phone has been ringing for ${ring_duration} seconds</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:23.921256" elapsed="0.000241"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Answering call on ${recipient_msisdn}...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:23.921620" elapsed="0.000182"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:24.008707" level="INFO">Answering call on +4915900103141...</msg>
+<msg time="2025-12-04T15:17:24.090826" level="INFO">✓ Call answered successfully on +4915900103141</msg>
+<msg time="2025-12-04T15:17:25.186246" level="INFO">✓ Call is now active (state: OFFHOOK)</msg>
+<msg time="2025-12-04T15:17:25.186610" level="INFO">${result} = True</msg>
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>answer_call</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:23.921921" elapsed="1.264732"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result}</arg>
+<arg>Failed to answer call</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.187035" elapsed="0.000357"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call answered successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.187546" elapsed="0.000167"/>
+</kw>
+<break>
+<status status="PASS" start="2025-12-04T15:17:25.187785" elapsed="0.000074"/>
+</break>
+<status status="PASS" start="2025-12-04T15:17:23.921042" elapsed="1.266855"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${remaining}</var>
+<arg>${ring_wait_seconds} - ${ring_duration}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188078" elapsed="0.000023"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Waiting to answer... (${remaining}s remaining)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188214" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:25.187939" elapsed="0.000334"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:23.921021" elapsed="1.267277"/>
+</if>
+<status status="PASS" start="2025-12-04T15:17:23.918976" elapsed="1.269361"/>
+</branch>
+<branch type="ELSE IF" condition="'${call_state}' == 'OFFHOOK'">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>📞 ${recipient_msisdn} already answered!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188482" elapsed="0.000024"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${phone_ringing}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188629" elapsed="0.000023"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188705" elapsed="0.000016"/>
+</break>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188364" elapsed="0.000380"/>
+</branch>
+<branch type="ELSE">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 3</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188874" elapsed="0.000022"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Still waiting for ring... (${attempt + 1}/${MAX_RING_WAIT}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:25.189084" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188984" elapsed="0.000156"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188966" elapsed="0.000195"/>
+</if>
+<status status="NOT RUN" start="2025-12-04T15:17:25.188765" elapsed="0.000417"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:23.918922" elapsed="1.270279"/>
+</if>
+<var name="${attempt}">8</var>
+<status status="PASS" start="2025-12-04T15:17:22.792439" elapsed="2.396795"/>
+</iter>
+<var>${attempt}</var>
+<value>${MAX_RING_WAIT}</value>
+<status status="PASS" start="2025-12-04T15:17:13.748708" elapsed="11.440566"/>
+</for>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${phone_ringing}</arg>
+<arg>Phone never started ringing after ${MAX_RING_WAIT} seconds</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.189389" elapsed="0.000244"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_b_ip_port}</arg>
+<arg>${phone_b_msisdn}</arg>
+<arg>${RING_WAIT_SECONDS}</arg>
+<doc>Wait for recipient phone to ring, then answer after specified duration</doc>
+<status status="PASS" start="2025-12-04T15:17:13.746012" elapsed="11.443721"/>
+</kw>
+<kw name="Wait For Call Connection" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.190749" elapsed="0.000183"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Waiting for call to be fully connected...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.191058" elapsed="0.000133"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.191304" elapsed="0.000132"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:17:25.191722" level="INFO">${connected} = False</msg>
+<var>${connected}</var>
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.191548" elapsed="0.000203"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:26.192763" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:25.192447" elapsed="1.000441"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:26.255101" level="INFO">${caller_state} = OFFHOOK</msg>
+<var>${caller_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${caller_ip_port}</arg>
+<arg>${caller_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.193091" elapsed="0.062118"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:26.356103" level="INFO">${recipient_state} = OFFHOOK</msg>
+<var>${recipient_state}</var>
+<arg>${automation}</arg>
+<arg>get_call_state</arg>
+<arg>${recipient_ip_port}</arg>
+<arg>${recipient_msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.255665" elapsed="0.100547"/>
+</kw>
+<if>
+<branch type="IF" condition="'${caller_state}' == 'OFFHOOK' and '${recipient_state}' == 'OFFHOOK'">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:17:26.357210" level="INFO">${connected} = True</msg>
+<var>${connected}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.356929" elapsed="0.000312"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call is now fully connected! (OFFHOOK on both sides after ${attempt + 1}s)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.357382" elapsed="0.000876"/>
+</kw>
+<break>
+<status status="PASS" start="2025-12-04T15:17:26.358335" elapsed="0.000055"/>
+</break>
+<status status="PASS" start="2025-12-04T15:17:26.356490" elapsed="0.001933"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:17:26.356433" elapsed="0.002022"/>
+</if>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${mod_result}</var>
+<arg>(${attempt} + 1) % 2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:26.358601" elapsed="0.000027"/>
+</kw>
+<if>
+<branch type="IF" condition="${mod_result} == 0">
+<kw name="Log" owner="BuiltIn">
+<arg>Caller: ${caller_state}, Recipient: ${recipient_state} - waiting...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:26.358824" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:26.358709" elapsed="0.000173"/>
+</branch>
+<status status="NOT RUN" start="2025-12-04T15:17:26.358691" elapsed="0.000213"/>
+</if>
+<var name="${attempt}">0</var>
+<status status="PASS" start="2025-12-04T15:17:25.192340" elapsed="1.166591"/>
+</iter>
+<var>${attempt}</var>
+<value>${MAX_CONNECT_WAIT}</value>
+<status status="PASS" start="2025-12-04T15:17:25.191823" elapsed="1.167143"/>
+</for>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${connected}</arg>
+<arg>Log To Console</arg>
+<arg>⚠ Call may not be fully connected, but continuing...</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.359105" elapsed="0.000193"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_a_ip_port}</arg>
+<arg>${phone_a_msisdn}</arg>
+<arg>${phone_b_ip_port}</arg>
+<arg>${phone_b_msisdn}</arg>
+<doc>Wait for call to be fully connected (both sides OFFHOOK)</doc>
+<status status="PASS" start="2025-12-04T15:17:25.190151" elapsed="1.169248"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.359532" elapsed="0.000177"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>STEP 5: Call in progress...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.359825" elapsed="0.000128"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.360066" elapsed="0.000142"/>
+</kw>
+<kw name="Maintain Call Duration" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.360969" elapsed="0.000169"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Call in progress...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.361263" elapsed="0.000141"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.361530" elapsed="0.000131"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏱️</arg>
+<arg>Call timer started! Call will last ${duration_seconds} seconds...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.361787" elapsed="0.000195"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-12-04T15:17:26.362293" level="INFO">${remaining} = 30</msg>
+<var>${remaining}</var>
+<arg>${duration_seconds}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.362101" elapsed="0.000229"/>
+</kw>
+<while condition="${remaining} &gt; 0">
+<iter>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Call in progress... ${remaining}s remaining</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.362680" elapsed="0.000184"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:17:26.363235" level="INFO">${sleep_time} = 5</msg>
+<var>${sleep_time}</var>
+<arg>${remaining} &gt;= 5</arg>
+<arg>5</arg>
+<arg>${remaining}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.363004" elapsed="0.000266"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:31.363751" level="INFO">Slept 5 seconds.</msg>
+<arg>${sleep_time}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:26.363411" elapsed="5.000465"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:31.364424" level="INFO">${remaining} = 25</msg>
+<var>${remaining}</var>
+<arg>${remaining} - ${sleep_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:31.364077" elapsed="0.000381"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:26.362399" elapsed="5.002104"/>
+</iter>
+<iter>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Call in progress... ${remaining}s remaining</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:31.364787" elapsed="0.000214"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:17:31.365413" level="INFO">${sleep_time} = 5</msg>
+<var>${sleep_time}</var>
+<arg>${remaining} &gt;= 5</arg>
+<arg>5</arg>
+<arg>${remaining}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:17:31.365190" elapsed="0.000255"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:36.365871" level="INFO">Slept 5 seconds.</msg>
+<arg>${sleep_time}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:31.365572" elapsed="5.000462"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:36.366838" level="INFO">${remaining} = 20</msg>
+<var>${remaining}</var>
+<arg>${remaining} - ${sleep_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:36.366342" elapsed="0.000541"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:31.364534" elapsed="5.002410"/>
+</iter>
+<iter>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Call in progress... ${remaining}s remaining</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:36.367328" elapsed="0.000268"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:17:36.368201" level="INFO">${sleep_time} = 5</msg>
+<var>${sleep_time}</var>
+<arg>${remaining} &gt;= 5</arg>
+<arg>5</arg>
+<arg>${remaining}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:17:36.367803" elapsed="0.000447"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:41.368777" level="INFO">Slept 5 seconds.</msg>
+<arg>${sleep_time}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:36.368440" elapsed="5.000465"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:41.369486" level="INFO">${remaining} = 15</msg>
+<var>${remaining}</var>
+<arg>${remaining} - ${sleep_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:41.369112" elapsed="0.000408"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:36.366984" elapsed="5.002582"/>
+</iter>
+<iter>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Call in progress... ${remaining}s remaining</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:41.369860" elapsed="0.000214"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:17:41.370476" level="INFO">${sleep_time} = 5</msg>
+<var>${sleep_time}</var>
+<arg>${remaining} &gt;= 5</arg>
+<arg>5</arg>
+<arg>${remaining}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:17:41.370217" elapsed="0.000302"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:46.371021" level="INFO">Slept 5 seconds.</msg>
+<arg>${sleep_time}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:41.370699" elapsed="5.000467"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:46.371744" level="INFO">${remaining} = 10</msg>
+<var>${remaining}</var>
+<arg>${remaining} - ${sleep_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:46.371388" elapsed="0.000388"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:41.369593" elapsed="5.002226"/>
+</iter>
+<iter>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Call in progress... ${remaining}s remaining</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:46.372089" elapsed="0.000206"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:17:46.372644" level="INFO">${sleep_time} = 5</msg>
+<var>${sleep_time}</var>
+<arg>${remaining} &gt;= 5</arg>
+<arg>5</arg>
+<arg>${remaining}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:17:46.372438" elapsed="0.000237"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:51.373096" level="INFO">Slept 5 seconds.</msg>
+<arg>${sleep_time}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:46.372795" elapsed="5.000426"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:51.374003" level="INFO">${remaining} = 5</msg>
+<var>${remaining}</var>
+<arg>${remaining} - ${sleep_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:51.373436" elapsed="0.000603"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:46.371846" elapsed="5.002240"/>
+</iter>
+<iter>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>⏳ Call in progress... ${remaining}s remaining</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:51.374371" elapsed="0.000218"/>
+</kw>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-12-04T15:17:51.374963" level="INFO">${sleep_time} = 5</msg>
+<var>${sleep_time}</var>
+<arg>${remaining} &gt;= 5</arg>
+<arg>5</arg>
+<arg>${remaining}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-12-04T15:17:51.374734" elapsed="0.000261"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-12-04T15:17:56.375436" level="INFO">Slept 5 seconds.</msg>
+<arg>${sleep_time}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-12-04T15:17:51.375124" elapsed="5.000432"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-12-04T15:17:56.376117" level="INFO">${remaining} = 0</msg>
+<var>${remaining}</var>
+<arg>${remaining} - ${sleep_time}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-12-04T15:17:56.375760" elapsed="0.000391"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:51.374111" elapsed="5.002084"/>
+</iter>
+<status status="PASS" start="2025-12-04T15:17:26.362397" elapsed="30.013950"/>
+</while>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n⏱️</arg>
+<arg>${duration_seconds} seconds elapsed. Ending call...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:56.376480" elapsed="0.000236"/>
+</kw>
+<arg>${CALL_DURATION}</arg>
+<doc>Keep call active for specified duration with countdown</doc>
+<status status="PASS" start="2025-12-04T15:17:26.360532" elapsed="30.016262"/>
+</kw>
+<kw name="End Call" owner="PhoneAutomation">
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2025-12-04T15:17:56.447417" level="INFO">Ending call on +4915781993213...</msg>
+<msg time="2025-12-04T15:17:56.836017" level="INFO">✓ Call ended successfully on +4915781993213</msg>
+<msg time="2025-12-04T15:17:56.940321" level="INFO">Also ending call on +4915900103141...</msg>
+<msg time="2025-12-04T15:17:57.033104" level="INFO">✓ Call ended on +4915900103141</msg>
+<msg time="2025-12-04T15:17:58.090007" level="INFO">✓ Phone is now idle (state: IDLE)</msg>
+<msg time="2025-12-04T15:17:58.090408" level="INFO">${result} = True</msg>
+<var>${result}</var>
+<arg>${automation}</arg>
+<arg>end_call</arg>
+<arg>${ip_port}</arg>
+<arg>${True}</arg>
+<arg>${msisdn}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-12-04T15:17:56.377478" elapsed="1.712979"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ Call ended successfully</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.091288" elapsed="0.000320"/>
+</kw>
+<arg>${result}</arg>
+<arg>Log To Console</arg>
+<arg>✓ Call ended successfully</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.090888" elapsed="0.000823"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${result}</arg>
+<arg>Log To Console</arg>
+<arg>⚠ Call end command sent (may have already ended)</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.091912" elapsed="0.000287"/>
+</kw>
+<arg>${automation}</arg>
+<arg>${phone_a_ip_port}</arg>
+<arg>${phone_a_msisdn}</arg>
+<doc>End the active call</doc>
+<status status="PASS" start="2025-12-04T15:17:56.376989" elapsed="1.715366"/>
+</kw>
+<kw name="Print Scenario Summary" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.093310" elapsed="0.000287"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>================= SCENARIO COMPLETE ========================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.093772" elapsed="0.000204"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.094150" elapsed="0.000196"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✓ All steps completed successfully!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.094606" elapsed="0.000180"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}• Both phones connected via STF (serial-based)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.094950" elapsed="0.001176"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}• Phone A switched to 2G</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.096326" elapsed="0.000793"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}• Call initiated from Phone A to Phone B</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.097372" elapsed="0.000768"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}• Phone B answered after 5 seconds of ringing</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.098374" elapsed="0.000683"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${SPACE*2}• Call lasted 30 seconds and ended</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.099232" elapsed="0.000639"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.100039" elapsed="0.000169"/>
+</kw>
+<doc>Print final scenario summary</doc>
+<status status="PASS" start="2025-12-04T15:17:58.092768" elapsed="0.007543"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:16:57.361006" elapsed="60.739351"/>
+</branch>
+<branch type="EXCEPT" assign="${error}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n✗ Error during scenario execution: ${error}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:58.100581" elapsed="0.000024"/>
+</kw>
+<kw name="Fail" owner="BuiltIn">
+<arg>Scenario failed: ${error}</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-12-04T15:17:58.100727" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2025-12-04T15:17:58.100460" elapsed="0.000323"/>
+</branch>
+<branch type="FINALLY">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Disconnect Device From STF" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting device ${serial} from STF...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.101889" elapsed="0.000290"/>
+</kw>
+<arg>${STF_MANAGER}</arg>
+<arg>${PHONE_A_SERIAL}</arg>
+<doc>Disconnect a device from STF (placeholder for future implementation)</doc>
+<status status="PASS" start="2025-12-04T15:17:58.101347" elapsed="0.000950"/>
+</kw>
+<arg>'${STF_MANAGER}' != 'None' and '${PHONE_A_SERIAL}' != 'None'</arg>
+<arg>Disconnect Device From STF</arg>
+<arg>${STF_MANAGER}</arg>
+<arg>${PHONE_A_SERIAL}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.100955" elapsed="0.001444"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Disconnect Device From STF" owner="PhoneAutomation">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting device ${serial} from STF...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.103371" elapsed="0.000242"/>
+</kw>
+<arg>${STF_MANAGER}</arg>
+<arg>${PHONE_B_SERIAL}</arg>
+<doc>Disconnect a device from STF (placeholder for future implementation)</doc>
+<status status="PASS" start="2025-12-04T15:17:58.102951" elapsed="0.000753"/>
+</kw>
+<arg>'${STF_MANAGER}' != 'None' and '${PHONE_B_SERIAL}' != 'None'</arg>
+<arg>Disconnect Device From STF</arg>
+<arg>${STF_MANAGER}</arg>
+<arg>${PHONE_B_SERIAL}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-12-04T15:17:58.102572" elapsed="0.001195"/>
+</kw>
+<status status="PASS" start="2025-12-04T15:17:58.100838" elapsed="0.002998"/>
+</branch>
+<status status="PASS" start="2025-12-04T15:16:57.360954" elapsed="60.742930"/>
+</try>
+<doc>Execute automated call scenario with two auto-selected STF devices</doc>
+<tag>2G</tag>
+<tag>call-test</tag>
+<tag>phone-automation</tag>
+<tag>stf</tag>
+<status status="PASS" start="2025-12-04T15:16:57.349079" elapsed="60.755106"/>
+</test>
+<doc>Custom Call Automation Test Suite
+Automated phone call scenario using STF devices:
+1. Auto-select two available STF devices
+2. Connect both via STF (serial → IP:PORT)
+3. Switch Phone A to 2G
+4. Phone A calls Phone B
+5. Phone B answers after 5 seconds of ringing
+6. Call lasts 30 seconds and ends</doc>
+<status status="PASS" start="2025-12-04T15:16:57.234785" elapsed="60.870048"/>
+</suite>
+<status status="PASS" start="2025-12-04T15:16:57.233625" elapsed="60.872227"/>
+</suite>
+<status status="PASS" start="2025-12-04T15:16:57.211140" elapsed="60.895256"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">2G</stat>
+<stat pass="1" fail="0" skip="0">call-test</stat>
+<stat pass="1" fail="0" skip="0">phone-automation</stat>
+<stat pass="1" fail="0" skip="0">stf</stat>
+</tag>
+<suite>
+<stat name="MSS-AUTOMATION" id="s1" pass="1" fail="0" skip="0">MSS-AUTOMATION</stat>
+<stat name="Tests" id="s1-s1" pass="1" fail="0" skip="0">MSS-AUTOMATION.Tests</stat>
+<stat name="CustomCall" id="s1-s1-s1" pass="1" fail="0" skip="0">MSS-AUTOMATION.Tests.CustomCall</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
