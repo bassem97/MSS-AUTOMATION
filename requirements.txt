@@ -1,4 +1,20 @@
+# Core dependencies
 paramiko>=2.11
 pyyaml>=5.1
 requests>=2.25.0
 robotframework>=6.0
+
+# Selenium and web automation
+selenium>=4.0.0
+webdriver-manager>=3.8.0
+
+# SSH/Terminal automation
+pexpect>=4.8.0
+
+# ADB for Android device control
+adbutils>=0.14.0
+pure-python-adb>=0.3.0.dev0
+
+# Document processing (for reports)
+python-docx>=0.8.11
+

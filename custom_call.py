@@ -63,6 +63,51 @@ def extract_msisdn_from_device(device):
     return None
 
 
+def extract_imsi_from_device(device, automation=None, ip_port=None):
+    """Try to extract IMSI from STF device metadata or via ADB.
+
+    Args:
+        device: STF device dictionary
+        automation: PhoneCallAutomation instance (optional)
+        ip_port: Device IP:PORT for ADB commands (optional)
+
+    Returns:
+        IMSI string or None if not found
+    """
+    # First try to get from device metadata/notes
+    notes = device.get("notes") or device.get("note") or ""
+    if isinstance(notes, str):
+        # Look for IMSI pattern (typically 14-15 digits starting with MCC/MNC)
+        imsi_match = re.search(r'\b(\d{14,15})\b', notes)
+        if imsi_match:
+            return imsi_match.group(1)
+
+    # Try to get IMSI via ADB if automation and ip_port are provided
+    if automation and ip_port:
+        try:
+            import subprocess
+            result = subprocess.run(
+                ['adb', '-s', ip_port, 'shell', 'service', 'call', 'iphonesubinfo', '1'],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            if result.returncode == 0:
+                # Parse IMSI from output (format: '0000000f 00350032 002e0034 00390030...')
+                output = result.stdout
+                # Extract hex values and convert to IMSI
+                imsi_parts = re.findall(r"'([\d.]+)'", output)
+                if imsi_parts:
+                    imsi = ''.join(imsi_parts[0].split('.'))
+                    if len(imsi) >= 14:
+                        return imsi
+        except Exception:
+            pass
+
+    # Return placeholder if IMSI cannot be determined
+    return None
+
+
 def ask_msisdn_for_device(label, device):
     """Interactively ask user for MSISDN if it cannot be auto-detected."""
     serial = device.get("serial", "UNKNOWN")
@@ -199,13 +244,13 @@ def run_custom_scenario():
     stf_cfg = STF_CONFIG
     if not stf_cfg or not stf_cfg.get("enabled", False):
         logger.error("STF is not enabled in PHONES.yaml (STF.enabled=false)")
-        return False
+        return {"success": False}
 
     base_url = stf_cfg.get("base_url")
     user_auth = stf_cfg.get("user_auth")
     if not base_url or not user_auth:
         logger.error("STF configuration incomplete: base_url or user_auth missing")
-        return False
+        return {"success": False}
 
     stf_manager = STFManager(base_url, user_auth, logger)
 
@@ -226,7 +271,7 @@ def run_custom_scenario():
     picked = pick_two_available_devices(stf_manager, logger)
     if not picked:
         logger.error("Cannot start scenario: failed to select two STF devices")
-        return False
+        return {"success": False}
 
     phone_a_dev, phone_b_dev = picked
     phone_a_serial = phone_a_dev.get("serial")
@@ -250,6 +295,23 @@ def run_custom_scenario():
 
     log_and_print(f"Using MSISDN for Phone A: {phone_a_msisdn}")
     log_and_print(f"Using MSISDN for Phone B: {phone_b_msisdn}")
+
+    # Extract IMSIs from device metadata
+    log_and_print("\nExtracting IMSIs from device metadata...")
+    phone_a_imsi = extract_imsi_from_device(phone_a_dev)
+    phone_b_imsi = extract_imsi_from_device(phone_b_dev)
+
+    if phone_a_imsi:
+        log_and_print(f"Phone A IMSI: {phone_a_imsi}")
+    else:
+        log_and_print("⚠ Phone A IMSI could not be auto-detected (will use placeholder)", "WARNING")
+        phone_a_imsi = "UNKNOWN_IMSI_A"
+
+    if phone_b_imsi:
+        log_and_print(f"Phone B IMSI: {phone_b_imsi}")
+    else:
+        log_and_print("⚠ Phone B IMSI could not be auto-detected (will use placeholder)", "WARNING")
+        phone_b_imsi = "UNKNOWN_IMSI_B"
 
     # Build a minimal phones dict compatible with PhoneCallAutomation.
     dynamic_phones = {
@@ -290,7 +352,7 @@ def run_custom_scenario():
     if not phone_a_ip_port:
         log_and_print(f"✗ Failed to connect Phone A (serial {phone_a_serial}) via STF", "ERROR")
         log_and_print("This usually means the device is already in use by another user", "ERROR")
-        return False
+        return {"success": False}
 
     log_and_print(f"Verifying Phone B ({phone_b_serial}) availability...")
     fresh_device_b = stf_manager.get_device_by_serial(phone_b_serial)
@@ -310,7 +372,7 @@ def run_custom_scenario():
         # Clean up A
         log_and_print("Cleaning up Phone A connection...", "WARNING")
         stf_manager.disconnect_device_by_serial(phone_a_serial)
-        return False
+        return {"success": False}
 
     log_and_print(f"Phone A ADB target: {phone_a_ip_port}")
     log_and_print(f"Phone B ADB target: {phone_b_ip_port}")
@@ -333,7 +395,7 @@ def run_custom_scenario():
         log_and_print("=" * 60)
         if not automation.restart_adb_server():
             log_and_print("✗ Failed to restart ADB server. Aborting scenario.", "ERROR")
-            return False
+            return {"success": False}
         log_and_print("✓ ADB server restarted successfully")
         time.sleep(2)  # Wait for ADB to stabilize
 
@@ -345,12 +407,12 @@ def run_custom_scenario():
         log_and_print(f"Connecting to Phone A ({phone_a['msisdn']})...")
         if not automation.connect_device(phone_a["ip_port"]):
             log_and_print("✗ Failed to connect to Phone A. Aborting scenario.", "ERROR")
-            return False
+            return {"success": False}
 
         log_and_print(f"Connecting to Phone B ({phone_b['msisdn']})...")
         if not automation.connect_device(phone_b["ip_port"]):
             log_and_print("✗ Failed to connect to Phone B. Aborting scenario.", "ERROR")
-            return False
+            return {"success": False}
 
         log_and_print("✓ Both phones connected successfully")
         time.sleep(2)  # Wait for connections to stabilize
@@ -363,8 +425,8 @@ def run_custom_scenario():
             log_and_print("⚠ Failed to switch to 2G, but continuing with scenario...", "WARNING")
         else:
             log_and_print("✓ Successfully switched Phone A to 2G")
-            log_and_print("Waiting for network to stabilize...")
-            time.sleep(3)
+            log_and_print("Waiting for network to stabilize (8 seconds)...")
+            time.sleep(10)
 
         # Step 4: Phone A calls Phone B
         log_and_print("\n" + "=" * 60)
@@ -375,7 +437,7 @@ def run_custom_scenario():
 
         if not automation.make_call(phone_a["ip_port"], phone_a["msisdn"], phone_b["msisdn"]):
             log_and_print("✗ Failed to initiate call. Aborting scenario.", "ERROR")
-            return False
+            return {"success": False}
 
         log_and_print("✓ Call initiated successfully")
 
@@ -413,7 +475,7 @@ def run_custom_scenario():
                         break
                     else:
                         log_and_print("✗ Failed to answer call. Aborting scenario.", "ERROR")
-                        return False
+                        return {"success": False}
                 else:
                     # Still waiting for 5 seconds to pass
                     remaining = 5 - ring_duration
@@ -430,7 +492,7 @@ def run_custom_scenario():
             log_and_print(
                 f"✗ Phone B never started ringing after {max_ring_wait} seconds. Aborting scenario."
             )
-            return False
+            return {"success": False}
 
         # Wait for call to be fully connected
         log_and_print("\n" + "=" * 60)
@@ -490,7 +552,16 @@ def run_custom_scenario():
         log_and_print("  • Call lasted 30 seconds and ended")
         log_and_print("=" * 60)
 
-        return True
+        # Return success status and device information for Anritsu trace collection
+        return {
+            "success": True,
+            "phone_a_msisdn": phone_a_msisdn,
+            "phone_b_msisdn": phone_b_msisdn,
+            "phone_a_serial": phone_a_serial,
+            "phone_b_serial": phone_b_serial,
+            "phone_a_imsi": phone_a_imsi,
+            "phone_b_imsi": phone_b_imsi
+        }
 
     except KeyboardInterrupt:
         log_and_print("\n\n⚠ Scenario interrupted by user (Ctrl+C)", "WARNING")
@@ -499,12 +570,12 @@ def run_custom_scenario():
             automation.end_call(phone_a["ip_port"], end_all=True, phone_number=phone_a["msisdn"])
         except Exception:
             pass
-        return False
+        return {"success": False}
 
     except Exception as e:
         log_and_print(f"\n✗ Error during scenario execution: {e}", "ERROR")
         logger.exception("Full traceback:")
-        return False
+        return {"success": False}
     finally:
         # Always try to disconnect STF sessions
         try:
