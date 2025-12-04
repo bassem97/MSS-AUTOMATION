@@ -54,9 +54,35 @@ def load_phones():
         print(f"ERROR loading PHONES.yaml: {e}")
         sys.exit(1)
 
+# ---- Load STF Configuration from YAML ----
+def load_stf_config():
+    """Load STF configuration from PHONES.yaml"""
+    phones_file = os.path.join(CONFIG_DIR, 'PHONES.yaml')
+    try:
+        with open(phones_file, 'r') as f:
+            data = yaml.safe_load(f)
+            stf_config = data.get('STF', {})
+            return stf_config
+    except FileNotFoundError:
+        print(f"WARNING: {phones_file} not found! STF integration disabled.")
+        return {}
+    except Exception as e:
+        print(f"WARNING: Error loading STF config from PHONES.yaml: {e}")
+        return {}
+
+# ---- Load All Configurations ----
+def load_config():
+    """Load all configuration from YAML files"""
+    return {
+        'SERVERS': load_servers(),
+        'PHONES': load_phones(),
+        'STF': load_stf_config()
+    }
+
 # Load configurations
 SERVERS = load_servers()
 PHONES = load_phones()
+STF_CONFIG = load_stf_config()
 
 # ---- Timeout Settings ----
 READ_TIMEOUT = 6.0  # Seconds to wait for command output

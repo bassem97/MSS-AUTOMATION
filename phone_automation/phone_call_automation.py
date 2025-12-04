@@ -6,21 +6,55 @@ Automates phone calls between mobile devices using ADB commands through STF.
 
 import subprocess
 import time
-import sys
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from configs.logging_config import build_logger
-from configs.config import PHONES
+from configs.config import PHONES, STF_CONFIG
+from phone_automation.stf_manager import STFManager
 
 
 class PhoneCallAutomation:
     """Handles automated phone calls between mobile devices via ADB."""
 
-    def __init__(self, logger=None, phones=None):
+    def __init__(self, logger=None, phones=None, stf_config=None, auto_connect_stf=True):
+        """
+        Initialize Phone Call Automation.
+
+        Args:
+            logger: Logger instance
+            phones: Phone configuration dict
+            stf_config: STF configuration dict
+            auto_connect_stf: If True, automatically connect to phones via STF
+        """
         # Use provided phones or load from config
         self.phones = phones or PHONES
         # Initialize logger
         self.logger = logger or build_logger("phone_call_automation")
+
+        # Initialize STF Manager if config is provided
+        self.stf_config = stf_config or STF_CONFIG
+        self.stf_manager = None
+        self.stf_enabled = self.stf_config.get('enabled', False) if self.stf_config else False
+        self.device_serials = {}  # Map IP:PORT to device serial
+
+        if self.stf_enabled and self.stf_config:
+            try:
+                base_url = self.stf_config.get('base_url')
+                user_auth = self.stf_config.get('user_auth')
+
+                if base_url and user_auth:
+                    self.stf_manager = STFManager(base_url, user_auth, self.logger)
+                    self.logger.info("✓ STF Manager initialized")
+
+                    # Auto-connect to phones if enabled
+                    if auto_connect_stf:
+                        self.auto_connect_all_phones()
+                else:
+                    self.logger.warning("STF enabled but missing base_url or user_auth")
+                    self.stf_enabled = False
+            except Exception as e:
+                self.logger.error(f"Failed to initialize STF Manager: {e}")
+                self.stf_enabled = False
 
     def clean_msisdn(self, msisdn: str) -> str:
         """Remove spaces from MSISDN and add prefix (+) if needed."""
@@ -29,6 +63,188 @@ class PhoneCallAutomation:
             cleaned = "+" + cleaned
         return cleaned
 
+    def auto_connect_all_phones(self) -> Dict[str, bool]:
+        """
+        Automatically connect to all phones in the config via STF.
+
+        Returns:
+            Dict mapping phone names to connection success status
+        """
+        results = {}
+
+        if not self.stf_enabled or not self.stf_manager:
+            self.logger.warning("STF is not enabled. Skipping auto-connection.")
+            return results
+
+        self.logger.info("=== Auto-connecting to phones via STF ===")
+
+        for phone_key, phone_data in self.phones.items():
+            phone_name = phone_data.get('name', phone_key)
+            ip_port = phone_data.get('ip_port')
+            serial = phone_data.get('serial')  # Optional: can be in config
+
+            if not ip_port:
+                self.logger.warning(f"Skipping {phone_name}: No IP:PORT in config")
+                results[phone_key] = False
+                continue
+
+            # Try to connect via STF
+            success = self.connect_device_via_stf(ip_port, serial)
+            results[phone_key] = success
+
+            if success:
+                self.logger.info(f"✓ {phone_name} connected successfully")
+            else:
+                self.logger.error(f"✗ Failed to connect {phone_name}")
+
+        return results
+
+    def connect_device_via_stf(self, ip_port: str, serial: Optional[str] = None) -> bool:
+        """
+        Connect to a device via STF using its IP:PORT or serial.
+
+        Args:
+            ip_port: Device IP:PORT (e.g., "172.29.42.44:7413")
+            serial: Optional device serial number (if known)
+
+        Returns:
+            bool: True if connection successful
+        """
+        if not self.stf_enabled or not self.stf_manager:
+            self.logger.warning("STF is not enabled. Using direct ADB connection.")
+            return self.connect_device(ip_port)
+
+        try:
+            self.logger.info(f"Connecting to device {ip_port} via STF...")
+
+            # If serial not provided, try to find it
+            if not serial:
+                # Check if already connected
+                if ip_port in self.device_serials:
+                    serial = self.device_serials[ip_port]
+                    self.logger.debug(f"Using cached serial: {serial}")
+                else:
+                    # Try to find device by IP:PORT
+                    serial = self.stf_manager.find_device_by_ip_port(ip_port)
+
+                    # If still not found, try to extract from currently connected devices
+                    if not serial:
+                        self.logger.debug(f"Could not find device by IP:PORT, checking user devices...")
+                        user_devices = self.stf_manager.get_user_devices()
+                        if user_devices:
+                            for device in user_devices:
+                                remote_url = device.get('remoteConnectUrl', '')
+                                if ip_port in remote_url:
+                                    serial = device.get('serial')
+                                    break
+
+            if not serial:
+                self.logger.warning(f"Could not find device serial for {ip_port}")
+                self.logger.info("Attempting direct ADB connection...")
+                return self.connect_device(ip_port)
+
+            # Connect via STF
+            remote_url = self.stf_manager.connect_device_by_serial(serial)
+
+            if remote_url:
+                # Store the serial for this IP:PORT
+                self.device_serials[ip_port] = serial
+                self.device_serials[remote_url] = serial  # Also store for the remote URL
+
+                # Verify connection
+                time.sleep(2)
+                result = subprocess.run(
+                    ["adb", "devices"],
+                    capture_output=True,
+                    text=True,
+                    timeout=5
+                )
+
+                if ip_port in result.stdout or remote_url in result.stdout:
+                    self.logger.info(f"✓ Device {ip_port} connected via STF (serial: {serial})")
+                    return True
+                else:
+                    self.logger.warning(f"Device connected via STF but not visible in ADB devices")
+                    return True  # Still consider it successful
+            else:
+                self.logger.error(f"Failed to connect to device {ip_port} via STF")
+                return False
+
+        except Exception as e:
+            self.logger.error(f"Error connecting via STF: {e}")
+            self.logger.info("Falling back to direct ADB connection...")
+            return self.connect_device(ip_port)
+
+    def disconnect_device_via_stf(self, ip_port: str) -> bool:
+        """
+        Disconnect a device via STF.
+
+        Args:
+            ip_port: Device IP:PORT
+
+        Returns:
+            bool: True if disconnection successful
+        """
+        if not self.stf_enabled or not self.stf_manager:
+            self.logger.info("STF is not enabled. Using direct ADB disconnection.")
+            self.disconnect_device(ip_port)
+            return True
+
+        try:
+            # Get serial for this device
+            serial = self.device_serials.get(ip_port)
+
+            if not serial:
+                self.logger.warning(f"No serial found for {ip_port}, using direct disconnect")
+                self.disconnect_device(ip_port)
+                return True
+
+            # Disconnect via STF
+            success = self.stf_manager.disconnect_device_by_serial(serial)
+
+            if success:
+                # Clean up cached serial
+                if ip_port in self.device_serials:
+                    del self.device_serials[ip_port]
+                self.logger.info(f"✓ Device {ip_port} disconnected via STF")
+
+            return success
+
+        except Exception as e:
+            self.logger.error(f"Error disconnecting via STF: {e}")
+            return False
+
+    def disconnect_all_phones(self) -> Dict[str, bool]:
+        """
+        Disconnect all phones that were connected via STF.
+
+        Returns:
+            Dict mapping phone names to disconnection success status
+        """
+        results = {}
+
+        if not self.stf_enabled or not self.stf_manager:
+            self.logger.info("STF is not enabled. Skipping auto-disconnection.")
+            return results
+
+        self.logger.info("=== Disconnecting all phones from STF ===")
+
+        for phone_key, phone_data in self.phones.items():
+            phone_name = phone_data.get('name', phone_key)
+            ip_port = phone_data.get('ip_port')
+
+            if not ip_port:
+                continue
+
+            success = self.disconnect_device_via_stf(ip_port)
+            results[phone_key] = success
+
+            if success:
+                self.logger.info(f"✓ {phone_name} disconnected successfully")
+            else:
+                self.logger.warning(f"⚠ Failed to disconnect {phone_name}")
+
+        return results
 
     def connect_device(self, ip_port: str) -> bool:
         """Connect to a device via ADB."""

@@ -1,6 +1,23 @@
 # Phone Configuration
 # Mobile devices for automated call testing via ADB
 
+# STF (SmartPhone Test Farm) Configuration
+STF:
+  base_url: "http://172.29.42.44:7100"
+  user_auth: "Bearer 4f4321c6b5354a9b98003feebda60a0062113ef6e2ee46ed86e5d0a816474276"
+  enabled: true  # Set to false to disable automatic STF connection
+
+# Device Connection Options:
+# 1. Using serial number (RECOMMENDED): Specify 'serial' field, leave 'ip_port' empty
+#    - STF will automatically provide the IP:PORT
+#    - More reliable and doesn't require manual lookup
+# 2. Using IP:PORT (legacy): Specify 'ip_port' field
+#    - System will try to auto-detect serial from STF
+#    - Falls back to direct ADB connection if serial not found
+#
+# To find device serial numbers, run:
+#   python connect_device_by_serial.py --list
+
 PHONES:
 #  phoneA:
 #    name: Phone A
@@ -17,6 +34,7 @@ PHONES:
     name: Phone A
     msisdn: "4915781993444"
     ip_port: 172.29.42.44:7413
+    serial: ""  # Add device serial if known, otherwise leave empty and it will be auto-detected
     notes: "SPIE New: Nokia 1 million: 4915781993444"
 ##
 #  phoneA:
@@ -34,16 +52,16 @@ PHONES:
 #    msisdn: "4915900103164"
 #    ip_port: 172.29.42.44:7417
 #    note : "Samsung Galaxy A54 5G TEF-SPIE 02     MSISDN: 4915900103164   (SN:  R5CX130T0YK)"
-#  phoneA:
-#    name: Phone A
-#    msisdn: "4915900104513"
-#    ip_port: 172.29.42.44:7497
-#    note: "SPIE 3: IMS HAM 1+2: 4915900104513 & 4915900104514  (UE SN: R5CWA1TBCYZ)"
-
   phoneB:
     name: Phone B
-    msisdn: "4915900103141"
-    ip_port: 172.29.42.44:7437
-    notes : "SM-A546B - SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & 4917607019222  (UE SN: R5CWA1TBD9Y)  (UE SN: R5CWA1TBD9Y)"
+    msisdn: "4915900104513"
+    ip_port: 172.29.42.44:7481
+    note: "SPIE 3: IMS HAM 1+2: 4915900104513 & 4915900104514  (UE SN: R5CWA1TBCYZ)"
 
+#  phoneB:
+#    name: Phone B
+#    msisdn: "4915900103141"
+#    ip_port: 172.29.42.44:7481
+#    notes : "SM-A546B - SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & 4917607019222  (UE SN: R5CWA1TBD9Y)  (UE SN: R5CWA1TBD9Y)"
+#
 
