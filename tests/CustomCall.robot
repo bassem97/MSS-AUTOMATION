@@ -12,6 +12,14 @@ Documentation       Custom Call Automation Test Suite
 ...                 which contains all the scenario logic.
 
 Library             ../custom_call.py
+Library             DateTime
+Library             BuiltIn
+
+
+*** Variables ***
+${START_TIME}       ${EMPTY}
+${END_TIME}         ${EMPTY}
+${DURATION}         ${EMPTY}
 
 
 *** Test Cases ***
@@ -20,8 +28,37 @@ Custom Call Scenario - Two STF Devices
     ...                Directly calls the Python run_custom_scenario() function.
     [Tags]    phone-automation    stf    call-test    2G
 
+    # Capture start time
+    ${START_TIME}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
+    Log To Console    \n${\n}Test Start Time: ${START_TIME}
+    Log    Test Start Time: ${START_TIME}
+    Set Suite Variable    ${START_TIME}
+
     # Run the entire custom scenario from the Python module
     ${success}=    Run Custom Scenario
+
+    # Capture end time
+    ${END_TIME}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
+    Log To Console    Test End Time: ${END_TIME}
+    Log    Test End Time: ${END_TIME}
+    Set Suite Variable    ${END_TIME}
+
+    # Calculate duration
+    ${DURATION}=    Subtract Date From Date    ${END_TIME}    ${START_TIME}
+    Log To Console    Test Duration: ${DURATION} seconds
+    Log    Test Duration: ${DURATION} seconds
+    Set Suite Variable    ${DURATION}
+
+    # Determine status
+    ${STATUS}=    Set Variable If    ${success}    PASS    FAIL
+
+    # Log summary
+    Log To Console    \n${\n}========== TEST SUMMARY ==========
+    Log To Console    Start Time: ${START_TIME}
+    Log To Console    End Time: ${END_TIME}
+    Log To Console    Duration: ${DURATION} seconds
+    Log To Console    Status: ${STATUS}
+    Log To Console    ==================================
 
     # Check result
     Should Be True    ${success}    Custom call scenario failed
