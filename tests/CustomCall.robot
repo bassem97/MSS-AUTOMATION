@@ -41,11 +41,10 @@ Collect Anritsu Trace
 
     Log To Console    \n${\n}========== ANRITSU TRACE COLLECTION ==========
     Log To Console    Template: ${ANRITSU_TEMPLATE}
-    Log To Console    Time Range: ${start_time} to ${end_time}
-    Log To Console    Start Time Length: ${start_time.__len__()}
-    Log To Console    End Time Length: ${end_time.__len__()}
-    Log To Console    Start Time Value: [${start_time}]
-    Log To Console    End Time Value: [${end_time}]
+    Log To Console    Time Range (with milliseconds): ${start_time} to ${end_time}
+    Log To Console    Start Time: [${start_time}] (Length: ${start_time.__len__()})
+    Log To Console    End Time: [${end_time}] (Length: ${end_time.__len__()})
+    Log To Console    Expected format: YYYY-MM-DD HH:MM:SS.MSS (23 chars)
     Log To Console    Phone A MSISDN: ${phone_a_msisdn}
     Log To Console    Phone B MSISDN: ${phone_b_msisdn}
     Log To Console    Output Dir: ${TC_OUTPUT_DIR}
@@ -169,15 +168,12 @@ Collect Anritsu Trace
     RETURN    ${pcap_path}
 
 Format Anritsu Timestamp
-    [Documentation]    Convert Robot Framework timestamp to Anritsu format (YYYY-MM-DD hh:mm:ss)
+    [Documentation]    Convert Robot Framework timestamp to Anritsu format (YYYY-MM-DD HH:MM:SS.MSS)
     [Arguments]    ${rf_timestamp}
 
     # Parse the timestamp: "2025-12-05 09:51:00.000"
-    ${date_part}    ${time_part}=    Split String    ${rf_timestamp}    ${SPACE}    max_split=1
-    ${time_only}=    Fetch From Left    ${time_part}    .
-
-    # Format as YYYY-MM-DD HH:MM:SS (keep original date format, just remove milliseconds)
-    ${anritsu_timestamp}=    Set Variable    ${date_part} ${time_only}
+    # Keep the format as-is with milliseconds: YYYY-MM-DD HH:MM:SS.MSS
+    ${anritsu_timestamp}=    Set Variable    ${rf_timestamp}
 
     RETURN    ${anritsu_timestamp}
 
