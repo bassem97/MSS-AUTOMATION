@@ -217,13 +217,17 @@ Custom Call Scenario - Two STF Devices
 
     # Capture start time
     ${START_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
-    ${START_TIME}=    Set Variable    ${START_TIME_RAW[:23]}
-    Log To Console    \n${\n}Test Start Time: ${START_TIME}
-    Log    Test Start Time: ${START_TIME}
+    ${START_TIME_ORIGINAL}=    Set Variable    ${START_TIME_RAW[:23]}
+    # Round down to previous minute (set seconds to 00)
+    ${START_TIME}=    Set Variable    ${START_TIME_ORIGINAL[:17]}00
+    Log To Console    \n${\n}Test Start Time (Original): ${START_TIME_ORIGINAL}
+    Log To Console    Test Start Time (Adjusted): ${START_TIME}
+    Log    Test Start Time (Original): ${START_TIME_ORIGINAL}
+    Log    Test Start Time (Adjusted): ${START_TIME}
     Set Suite Variable    ${START_TIME}
-
+    
     # Update TC_OUTPUT_DIR with actual timestamp
-    ${TC_OUTPUT_DIR}=    Set Variable    ${CURDIR}/../tc_output_dir/CustomCall_${START_TIME}
+    ${TC_OUTPUT_DIR}=    Set Variable    ${CURDIR}/../tc_output_dir/CustomCall_${START_TIME_ORIGINAL}
     Set Suite Variable    ${TC_OUTPUT_DIR}
 
     # Run the entire custom scenario from the Python module
@@ -231,9 +235,14 @@ Custom Call Scenario - Two STF Devices
 
     # Capture end time
     ${END_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
-    ${END_TIME}=    Set Variable    ${END_TIME_RAW[:23]}
-    Log To Console    Test End Time: ${END_TIME}
-    Log    Test End Time: ${END_TIME}
+    ${END_TIME_ORIGINAL}=    Set Variable    ${END_TIME_RAW[:23]}
+    # Round up to next minute (set seconds to 00 and add 1 minute)
+    ${END_TIME_ROUNDED}=    Add Time To Date    ${END_TIME_ORIGINAL}    1 minute    result_format=%Y-%m-%d %H:%M:%S
+    ${END_TIME}=    Set Variable    ${END_TIME_ROUNDED[:17]}00
+    Log To Console    Test End Time (Original): ${END_TIME_ORIGINAL}
+    Log To Console    Test End Time (Adjusted): ${END_TIME}
+    Log    Test End Time (Original): ${END_TIME_ORIGINAL}
+    Log    Test End Time (Adjusted): ${END_TIME}
     Set Suite Variable    ${END_TIME}
 
     # Calculate duration
