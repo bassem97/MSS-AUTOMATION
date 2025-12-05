@@ -305,12 +305,27 @@ class AnritsuServer:
                 sendkeys(self.driver, oesearch_path['Called_number_field'],
                          self.device_2["sims"]["sim_slot_1"]["sim_MSISDN"], "Called number field")
 
-                # Populate IMSI fields
+                # Populate IMSI fields (skip if UNKNOWN_IMSI)
                 logging.info("Populating IMSI fields")
-                sendkeys(self.driver, oesearch_path['IMSI_field'],
-                         self.device_1["sims"]["sim_slot_1"]["sim_IMSI"] + Keys.RETURN, "IMSI field")
-                sendkeys(self.driver, oesearch_path['IMSI_field'],
-                         self.device_2["sims"]["sim_slot_1"]["sim_IMSI"] + ' ', "IMSI field")
+
+                device_1_imsi = self.device_1["sims"]["sim_slot_1"]["sim_IMSI"]
+                device_2_imsi = self.device_2["sims"]["sim_slot_1"]["sim_IMSI"]
+
+                # Send device_1 IMSI if not UNKNOWN
+                if device_1_imsi and "UNKNOWN_IMSI" not in device_1_imsi:
+                    logging.info(f"Sending Device 1 IMSI: {device_1_imsi}")
+                    sendkeys(self.driver, oesearch_path['IMSI_field'],
+                             device_1_imsi + Keys.RETURN, "IMSI field")
+                else:
+                    logging.info(f"Skipping Device 1 IMSI (value: {device_1_imsi})")
+
+                # Send device_2 IMSI if not UNKNOWN
+                if device_2_imsi and "UNKNOWN_IMSI" not in device_2_imsi:
+                    logging.info(f"Sending Device 2 IMSI: {device_2_imsi}")
+                    sendkeys(self.driver, oesearch_path['IMSI_field'],
+                             device_2_imsi + ' ', "IMSI field")
+                else:
+                    logging.info(f"Skipping Device 2 IMSI (value: {device_2_imsi})")
 
             # Step 4: Execute search
             logging.info("Executing OE search")

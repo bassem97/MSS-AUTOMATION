@@ -30,7 +30,7 @@ ${START_TIME}       ${EMPTY}
 ${END_TIME}         ${EMPTY}
 ${DURATION}         ${EMPTY}
 ${ANRITSU_TEMPLATE}    Easy_Subscriber_Search    # Default Anritsu trace template
-${TC_OUTPUT_DIR}    ${CURDIR}/../tc_output_dir/CustomCall_${START_TIME}
+${TC_OUTPUT_DIR}    ${CURDIR}/../tc_output_dir
 ${TRACE_ENABLED}    ${TRUE}    # Set to ${FALSE} to disable Anritsu trace collection
 
 
@@ -74,64 +74,6 @@ Collect Anritsu Trace
 
     ${devices_info}=    Create Dictionary    device_1=${device_1}    device_2=${device_2}
 
-    # Save input data to JSON file BEFORE starting Anritsu trace
-    ${json_file}=    Set Variable    ${TC_OUTPUT_DIR}/anritsu_input_data.json
-    ${current_time}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S
-    ${json_content}=    Catenate    SEPARATOR=\n
-    ...    {
-    ...    ${SPACE*2}"metadata": {
-    ...    ${SPACE*4}"test_case": "CustomCall",
-    ...    ${SPACE*4}"timestamp": "${current_time}",
-    ...    ${SPACE*4}"template": "${ANRITSU_TEMPLATE}",
-    ...    ${SPACE*4}"output_directory": "${TC_OUTPUT_DIR}"
-    ...    ${SPACE*2}},
-    ...    ${SPACE*2}"trace_parameters": {
-    ...    ${SPACE*4}"start_time": "${start_time}",
-    ...    ${SPACE*4}"end_time": "${end_time}",
-    ...    ${SPACE*4}"template": "${ANRITSU_TEMPLATE}",
-    ...    ${SPACE*4}"is_fixed_call": false
-    ...    ${SPACE*2}},
-    ...    ${SPACE*2}"device_information": {
-    ...    ${SPACE*4}"phone_a": {
-    ...    ${SPACE*6}"msisdn": "${phone_a_msisdn}",
-    ...    ${SPACE*6}"imsi": "${phone_a_imsi}"
-    ...    ${SPACE*4}},
-    ...    ${SPACE*4}"phone_b": {
-    ...    ${SPACE*6}"msisdn": "${phone_b_msisdn}",
-    ...    ${SPACE*6}"imsi": "${phone_b_imsi}"
-    ...    ${SPACE*4}}
-    ...    ${SPACE*2}},
-    ...    ${SPACE*2}"devices_info_structure": {
-    ...    ${SPACE*4}"device_1": {
-    ...    ${SPACE*6}"sims": {
-    ...    ${SPACE*8}"sim_slot_1": {
-    ...    ${SPACE*10}"sim_MSISDN": "${phone_a_msisdn}",
-    ...    ${SPACE*10}"sim_IMSI": "${phone_a_imsi}",
-    ...    ${SPACE*10}"sim_Calling_Number": "${phone_a_msisdn}",
-    ...    ${SPACE*10}"sim_Calling_Number_0": "${phone_a_msisdn}"
-    ...    ${SPACE*8}}
-    ...    ${SPACE*6}}
-    ...    ${SPACE*4}},
-    ...    ${SPACE*4}"device_2": {
-    ...    ${SPACE*6}"sims": {
-    ...    ${SPACE*8}"sim_slot_1": {
-    ...    ${SPACE*10}"sim_MSISDN": "${phone_b_msisdn}",
-    ...    ${SPACE*10}"sim_IMSI": "${phone_b_imsi}",
-    ...    ${SPACE*10}"sim_Calling_Number": "${phone_b_msisdn}",
-    ...    ${SPACE*10}"sim_Calling_Number_0": "${phone_b_msisdn}"
-    ...    ${SPACE*8}}
-    ...    ${SPACE*6}}
-    ...    ${SPACE*4}}
-    ...    ${SPACE*2}},
-    ...    ${SPACE*2}"anritsu_server_config": {
-    ...    ${SPACE*4}"server_ip": "${ANRITSU}[ANRITSU_SERVER_IP]",
-    ...    ${SPACE*4}"username": "${ANRITSU}[ANRITSU_SERVER_USERNAME]"
-    ...    ${SPACE*2}}
-    ...    }
-
-    Create File    ${json_file}    ${json_content}
-    Log To Console    \n📄 Anritsu input data saved to: ${json_file}
-    Log    Anritsu input data saved to: ${json_file}
 
     # Step 1: Initialize Anritsu driver
     Log To Console    \n[1/3] Initializing Anritsu driver...
@@ -231,10 +173,6 @@ Custom Call Scenario - Two STF Devices
     Log    Test Start Time (Original): ${START_TIME_ORIGINAL}
     Log    Test Start Time (Adjusted): ${START_TIME}
     Set Suite Variable    ${START_TIME}
-    
-    # Update TC_OUTPUT_DIR with actual timestamp
-    ${TC_OUTPUT_DIR}=    Set Variable    ${CURDIR}/../tc_output_dir/CustomCall_${START_TIME_ORIGINAL}
-    Set Suite Variable    ${TC_OUTPUT_DIR}
 
     # Run the entire custom scenario from the Python module
     ${result}=    Run Custom Scenario
@@ -277,9 +215,11 @@ Custom Call Scenario - Two STF Devices
 
     # Final summary
     ${TRACE_STATUS}=    Set Variable If    ${TRACE_ENABLED}    ENABLED    DISABLED
+
     Log To Console    \n${\n}========== FINAL TEST SUMMARY ==========
     Log To Console    Call Status: ${STATUS}
     Log To Console    Trace Collection: ${TRACE_STATUS}
     Log To Console    Total Duration: ${DURATION} seconds
     Log To Console    ========================================
+
 

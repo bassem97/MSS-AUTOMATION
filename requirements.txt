@@ -18,3 +18,6 @@ pure-python-adb>=0.3.0.dev0
 # Document processing (for reports)
 python-docx>=0.8.11
 
+# PCAP analysis and validation
+pyshark>=0.5.3
+
