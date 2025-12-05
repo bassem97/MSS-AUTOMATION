@@ -63,48 +63,196 @@ def extract_msisdn_from_device(device):
     return None
 
 
-def extract_imsi_from_device(device, automation=None, ip_port=None):
+def extract_imsi_from_device(device, automation=None, ip_port=None, logger=None):
     """Try to extract IMSI from STF device metadata or via ADB.
 
     Args:
         device: STF device dictionary
         automation: PhoneCallAutomation instance (optional)
         ip_port: Device IP:PORT for ADB commands (optional)
+        logger: Logger instance for detailed debugging (optional)
 
     Returns:
         IMSI string or None if not found
     """
+    import subprocess
+
+    def log_debug(msg):
+        """Helper to log debug messages"""
+        if logger:
+            logger.debug(msg)
+        print(f"[DEBUG IMSI] {msg}", flush=True)
+
+    serial = device.get("serial", "UNKNOWN")
+    log_debug(f"Starting IMSI extraction for device {serial} (IP:PORT={ip_port})")
+
     # First try to get from device metadata/notes
     notes = device.get("notes") or device.get("note") or ""
-    if isinstance(notes, str):
+    if isinstance(notes, str) and notes.strip():
+        log_debug(f"Device notes: {notes}")
         # Look for IMSI pattern (typically 14-15 digits starting with MCC/MNC)
         imsi_match = re.search(r'\b(\d{14,15})\b', notes)
         if imsi_match:
-            return imsi_match.group(1)
+            imsi = imsi_match.group(1)
+            log_debug(f"✓ Found IMSI in notes: {imsi}")
+            return imsi
+    else:
+        log_debug("No notes found in device metadata")
 
-    # Try to get IMSI via ADB if automation and ip_port are provided
-    if automation and ip_port:
-        try:
-            import subprocess
-            result = subprocess.run(
-                ['adb', '-s', ip_port, 'shell', 'service', 'call', 'iphonesubinfo', '1'],
-                capture_output=True,
-                text=True,
-                timeout=5
-            )
-            if result.returncode == 0:
-                # Parse IMSI from output (format: '0000000f 00350032 002e0034 00390030...')
-                output = result.stdout
-                # Extract hex values and convert to IMSI
-                imsi_parts = re.findall(r"'([\d.]+)'", output)
-                if imsi_parts:
-                    imsi = ''.join(imsi_parts[0].split('.'))
-                    if len(imsi) >= 14:
-                        return imsi
-        except Exception:
-            pass
+    # Try to get IMSI via ADB if ip_port is provided
+    if not ip_port:
+        log_debug("No IP:PORT provided, cannot use ADB methods")
+        return None
 
-    # Return placeholder if IMSI cannot be determined
+    log_debug(f"Attempting ADB extraction methods for {ip_port}")
+
+    # Method 1: Try getprop command (works on some devices)
+    try:
+        log_debug("Method 1: Trying getprop gsm.sim.operator.imsi...")
+        result = subprocess.run(
+            ['adb', '-s', ip_port, 'shell', 'getprop', 'gsm.sim.operator.imsi'],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        log_debug(f"Method 1 return code: {result.returncode}")
+        if result.returncode == 0 and result.stdout.strip():
+            imsi = result.stdout.strip()
+            log_debug(f"Method 1 output: '{imsi}'")
+            if len(imsi) >= 14 and imsi.isdigit():
+                log_debug(f"✓ Method 1 SUCCESS: {imsi}")
+                return imsi
+        log_debug("Method 1 failed: No valid IMSI in output")
+    except Exception as e:
+        log_debug(f"Method 1 exception: {e}")
+
+    # Method 2: Try service call iphonesubinfo 1 (IMSI for SIM slot 1)
+    try:
+        log_debug("Method 2: Trying service call iphonesubinfo 1...")
+        result = subprocess.run(
+            ['adb', '-s', ip_port, 'shell', 'service', 'call', 'iphonesubinfo', '1'],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        log_debug(f"Method 2 return code: {result.returncode}")
+        if result.returncode == 0:
+            output = result.stdout
+            log_debug(f"Method 2 output (first 200 chars): {output[:200]}")
+
+            # Parse IMSI from service call output
+            # Try multiple parsing strategies
+
+            # Strategy 1: Look for quoted strings
+            hex_pattern = r"'(.*?)'"
+            matches = re.findall(hex_pattern, output)
+            if matches:
+                imsi_str = ''.join(matches)
+                imsi = ''.join(c for c in imsi_str if c.isdigit())
+                log_debug(f"Method 2 Strategy 1 extracted: '{imsi}'")
+                if len(imsi) >= 14:
+                    log_debug(f"✓ Method 2 SUCCESS (Strategy 1): {imsi}")
+                    return imsi
+
+            # Strategy 2: Look for direct digit sequences
+            digit_pattern = r'(\d{14,15})'
+            digit_match = re.search(digit_pattern, output)
+            if digit_match:
+                imsi = digit_match.group(1)
+                log_debug(f"✓ Method 2 SUCCESS (Strategy 2): {imsi}")
+                return imsi
+
+            log_debug("Method 2 failed: Could not parse IMSI from output")
+    except Exception as e:
+        log_debug(f"Method 2 exception: {e}")
+
+    # Method 3: Try dumpsys telephony.registry
+    try:
+        log_debug("Method 3: Trying dumpsys telephony.registry...")
+        result = subprocess.run(
+            ['adb', '-s', ip_port, 'shell', 'dumpsys', 'telephony.registry'],
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        log_debug(f"Method 3 return code: {result.returncode}")
+        if result.returncode == 0:
+            output = result.stdout
+            log_debug(f"Method 3 output length: {len(output)} chars")
+
+            # Look for IMSI patterns
+            imsi_patterns = [
+                r'mImsi=(\d{14,15})',
+                r'IMSI=(\d{14,15})',
+                r'imsi=(\d{14,15})',
+                r'mImsiLoad=(\d{14,15})'
+            ]
+            for pattern in imsi_patterns:
+                match = re.search(pattern, output, re.IGNORECASE)
+                if match:
+                    imsi = match.group(1)
+                    log_debug(f"✓ Method 3 SUCCESS (pattern '{pattern}'): {imsi}")
+                    return imsi
+            log_debug("Method 3 failed: No IMSI pattern found in dumpsys output")
+    except Exception as e:
+        log_debug(f"Method 3 exception: {e}")
+
+    # Method 4: Try dumpsys iphonesubinfo
+    try:
+        log_debug("Method 4: Trying dumpsys iphonesubinfo...")
+        result = subprocess.run(
+            ['adb', '-s', ip_port, 'shell', 'dumpsys', 'iphonesubinfo'],
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        log_debug(f"Method 4 return code: {result.returncode}")
+        if result.returncode == 0:
+            output = result.stdout
+            log_debug(f"Method 4 output (first 500 chars): {output[:500]}")
+
+            # Look for IMSI in various formats
+            patterns = [
+                r'Device ID = (\d{14,15})',
+                r'IMSI = (\d{14,15})',
+                r'Subscriber ID = (\d{14,15})',
+                r'(\d{14,15})'
+            ]
+            for pattern in patterns:
+                match = re.search(pattern, output)
+                if match:
+                    imsi = match.group(1)
+                    log_debug(f"✓ Method 4 SUCCESS (pattern '{pattern}'): {imsi}")
+                    return imsi
+            log_debug("Method 4 failed: No IMSI found")
+    except Exception as e:
+        log_debug(f"Method 4 exception: {e}")
+
+    # Method 5: Try content query
+    try:
+        log_debug("Method 5: Trying content query...")
+        result = subprocess.run(
+            ['adb', '-s', ip_port, 'shell',
+             'content', 'query', '--uri', 'content://telephony/siminfo',
+             '--projection', 'icc_id,imsi'],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        log_debug(f"Method 5 return code: {result.returncode}")
+        if result.returncode == 0:
+            output = result.stdout
+            log_debug(f"Method 5 output: {output[:300]}")
+            imsi_match = re.search(r'imsi=(\d{14,15})', output)
+            if imsi_match:
+                imsi = imsi_match.group(1)
+                log_debug(f"✓ Method 5 SUCCESS: {imsi}")
+                return imsi
+            log_debug("Method 5 failed: No IMSI in content query output")
+    except Exception as e:
+        log_debug(f"Method 5 exception: {e}")
+
+    log_debug(f"❌ All IMSI extraction methods failed for device {serial}")
     return None
 
 
@@ -296,22 +444,6 @@ def run_custom_scenario():
     log_and_print(f"Using MSISDN for Phone A: {phone_a_msisdn}")
     log_and_print(f"Using MSISDN for Phone B: {phone_b_msisdn}")
 
-    # Extract IMSIs from device metadata
-    log_and_print("\nExtracting IMSIs from device metadata...")
-    phone_a_imsi = extract_imsi_from_device(phone_a_dev)
-    phone_b_imsi = extract_imsi_from_device(phone_b_dev)
-
-    if phone_a_imsi:
-        log_and_print(f"Phone A IMSI: {phone_a_imsi}")
-    else:
-        log_and_print("⚠ Phone A IMSI could not be auto-detected (will use placeholder)", "WARNING")
-        phone_a_imsi = "UNKNOWN_IMSI_A"
-
-    if phone_b_imsi:
-        log_and_print(f"Phone B IMSI: {phone_b_imsi}")
-    else:
-        log_and_print("⚠ Phone B IMSI could not be auto-detected (will use placeholder)", "WARNING")
-        phone_b_imsi = "UNKNOWN_IMSI_B"
 
     # Build a minimal phones dict compatible with PhoneCallAutomation.
     dynamic_phones = {
@@ -416,6 +548,31 @@ def run_custom_scenario():
 
         log_and_print("✓ Both phones connected successfully")
         time.sleep(2)  # Wait for connections to stabilize
+
+        # Extract IMSIs via ADB now that devices are connected
+        log_and_print("\n" + "=" * 60)
+        log_and_print("STEP 2.5: Extracting IMSIs via ADB...")
+        log_and_print("=" * 60)
+
+        # Try to get IMSI from Phone A
+        log_and_print(f"Attempting to extract IMSI for Phone A ({phone_a_serial})...")
+        phone_a_imsi = extract_imsi_from_device(phone_a_dev, automation, phone_a["ip_port"], logger)
+        if phone_a_imsi:
+            log_and_print(f"✓ Phone A IMSI: {phone_a_imsi}")
+        else:
+            log_and_print("⚠ Phone A IMSI could not be extracted via ADB", "WARNING")
+            log_and_print("  Check debug logs above for detailed extraction attempts", "WARNING")
+            phone_a_imsi = "UNKNOWN_IMSI_A"
+
+        # Try to get IMSI from Phone B
+        log_and_print(f"Attempting to extract IMSI for Phone B ({phone_b_serial})...")
+        phone_b_imsi = extract_imsi_from_device(phone_b_dev, automation, phone_b["ip_port"], logger)
+        if phone_b_imsi:
+            log_and_print(f"✓ Phone B IMSI: {phone_b_imsi}")
+        else:
+            log_and_print("⚠ Phone B IMSI could not be extracted via ADB", "WARNING")
+            log_and_print("  Check debug logs above for detailed extraction attempts", "WARNING")
+            phone_b_imsi = "UNKNOWN_IMSI_B"
 
         # Step 3: Switch Phone A to 2G
         log_and_print("\n" + "=" * 60)
@@ -553,7 +710,8 @@ def run_custom_scenario():
         log_and_print("=" * 60)
 
         # Return success status and device information for Anritsu trace collection
-        return {
+
+        output = {
             "success": True,
             "phone_a_msisdn": phone_a_msisdn,
             "phone_b_msisdn": phone_b_msisdn,
@@ -562,6 +720,10 @@ def run_custom_scenario():
             "phone_a_imsi": phone_a_imsi,
             "phone_b_imsi": phone_b_imsi
         }
+
+        log_and_print(output)
+
+        return output
 
     except KeyboardInterrupt:
         log_and_print("\n\n⚠ Scenario interrupted by user (Ctrl+C)", "WARNING")
