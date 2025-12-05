@@ -55,9 +55,9 @@ def extract_msisdn_from_device(device):
         m = re.search(pattern, text)
         if m:
             raw = m.group(0)
-            # Normalize to international format with leading '+'
-            if not raw.startswith("+"):
-                raw = "+" + raw
+            # Remove '+' prefix if present
+            if raw.startswith("+"):
+                raw = raw[1:]
             return raw
 
     return None
@@ -271,7 +271,7 @@ def ask_msisdn_for_device(label, device):
         print(f"Notes: {notes}")
 
     while True:
-        msisdn = input(f"Enter MSISDN for {label} (format 49XXXXXXXXXX or +49...): ").strip()
+        msisdn = input(f"Enter MSISDN for {label} (format 49XXXXXXXXXX): ").strip()
         if not msisdn:
             print("MSISDN is required. Please enter a value.")
             continue
@@ -280,8 +280,9 @@ def ask_msisdn_for_device(label, device):
         if len(digits) < 8:
             print("Entered value does not look like a valid MSISDN, please try again.")
             continue
-        if not msisdn.startswith("+"):
-            msisdn = "+" + msisdn
+        # Remove '+' prefix if present
+        if msisdn.startswith("+"):
+            msisdn = msisdn[1:]
         return msisdn
 
 

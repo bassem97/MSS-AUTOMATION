@@ -172,13 +172,58 @@ class AnritsuServer:
             eleclick(
                 self.driver, oesearch_path['Time_intrval_button'], "Time interval button")
 
-            # Step 2: Configure time interval
+            # Step 2: Configure time interval with enhanced method
             logging.info(
                 f"Configuring time interval: {start_time} to {end_time}")
-            for field, value in [(oesearch_path['Start_time_field'], start_time),
-                                 (oesearch_path['End_time_field'], end_time)]:
-                sendkeys(self.driver, field, value,
-                         "Time interval field", True)
+            logging.info(f"Start time type: {type(start_time)}, repr: {repr(start_time)}")
+            logging.info(f"End time type: {type(end_time)}, repr: {repr(end_time)}")
+
+            # Enhanced time input using JavaScript to ensure proper format (YYYY-MM-DD HH:MM:SS)
+            for field_xpath, value in [(oesearch_path['Start_time_field'], start_time),
+                                       (oesearch_path['End_time_field'], end_time)]:
+                try:
+                    # Wait for the field to be present
+                    ele = WebDriverWait(self.driver, 15).until(
+                        EC.element_to_be_clickable((By.XPATH, field_xpath))
+                    )
+
+                    # Click to focus
+                    ele.click()
+                    time.sleep(0.3)
+
+                    # Clear the field using multiple methods
+                    try:
+                        ele.send_keys(Keys.CONTROL + "a")
+                        time.sleep(0.1)
+                        ele.send_keys(Keys.DELETE)
+                        time.sleep(0.1)
+                        self.driver.execute_script("arguments[0].value = '';", ele)
+                        time.sleep(0.1)
+                    except Exception as clear_error:
+                        logging.warning(f"Clear operation warning: {clear_error}")
+
+                    # Set value using JavaScript for reliability
+                    logging.info(f"Setting field value via JavaScript: '{value}' (length: {len(value)})")
+                    self.driver.execute_script("arguments[0].value = arguments[1];", ele, value)
+
+                    # Verify the value was set correctly
+                    set_value = self.driver.execute_script("return arguments[0].value;", ele)
+                    logging.info(f"Verification: Field value after JS set: '{set_value}'")
+
+                    # Trigger events for JavaScript frameworks
+                    self.driver.execute_script("""
+                        arguments[0].dispatchEvent(new Event('input', {bubbles: true}));
+                        arguments[0].dispatchEvent(new Event('change', {bubbles: true}));
+                        arguments[0].dispatchEvent(new Event('blur', {bubbles: true}));
+                    """, ele)
+
+                    time.sleep(0.5)
+                    logging.info(f"Successfully set time field to: {value}")
+
+                except Exception as e:
+                    logging.error(f"Failed to set time field to {value}: {str(e)}")
+                    # Fallback to original method
+                    sendkeys(self.driver, field_xpath, value, "Time interval field", True)
 
             # Step 3: Configure filters based on template type
             if requires_network:

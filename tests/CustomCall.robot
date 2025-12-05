@@ -42,6 +42,10 @@ Collect Anritsu Trace
     Log To Console    \n${\n}========== ANRITSU TRACE COLLECTION ==========
     Log To Console    Template: ${ANRITSU_TEMPLATE}
     Log To Console    Time Range: ${start_time} to ${end_time}
+    Log To Console    Start Time Length: ${start_time.__len__()}
+    Log To Console    End Time Length: ${end_time.__len__()}
+    Log To Console    Start Time Value: [${start_time}]
+    Log To Console    End Time Value: [${end_time}]
     Log To Console    Phone A MSISDN: ${phone_a_msisdn}
     Log To Console    Phone B MSISDN: ${phone_b_msisdn}
     Log To Console    Output Dir: ${TC_OUTPUT_DIR}
@@ -165,16 +169,15 @@ Collect Anritsu Trace
     RETURN    ${pcap_path}
 
 Format Anritsu Timestamp
-    [Documentation]    Convert Robot Framework timestamp to Anritsu format (MM/DD/YYYY hh:mm:ss)
+    [Documentation]    Convert Robot Framework timestamp to Anritsu format (YYYY-MM-DD hh:mm:ss)
     [Arguments]    ${rf_timestamp}
 
-    # Parse the timestamp: "2024-12-04 14:30:45.123456"
+    # Parse the timestamp: "2025-12-05 09:51:00.000"
     ${date_part}    ${time_part}=    Split String    ${rf_timestamp}    ${SPACE}    max_split=1
-    ${year}    ${month}    ${day}=    Split String    ${date_part}    -
     ${time_only}=    Fetch From Left    ${time_part}    .
 
-    # Format as MM/DD/YYYY HH:MM:SS
-    ${anritsu_timestamp}=    Set Variable    ${month}/${day}/${year} ${time_only}
+    # Format as YYYY-MM-DD HH:MM:SS (keep original date format, just remove milliseconds)
+    ${anritsu_timestamp}=    Set Variable    ${date_part} ${time_only}
 
     RETURN    ${anritsu_timestamp}
 
@@ -183,6 +186,9 @@ Collect And Process Anritsu Trace
     [Arguments]    ${result}    ${start_time}    ${end_time}
 
     Log To Console    \n${\n}Starting Anritsu trace collection...
+    Log To Console    Using adjusted times for Anritsu trace:
+    Log To Console    - Start Time (Adjusted): ${start_time}
+    Log To Console    - End Time (Adjusted): ${end_time}
 
     # Extract device information from result dictionary
     ${phone_a_msisdn}=    Get From Dictionary    ${result}    phone_a_msisdn
@@ -195,6 +201,10 @@ Collect And Process Anritsu Trace
     # Convert timestamps to Anritsu format
     ${anritsu_start}=    Format Anritsu Timestamp    ${start_time}
     ${anritsu_end}=    Format Anritsu Timestamp    ${end_time}
+
+    Log To Console    Converted to Anritsu format:
+    Log To Console    - Anritsu Start: ${anritsu_start}
+    Log To Console    - Anritsu End: ${anritsu_end}
 
     # Log device information
     Log To Console    Phone A: ${phone_a_msisdn} (Serial: ${phone_a_serial}, IMSI: ${phone_a_imsi})
@@ -218,8 +228,8 @@ Custom Call Scenario - Two STF Devices
     # Capture start time
     ${START_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
     ${START_TIME_ORIGINAL}=    Set Variable    ${START_TIME_RAW[:23]}
-    # Round down to previous minute (set seconds to 00)
-    ${START_TIME}=    Set Variable    ${START_TIME_ORIGINAL[:17]}00
+    # Round down to previous minute (set seconds to 00) and add .000 milliseconds
+    ${START_TIME}=    Set Variable    ${START_TIME_ORIGINAL[:17]}00.000
     Log To Console    \n${\n}Test Start Time (Original): ${START_TIME_ORIGINAL}
     Log To Console    Test Start Time (Adjusted): ${START_TIME}
     Log    Test Start Time (Original): ${START_TIME_ORIGINAL}
@@ -236,9 +246,9 @@ Custom Call Scenario - Two STF Devices
     # Capture end time
     ${END_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
     ${END_TIME_ORIGINAL}=    Set Variable    ${END_TIME_RAW[:23]}
-    # Round up to next minute (set seconds to 00 and add 1 minute)
+    # Round up to next minute (set seconds to 00 and add 1 minute) and add .000 milliseconds
     ${END_TIME_ROUNDED}=    Add Time To Date    ${END_TIME_ORIGINAL}    1 minute    result_format=%Y-%m-%d %H:%M:%S
-    ${END_TIME}=    Set Variable    ${END_TIME_ROUNDED[:17]}00
+    ${END_TIME}=    Set Variable    ${END_TIME_ROUNDED[:17]}00.000
     Log To Console    Test End Time (Original): ${END_TIME_ORIGINAL}
     Log To Console    Test End Time (Adjusted): ${END_TIME}
     Log    Test End Time (Original): ${END_TIME_ORIGINAL}
