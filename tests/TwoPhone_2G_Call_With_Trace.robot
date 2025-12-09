@@ -1,16 +1,29 @@
 *** Settings ***
-Documentation       Custom Call Automation Test Suite
-...                 Automated phone call scenario using STF devices:
+Documentation       Two-Phone 2G Call with Anritsu Trace Collection
+...
+...                 SCENARIO:
+...                 Automated 2G call test between two STF-managed Android devices
+...                 with complete network trace capture including Location Update procedure.
+...
+...                 TEST STEPS:
 ...                 1. Auto-select two available STF devices
 ...                 2. Connect both via STF (serial → IP:PORT)
-...                 3. Switch Phone A to 2G
+...                 3. Switch Phone A to 2G network (triggers Location Update)
 ...                 4. Phone A calls Phone B
 ...                 5. Phone B answers after 5 seconds of ringing
 ...                 6. Call lasts 30 seconds and ends
-...                 7. Collect Anritsu trace (PCAP)
+...                 7. Collect Anritsu PCAP trace (includes Location Update + Call)
 ...
-...                 This test simply calls the Python function from custom_call.py
-...                 which contains all the scenario logic.
+...                 VALIDATION:
+...                 - Location Update Procedure (BSSAP/MAP)
+...                 - MO Call Setup and Release (BSSAP)
+...                 - MT Call Setup and Release (BSSAP)
+...
+...                 PCAP ANALYSIS:
+...                 Use: python utils/pcap_validator.py tc_output_dir/<pcap_file>
+...
+...                 This test orchestrates the Python function from custom_call.py
+...                 and collects network traces via Anritsu for validation.
 
 Library             ../custom_call.py
 Library             DateTime
@@ -44,7 +57,6 @@ Collect Anritsu Trace
     Log To Console    Time Range (with milliseconds): ${start_time} to ${end_time}
     Log To Console    Start Time: [${start_time}] (Length: ${start_time.__len__()})
     Log To Console    End Time: [${end_time}] (Length: ${end_time.__len__()})
-    Log To Console    Expected format: YYYY-MM-DD HH:MM:SS.MSS (23 chars)
     Log To Console    Phone A MSISDN: ${phone_a_msisdn}
     Log To Console    Phone B MSISDN: ${phone_b_msisdn}
     Log To Console    Output Dir: ${TC_OUTPUT_DIR}
@@ -158,41 +170,47 @@ Collect And Process Anritsu Trace
 
 
 *** Test Cases ***
-Custom Call Scenario - Two STF Devices
-    [Documentation]    Execute automated call scenario with two auto-selected STF devices
-    ...                Directly calls the Python run_custom_scenario() function.
-    [Tags]    phone-automation    stf    call-test    2G
+2G Call Between Two Phones With Location Update Trace
+    [Documentation]    Execute automated 2G call scenario with complete network trace
+    ...
+    ...                This test captures the complete call flow including:
+    ...                - Location Update procedure (when switching to 2G)
+    ...                - Call setup (BSSAP SETUP)
+    ...                - Call connection and duration (30 seconds)
+    ...                - Call release (normal clearing from A-party)
+    ...
+    ...                Trace times are captured AFTER airplane mode toggle to ensure
+    ...                the Location Update procedure is included in the PCAP.
+    [Tags]    2G    BSSAP    call-test    location-update    anritsu-trace    stf
 
-    # Capture start time
-    ${START_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
-    ${START_TIME_ORIGINAL}=    Set Variable    ${START_TIME_RAW[:23]}
-    # Round down to previous minute (set seconds to 00) and add .000 milliseconds
-    ${START_TIME}=    Set Variable    ${START_TIME_ORIGINAL[:17]}00.000
-    Log To Console    \n${\n}Test Start Time (Original): ${START_TIME_ORIGINAL}
-    Log To Console    Test Start Time (Adjusted): ${START_TIME}
-    Log    Test Start Time (Original): ${START_TIME_ORIGINAL}
-    Log    Test Start Time (Adjusted): ${START_TIME}
-    Set Suite Variable    ${START_TIME}
+    Log To Console    \n${\n}========== STARTING CALL SCENARIO ==========
+    Log To Console    Trace times will be captured AFTER 2G switch (airplane mode toggle)
+    Log To Console    This ensures Location Update procedure is included in PCAP
+    Log To Console    ============================================
 
     # Run the entire custom scenario from the Python module
+    # Python function now returns trace_start_time and trace_end_time
     ${result}=    Run Custom Scenario
 
-    # Capture end time
-    ${END_TIME_RAW}=    Get Current Date    result_format=%Y-%m-%d %H:%M:%S.%f
-    ${END_TIME_ORIGINAL}=    Set Variable    ${END_TIME_RAW[:23]}
-    # Round up to next minute (set seconds to 00 and add 1 minute) and add .000 milliseconds
-    ${END_TIME_ROUNDED}=    Add Time To Date    ${END_TIME_ORIGINAL}    1 minute    result_format=%Y-%m-%d %H:%M:%S
-    ${END_TIME}=    Set Variable    ${END_TIME_ROUNDED[:17]}00.000
-    Log To Console    Test End Time (Original): ${END_TIME_ORIGINAL}
-    Log To Console    Test End Time (Adjusted): ${END_TIME}
-    Log    Test End Time (Original): ${END_TIME_ORIGINAL}
-    Log    Test End Time (Adjusted): ${END_TIME}
+    # Extract trace times from Python result (captured after airplane mode toggle)
+    ${START_TIME}=    Get From Dictionary    ${result}    trace_start_time
+    ${END_TIME}=    Get From Dictionary    ${result}    trace_end_time
+
+    Log To Console    \n${\n}========== TRACE TIME WINDOW ==========
+    Log To Console    Trace Start Time: ${START_TIME}
+    Log To Console    Trace End Time: ${END_TIME}
+    Log To Console    (Captured after 2G switch - includes Location Update)
+    Log To Console    ========================================
+
+    Log    Trace Start Time: ${START_TIME}
+    Log    Trace End Time: ${END_TIME}
+    Set Suite Variable    ${START_TIME}
     Set Suite Variable    ${END_TIME}
 
     # Calculate duration
     ${DURATION}=    Subtract Date From Date    ${END_TIME}    ${START_TIME}
-    Log To Console    Test Duration: ${DURATION} seconds
-    Log    Test Duration: ${DURATION} seconds
+    Log To Console    Trace Duration: ${DURATION} seconds
+    Log    Trace Duration: ${DURATION} seconds
     Set Suite Variable    ${DURATION}
 
     # Extract success status and device info from result
@@ -221,5 +239,6 @@ Custom Call Scenario - Two STF Devices
     Log To Console    Trace Collection: ${TRACE_STATUS}
     Log To Console    Total Duration: ${DURATION} seconds
     Log To Console    ========================================
+
 
 

@@ -1,433 +1,439 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.8.10 on linux)" generated="2025-12-09T14:56:52.016368" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.8.10 on linux)" generated="2025-12-09T15:37:57.184923" rpa="false" schemaversion="5">
 <suite id="s1" name="MSS-AUTOMATION" source="/DATA/bjadoui/MSS-AUTOMATION">
 <suite id="s1-s1" name="Tests" source="/DATA/bjadoui/MSS-AUTOMATION/tests">
 <suite id="s1-s1-s1" name="CustomCall" source="/DATA/bjadoui/MSS-AUTOMATION/tests/CustomCall.robot">
 <test id="s1-s1-s1-t1" name="Custom Call Scenario - Two STF Devices" line="161">
-<kw name="Get Current Date" owner="DateTime">
-<msg time="2025-12-09T14:56:52.188191" level="INFO">${START_TIME_RAW} = 2025-12-09 14:56:52.188047</msg>
-<var>${START_TIME_RAW}</var>
-<arg>result_format=%Y-%m-%d %H:%M:%S.%f</arg>
-<doc>Returns current local or UTC time with an optional increment.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.187796" elapsed="0.000445"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:56:52.189083" level="INFO">${START_TIME_ORIGINAL} = 2025-12-09 14:56:52.188</msg>
-<var>${START_TIME_ORIGINAL}</var>
-<arg>${START_TIME_RAW[:23]}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.188468" elapsed="0.000649"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:56:52.189870" level="INFO">${START_TIME} = 2025-12-09 14:56:00.000</msg>
-<var>${START_TIME}</var>
-<arg>${START_TIME_ORIGINAL[:17]}00.000</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.189289" elapsed="0.000613"/>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n${\n}========== STARTING CALL SCENARIO ==========</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-09T15:37:57.353354" elapsed="0.000380"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
-<arg>\n${\n}Test Start Time (Original): ${START_TIME_ORIGINAL}</arg>
+<arg>Trace times will be captured AFTER 2G switch (airplane mode toggle)</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.190070" elapsed="0.000333"/>
+<status status="PASS" start="2025-12-09T15:37:57.353940" elapsed="0.000147"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
-<arg>Test Start Time (Adjusted): ${START_TIME}</arg>
+<arg>This ensures Location Update procedure is included in PCAP</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.190566" elapsed="0.000179"/>
+<status status="PASS" start="2025-12-09T15:37:57.354242" elapsed="0.000152"/>
 </kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T14:56:52.191071" level="INFO">Test Start Time (Original): 2025-12-09 14:56:52.188</msg>
-<arg>Test Start Time (Original): ${START_TIME_ORIGINAL}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.190900" elapsed="0.000224"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T14:56:52.191429" level="INFO">Test Start Time (Adjusted): 2025-12-09 14:56:00.000</msg>
-<arg>Test Start Time (Adjusted): ${START_TIME}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.191280" elapsed="0.000197"/>
-</kw>
-<kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:56:52.191854" level="INFO">${START_TIME} = 2025-12-09 14:56:00.000</msg>
-<arg>${START_TIME}</arg>
-<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.191644" elapsed="0.000257"/>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>============================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-09T15:37:57.354548" elapsed="0.000138"/>
 </kw>
 <kw name="Run Custom Scenario" owner="custom_call">
-<msg time="2025-12-09T14:56:52.192692" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:52.192809" level="INFO">=============== CUSTOM CALL SCENARIO =======================</msg>
-<msg time="2025-12-09T14:56:52.192890" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:52.192965" level="INFO">Scenario Steps:</msg>
-<msg time="2025-12-09T14:56:52.193038" level="INFO">  1. Restart ADB server</msg>
-<msg time="2025-12-09T14:56:52.193114" level="INFO">  2. Auto-select two available STF devices</msg>
-<msg time="2025-12-09T14:56:52.193192" level="INFO">  3. Connect both via STF (serial → IP:PORT)</msg>
-<msg time="2025-12-09T14:56:52.193269" level="INFO">  4. Switch Phone A to 2G</msg>
-<msg time="2025-12-09T14:56:52.193342" level="INFO">  5. Phone A calls Phone B</msg>
-<msg time="2025-12-09T14:56:52.193414" level="INFO">  6. Phone B answers after 5 seconds of ringing</msg>
-<msg time="2025-12-09T14:56:52.193485" level="INFO">  7. Call lasts 30 seconds then ends</msg>
-<msg time="2025-12-09T14:56:52.193557" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:52.217036" level="INFO">Total devices in STF: 23</msg>
-<msg time="2025-12-09T14:56:52.218144" level="INFO">✓ Device R5CWA1TBCYZ (SM-A546B) is available</msg>
-<msg time="2025-12-09T14:56:52.218963" level="INFO">✓ Device R5CX130T0YK (SM-A546U) is available</msg>
-<msg time="2025-12-09T14:56:52.219529" level="INFO">✓ Device R5CWA1TBD9Y (SM-A546B) is available</msg>
-<msg time="2025-12-09T14:56:52.219661" level="INFO">✓ Device RZCX20HCFEF (SM-A546B) is available</msg>
-<msg time="2025-12-09T14:56:52.219856" level="INFO">Selected STF devices:</msg>
-<msg time="2025-12-09T14:56:52.219929" level="INFO">  Phone A: R5CWA1TBCYZ - SM-A546B (OS 15)</msg>
-<msg time="2025-12-09T14:56:52.220000" level="INFO">  Phone B: R5CWA1TBD9Y - SM-A546B (OS 15)</msg>
-<msg time="2025-12-09T14:56:52.220123" level="INFO">
+<msg time="2025-12-09T15:37:57.355460" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:37:57.355576" level="INFO">=============== CUSTOM CALL SCENARIO =======================</msg>
+<msg time="2025-12-09T15:37:57.355664" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:37:57.355745" level="INFO">Scenario Steps:</msg>
+<msg time="2025-12-09T15:37:57.355820" level="INFO">  1. Restart ADB server</msg>
+<msg time="2025-12-09T15:37:57.355894" level="INFO">  2. Auto-select two available STF devices</msg>
+<msg time="2025-12-09T15:37:57.355972" level="INFO">  3. Connect both via STF (serial → IP:PORT)</msg>
+<msg time="2025-12-09T15:37:57.356048" level="INFO">  4. Switch Phone A to 2G</msg>
+<msg time="2025-12-09T15:37:57.356120" level="INFO">  5. Phone A calls Phone B</msg>
+<msg time="2025-12-09T15:37:57.356194" level="INFO">  6. Phone B answers after 5 seconds of ringing</msg>
+<msg time="2025-12-09T15:37:57.356264" level="INFO">  7. Call lasts 30 seconds then ends</msg>
+<msg time="2025-12-09T15:37:57.356334" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:37:57.379096" level="INFO">Total devices in STF: 23</msg>
+<msg time="2025-12-09T15:37:57.379269" level="INFO">✓ Device QV70006W1B (H8216) is available</msg>
+<msg time="2025-12-09T15:37:57.380140" level="INFO">✓ Device R5CWA1TBCYZ (SM-A546B) is available</msg>
+<msg time="2025-12-09T15:37:57.380888" level="INFO">✓ Device R5CX130T0YK (SM-A546U) is available</msg>
+<msg time="2025-12-09T15:37:57.381441" level="INFO">✓ Device R5CWA1TBD9Y (SM-A546B) is available</msg>
+<msg time="2025-12-09T15:37:57.381572" level="INFO">✓ Device RZCX20HCFEF (SM-A546B) is available</msg>
+<msg time="2025-12-09T15:37:57.381757" level="INFO">Selected STF devices:</msg>
+<msg time="2025-12-09T15:37:57.381833" level="INFO">  Phone A: QV70006W1B - H8216 (OS 8.0.0)</msg>
+<msg time="2025-12-09T15:37:57.381905" level="INFO">  Phone B: R5CWA1TBCYZ - SM-A546B (OS 15)</msg>
+<msg time="2025-12-09T15:37:57.382023" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:56:52.220200" level="INFO">STEP 0: Determining MSISDNs for the devices...</msg>
-<msg time="2025-12-09T14:56:52.220272" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:52.220477" level="INFO">Using MSISDN for Phone A: 4915900104513</msg>
-<msg time="2025-12-09T14:56:52.220564" level="INFO">Using MSISDN for Phone B: 4915900103141</msg>
-<msg time="2025-12-09T14:56:52.220660" level="INFO">✓ STF Manager initialized</msg>
-<msg time="2025-12-09T14:56:52.220738" level="INFO">
+<msg time="2025-12-09T15:37:57.382101" level="INFO">STEP 0: Determining MSISDNs for the devices...</msg>
+<msg time="2025-12-09T15:37:57.382174" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:37:57.382381" level="INFO">Using MSISDN for Phone A: 4915781993213</msg>
+<msg time="2025-12-09T15:37:57.382469" level="INFO">Using MSISDN for Phone B: 4915900104513</msg>
+<msg time="2025-12-09T15:37:57.382569" level="INFO">✓ STF Manager initialized</msg>
+<msg time="2025-12-09T15:37:57.382647" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:56:52.220812" level="INFO">STEP 0: Connecting selected STF devices via serial...</msg>
-<msg time="2025-12-09T14:56:52.220885" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:52.220956" level="INFO">Verifying Phone A (R5CWA1TBCYZ) availability...</msg>
-<msg time="2025-12-09T14:56:52.230004" level="INFO">Connecting to STF device R5CWA1TBCYZ...</msg>
-<msg time="2025-12-09T14:56:52.258624" level="INFO">✓ Device R5CWA1TBCYZ added to user</msg>
-<msg time="2025-12-09T14:56:52.268171" level="INFO">✓ Remote connect URL for R5CWA1TBCYZ: 172.29.42.44:7477</msg>
-<msg time="2025-12-09T14:56:52.278110" level="INFO">✓ Successfully connected to device R5CWA1TBCYZ at 172.29.42.44:7477</msg>
-<msg time="2025-12-09T14:56:52.278335" level="INFO">Verifying Phone B (R5CWA1TBD9Y) availability...</msg>
-<msg time="2025-12-09T14:56:52.286457" level="INFO">Connecting to STF device R5CWA1TBD9Y...</msg>
-<msg time="2025-12-09T14:56:52.300872" level="INFO">✓ Device R5CWA1TBD9Y added to user</msg>
-<msg time="2025-12-09T14:56:52.310769" level="INFO">✓ Remote connect URL for R5CWA1TBD9Y: 172.29.42.44:7457</msg>
-<msg time="2025-12-09T14:56:52.319492" level="INFO">✓ Successfully connected to device R5CWA1TBD9Y at 172.29.42.44:7457</msg>
-<msg time="2025-12-09T14:56:52.319655" level="INFO">Phone A ADB target: 172.29.42.44:7477</msg>
-<msg time="2025-12-09T14:56:52.319740" level="INFO">Phone B ADB target: 172.29.42.44:7457</msg>
-<msg time="2025-12-09T14:56:52.319822" level="INFO">Phone A: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)</msg>
-<msg time="2025-12-09T14:56:52.319896" level="INFO">Phone B: 4915900103141 @ 172.29.42.44:7457 (serial R5CWA1TBD9Y)</msg>
-<msg time="2025-12-09T14:56:52.319973" level="INFO">
+<msg time="2025-12-09T15:37:57.382720" level="INFO">STEP 0: Connecting selected STF devices via serial...</msg>
+<msg time="2025-12-09T15:37:57.382791" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:37:57.382863" level="INFO">Verifying Phone A (QV70006W1B) availability...</msg>
+<msg time="2025-12-09T15:37:57.395335" level="INFO">Connecting to STF device QV70006W1B...</msg>
+<msg time="2025-12-09T15:37:57.427100" level="INFO">✓ Device QV70006W1B added to user</msg>
+<msg time="2025-12-09T15:37:57.437801" level="INFO">✓ Remote connect URL for QV70006W1B: 172.29.42.44:7413</msg>
+<msg time="2025-12-09T15:37:57.448363" level="INFO">✓ Successfully connected to device QV70006W1B at 172.29.42.44:7413</msg>
+<msg time="2025-12-09T15:37:57.448538" level="INFO">Verifying Phone B (R5CWA1TBCYZ) availability...</msg>
+<msg time="2025-12-09T15:37:57.458979" level="INFO">Connecting to STF device R5CWA1TBCYZ...</msg>
+<msg time="2025-12-09T15:37:57.474397" level="INFO">✓ Device R5CWA1TBCYZ added to user</msg>
+<msg time="2025-12-09T15:37:57.485437" level="INFO">✓ Remote connect URL for R5CWA1TBCYZ: 172.29.42.44:7477</msg>
+<msg time="2025-12-09T15:37:57.495907" level="INFO">✓ Successfully connected to device R5CWA1TBCYZ at 172.29.42.44:7477</msg>
+<msg time="2025-12-09T15:37:57.496159" level="INFO">Phone A ADB target: 172.29.42.44:7413</msg>
+<msg time="2025-12-09T15:37:57.496283" level="INFO">Phone B ADB target: 172.29.42.44:7477</msg>
+<msg time="2025-12-09T15:37:57.496429" level="INFO">Phone A: 4915781993213 @ 172.29.42.44:7413 (serial QV70006W1B)</msg>
+<msg time="2025-12-09T15:37:57.496559" level="INFO">Phone B: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)</msg>
+<msg time="2025-12-09T15:37:57.496683" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:56:52.320047" level="INFO">STEP 1: Restarting ADB server...</msg>
-<msg time="2025-12-09T14:56:52.320121" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:52.320203" level="INFO">Killing ADB server...</msg>
-<msg time="2025-12-09T14:56:52.323686" level="INFO">✓ ADB server killed successfully</msg>
-<msg time="2025-12-09T14:56:53.325058" level="INFO">Starting ADB server...</msg>
-<msg time="2025-12-09T14:56:56.332040" level="INFO">✓ ADB server started successfully</msg>
-<msg time="2025-12-09T14:56:56.332717" level="INFO">Note: You may need to authorize the connection on your device(s)</msg>
-<msg time="2025-12-09T14:56:56.333051" level="INFO">✓ ADB server restarted successfully</msg>
-<msg time="2025-12-09T14:56:58.334548" level="INFO">
+<msg time="2025-12-09T15:37:57.496806" level="INFO">STEP 1: Restarting ADB server...</msg>
+<msg time="2025-12-09T15:37:57.496917" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:37:57.497050" level="INFO">Killing ADB server...</msg>
+<msg time="2025-12-09T15:37:57.501500" level="INFO">✓ ADB server killed successfully</msg>
+<msg time="2025-12-09T15:37:58.502817" level="INFO">Starting ADB server...</msg>
+<msg time="2025-12-09T15:38:01.510638" level="INFO">✓ ADB server started successfully</msg>
+<msg time="2025-12-09T15:38:01.510977" level="INFO">Note: You may need to authorize the connection on your device(s)</msg>
+<msg time="2025-12-09T15:38:01.511121" level="INFO">✓ ADB server restarted successfully</msg>
+<msg time="2025-12-09T15:38:03.513355" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:56:58.334770" level="INFO">STEP 2: Connecting to both phones (via ADB)...</msg>
-<msg time="2025-12-09T14:56:58.334919" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:56:58.335062" level="INFO">Connecting to Phone A (4915900104513)...</msg>
-<msg time="2025-12-09T14:56:58.335227" level="INFO">Connecting to device at 172.29.42.44:7477...</msg>
-<msg time="2025-12-09T14:56:58.343841" level="INFO">✓ Successfully connected to 172.29.42.44:7477</msg>
-<msg time="2025-12-09T14:56:58.344578" level="INFO">Connecting to Phone B (4915900103141)...</msg>
-<msg time="2025-12-09T14:56:58.344796" level="INFO">Connecting to device at 172.29.42.44:7457...</msg>
-<msg time="2025-12-09T14:56:58.353695" level="INFO">✓ Successfully connected to 172.29.42.44:7457</msg>
-<msg time="2025-12-09T14:56:58.354465" level="INFO">✓ Both phones connected successfully</msg>
-<msg time="2025-12-09T14:57:00.356808" level="INFO">
+<msg time="2025-12-09T15:38:03.513492" level="INFO">STEP 2: Connecting to both phones (via ADB)...</msg>
+<msg time="2025-12-09T15:38:03.513571" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:03.513651" level="INFO">Connecting to Phone A (4915781993213)...</msg>
+<msg time="2025-12-09T15:38:03.513733" level="INFO">Connecting to device at 172.29.42.44:7413...</msg>
+<msg time="2025-12-09T15:38:03.519702" level="INFO">✓ Successfully connected to 172.29.42.44:7413</msg>
+<msg time="2025-12-09T15:38:03.520372" level="INFO">Connecting to Phone B (4915900104513)...</msg>
+<msg time="2025-12-09T15:38:03.520613" level="INFO">Connecting to device at 172.29.42.44:7477...</msg>
+<msg time="2025-12-09T15:38:03.526833" level="INFO">✓ Successfully connected to 172.29.42.44:7477</msg>
+<msg time="2025-12-09T15:38:03.527126" level="INFO">✓ Both phones connected successfully</msg>
+<msg time="2025-12-09T15:38:05.529661" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:57:00.357020" level="INFO">STEP 2.5: Extracting IMSIs via ADB...</msg>
-<msg time="2025-12-09T14:57:00.357143" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:57:00.357246" level="INFO">Attempting to extract IMSI for Phone A (R5CWA1TBCYZ)...</msg>
-<msg time="2025-12-09T14:57:01.881980" level="WARN">⚠ Phone A IMSI could not be extracted via ADB</msg>
-<msg time="2025-12-09T14:57:01.882299" level="WARN">  Check debug logs above for detailed extraction attempts</msg>
-<msg time="2025-12-09T14:57:01.882468" level="INFO">Attempting to extract IMSI for Phone B (R5CWA1TBD9Y)...</msg>
-<msg time="2025-12-09T14:57:03.376564" level="WARN">⚠ Phone B IMSI could not be extracted via ADB</msg>
-<msg time="2025-12-09T14:57:03.376988" level="WARN">  Check debug logs above for detailed extraction attempts</msg>
-<msg time="2025-12-09T14:57:03.377204" level="INFO">
+<msg time="2025-12-09T15:38:05.530053" level="INFO">STEP 2.5: Extracting IMSIs via ADB...</msg>
+<msg time="2025-12-09T15:38:05.530573" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:05.530805" level="INFO">Attempting to extract IMSI for Phone A (QV70006W1B)...</msg>
+<msg time="2025-12-09T15:38:05.687375" level="INFO">✓ Phone A IMSI: 004402458587775</msg>
+<msg time="2025-12-09T15:38:05.687796" level="INFO">Attempting to extract IMSI for Phone B (R5CWA1TBCYZ)...</msg>
+<msg time="2025-12-09T15:38:07.004653" level="WARN">⚠ Phone B IMSI could not be extracted via ADB</msg>
+<msg time="2025-12-09T15:38:07.004958" level="WARN">  Check debug logs above for detailed extraction attempts</msg>
+<msg time="2025-12-09T15:38:07.005111" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:57:03.377312" level="INFO">STEP 3: Switching Phone A (4915900104513) to 2G...</msg>
-<msg time="2025-12-09T14:57:03.377416" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:57:03.377539" level="INFO">Setting network type to 2G (value: 1)...</msg>
-<msg time="2025-12-09T14:57:03.474566" level="INFO">Current mode value: 1, changing to: 1</msg>
-<msg time="2025-12-09T14:57:03.818186" level="INFO">✓ Network type setting commands executed successfully</msg>
-<msg time="2025-12-09T14:57:03.818602" level="INFO">Applying changes by toggling airplane mode...</msg>
-<msg time="2025-12-09T14:57:03.981704" level="INFO">Airplane mode enabled, waiting 3 seconds...</msg>
-<msg time="2025-12-09T14:57:07.170677" level="INFO">Airplane mode disabled, waiting for network to reconnect...</msg>
-<msg time="2025-12-09T14:57:12.174766" level="INFO">Verifying network mode change...</msg>
-<msg time="2025-12-09T14:57:12.276088" level="INFO">✓ Network mode successfully changed and applied!</msg>
-<msg time="2025-12-09T14:57:12.363944" level="INFO">Current network type: 2G only (GSM)</msg>
-<msg time="2025-12-09T14:57:12.364189" level="INFO">✓ Successfully switched Phone A to 2G</msg>
-<msg time="2025-12-09T14:57:12.364278" level="INFO">Waiting for network to stabilize (15 seconds)...</msg>
-<msg time="2025-12-09T14:57:27.378791" level="INFO">
+<msg time="2025-12-09T15:38:07.005193" level="INFO">STEP 3: Switching Phone A (4915781993213) to 2G...</msg>
+<msg time="2025-12-09T15:38:07.005269" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:07.005372" level="INFO">Setting network type to 2G (value: 1)...</msg>
+<msg time="2025-12-09T15:38:07.116841" level="INFO">Current mode value: 1, changing to: 1</msg>
+<msg time="2025-12-09T15:38:07.389392" level="INFO">✓ Network type setting commands executed successfully</msg>
+<msg time="2025-12-09T15:38:07.389644" level="INFO">Applying changes by toggling airplane mode...</msg>
+<msg time="2025-12-09T15:38:07.644245" level="INFO">Airplane mode enabled, waiting 3 seconds...</msg>
+<msg time="2025-12-09T15:38:11.207813" level="INFO">Airplane mode disabled, waiting for network to reconnect...</msg>
+<msg time="2025-12-09T15:38:16.210595" level="INFO">Verifying network mode change...</msg>
+<msg time="2025-12-09T15:38:16.277891" level="INFO">✓ Network mode successfully changed and applied!</msg>
+<msg time="2025-12-09T15:38:16.343737" level="INFO">Current network type: 2G only (GSM)</msg>
+<msg time="2025-12-09T15:38:16.344031" level="INFO">✓ Successfully switched Phone A to 2G</msg>
+<msg time="2025-12-09T15:38:16.344143" level="INFO">Waiting for network to stabilize (15 seconds)...</msg>
+<msg time="2025-12-09T15:38:31.358574" level="INFO">📊 Trace Start Time (after 2G switch): 2025-12-09 15:38:00.000</msg>
+<msg time="2025-12-09T15:38:31.358736" level="INFO">   This includes Location Update procedure in PCAP</msg>
+<msg time="2025-12-09T15:38:31.358825" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:57:27.379162" level="INFO">STEP 4: Phone A (4915900104513) calling Phone B (4915900103141)...</msg>
-<msg time="2025-12-09T14:57:27.379416" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:57:27.379697" level="INFO">Initiating call from 4915900104513 to +4915900103141...</msg>
-<msg time="2025-12-09T14:57:27.507993" level="INFO">✓ Call initiated successfully!</msg>
-<msg time="2025-12-09T14:57:27.508802" level="INFO">✓ Call initiated successfully</msg>
-<msg time="2025-12-09T14:57:27.509047" level="INFO">
+<msg time="2025-12-09T15:38:31.358904" level="INFO">STEP 4: Phone A (4915781993213) calling Phone B (4915900104513)...</msg>
+<msg time="2025-12-09T15:38:31.358980" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:31.359067" level="INFO">Initiating call from 4915781993213 to +4915900104513...</msg>
+<msg time="2025-12-09T15:38:31.469507" level="INFO">✓ Call initiated successfully!</msg>
+<msg time="2025-12-09T15:38:31.469959" level="INFO">✓ Call initiated successfully</msg>
+<msg time="2025-12-09T15:38:31.470049" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:57:27.509261" level="INFO">STEP 5: Waiting for Phone B to ring...</msg>
-<msg time="2025-12-09T14:57:27.509505" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:57:30.796286" level="INFO">⏳ Still waiting for ring... (3/30s)</msg>
-<msg time="2025-12-09T14:57:31.863653" level="INFO">📞 Phone B (4915900103141) is ringing! (after 4 seconds)</msg>
-<msg time="2025-12-09T14:57:31.863821" level="INFO">⏳ Waiting to answer... (5.0s remaining)</msg>
-<msg time="2025-12-09T14:57:32.949887" level="INFO">⏳ Waiting to answer... (3.9s remaining)</msg>
-<msg time="2025-12-09T14:57:34.035839" level="INFO">⏳ Waiting to answer... (2.8s remaining)</msg>
-<msg time="2025-12-09T14:57:35.126258" level="INFO">⏳ Waiting to answer... (1.7s remaining)</msg>
-<msg time="2025-12-09T14:57:36.208652" level="INFO">⏳ Waiting to answer... (0.7s remaining)</msg>
-<msg time="2025-12-09T14:57:37.300136" level="INFO">
+<msg time="2025-12-09T15:38:31.470140" level="INFO">STEP 5: Waiting for Phone B to ring...</msg>
+<msg time="2025-12-09T15:38:31.470245" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:34.762853" level="INFO">⏳ Still waiting for ring... (3/30s)</msg>
+<msg time="2025-12-09T15:38:36.952558" level="INFO">📞 Phone B (4915900104513) is ringing! (after 5 seconds)</msg>
+<msg time="2025-12-09T15:38:36.952733" level="INFO">⏳ Waiting to answer... (5.0s remaining)</msg>
+<msg time="2025-12-09T15:38:38.051005" level="INFO">⏳ Waiting to answer... (3.9s remaining)</msg>
+<msg time="2025-12-09T15:38:39.122636" level="INFO">⏳ Waiting to answer... (2.8s remaining)</msg>
+<msg time="2025-12-09T15:38:40.219151" level="INFO">⏳ Waiting to answer... (1.7s remaining)</msg>
+<msg time="2025-12-09T15:38:41.302504" level="INFO">⏳ Waiting to answer... (0.7s remaining)</msg>
+<msg time="2025-12-09T15:38:42.377663" level="INFO">
 ⏱️  Phone B has been ringing for 5.4 seconds</msg>
-<msg time="2025-12-09T14:57:37.300523" level="INFO">Answering call on Phone B (4915900103141)...</msg>
-<msg time="2025-12-09T14:57:37.381265" level="INFO">Answering call on +4915900103141...</msg>
-<msg time="2025-12-09T14:57:37.473227" level="INFO">✓ Call answered successfully on +4915900103141</msg>
-<msg time="2025-12-09T14:57:38.550488" level="INFO">✓ Call is now active (state: OFFHOOK)</msg>
-<msg time="2025-12-09T14:57:38.550653" level="INFO">✓ Call answered successfully!</msg>
-<msg time="2025-12-09T14:57:38.550737" level="INFO">
+<msg time="2025-12-09T15:38:42.377836" level="INFO">Answering call on Phone B (4915900104513)...</msg>
+<msg time="2025-12-09T15:38:42.457857" level="INFO">Answering call on +4915900104513...</msg>
+<msg time="2025-12-09T15:38:42.539019" level="INFO">✓ Call answered successfully on +4915900104513</msg>
+<msg time="2025-12-09T15:38:43.626776" level="INFO">✓ Call is now active (state: OFFHOOK)</msg>
+<msg time="2025-12-09T15:38:43.626955" level="INFO">✓ Call answered successfully!</msg>
+<msg time="2025-12-09T15:38:43.627047" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:57:38.550817" level="INFO">Waiting for call to be fully connected...</msg>
-<msg time="2025-12-09T14:57:38.550891" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:57:39.739521" level="INFO">✓ Call is now fully connected! (OFFHOOK on both sides after 1s)</msg>
-<msg time="2025-12-09T14:57:39.739911" level="INFO">
+<msg time="2025-12-09T15:38:43.627126" level="INFO">Waiting for call to be fully connected...</msg>
+<msg time="2025-12-09T15:38:43.627202" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:44.802340" level="INFO">✓ Call is now fully connected! (OFFHOOK on both sides after 1s)</msg>
+<msg time="2025-12-09T15:38:44.802572" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:57:39.740124" level="INFO">STEP 6: Call in progress...</msg>
-<msg time="2025-12-09T14:57:39.740316" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:57:39.740535" level="INFO">⏱️  Call timer started! Call will last 30 seconds...</msg>
-<msg time="2025-12-09T14:57:39.740758" level="INFO">⏳ Call in progress... 30s remaining</msg>
-<msg time="2025-12-09T14:57:44.745255" level="INFO">⏳ Call in progress... 25s remaining</msg>
-<msg time="2025-12-09T14:57:49.750532" level="INFO">⏳ Call in progress... 20s remaining</msg>
-<msg time="2025-12-09T14:57:54.754556" level="INFO">⏳ Call in progress... 15s remaining</msg>
-<msg time="2025-12-09T14:57:59.758539" level="INFO">⏳ Call in progress... 10s remaining</msg>
-<msg time="2025-12-09T14:58:04.762535" level="INFO">⏳ Call in progress... 5s remaining</msg>
-<msg time="2025-12-09T14:58:09.766693" level="INFO">
+<msg time="2025-12-09T15:38:44.802668" level="INFO">STEP 6: Call in progress...</msg>
+<msg time="2025-12-09T15:38:44.802769" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:38:44.802911" level="INFO">⏱️  Call timer started! Call will last 30 seconds...</msg>
+<msg time="2025-12-09T15:38:44.803057" level="INFO">⏳ Call in progress... 30s remaining</msg>
+<msg time="2025-12-09T15:38:49.806519" level="INFO">⏳ Call in progress... 25s remaining</msg>
+<msg time="2025-12-09T15:38:54.810557" level="INFO">⏳ Call in progress... 20s remaining</msg>
+<msg time="2025-12-09T15:38:59.814629" level="INFO">⏳ Call in progress... 15s remaining</msg>
+<msg time="2025-12-09T15:39:04.818728" level="INFO">⏳ Call in progress... 10s remaining</msg>
+<msg time="2025-12-09T15:39:09.824415" level="INFO">⏳ Call in progress... 5s remaining</msg>
+<msg time="2025-12-09T15:39:14.829401" level="INFO">
 ⏱️  30 seconds elapsed. Ending call...</msg>
-<msg time="2025-12-09T14:58:09.871638" level="INFO">Ending call on +4915900104513...</msg>
-<msg time="2025-12-09T14:58:09.958414" level="INFO">✓ Call ended successfully on +4915900104513</msg>
-<msg time="2025-12-09T14:58:10.045541" level="INFO">Also ending call on +4915900103141...</msg>
-<msg time="2025-12-09T14:58:10.092160" level="INFO">✓ Call ended on +4915900103141</msg>
-<msg time="2025-12-09T14:58:11.171083" level="INFO">✓ Phone is now idle (state: IDLE)</msg>
-<msg time="2025-12-09T14:58:11.171253" level="INFO">✓ Call ended successfully</msg>
-<msg time="2025-12-09T14:58:11.171339" level="INFO">
+<msg time="2025-12-09T15:39:14.895466" level="INFO">Ending call on +4915781993213...</msg>
+<msg time="2025-12-09T15:39:15.319219" level="INFO">✓ Call ended successfully on +4915781993213</msg>
+<msg time="2025-12-09T15:39:15.423829" level="INFO">Also ending call on +4915900104513...</msg>
+<msg time="2025-12-09T15:39:15.529274" level="INFO">✓ Call ended on +4915900104513</msg>
+<msg time="2025-12-09T15:39:16.617877" level="INFO">✓ Phone is now idle (state: IDLE)</msg>
+<msg time="2025-12-09T15:39:16.618051" level="INFO">✓ Call ended successfully</msg>
+<msg time="2025-12-09T15:39:16.618171" level="INFO">📊 Trace End Time (after call end): 2025-12-09 15:40:00.000</msg>
+<msg time="2025-12-09T15:39:16.618266" level="INFO">
 ============================================================</msg>
-<msg time="2025-12-09T14:58:11.171416" level="INFO">================= SCENARIO COMPLETE ========================</msg>
-<msg time="2025-12-09T14:58:11.171491" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:58:11.171570" level="INFO">✓ All steps completed successfully!</msg>
-<msg time="2025-12-09T14:58:11.171738" level="INFO">  • Both phones connected via STF (serial-based)</msg>
-<msg time="2025-12-09T14:58:11.171958" level="INFO">  • Phone A switched to 2G</msg>
-<msg time="2025-12-09T14:58:11.172118" level="INFO">  • Call initiated from Phone A to Phone B</msg>
-<msg time="2025-12-09T14:58:11.172213" level="INFO">  • Phone B answered after 5 seconds of ringing</msg>
-<msg time="2025-12-09T14:58:11.172306" level="INFO">  • Call lasted 30 seconds and ended</msg>
-<msg time="2025-12-09T14:58:11.172396" level="INFO">============================================================</msg>
-<msg time="2025-12-09T14:58:11.172499" level="INFO">{'success': True, 'phone_a_msisdn': '4915900104513', 'phone_b_msisdn': '4915900103141', 'phone_a_serial': 'R5CWA1TBCYZ', 'phone_b_serial': 'R5CWA1TBD9Y', 'phone_a_imsi': 'UNKNOWN_IMSI_A', 'phone_b_imsi': 'UNKNOWN_IMSI_B'}</msg>
-<msg time="2025-12-09T14:58:11.172589" level="INFO">Disconnecting STF device R5CWA1TBCYZ...</msg>
-<msg time="2025-12-09T14:58:11.188866" level="INFO">✓ Device R5CWA1TBCYZ disconnected</msg>
-<msg time="2025-12-09T14:58:11.201443" level="INFO">✓ Device R5CWA1TBCYZ removed from user</msg>
-<msg time="2025-12-09T14:58:11.201629" level="INFO">✓ Successfully disconnected device R5CWA1TBCYZ</msg>
-<msg time="2025-12-09T14:58:11.201721" level="INFO">Disconnecting STF device R5CWA1TBD9Y...</msg>
-<msg time="2025-12-09T14:58:11.215144" level="INFO">✓ Device R5CWA1TBD9Y disconnected</msg>
-<msg time="2025-12-09T14:58:11.227789" level="INFO">✓ Device R5CWA1TBD9Y removed from user</msg>
-<msg time="2025-12-09T14:58:11.227986" level="INFO">✓ Successfully disconnected device R5CWA1TBD9Y</msg>
-<msg time="2025-12-09T14:58:11.228508" level="INFO">============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ============================================================
+<msg time="2025-12-09T15:39:16.618353" level="INFO">================= SCENARIO COMPLETE ========================</msg>
+<msg time="2025-12-09T15:39:16.618427" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:39:16.618508" level="INFO">✓ All steps completed successfully!</msg>
+<msg time="2025-12-09T15:39:16.618585" level="INFO">  • Both phones connected via STF (serial-based)</msg>
+<msg time="2025-12-09T15:39:16.618658" level="INFO">  • Phone A switched to 2G</msg>
+<msg time="2025-12-09T15:39:16.618734" level="INFO">  • Call initiated from Phone A to Phone B</msg>
+<msg time="2025-12-09T15:39:16.618813" level="INFO">  • Phone B answered after 5 seconds of ringing</msg>
+<msg time="2025-12-09T15:39:16.618888" level="INFO">  • Call lasted 30 seconds and ended</msg>
+<msg time="2025-12-09T15:39:16.618959" level="INFO">============================================================</msg>
+<msg time="2025-12-09T15:39:16.619054" level="INFO">{'success': True, 'phone_a_msisdn': '4915781993213', 'phone_b_msisdn': '4915900104513', 'phone_a_serial': 'QV70006W1B', 'phone_b_serial': 'R5CWA1TBCYZ', 'phone_a_imsi': '004402458587775', 'phone_b_imsi': 'UNKNOWN_IMSI_B', 'trace_start_time': '2025-12-09 15:38:00.000', 'trace_end_time': '2025-12-09 15:40:00.000'}</msg>
+<msg time="2025-12-09T15:39:16.619203" level="INFO">Disconnecting STF device QV70006W1B...</msg>
+<msg time="2025-12-09T15:39:16.637332" level="INFO">✓ Device QV70006W1B disconnected</msg>
+<msg time="2025-12-09T15:39:16.651643" level="INFO">✓ Device QV70006W1B removed from user</msg>
+<msg time="2025-12-09T15:39:16.651875" level="INFO">✓ Successfully disconnected device QV70006W1B</msg>
+<msg time="2025-12-09T15:39:16.651978" level="INFO">Disconnecting STF device R5CWA1TBCYZ...</msg>
+<msg time="2025-12-09T15:39:16.665080" level="INFO">✓ Device R5CWA1TBCYZ disconnected</msg>
+<msg time="2025-12-09T15:39:16.678548" level="INFO">✓ Device R5CWA1TBCYZ removed from user</msg>
+<msg time="2025-12-09T15:39:16.678857" level="INFO">✓ Successfully disconnected device R5CWA1TBCYZ</msg>
+<msg time="2025-12-09T15:39:16.679798" level="INFO">============================================================
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ============================================================
 =============== CUSTOM CALL SCENARIO =======================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] =============== CUSTOM CALL SCENARIO =======================
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] =============== CUSTOM CALL SCENARIO =======================
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ============================================================
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ============================================================
 Scenario Steps:
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Scenario Steps:
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Scenario Steps:
   1. Restart ADB server
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   1. Restart ADB server
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   1. Restart ADB server
   2. Auto-select two available STF devices
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   2. Auto-select two available STF devices
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   2. Auto-select two available STF devices
   3. Connect both via STF (serial → IP:PORT)
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   3. Connect both via STF (serial → IP:PORT)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   3. Connect both via STF (serial → IP:PORT)
   4. Switch Phone A to 2G
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   4. Switch Phone A to 2G
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   4. Switch Phone A to 2G
   5. Phone A calls Phone B
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   5. Phone A calls Phone B
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   5. Phone A calls Phone B
   6. Phone B answers after 5 seconds of ringing
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   6. Phone B answers after 5 seconds of ringing
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   6. Phone B answers after 5 seconds of ringing
   7. Call lasts 30 seconds then ends
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   7. Call lasts 30 seconds then ends
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   7. Call lasts 30 seconds then ends
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ============================================================
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mFound 23 devices in STF[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Total devices in STF: 23
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice QV70006W1B: present=True, ready=True, using=True, owner={'email': 'bassem.jadoui@spie-network-services.com', 'group': 'N4ESMZQoT3Con4OP5AWOLQ==', 'name': 'bjadoui'}[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device QV70006W1B unavailable: in use, owned by {'email': 'bassem.jadoui@spie-network-services.com', 'group': 'N4ESMZQoT3Con4OP5AWOLQ==', 'name': 'bjadoui'}[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CR217D85N: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CR217D85N unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice RZCX20HCQQW: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device RZCX20HCQQW unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R38MB03ZNYJ: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R38MB03ZNYJ unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R3CW70CMBJH: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R3CW70CMBJH unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice 2791689f0822: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device 2791689f0822 unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CR217D8AR: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CR217D8AR unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice BH90017AAX: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device BH90017AAX unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBCYZ: present=True, ready=True, using=False, owner=None[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ (SM-A546B) is available
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CR2184PXT: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CR2184PXT unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBC2F: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TBC2F unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CR217E16N: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CR217E16N unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R3CTC079E8V: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R3CTC079E8V unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice RZCY22CQ4FE: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device RZCY22CQ4FE unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice RZCY22CQ3ZZ: present=False, ready=False, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device RZCY22CQ3ZZ unavailable: not present, not ready[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CX130T0YK: present=True, ready=True, using=False, owner=None[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Device R5CX130T0YK (SM-A546U) is available
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA1TAA6R: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TAA6R unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA1TAAXX: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TAAXX unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA2RSCTV: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CWA2RSCTV unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice RZCX20HC60M: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device RZCX20HC60M unavailable: not present[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBD9Y: present=True, ready=True, using=False, owner=None[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Device R5CWA1TBD9Y (SM-A546B) is available
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice RZCX20HCFEF: present=True, ready=True, using=False, owner=None[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Device RZCX20HCFEF (SM-A546B) is available
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBDQF: present=False, ready=True, using=False, owner=None[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TBDQF unavailable: not present[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Selected STF devices:
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   Phone A: R5CWA1TBCYZ - SM-A546B (OS 15)
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m]   Phone B: R5CWA1TBD9Y - SM-A546B (OS 15)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ============================================================
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mFound 23 devices in STF[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Total devices in STF: 23
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice QV70006W1B: present=True, ready=True, using=False, owner=None[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device QV70006W1B (H8216) is available
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CR217D85N: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CR217D85N unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice RZCX20HCQQW: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device RZCX20HCQQW unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R38MB03ZNYJ: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R38MB03ZNYJ unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R3CW70CMBJH: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R3CW70CMBJH unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice 2791689f0822: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device 2791689f0822 unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CR217D8AR: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CR217D8AR unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice BH90017AAX: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device BH90017AAX unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBCYZ: present=True, ready=True, using=False, owner=None[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ (SM-A546B) is available
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CR2184PXT: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CR2184PXT unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBC2F: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TBC2F unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CR217E16N: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CR217E16N unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R3CTC079E8V: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R3CTC079E8V unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice RZCY22CQ4FE: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device RZCY22CQ4FE unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice RZCY22CQ3ZZ: present=False, ready=False, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device RZCY22CQ3ZZ unavailable: not present, not ready[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CX130T0YK: present=True, ready=True, using=False, owner=None[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device R5CX130T0YK (SM-A546U) is available
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA1TAA6R: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TAA6R unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA1TAAXX: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TAAXX unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA2RSCTV: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CWA2RSCTV unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice RZCX20HC60M: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device RZCX20HC60M unavailable: not present[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBD9Y: present=True, ready=True, using=False, owner=None[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device R5CWA1TBD9Y (SM-A546B) is available
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice RZCX20HCFEF: present=True, ready=True, using=False, owner=None[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device RZCX20HCFEF (SM-A546B) is available
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mDevice R5CWA1TBDQF: present=False, ready=True, using=False, owner=None[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90m✗ Device R5CWA1TBDQF unavailable: not present[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Selected STF devices:
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   Phone A: QV70006W1B - H8216 (OS 8.0.0)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m]   Phone B: R5CWA1TBCYZ - SM-A546B (OS 15)
 
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] 
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] 
 ============================================================
 STEP 0: Determining MSISDNs for the devices...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] STEP 0: Determining MSISDNs for the devices...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] STEP 0: Determining MSISDNs for the devices...
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ============================================================
-Using MSISDN for Phone A: 4915900104513
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Using MSISDN for Phone A: 4915900104513
-Using MSISDN for Phone B: 4915900103141
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Using MSISDN for Phone B: 4915900103141
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ STF Manager initialized
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ============================================================
+Using MSISDN for Phone A: 4915781993213
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Using MSISDN for Phone A: 4915781993213
+Using MSISDN for Phone B: 4915900104513
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Using MSISDN for Phone B: 4915900104513
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ STF Manager initialized
 
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] 
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] 
 ============================================================
 STEP 0: Connecting selected STF devices via serial...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] STEP 0: Connecting selected STF devices via serial...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] STEP 0: Connecting selected STF devices via serial...
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ============================================================
-Verifying Phone A (R5CWA1TBCYZ) availability...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Verifying Phone A (R5CWA1TBCYZ) availability...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Connecting to STF device R5CWA1TBCYZ...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ added to user
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Remote connect URL for R5CWA1TBCYZ: 172.29.42.44:7477
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7477 via ADB (attempt 1/2)...[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mconnected to 172.29.42.44:7477[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7477 via ADB (attempt 2/2)...[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90malready connected to 172.29.42.44:7477[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Successfully connected to device R5CWA1TBCYZ at 172.29.42.44:7477
-Verifying Phone B (R5CWA1TBD9Y) availability...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Verifying Phone B (R5CWA1TBD9Y) availability...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Connecting to STF device R5CWA1TBD9Y...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Device R5CWA1TBD9Y added to user
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Remote connect URL for R5CWA1TBD9Y: 172.29.42.44:7457
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7457 via ADB (attempt 1/2)...[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mconnected to 172.29.42.44:7457[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7457 via ADB (attempt 2/2)...[0m
-[90m2025-12-09 14:56:52[0m [[90mDEBUG[0m] [90malready connected to 172.29.42.44:7457[0m
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ Successfully connected to device R5CWA1TBD9Y at 172.29.42.44:7457
-Phone A ADB target: 172.29.42.44:7477
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Phone A ADB target: 172.29.42.44:7477
-Phone B ADB target: 172.29.42.44:7457
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Phone B ADB target: 172.29.42.44:7457
-Phone A: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Phone A: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)
-Phone B: 4915900103141 @ 172.29.42.44:7457 (serial R5CWA1TBD9Y)
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Phone B: 4915900103141 @ 172.29.42.44:7457 (serial R5CWA1TBD9Y)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ============================================================
+Verifying Phone A (QV70006W1B) availability...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Verifying Phone A (QV70006W1B) availability...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Connecting to STF device QV70006W1B...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device QV70006W1B added to user
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Remote connect URL for QV70006W1B: 172.29.42.44:7413
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7413 via ADB (attempt 1/2)...[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mconnected to 172.29.42.44:7413[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7413 via ADB (attempt 2/2)...[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90malready connected to 172.29.42.44:7413[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Successfully connected to device QV70006W1B at 172.29.42.44:7413
+Verifying Phone B (R5CWA1TBCYZ) availability...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Verifying Phone B (R5CWA1TBCYZ) availability...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Connecting to STF device R5CWA1TBCYZ...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ added to user
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Remote connect URL for R5CWA1TBCYZ: 172.29.42.44:7477
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7477 via ADB (attempt 1/2)...[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mconnected to 172.29.42.44:7477[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90mConnecting to 172.29.42.44:7477 via ADB (attempt 2/2)...[0m
+[90m2025-12-09 15:37:57[0m [[90mDEBUG[0m] [90malready connected to 172.29.42.44:7477[0m
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ Successfully connected to device R5CWA1TBCYZ at 172.29.42.44:7477
+Phone A ADB target: 172.29.42.44:7413
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Phone A ADB target: 172.29.42.44:7413
+Phone B ADB target: 172.29.42.44:7477
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Phone B ADB target: 172.29.42.44:7477
+Phone A: 4915781993213 @ 172.29.42.44:7413 (serial QV70006W1B)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Phone A: 4915781993213 @ 172.29.42.44:7413 (serial QV70006W1B)
+Phone B: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Phone B: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)
 
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] 
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] 
 ============================================================
 STEP 1: Restarting ADB server...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] STEP 1: Restarting ADB server...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] STEP 1: Restarting ADB server...
 ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ============================================================
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] Killing ADB server...
-[97m2025-12-09 14:56:52[0m [[96mINFO[0m] ✓ ADB server killed successfully
-[97m2025-12-09 14:56:53[0m [[96mINFO[0m] Starting ADB server...
-[97m2025-12-09 14:56:56[0m [[96mINFO[0m] ✓ ADB server started successfully
-[97m2025-12-09 14:56:56[0m [[96mINFO[0m] Note: You may need to authorize the connection on your device(s)
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ============================================================
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] Killing ADB server...
+[97m2025-12-09 15:37:57[0m [[96mINFO[0m] ✓ ADB server killed successfully
+[97m2025-12-09 15:37:58[0m [[96mINFO[0m] Starting ADB server...
+[97m2025-12-09 15:38:01[0m [[96mINFO[0m] ✓ ADB server started successfully
+[97m2025-12-09 15:38:01[0m [[96mINFO[0m] Note: You may need to authorize the connection on your device(s)
 ✓ ADB server restarted successfully
-[97m2025-12-09 14:56:56[0m [[96mINFO[0m] ✓ ADB server restarted successfully
+[97m2025-12-09 15:38:01[0m [[96mINFO[0m] ✓ ADB server restarted successfully
 
 ============================================================
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] 
 ============================================================
 STEP 2: Connecting to both phones (via ADB)...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] STEP 2: Connecting to both phones (via ADB)...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] STEP 2: Connecting to both phones (via ADB)...
 ============================================================
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] ============================================================
-Connecting to Phone A (4915900104513)...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] Connecting to Phone A (4915900104513)...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] Connecting to device at 172.29.42.44:7477...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] ✓ Successfully connected to 172.29.42.44:7477
-[90m2025-12-09 14:56:58[0m [[90mDEBUG[0m] [90mOutput: connected to 172.29.42.44:7477[0m
-Connecting to Phone B (4915900103141)...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] Connecting to Phone B (4915900103141)...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] Connecting to device at 172.29.42.44:7457...
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] ✓ Successfully connected to 172.29.42.44:7457
-[90m2025-12-09 14:56:58[0m [[90mDEBUG[0m] [90mOutput: connected to 172.29.42.44:7457[0m
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] ============================================================
+Connecting to Phone A (4915781993213)...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] Connecting to Phone A (4915781993213)...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] Connecting to device at 172.29.42.44:7413...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] ✓ Successfully connected to 172.29.42.44:7413
+[90m2025-12-09 15:38:03[0m [[90mDEBUG[0m] [90mOutput: connected to 172.29.42.44:7413[0m
+Connecting to Phone B (4915900104513)...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] Connecting to Phone B (4915900104513)...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] Connecting to device at 172.29.42.44:7477...
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] ✓ Successfully connected to 172.29.42.44:7477
+[90m2025-12-09 15:38:03[0m [[90mDEBUG[0m] [90mOutput: connected to 172.29.42.44:7477[0m
 ✓ Both phones connected successfully
-[97m2025-12-09 14:56:58[0m [[96mINFO[0m] ✓ Both phones connected successfully
+[97m2025-12-09 15:38:03[0m [[96mINFO[0m] ✓ Both phones connected successfully
 
 ============================================================
-[97m2025-12-09 14:57:00[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:05[0m [[96mINFO[0m] 
 ============================================================
 STEP 2.5: Extracting IMSIs via ADB...
-[97m2025-12-09 14:57:00[0m [[96mINFO[0m] STEP 2.5: Extracting IMSIs via ADB...
+[97m2025-12-09 15:38:05[0m [[96mINFO[0m] STEP 2.5: Extracting IMSIs via ADB...
 ============================================================
-[97m2025-12-09 14:57:00[0m [[96mINFO[0m] ============================================================
-Attempting to extract IMSI for Phone A (R5CWA1TBCYZ)...
-[97m2025-12-09 14:57:00[0m [[96mINFO[0m] Attempting to extract IMSI for Phone A (R5CWA1TBCYZ)...
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mStarting IMSI extraction for device R5CWA1TBCYZ (IP:PORT=172.29.42.44:7477)[0m
+[97m2025-12-09 15:38:05[0m [[96mINFO[0m] ============================================================
+Attempting to extract IMSI for Phone A (QV70006W1B)...
+[97m2025-12-09 15:38:05[0m [[96mINFO[0m] Attempting to extract IMSI for Phone A (QV70006W1B)...
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mStarting IMSI extraction for device QV70006W1B (IP:PORT=172.29.42.44:7413)[0m
+[DEBUG IMSI] Starting IMSI extraction for device QV70006W1B (IP:PORT=172.29.42.44:7413)
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mDevice notes: SONY UE  -  Ericsson Device  epdg2   MSISDN: 4915781993213[0m
+[DEBUG IMSI] Device notes: SONY UE  -  Ericsson Device  epdg2   MSISDN: 4915781993213
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mAttempting ADB extraction methods for 172.29.42.44:7413[0m
+[DEBUG IMSI] Attempting ADB extraction methods for 172.29.42.44:7413
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 1: Trying getprop gsm.sim.operator.imsi...[0m
+[DEBUG IMSI] Method 1: Trying getprop gsm.sim.operator.imsi...
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 1 return code: 0[0m
+[DEBUG IMSI] Method 1 return code: 0
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 1 failed: No valid IMSI in output[0m
+[DEBUG IMSI] Method 1 failed: No valid IMSI in output
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2: Trying service call iphonesubinfo 1...[0m
+[DEBUG IMSI] Method 2: Trying service call iphonesubinfo 1...
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 return code: 0[0m
+[DEBUG IMSI] Method 2 return code: 0
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 output (first 200 chars): Result: Parcel(
+  0x00000000: 00000000 0000000f 00300030 00340034 '........0.0.4.4.'
+  0x00000010: 00320030 00350034 00350038 00370038 '0.2.4.5.8.5.8.7.'
+  0x00000020: 00370037 00000035               [0m
+[DEBUG IMSI] Method 2 output (first 200 chars): Result: Parcel(
+  0x00000000: 00000000 0000000f 00300030 00340034 '........0.0.4.4.'
+  0x00000010: 00320030 00350034 00350038 00370038 '0.2.4.5.8.5.8.7.'
+  0x00000020: 00370037 00000035               
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 Strategy 1 extracted: '004402458587775'[0m
+[DEBUG IMSI] Method 2 Strategy 1 extracted: '004402458587775'
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90m✓ Method 2 SUCCESS (Strategy 1): 004402458587775[0m
+[DEBUG IMSI] ✓ Method 2 SUCCESS (Strategy 1): 004402458587775
+✓ Phone A IMSI: 004402458587775
+[97m2025-12-09 15:38:05[0m [[96mINFO[0m] ✓ Phone A IMSI: 004402458587775
+Attempting to extract IMSI for Phone B (R5CWA1TBCYZ)...
+[97m2025-12-09 15:38:05[0m [[96mINFO[0m] Attempting to extract IMSI for Phone B (R5CWA1TBCYZ)...
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mStarting IMSI extraction for device R5CWA1TBCYZ (IP:PORT=172.29.42.44:7477)[0m
 [DEBUG IMSI] Starting IMSI extraction for device R5CWA1TBCYZ (IP:PORT=172.29.42.44:7477)
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mDevice notes: SPIE 3: IMS HAM 1+2: 4915900104513 &amp; 4915900104514  (UE SN: R5CWA1TBCYZ)[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mDevice notes: SPIE 3: IMS HAM 1+2: 4915900104513 &amp; 4915900104514  (UE SN: R5CWA1TBCYZ)[0m
 [DEBUG IMSI] Device notes: SPIE 3: IMS HAM 1+2: 4915900104513 &amp; 4915900104514  (UE SN: R5CWA1TBCYZ)
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mAttempting ADB extraction methods for 172.29.42.44:7477[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mAttempting ADB extraction methods for 172.29.42.44:7477[0m
 [DEBUG IMSI] Attempting ADB extraction methods for 172.29.42.44:7477
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 1: Trying getprop gsm.sim.operator.imsi...[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 1: Trying getprop gsm.sim.operator.imsi...[0m
 [DEBUG IMSI] Method 1: Trying getprop gsm.sim.operator.imsi...
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 1 return code: 0[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 1 return code: 0[0m
 [DEBUG IMSI] Method 1 return code: 0
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 1 failed: No valid IMSI in output[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 1 failed: No valid IMSI in output[0m
 [DEBUG IMSI] Method 1 failed: No valid IMSI in output
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 2: Trying service call iphonesubinfo 1...[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2: Trying service call iphonesubinfo 1...[0m
 [DEBUG IMSI] Method 2: Trying service call iphonesubinfo 1...
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 2 return code: 0[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 return code: 0[0m
 [DEBUG IMSI] Method 2 return code: 0
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
 [0m
 [DEBUG IMSI] Method 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
 
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 2 Strategy 1 extracted: ''[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 Strategy 1 extracted: ''[0m
 [DEBUG IMSI] Method 2 Strategy 1 extracted: ''
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 2 failed: Could not parse IMSI from output[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 2 failed: Could not parse IMSI from output[0m
 [DEBUG IMSI] Method 2 failed: Could not parse IMSI from output
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 3: Trying dumpsys telephony.registry...[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 3: Trying dumpsys telephony.registry...[0m
 [DEBUG IMSI] Method 3: Trying dumpsys telephony.registry...
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 3 return code: 0[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 3 return code: 0[0m
 [DEBUG IMSI] Method 3 return code: 0
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 3 output length: 274611 chars[0m
-[DEBUG IMSI] Method 3 output length: 274611 chars
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 3 failed: No IMSI pattern found in dumpsys output[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 3 output length: 305043 chars[0m
+[DEBUG IMSI] Method 3 output length: 305043 chars
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 3 failed: No IMSI pattern found in dumpsys output[0m
 [DEBUG IMSI] Method 3 failed: No IMSI pattern found in dumpsys output
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 4: Trying dumpsys iphonesubinfo...[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 4: Trying dumpsys iphonesubinfo...[0m
 [DEBUG IMSI] Method 4: Trying dumpsys iphonesubinfo...
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 4 return code: 0[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 4 return code: 0[0m
 [DEBUG IMSI] Method 4 return code: 0
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 4 output (first 500 chars): [0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 4 output (first 500 chars): [0m
 [DEBUG IMSI] Method 4 output (first 500 chars): 
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 4 failed: No IMSI found[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 4 failed: No IMSI found[0m
 [DEBUG IMSI] Method 4 failed: No IMSI found
-[90m2025-12-09 14:57:00[0m [[90mDEBUG[0m] [90mMethod 5: Trying content query...[0m
+[90m2025-12-09 15:38:05[0m [[90mDEBUG[0m] [90mMethod 5: Trying content query...[0m
 [DEBUG IMSI] Method 5: Trying content query...
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 5 return code: 0[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mMethod 5 return code: 0[0m
 [DEBUG IMSI] Method 5 return code: 0
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 5 output: Error while accessing provider:telephony
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mMethod 5 output: Error while accessing provider:telephony
 java.lang.SecurityException: Access SIMINFO table from not phone/system UID
 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3257)
 	at android.os.Parcel.createException(Parcel.java:3241)
@@ -439,688 +445,637 @@ java.lang.SecurityException: Access SIMINFO table from not phone/system UID
 	at android.os.Parcel.createException(Parcel.java:3241)
 	at android.os.Parcel.readException(Parcel.java:3224)
 	at android
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 5 failed: No IMSI in content query output[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mMethod 5 failed: No IMSI in content query output[0m
 [DEBUG IMSI] Method 5 failed: No IMSI in content query output
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90m❌ All IMSI extraction methods failed for device R5CWA1TBCYZ[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90m❌ All IMSI extraction methods failed for device R5CWA1TBCYZ[0m
 [DEBUG IMSI] ❌ All IMSI extraction methods failed for device R5CWA1TBCYZ
-⚠ Phone A IMSI could not be extracted via ADB
-[97m2025-12-09 14:57:01[0m [[93mWARNING[0m] [33m⚠ Phone A IMSI could not be extracted via ADB[0m
-  Check debug logs above for detailed extraction attempts
-[97m2025-12-09 14:57:01[0m [[93mWARNING[0m] [33m  Check debug logs above for detailed extraction attempts[0m
-Attempting to extract IMSI for Phone B (R5CWA1TBD9Y)...
-[97m2025-12-09 14:57:01[0m [[96mINFO[0m] Attempting to extract IMSI for Phone B (R5CWA1TBD9Y)...
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mStarting IMSI extraction for device R5CWA1TBD9Y (IP:PORT=172.29.42.44:7457)[0m
-[DEBUG IMSI] Starting IMSI extraction for device R5CWA1TBD9Y (IP:PORT=172.29.42.44:7457)
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mDevice notes: SPIE 2: IMS MUC 2+HAM 3: 4915900103141 &amp; 4917607019222  (UE SN: R5CWA1TBD9Y)[0m
-[DEBUG IMSI] Device notes: SPIE 2: IMS MUC 2+HAM 3: 4915900103141 &amp; 4917607019222  (UE SN: R5CWA1TBD9Y)
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mAttempting ADB extraction methods for 172.29.42.44:7457[0m
-[DEBUG IMSI] Attempting ADB extraction methods for 172.29.42.44:7457
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 1: Trying getprop gsm.sim.operator.imsi...[0m
-[DEBUG IMSI] Method 1: Trying getprop gsm.sim.operator.imsi...
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 1 return code: 0[0m
-[DEBUG IMSI] Method 1 return code: 0
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 1 failed: No valid IMSI in output[0m
-[DEBUG IMSI] Method 1 failed: No valid IMSI in output
-[90m2025-12-09 14:57:01[0m [[90mDEBUG[0m] [90mMethod 2: Trying service call iphonesubinfo 1...[0m
-[DEBUG IMSI] Method 2: Trying service call iphonesubinfo 1...
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 2 return code: 0[0m
-[DEBUG IMSI] Method 2 return code: 0
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
-[0m
-[DEBUG IMSI] Method 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
-
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 2 Strategy 1 extracted: ''[0m
-[DEBUG IMSI] Method 2 Strategy 1 extracted: ''
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 2 failed: Could not parse IMSI from output[0m
-[DEBUG IMSI] Method 2 failed: Could not parse IMSI from output
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 3: Trying dumpsys telephony.registry...[0m
-[DEBUG IMSI] Method 3: Trying dumpsys telephony.registry...
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 3 return code: 0[0m
-[DEBUG IMSI] Method 3 return code: 0
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 3 output length: 165654 chars[0m
-[DEBUG IMSI] Method 3 output length: 165654 chars
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 3 failed: No IMSI pattern found in dumpsys output[0m
-[DEBUG IMSI] Method 3 failed: No IMSI pattern found in dumpsys output
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 4: Trying dumpsys iphonesubinfo...[0m
-[DEBUG IMSI] Method 4: Trying dumpsys iphonesubinfo...
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 4 return code: 0[0m
-[DEBUG IMSI] Method 4 return code: 0
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 4 output (first 500 chars): [0m
-[DEBUG IMSI] Method 4 output (first 500 chars): 
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 4 failed: No IMSI found[0m
-[DEBUG IMSI] Method 4 failed: No IMSI found
-[90m2025-12-09 14:57:02[0m [[90mDEBUG[0m] [90mMethod 5: Trying content query...[0m
-[DEBUG IMSI] Method 5: Trying content query...
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mMethod 5 return code: 0[0m
-[DEBUG IMSI] Method 5 return code: 0
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mMethod 5 output: Error while accessing provider:telephony
-java.lang.SecurityException: Access SIMINFO table from not phone/system UID
-	at android.os.Parcel.createExceptionOrNull(Parcel.java:3257)
-	at android.os.Parcel.createException(Parcel.java:3241)
-	at android.os.Parcel.readException(Parcel.java:3224)
-	at android[0m
-[DEBUG IMSI] Method 5 output: Error while accessing provider:telephony
-java.lang.SecurityException: Access SIMINFO table from not phone/system UID
-	at android.os.Parcel.createExceptionOrNull(Parcel.java:3257)
-	at android.os.Parcel.createException(Parcel.java:3241)
-	at android.os.Parcel.readException(Parcel.java:3224)
-	at android
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mMethod 5 failed: No IMSI in content query output[0m
-[DEBUG IMSI] Method 5 failed: No IMSI in content query output
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90m❌ All IMSI extraction methods failed for device R5CWA1TBD9Y[0m
-[DEBUG IMSI] ❌ All IMSI extraction methods failed for device R5CWA1TBD9Y
 ⚠ Phone B IMSI could not be extracted via ADB
-[97m2025-12-09 14:57:03[0m [[93mWARNING[0m] [33m⚠ Phone B IMSI could not be extracted via ADB[0m
+[97m2025-12-09 15:38:07[0m [[93mWARNING[0m] [33m⚠ Phone B IMSI could not be extracted via ADB[0m
   Check debug logs above for detailed extraction attempts
-[97m2025-12-09 14:57:03[0m [[93mWARNING[0m] [33m  Check debug logs above for detailed extraction attempts[0m
+[97m2025-12-09 15:38:07[0m [[93mWARNING[0m] [33m  Check debug logs above for detailed extraction attempts[0m
 
 ============================================================
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] 
 ============================================================
-STEP 3: Switching Phone A (4915900104513) to 2G...
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] STEP 3: Switching Phone A (4915900104513) to 2G...
+STEP 3: Switching Phone A (4915781993213) to 2G...
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] STEP 3: Switching Phone A (4915781993213) to 2G...
 ============================================================
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] ============================================================
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] Setting network type to 2G (value: 1)...
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] Current mode value: 1, changing to: 1
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mAttempting Method 1: settings command...[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mAttempting Method 2: settings with subscription ID...[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mAttempting Method 3: service call...[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90mAttempting Method 4: Samsung-specific service call...[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90m✓ Method 1 succeeded[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90m✓ Method 2 succeeded[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90m✓ Method 3 succeeded[0m
-[90m2025-12-09 14:57:03[0m [[90mDEBUG[0m] [90m✓ Method 4 succeeded[0m
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] ✓ Network type setting commands executed successfully
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] Applying changes by toggling airplane mode...
-[97m2025-12-09 14:57:03[0m [[96mINFO[0m] Airplane mode enabled, waiting 3 seconds...
-[97m2025-12-09 14:57:07[0m [[96mINFO[0m] Airplane mode disabled, waiting for network to reconnect...
-[97m2025-12-09 14:57:12[0m [[96mINFO[0m] Verifying network mode change...
-[97m2025-12-09 14:57:12[0m [[96mINFO[0m] ✓ Network mode successfully changed and applied!
-[97m2025-12-09 14:57:12[0m [[96mINFO[0m] Current network type: 2G only (GSM)
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] ============================================================
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] Setting network type to 2G (value: 1)...
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] Current mode value: 1, changing to: 1
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mAttempting Method 1: settings command...[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mAttempting Method 2: settings with subscription ID...[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mAttempting Method 3: service call...[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90mAttempting Method 4: Samsung-specific service call...[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90m✓ Method 1 succeeded[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90m✓ Method 2 succeeded[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90m✓ Method 3 succeeded[0m
+[90m2025-12-09 15:38:07[0m [[90mDEBUG[0m] [90m✓ Method 4 succeeded[0m
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] ✓ Network type setting commands executed successfully
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] Applying changes by toggling airplane mode...
+[97m2025-12-09 15:38:07[0m [[96mINFO[0m] Airplane mode enabled, waiting 3 seconds...
+[97m2025-12-09 15:38:11[0m [[96mINFO[0m] Airplane mode disabled, waiting for network to reconnect...
+[97m2025-12-09 15:38:16[0m [[96mINFO[0m] Verifying network mode change...
+[97m2025-12-09 15:38:16[0m [[96mINFO[0m] ✓ Network mode successfully changed and applied!
+[97m2025-12-09 15:38:16[0m [[96mINFO[0m] Current network type: 2G only (GSM)
 ✓ Successfully switched Phone A to 2G
-[97m2025-12-09 14:57:12[0m [[96mINFO[0m] ✓ Successfully switched Phone A to 2G
+[97m2025-12-09 15:38:16[0m [[96mINFO[0m] ✓ Successfully switched Phone A to 2G
 Waiting for network to stabilize (15 seconds)...
-[97m2025-12-09 14:57:12[0m [[96mINFO[0m] Waiting for network to stabilize (15 seconds)...
+[97m2025-12-09 15:38:16[0m [[96mINFO[0m] Waiting for network to stabilize (15 seconds)...
+📊 Trace Start Time (after 2G switch): 2025-12-09 15:38:00.000
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] 📊 Trace Start Time (after 2G switch): 2025-12-09 15:38:00.000
+   This includes Location Update procedure in PCAP
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m]    This includes Location Update procedure in PCAP
 
 ============================================================
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] 
 ============================================================
-STEP 4: Phone A (4915900104513) calling Phone B (4915900103141)...
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] STEP 4: Phone A (4915900104513) calling Phone B (4915900103141)...
+STEP 4: Phone A (4915781993213) calling Phone B (4915900104513)...
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] STEP 4: Phone A (4915781993213) calling Phone B (4915900104513)...
 ============================================================
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] ============================================================
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] Initiating call from 4915900104513 to +4915900103141...
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] ✓ Call initiated successfully!
-[90m2025-12-09 14:57:27[0m [[90mDEBUG[0m] [90mOutput: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }[0m
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] ============================================================
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] Initiating call from 4915781993213 to +4915900104513...
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] ✓ Call initiated successfully!
+[90m2025-12-09 15:38:31[0m [[90mDEBUG[0m] [90mOutput: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }[0m
 ✓ Call initiated successfully
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] ✓ Call initiated successfully
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] ✓ Call initiated successfully
 
 ============================================================
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] 
 ============================================================
 STEP 5: Waiting for Phone B to ring...
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] STEP 5: Waiting for Phone B to ring...
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] STEP 5: Waiting for Phone B to ring...
 ============================================================
-[97m2025-12-09 14:57:27[0m [[96mINFO[0m] ============================================================
-[90m2025-12-09 14:57:28[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: IDLE[0m
-[90m2025-12-09 14:57:29[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: IDLE[0m
-[90m2025-12-09 14:57:30[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: IDLE[0m
+[97m2025-12-09 15:38:31[0m [[96mINFO[0m] ============================================================
+[90m2025-12-09 15:38:32[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: IDLE[0m
+[90m2025-12-09 15:38:33[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: IDLE[0m
+[90m2025-12-09 15:38:34[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: IDLE[0m
 ⏳ Still waiting for ring... (3/30s)
-[97m2025-12-09 14:57:30[0m [[96mINFO[0m] ⏳ Still waiting for ring... (3/30s)
-[90m2025-12-09 14:57:31[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
-📞 Phone B (4915900103141) is ringing! (after 4 seconds)
-[97m2025-12-09 14:57:31[0m [[96mINFO[0m] 📞 Phone B (4915900103141) is ringing! (after 4 seconds)
+[97m2025-12-09 15:38:34[0m [[96mINFO[0m] ⏳ Still waiting for ring... (3/30s)
+[90m2025-12-09 15:38:35[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: IDLE[0m
+[90m2025-12-09 15:38:36[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
+📞 Phone B (4915900104513) is ringing! (after 5 seconds)
+[97m2025-12-09 15:38:36[0m [[96mINFO[0m] 📞 Phone B (4915900104513) is ringing! (after 5 seconds)
 ⏳ Waiting to answer... (5.0s remaining)
-[97m2025-12-09 14:57:31[0m [[96mINFO[0m] ⏳ Waiting to answer... (5.0s remaining)
-[90m2025-12-09 14:57:32[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
+[97m2025-12-09 15:38:36[0m [[96mINFO[0m] ⏳ Waiting to answer... (5.0s remaining)
+[90m2025-12-09 15:38:38[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
 ⏳ Waiting to answer... (3.9s remaining)
-[97m2025-12-09 14:57:32[0m [[96mINFO[0m] ⏳ Waiting to answer... (3.9s remaining)
-[90m2025-12-09 14:57:34[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
+[97m2025-12-09 15:38:38[0m [[96mINFO[0m] ⏳ Waiting to answer... (3.9s remaining)
+[90m2025-12-09 15:38:39[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
 ⏳ Waiting to answer... (2.8s remaining)
-[97m2025-12-09 14:57:34[0m [[96mINFO[0m] ⏳ Waiting to answer... (2.8s remaining)
-[90m2025-12-09 14:57:35[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
+[97m2025-12-09 15:38:39[0m [[96mINFO[0m] ⏳ Waiting to answer... (2.8s remaining)
+[90m2025-12-09 15:38:40[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
 ⏳ Waiting to answer... (1.7s remaining)
-[97m2025-12-09 14:57:35[0m [[96mINFO[0m] ⏳ Waiting to answer... (1.7s remaining)
-[90m2025-12-09 14:57:36[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
+[97m2025-12-09 15:38:40[0m [[96mINFO[0m] ⏳ Waiting to answer... (1.7s remaining)
+[90m2025-12-09 15:38:41[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
 ⏳ Waiting to answer... (0.7s remaining)
-[97m2025-12-09 14:57:36[0m [[96mINFO[0m] ⏳ Waiting to answer... (0.7s remaining)
-[90m2025-12-09 14:57:37[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
+[97m2025-12-09 15:38:41[0m [[96mINFO[0m] ⏳ Waiting to answer... (0.7s remaining)
+[90m2025-12-09 15:38:42[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
 
 ⏱️  Phone B has been ringing for 5.4 seconds
-[97m2025-12-09 14:57:37[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:42[0m [[96mINFO[0m] 
 ⏱️  Phone B has been ringing for 5.4 seconds
-Answering call on Phone B (4915900103141)...
-[97m2025-12-09 14:57:37[0m [[96mINFO[0m] Answering call on Phone B (4915900103141)...
-[90m2025-12-09 14:57:37[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: RINGING[0m
-[97m2025-12-09 14:57:37[0m [[96mINFO[0m] Answering call on +4915900103141...
-[97m2025-12-09 14:57:37[0m [[96mINFO[0m] ✓ Call answered successfully on +4915900103141
-[90m2025-12-09 14:57:38[0m [[90mDEBUG[0m] [90mCall state for 172.29.42.44:7457: OFFHOOK[0m
-[97m2025-12-09 14:57:38[0m [[96mINFO[0m] ✓ Call is now active (state: OFFHOOK)
+Answering call on Phone B (4915900104513)...
+[97m2025-12-09 15:38:42[0m [[96mINFO[0m] Answering call on Phone B (4915900104513)...
+[90m2025-12-09 15:38:42[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: RINGING[0m
+[97m2025-12-09 15:38:42[0m [[96mINFO[0m] Answering call on +4915900104513...
+[97m2025-12-09 15:38:42[0m [[96mINFO[0m] ✓ Call answered successfully on +4915900104513
+[90m2025-12-09 15:38:43[0m [[90mDEBUG[0m] [90mCall state for 172.29.42.44:7477: OFFHOOK[0m
+[97m2025-12-09 15:38:43[0m [[96mINFO[0m] ✓ Call is now active (state: OFFHOOK)
 ✓ Call answered successfully!
-[97m2025-12-09 14:57:38[0m [[96mINFO[0m] ✓ Call answered successfully!
+[97m2025-12-09 15:38:43[0m [[96mINFO[0m] ✓ Call answered successfully!
 
 ============================================================
-[97m2025-12-09 14:57:38[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:43[0m [[96mINFO[0m] 
 ============================================================
 Waiting for call to be fully connected...
-[97m2025-12-09 14:57:38[0m [[96mINFO[0m] Waiting for call to be fully connected...
+[97m2025-12-09 15:38:43[0m [[96mINFO[0m] Waiting for call to be fully connected...
 ============================================================
-[97m2025-12-09 14:57:38[0m [[96mINFO[0m] ============================================================
-[90m2025-12-09 14:57:39[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: OFFHOOK[0m
-[90m2025-12-09 14:57:39[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: OFFHOOK[0m
+[97m2025-12-09 15:38:43[0m [[96mINFO[0m] ============================================================
+[90m2025-12-09 15:38:44[0m [[90mDEBUG[0m] [90mCall state for +4915781993213: OFFHOOK[0m
+[90m2025-12-09 15:38:44[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: OFFHOOK[0m
 ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
-[97m2025-12-09 14:57:39[0m [[96mINFO[0m] ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
+[97m2025-12-09 15:38:44[0m [[96mINFO[0m] ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
 
 ============================================================
-[97m2025-12-09 14:57:39[0m [[96mINFO[0m] 
+[97m2025-12-09 15:38:44[0m [[96mINFO[0m] 
 ============================================================
 STEP 6: Call in progress...
-[97m2025-12-09 14:57:39[0m [[96mINFO[0m] STEP 6: Call in progress...
+[97m2025-12-09 15:38:44[0m [[96mINFO[0m] STEP 6: Call in progress...
 ============================================================
-[97m2025-12-09 14:57:39[0m [[96mINFO[0m] ============================================================
+[97m2025-12-09 15:38:44[0m [[96mINFO[0m] ============================================================
 ⏱️  Call timer started! Call will last 30 seconds...
-[97m2025-12-09 14:57:39[0m [[96mINFO[0m] ⏱️  Call timer started! Call will last 30 seconds...
+[97m2025-12-09 15:38:44[0m [[96mINFO[0m] ⏱️  Call timer started! Call will last 30 seconds...
 ⏳ Call in progress... 30s remaining
-[97m2025-12-09 14:57:39[0m [[96mINFO[0m] ⏳ Call in progress... 30s remaining
+[97m2025-12-09 15:38:44[0m [[96mINFO[0m] ⏳ Call in progress... 30s remaining
 ⏳ Call in progress... 25s remaining
-[97m2025-12-09 14:57:44[0m [[96mINFO[0m] ⏳ Call in progress... 25s remaining
+[97m2025-12-09 15:38:49[0m [[96mINFO[0m] ⏳ Call in progress... 25s remaining
 ⏳ Call in progress... 20s remaining
-[97m2025-12-09 14:57:49[0m [[96mINFO[0m] ⏳ Call in progress... 20s remaining
+[97m2025-12-09 15:38:54[0m [[96mINFO[0m] ⏳ Call in progress... 20s remaining
 ⏳ Call in progress... 15s remaining
-[97m2025-12-09 14:57:54[0m [[96mINFO[0m] ⏳ Call in progress... 15s remaining
+[97m2025-12-09 15:38:59[0m [[96mINFO[0m] ⏳ Call in progress... 15s remaining
 ⏳ Call in progress... 10s remaining
-[97m2025-12-09 14:57:59[0m [[96mINFO[0m] ⏳ Call in progress... 10s remaining
+[97m2025-12-09 15:39:04[0m [[96mINFO[0m] ⏳ Call in progress... 10s remaining
 ⏳ Call in progress... 5s remaining
-[97m2025-12-09 14:58:04[0m [[96mINFO[0m] ⏳ Call in progress... 5s remaining
+[97m2025-12-09 15:39:09[0m [[96mINFO[0m] ⏳ Call in progress... 5s remaining
 
 ⏱️  30 seconds elapsed. Ending call...
-[97m2025-12-09 14:58:09[0m [[96mINFO[0m] 
+[97m2025-12-09 15:39:14[0m [[96mINFO[0m] 
 ⏱️  30 seconds elapsed. Ending call...
-[90m2025-12-09 14:58:09[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: OFFHOOK[0m
-[97m2025-12-09 14:58:09[0m [[96mINFO[0m] Ending call on +4915900104513...
-[97m2025-12-09 14:58:09[0m [[96mINFO[0m] ✓ Call ended successfully on +4915900104513
-[90m2025-12-09 14:58:10[0m [[90mDEBUG[0m] [90mCall state for +4915900103141: OFFHOOK[0m
-[97m2025-12-09 14:58:10[0m [[96mINFO[0m] Also ending call on +4915900103141...
-[97m2025-12-09 14:58:10[0m [[96mINFO[0m] ✓ Call ended on +4915900103141
-[90m2025-12-09 14:58:11[0m [[90mDEBUG[0m] [90mCall state for 172.29.42.44:7477: IDLE[0m
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Phone is now idle (state: IDLE)
+[90m2025-12-09 15:39:14[0m [[90mDEBUG[0m] [90mCall state for +4915781993213: OFFHOOK[0m
+[97m2025-12-09 15:39:14[0m [[96mINFO[0m] Ending call on +4915781993213...
+[97m2025-12-09 15:39:15[0m [[96mINFO[0m] ✓ Call ended successfully on +4915781993213
+[90m2025-12-09 15:39:15[0m [[90mDEBUG[0m] [90mCall state for +4915900104513: OFFHOOK[0m
+[97m2025-12-09 15:39:15[0m [[96mINFO[0m] Also ending call on +4915900104513...
+[97m2025-12-09 15:39:15[0m [[96mINFO[0m] ✓ Call ended on +4915900104513
+[90m2025-12-09 15:39:16[0m [[90mDEBUG[0m] [90mCall state for 172.29.42.44:7413: IDLE[0m
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Phone is now idle (state: IDLE)
 ✓ Call ended successfully
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Call ended successfully
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Call ended successfully
+📊 Trace End Time (after call end): 2025-12-09 15:40:00.000
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] 📊 Trace End Time (after call end): 2025-12-09 15:40:00.000
 
 ============================================================
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] 
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] 
 ============================================================
 ================= SCENARIO COMPLETE ========================
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ================= SCENARIO COMPLETE ========================
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ================= SCENARIO COMPLETE ========================
 ============================================================
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ============================================================
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ============================================================
 ✓ All steps completed successfully!
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ All steps completed successfully!
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ All steps completed successfully!
   • Both phones connected via STF (serial-based)
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m]   • Both phones connected via STF (serial-based)
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m]   • Both phones connected via STF (serial-based)
   • Phone A switched to 2G
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m]   • Phone A switched to 2G
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m]   • Phone A switched to 2G
   • Call initiated from Phone A to Phone B
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m]   • Call initiated from Phone A to Phone B
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m]   • Call initiated from Phone A to Phone B
   • Phone B answered after 5 seconds of ringing
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m]   • Phone B answered after 5 seconds of ringing
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m]   • Phone B answered after 5 seconds of ringing
   • Call lasted 30 seconds and ended
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m]   • Call lasted 30 seconds and ended
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m]   • Call lasted 30 seconds and ended
 ============================================================
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ============================================================
-{'success': True, 'phone_a_msisdn': '4915900104513', 'phone_b_msisdn': '4915900103141', 'phone_a_serial': 'R5CWA1TBCYZ', 'phone_b_serial': 'R5CWA1TBD9Y', 'phone_a_imsi': 'UNKNOWN_IMSI_A', 'phone_b_imsi': 'UNKNOWN_IMSI_B'}
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] {'success': True, 'phone_a_msisdn': '4915900104513', 'phone_b_msisdn': '4915900103141', 'phone_a_serial': 'R5CWA1TBCYZ', 'phone_b_serial': 'R5CWA1TBD9Y', 'phone_a_imsi': 'UNKNOWN_IMSI_A', 'phone_b_imsi': 'UNKNOWN_IMSI_B'}
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] Disconnecting STF device R5CWA1TBCYZ...
-[90m2025-12-09 14:58:11[0m [[90mDEBUG[0m] [90mDisconnecting 172.29.42.44:7477 from ADB...[0m
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ disconnected
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ removed from user
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Successfully disconnected device R5CWA1TBCYZ
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] Disconnecting STF device R5CWA1TBD9Y...
-[90m2025-12-09 14:58:11[0m [[90mDEBUG[0m] [90mDisconnecting 172.29.42.44:7457 from ADB...[0m
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Device R5CWA1TBD9Y disconnected
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Device R5CWA1TBD9Y removed from user
-[97m2025-12-09 14:58:11[0m [[96mINFO[0m] ✓ Successfully disconnected device R5CWA1TBD9Y</msg>
-<msg time="2025-12-09T14:58:11.229537" level="INFO">${result} = {'success': True, 'phone_a_msisdn': '4915900104513', 'phone_b_msisdn': '4915900103141', 'phone_a_serial': 'R5CWA1TBCYZ', 'phone_b_serial': 'R5CWA1TBD9Y', 'phone_a_imsi': 'UNKNOWN_IMSI_A', 'phone_b_ims...</msg>
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ============================================================
+{'success': True, 'phone_a_msisdn': '4915781993213', 'phone_b_msisdn': '4915900104513', 'phone_a_serial': 'QV70006W1B', 'phone_b_serial': 'R5CWA1TBCYZ', 'phone_a_imsi': '004402458587775', 'phone_b_imsi': 'UNKNOWN_IMSI_B', 'trace_start_time': '2025-12-09 15:38:00.000', 'trace_end_time': '2025-12-09 15:40:00.000'}
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] {'success': True, 'phone_a_msisdn': '4915781993213', 'phone_b_msisdn': '4915900104513', 'phone_a_serial': 'QV70006W1B', 'phone_b_serial': 'R5CWA1TBCYZ', 'phone_a_imsi': '004402458587775', 'phone_b_imsi': 'UNKNOWN_IMSI_B', 'trace_start_time': '2025-12-09 15:38:00.000', 'trace_end_time': '2025-12-09 15:40:00.000'}
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] Disconnecting STF device QV70006W1B...
+[90m2025-12-09 15:39:16[0m [[90mDEBUG[0m] [90mDisconnecting 172.29.42.44:7413 from ADB...[0m
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Device QV70006W1B disconnected
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Device QV70006W1B removed from user
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Successfully disconnected device QV70006W1B
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] Disconnecting STF device R5CWA1TBCYZ...
+[90m2025-12-09 15:39:16[0m [[90mDEBUG[0m] [90mDisconnecting 172.29.42.44:7477 from ADB...[0m
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ disconnected
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Device R5CWA1TBCYZ removed from user
+[97m2025-12-09 15:39:16[0m [[96mINFO[0m] ✓ Successfully disconnected device R5CWA1TBCYZ</msg>
+<msg time="2025-12-09T15:39:16.681479" level="INFO">${result} = {'success': True, 'phone_a_msisdn': '4915781993213', 'phone_b_msisdn': '4915900104513', 'phone_a_serial': 'QV70006W1B', 'phone_b_serial': 'R5CWA1TBCYZ', 'phone_a_imsi': '004402458587775', 'phone_b_ims...</msg>
 <var>${result}</var>
 <doc>Execute the custom call scenario using auto-selected STF devices.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.192053" elapsed="79.037542"/>
+<status status="PASS" start="2025-12-09T15:37:57.354839" elapsed="79.326708"/>
 </kw>
-<kw name="Get Current Date" owner="DateTime">
-<msg time="2025-12-09T14:58:11.230674" level="INFO">${END_TIME_RAW} = 2025-12-09 14:58:11.230515</msg>
-<var>${END_TIME_RAW}</var>
-<arg>result_format=%Y-%m-%d %H:%M:%S.%f</arg>
-<doc>Returns current local or UTC time with an optional increment.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.230159" elapsed="0.000555"/>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-09T15:39:16.682749" level="INFO">${START_TIME} = 2025-12-09 15:38:00.000</msg>
+<var>${START_TIME}</var>
+<arg>${result}</arg>
+<arg>trace_start_time</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-09T15:39:16.682192" elapsed="0.000608"/>
 </kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.231720" level="INFO">${END_TIME_ORIGINAL} = 2025-12-09 14:58:11.230</msg>
-<var>${END_TIME_ORIGINAL}</var>
-<arg>${END_TIME_RAW[:23]}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.230950" elapsed="0.000808"/>
-</kw>
-<kw name="Add Time To Date" owner="DateTime">
-<msg time="2025-12-09T14:58:11.234317" level="INFO">${END_TIME_ROUNDED} = 2025-12-09 14:59:11</msg>
-<var>${END_TIME_ROUNDED}</var>
-<arg>${END_TIME_ORIGINAL}</arg>
-<arg>1 minute</arg>
-<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
-<doc>Adds time to date and returns the resulting date.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.231994" elapsed="0.002390"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.235463" level="INFO">${END_TIME} = 2025-12-09 14:59:00.000</msg>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-12-09T15:39:16.683447" level="INFO">${END_TIME} = 2025-12-09 15:40:00.000</msg>
 <var>${END_TIME}</var>
-<arg>${END_TIME_ROUNDED[:17]}00.000</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.234649" elapsed="0.000866"/>
+<arg>${result}</arg>
+<arg>trace_end_time</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-12-09T15:39:16.683110" elapsed="0.000382"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
-<arg>Test End Time (Original): ${END_TIME_ORIGINAL}</arg>
+<arg>\n${\n}========== TRACE TIME WINDOW ==========</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.235821" elapsed="0.000294"/>
+<status status="PASS" start="2025-12-09T15:39:16.683770" elapsed="0.000461"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
-<arg>Test End Time (Adjusted): ${END_TIME}</arg>
+<arg>Trace Start Time: ${START_TIME}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.236304" elapsed="0.000208"/>
+<status status="PASS" start="2025-12-09T15:39:16.684483" elapsed="0.000290"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Trace End Time: ${END_TIME}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-09T15:39:16.685034" elapsed="0.000336"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>(Captured after 2G switch - includes Location Update)</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-09T15:39:16.685741" elapsed="0.000300"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>========================================</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-12-09T15:39:16.686418" elapsed="0.000321"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.236921" level="INFO">Test End Time (Original): 2025-12-09 14:58:11.230</msg>
-<arg>Test End Time (Original): ${END_TIME_ORIGINAL}</arg>
+<msg time="2025-12-09T15:39:16.687329" level="INFO">Trace Start Time: 2025-12-09 15:38:00.000</msg>
+<arg>Trace Start Time: ${START_TIME}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.236687" elapsed="0.000312"/>
+<status status="PASS" start="2025-12-09T15:39:16.687009" elapsed="0.000420"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.237439" level="INFO">Test End Time (Adjusted): 2025-12-09 14:59:00.000</msg>
-<arg>Test End Time (Adjusted): ${END_TIME}</arg>
+<msg time="2025-12-09T15:39:16.688026" level="INFO">Trace End Time: 2025-12-09 15:40:00.000</msg>
+<arg>Trace End Time: ${END_TIME}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.237229" elapsed="0.000276"/>
+<status status="PASS" start="2025-12-09T15:39:16.687758" elapsed="0.000351"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.238044" level="INFO">${END_TIME} = 2025-12-09 14:59:00.000</msg>
+<msg time="2025-12-09T15:39:16.688780" level="INFO">${START_TIME} = 2025-12-09 15:38:00.000</msg>
+<arg>${START_TIME}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-12-09T15:39:16.688409" elapsed="0.000449"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-12-09T15:39:16.689471" level="INFO">${END_TIME} = 2025-12-09 15:40:00.000</msg>
 <arg>${END_TIME}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.237769" elapsed="0.000327"/>
+<status status="PASS" start="2025-12-09T15:39:16.689135" elapsed="0.000422"/>
 </kw>
 <kw name="Subtract Date From Date" owner="DateTime">
-<msg time="2025-12-09T14:58:11.238614" level="INFO">${DURATION} = 180.0</msg>
+<msg time="2025-12-09T15:39:16.692737" level="INFO">${DURATION} = 120.0</msg>
 <var>${DURATION}</var>
 <arg>${END_TIME}</arg>
 <arg>${START_TIME}</arg>
 <doc>Subtracts date from another date and returns time between.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.238266" elapsed="0.000378"/>
+<status status="PASS" start="2025-12-09T15:39:16.689851" elapsed="0.002938"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
-<arg>Test Duration: ${DURATION} seconds</arg>
+<arg>Trace Duration: ${DURATION} seconds</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.238811" elapsed="0.000180"/>
+<status status="PASS" start="2025-12-09T15:39:16.693051" elapsed="0.000256"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.239297" level="INFO">Test Duration: 180.0 seconds</msg>
-<arg>Test Duration: ${DURATION} seconds</arg>
+<msg time="2025-12-09T15:39:16.693652" level="INFO">Trace Duration: 120.0 seconds</msg>
+<arg>Trace Duration: ${DURATION} seconds</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.239145" elapsed="0.000200"/>
+<status status="PASS" start="2025-12-09T15:39:16.693482" elapsed="0.000222"/>
 </kw>
 <kw name="Set Suite Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.239703" level="INFO">${DURATION} = 180.0</msg>
+<msg time="2025-12-09T15:39:16.694076" level="INFO">${DURATION} = 120.0</msg>
 <arg>${DURATION}</arg>
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.239511" elapsed="0.000238"/>
+<status status="PASS" start="2025-12-09T15:39:16.693871" elapsed="0.000253"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.240136" level="INFO">${success} = True</msg>
+<msg time="2025-12-09T15:39:16.694537" level="INFO">${success} = True</msg>
 <var>${success}</var>
 <arg>${result}</arg>
 <arg>success</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.239926" elapsed="0.000239"/>
+<status status="PASS" start="2025-12-09T15:39:16.694277" elapsed="0.000290"/>
 </kw>
 <kw name="Set Variable If" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.240522" level="INFO">${STATUS} = PASS</msg>
+<msg time="2025-12-09T15:39:16.694956" level="INFO">${STATUS} = PASS</msg>
 <var>${STATUS}</var>
 <arg>${success}</arg>
 <arg>PASS</arg>
 <arg>FAIL</arg>
 <doc>Sets variable based on the given condition.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.240338" elapsed="0.000212"/>
+<status status="PASS" start="2025-12-09T15:39:16.694776" elapsed="0.000209"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n${\n}========== CALL SCENARIO SUMMARY ==========</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.240710" elapsed="0.000268"/>
+<status status="PASS" start="2025-12-09T15:39:16.695141" elapsed="0.000254"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Start Time: ${START_TIME}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.241162" elapsed="0.000174"/>
+<status status="PASS" start="2025-12-09T15:39:16.695550" elapsed="0.000185"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>End Time: ${END_TIME}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.241529" elapsed="0.000185"/>
+<status status="PASS" start="2025-12-09T15:39:16.695907" elapsed="0.000184"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Duration: ${DURATION} seconds</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.241849" elapsed="0.000167"/>
+<status status="PASS" start="2025-12-09T15:39:16.696237" elapsed="0.000168"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Status: ${STATUS}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.242152" elapsed="0.000173"/>
+<status status="PASS" start="2025-12-09T15:39:16.696543" elapsed="0.000162"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>===========================================</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.242468" elapsed="0.000127"/>
+<status status="PASS" start="2025-12-09T15:39:16.696875" elapsed="0.000145"/>
 </kw>
 <kw name="Should Be True" owner="BuiltIn">
 <arg>${success}</arg>
 <arg>Custom call scenario failed</arg>
 <doc>Fails if the given condition is not true.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.242738" elapsed="0.000197"/>
+<status status="PASS" start="2025-12-09T15:39:16.697165" elapsed="0.000239"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Collect And Process Anritsu Trace">
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n${\n}Starting Anritsu trace collection...</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.244399" elapsed="0.000218"/>
+<status status="PASS" start="2025-12-09T15:39:16.698880" elapsed="0.000219"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Using adjusted times for Anritsu trace:</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.244760" elapsed="0.000134"/>
+<status status="PASS" start="2025-12-09T15:39:16.699236" elapsed="0.000147"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>- Start Time (Adjusted): ${start_time}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.245020" elapsed="0.000172"/>
+<status status="PASS" start="2025-12-09T15:39:16.699509" elapsed="0.000172"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>- End Time (Adjusted): ${end_time}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.245329" elapsed="0.000178"/>
+<status status="PASS" start="2025-12-09T15:39:16.699792" elapsed="0.000166"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.245830" level="INFO">${phone_a_msisdn} = 4915900104513</msg>
+<msg time="2025-12-09T15:39:16.700348" level="INFO">${phone_a_msisdn} = 4915781993213</msg>
 <var>${phone_a_msisdn}</var>
 <arg>${result}</arg>
 <arg>phone_a_msisdn</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.245630" elapsed="0.000231"/>
+<status status="PASS" start="2025-12-09T15:39:16.700086" elapsed="0.000295"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.246211" level="INFO">${phone_b_msisdn} = 4915900103141</msg>
+<msg time="2025-12-09T15:39:16.700806" level="INFO">${phone_b_msisdn} = 4915900104513</msg>
 <var>${phone_b_msisdn}</var>
 <arg>${result}</arg>
 <arg>phone_b_msisdn</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.246028" elapsed="0.000212"/>
+<status status="PASS" start="2025-12-09T15:39:16.700502" elapsed="0.000333"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.246557" level="INFO">${phone_a_serial} = R5CWA1TBCYZ</msg>
+<msg time="2025-12-09T15:39:16.701140" level="INFO">${phone_a_serial} = QV70006W1B</msg>
 <var>${phone_a_serial}</var>
 <arg>${result}</arg>
 <arg>phone_a_serial</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.246371" elapsed="0.000216"/>
+<status status="PASS" start="2025-12-09T15:39:16.700955" elapsed="0.000213"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.246895" level="INFO">${phone_b_serial} = R5CWA1TBD9Y</msg>
+<msg time="2025-12-09T15:39:16.701459" level="INFO">${phone_b_serial} = R5CWA1TBCYZ</msg>
 <var>${phone_b_serial}</var>
 <arg>${result}</arg>
 <arg>phone_b_serial</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.246711" elapsed="0.000216"/>
+<status status="PASS" start="2025-12-09T15:39:16.701283" elapsed="0.000204"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.247264" level="INFO">${phone_a_imsi} = UNKNOWN_IMSI_A</msg>
+<msg time="2025-12-09T15:39:16.701769" level="INFO">${phone_a_imsi} = 004402458587775</msg>
 <var>${phone_a_imsi}</var>
 <arg>${result}</arg>
 <arg>phone_a_imsi</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.247063" elapsed="0.000231"/>
+<status status="PASS" start="2025-12-09T15:39:16.701598" elapsed="0.000198"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-12-09T14:58:11.247589" level="INFO">${phone_b_imsi} = UNKNOWN_IMSI_B</msg>
+<msg time="2025-12-09T15:39:16.702081" level="INFO">${phone_b_imsi} = UNKNOWN_IMSI_B</msg>
 <var>${phone_b_imsi}</var>
 <arg>${result}</arg>
 <arg>phone_b_imsi</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.247413" elapsed="0.000203"/>
+<status status="PASS" start="2025-12-09T15:39:16.701908" elapsed="0.000200"/>
 </kw>
 <kw name="Format Anritsu Timestamp">
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.248299" level="INFO">${anritsu_timestamp} = 2025-12-09 14:56:00.000</msg>
+<msg time="2025-12-09T15:39:16.702870" level="INFO">${anritsu_timestamp} = 2025-12-09 15:38:00.000</msg>
 <var>${anritsu_timestamp}</var>
 <arg>${rf_timestamp}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.248129" elapsed="0.000197"/>
+<status status="PASS" start="2025-12-09T15:39:16.702668" elapsed="0.000235"/>
 </kw>
 <return>
 <value>${anritsu_timestamp}</value>
-<status status="PASS" start="2025-12-09T14:58:11.248396" elapsed="0.000070"/>
+<status status="PASS" start="2025-12-09T15:39:16.702980" elapsed="0.000084"/>
 </return>
-<msg time="2025-12-09T14:58:11.248621" level="INFO">${anritsu_start} = 2025-12-09 14:56:00.000</msg>
+<msg time="2025-12-09T15:39:16.703231" level="INFO">${anritsu_start} = 2025-12-09 15:38:00.000</msg>
 <var>${anritsu_start}</var>
 <arg>${start_time}</arg>
 <doc>Convert Robot Framework timestamp to Anritsu format (YYYY-MM-DD HH:MM:SS.MSS)</doc>
-<status status="PASS" start="2025-12-09T14:58:11.247806" elapsed="0.000841"/>
+<status status="PASS" start="2025-12-09T15:39:16.702314" elapsed="0.000947"/>
 </kw>
 <kw name="Format Anritsu Timestamp">
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.249325" level="INFO">${anritsu_timestamp} = 2025-12-09 14:59:00.000</msg>
+<msg time="2025-12-09T15:39:16.704020" level="INFO">${anritsu_timestamp} = 2025-12-09 15:40:00.000</msg>
 <var>${anritsu_timestamp}</var>
 <arg>${rf_timestamp}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.249144" elapsed="0.000212"/>
+<status status="PASS" start="2025-12-09T15:39:16.703823" elapsed="0.000227"/>
 </kw>
 <return>
 <value>${anritsu_timestamp}</value>
-<status status="PASS" start="2025-12-09T14:58:11.249410" elapsed="0.000033"/>
+<status status="PASS" start="2025-12-09T15:39:16.704103" elapsed="0.000034"/>
 </return>
-<msg time="2025-12-09T14:58:11.249580" level="INFO">${anritsu_end} = 2025-12-09 14:59:00.000</msg>
+<msg time="2025-12-09T15:39:16.704274" level="INFO">${anritsu_end} = 2025-12-09 15:40:00.000</msg>
 <var>${anritsu_end}</var>
 <arg>${end_time}</arg>
 <doc>Convert Robot Framework timestamp to Anritsu format (YYYY-MM-DD HH:MM:SS.MSS)</doc>
-<status status="PASS" start="2025-12-09T14:58:11.248822" elapsed="0.000785"/>
+<status status="PASS" start="2025-12-09T15:39:16.703459" elapsed="0.000842"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Converted to Anritsu format:</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.249728" elapsed="0.000145"/>
+<status status="PASS" start="2025-12-09T15:39:16.704421" elapsed="0.000151"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>- Anritsu Start: ${anritsu_start}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.249991" elapsed="0.000195"/>
+<status status="PASS" start="2025-12-09T15:39:16.704691" elapsed="0.000196"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>- Anritsu End: ${anritsu_end}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.250326" elapsed="0.000174"/>
+<status status="PASS" start="2025-12-09T15:39:16.705006" elapsed="0.000160"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Phone A: ${phone_a_msisdn} (Serial: ${phone_a_serial}, IMSI: ${phone_a_imsi})</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.250626" elapsed="0.000225"/>
+<status status="PASS" start="2025-12-09T15:39:16.705278" elapsed="0.000218"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Phone B: ${phone_b_msisdn} (Serial: ${phone_b_serial}, IMSI: ${phone_b_imsi})</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.250976" elapsed="0.000213"/>
+<status status="PASS" start="2025-12-09T15:39:16.705620" elapsed="0.000214"/>
 </kw>
 <kw name="Collect Anritsu Trace">
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n${\n}========== ANRITSU TRACE COLLECTION ==========</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.252241" elapsed="0.000397"/>
+<status status="PASS" start="2025-12-09T15:39:16.706682" elapsed="0.000244"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Template: ${ANRITSU_TEMPLATE}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.252850" elapsed="0.000521"/>
+<status status="PASS" start="2025-12-09T15:39:16.707045" elapsed="0.000163"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Time Range (with milliseconds): ${start_time} to ${end_time}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.253577" elapsed="0.000304"/>
+<status status="PASS" start="2025-12-09T15:39:16.707360" elapsed="0.000309"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Start Time: [${start_time}] (Length: ${start_time.__len__()})</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.254060" elapsed="0.000988"/>
+<status status="PASS" start="2025-12-09T15:39:16.707875" elapsed="0.001117"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>End Time: [${end_time}] (Length: ${end_time.__len__()})</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.255254" elapsed="0.000927"/>
+<status status="PASS" start="2025-12-09T15:39:16.709255" elapsed="0.000660"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Expected format: YYYY-MM-DD HH:MM:SS.MSS (23 chars)</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.256379" elapsed="0.000184"/>
+<status status="PASS" start="2025-12-09T15:39:16.710067" elapsed="0.000145"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Phone A MSISDN: ${phone_a_msisdn}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.256701" elapsed="0.000225"/>
+<status status="PASS" start="2025-12-09T15:39:16.710436" elapsed="0.000189"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Phone B MSISDN: ${phone_b_msisdn}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.257112" elapsed="0.000280"/>
+<status status="PASS" start="2025-12-09T15:39:16.710751" elapsed="0.000167"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Output Dir: ${TC_OUTPUT_DIR}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.257557" elapsed="0.000189"/>
+<status status="PASS" start="2025-12-09T15:39:16.711035" elapsed="0.000163"/>
 </kw>
 <kw name="Create Directory" owner="OperatingSystem">
-<msg time="2025-12-09T14:58:11.258099" level="INFO" html="true">Directory '&lt;a href="file:///DATA/bjadoui/MSS-AUTOMATION/tc_output_dir"&gt;/DATA/bjadoui/MSS-AUTOMATION/tc_output_dir&lt;/a&gt;' already exists.</msg>
+<msg time="2025-12-09T15:39:16.711508" level="INFO" html="true">Directory '&lt;a href="file:///DATA/bjadoui/MSS-AUTOMATION/tc_output_dir"&gt;/DATA/bjadoui/MSS-AUTOMATION/tc_output_dir&lt;/a&gt;' already exists.</msg>
 <arg>${TC_OUTPUT_DIR}</arg>
 <doc>Creates the specified directory.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.257894" elapsed="0.000266"/>
+<status status="PASS" start="2025-12-09T15:39:16.711316" elapsed="0.000250"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.258735" level="INFO">${device_1_sim} = {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_A', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}</msg>
+<msg time="2025-12-09T15:39:16.712115" level="INFO">${device_1_sim} = {'sim_MSISDN': '4915781993213', 'sim_IMSI': '004402458587775', 'sim_Calling_Number': '4915781993213', 'sim_Calling_Number_0': '4915781993213'}</msg>
 <var>${device_1_sim}</var>
 <arg>sim_MSISDN=${phone_a_msisdn}</arg>
 <arg>sim_IMSI=${phone_a_imsi}</arg>
 <arg>sim_Calling_Number=${phone_a_msisdn}</arg>
 <arg>sim_Calling_Number_0=${phone_a_msisdn}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.258296" elapsed="0.000472"/>
+<status status="PASS" start="2025-12-09T15:39:16.711701" elapsed="0.000445"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.259397" level="INFO">${device_2_sim} = {'sim_MSISDN': '4915900103141', 'sim_IMSI': 'UNKNOWN_IMSI_B', 'sim_Calling_Number': '4915900103141', 'sim_Calling_Number_0': '4915900103141'}</msg>
+<msg time="2025-12-09T15:39:16.712707" level="INFO">${device_2_sim} = {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_B', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}</msg>
 <var>${device_2_sim}</var>
 <arg>sim_MSISDN=${phone_b_msisdn}</arg>
 <arg>sim_IMSI=${phone_b_imsi}</arg>
 <arg>sim_Calling_Number=${phone_b_msisdn}</arg>
 <arg>sim_Calling_Number_0=${phone_b_msisdn}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.258958" elapsed="0.000474"/>
+<status status="PASS" start="2025-12-09T15:39:16.712328" elapsed="0.000413"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.259829" level="INFO">${device_1_sims} = {'sim_slot_1': {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_A', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}}</msg>
+<msg time="2025-12-09T15:39:16.713195" level="INFO">${device_1_sims} = {'sim_slot_1': {'sim_MSISDN': '4915781993213', 'sim_IMSI': '004402458587775', 'sim_Calling_Number': '4915781993213', 'sim_Calling_Number_0': '4915781993213'}}</msg>
 <var>${device_1_sims}</var>
 <arg>sim_slot_1=${device_1_sim}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.259580" elapsed="0.000280"/>
+<status status="PASS" start="2025-12-09T15:39:16.712891" elapsed="0.000337"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.260212" level="INFO">${device_2_sims} = {'sim_slot_1': {'sim_MSISDN': '4915900103141', 'sim_IMSI': 'UNKNOWN_IMSI_B', 'sim_Calling_Number': '4915900103141', 'sim_Calling_Number_0': '4915900103141'}}</msg>
+<msg time="2025-12-09T15:39:16.713754" level="INFO">${device_2_sims} = {'sim_slot_1': {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_B', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}}</msg>
 <var>${device_2_sims}</var>
 <arg>sim_slot_1=${device_2_sim}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.259984" elapsed="0.000257"/>
+<status status="PASS" start="2025-12-09T15:39:16.713361" elapsed="0.000425"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.260585" level="INFO">${device_1} = {'sims': {'sim_slot_1': {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_A', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}}}</msg>
+<msg time="2025-12-09T15:39:16.714144" level="INFO">${device_1} = {'sims': {'sim_slot_1': {'sim_MSISDN': '4915781993213', 'sim_IMSI': '004402458587775', 'sim_Calling_Number': '4915781993213', 'sim_Calling_Number_0': '4915781993213'}}}</msg>
 <var>${device_1}</var>
 <arg>sims=${device_1_sims}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.260362" elapsed="0.000252"/>
+<status status="PASS" start="2025-12-09T15:39:16.713913" elapsed="0.000261"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.260947" level="INFO">${device_2} = {'sims': {'sim_slot_1': {'sim_MSISDN': '4915900103141', 'sim_IMSI': 'UNKNOWN_IMSI_B', 'sim_Calling_Number': '4915900103141', 'sim_Calling_Number_0': '4915900103141'}}}</msg>
+<msg time="2025-12-09T15:39:16.714529" level="INFO">${device_2} = {'sims': {'sim_slot_1': {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_B', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}}}</msg>
 <var>${device_2}</var>
 <arg>sims=${device_2_sims}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.260732" elapsed="0.000243"/>
+<status status="PASS" start="2025-12-09T15:39:16.714296" elapsed="0.000262"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-12-09T14:58:11.261355" level="INFO">${devices_info} = {'device_1': {'sims': {'sim_slot_1': {'sim_MSISDN': '4915900104513', 'sim_IMSI': 'UNKNOWN_IMSI_A', 'sim_Calling_Number': '4915900104513', 'sim_Calling_Number_0': '4915900104513'}}}, 'device_2': {'sims...</msg>
+<msg time="2025-12-09T15:39:16.714945" level="INFO">${devices_info} = {'device_1': {'sims': {'sim_slot_1': {'sim_MSISDN': '4915781993213', 'sim_IMSI': '004402458587775', 'sim_Calling_Number': '4915781993213', 'sim_Calling_Number_0': '4915781993213'}}}, 'device_2': {'sim...</msg>
 <var>${devices_info}</var>
 <arg>device_1=${device_1}</arg>
 <arg>device_2=${device_2}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.261094" elapsed="0.000290"/>
+<status status="PASS" start="2025-12-09T15:39:16.714679" elapsed="0.000297"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n[1/3] Initializing Anritsu driver...</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.261500" elapsed="0.000155"/>
+<status status="PASS" start="2025-12-09T15:39:16.715106" elapsed="0.000163"/>
 </kw>
 <kw name="Initialize Anritsu Driver" owner="AnritsuLib">
-<msg time="2025-12-09T14:58:11.262239" level="INFO">Chrom Driver Path : /usr/local/bin/chromedriver </msg>
-<msg time="2025-12-09T14:58:11.262606" level="INFO">PCAP download directory set to: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir</msg>
-<msg time="2025-12-09T14:58:12.580270" level="INFO">${init_result} = True</msg>
+<msg time="2025-12-09T15:39:16.715861" level="INFO">Chrom Driver Path : /usr/local/bin/chromedriver </msg>
+<msg time="2025-12-09T15:39:16.716183" level="INFO">PCAP download directory set to: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir</msg>
+<msg time="2025-12-09T15:39:18.052843" level="INFO">${init_result} = True</msg>
 <var>${init_result}</var>
 <arg>CustomCall</arg>
 <arg>${TC_OUTPUT_DIR}</arg>
 <doc>Initializes the Chrome WebDriver with specified options and logs into the Anritsu web interface.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.261781" elapsed="1.318633"/>
+<status status="PASS" start="2025-12-09T15:39:16.715403" elapsed="1.337538"/>
 </kw>
 <kw name="Should Be True" owner="BuiltIn">
 <arg>${init_result}</arg>
 <arg>Anritsu driver initialization failed</arg>
 <doc>Fails if the given condition is not true.</doc>
-<status status="PASS" start="2025-12-09T14:58:12.580960" elapsed="0.000527"/>
+<status status="PASS" start="2025-12-09T15:39:18.053319" elapsed="0.000381"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>✓ Anritsu driver initialized successfully</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:12.581713" elapsed="0.000251"/>
+<status status="PASS" start="2025-12-09T15:39:18.053852" elapsed="0.000199"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n[2/3] Starting Anritsu OESearch trace...</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:58:12.582160" elapsed="0.000228"/>
+<status status="PASS" start="2025-12-09T15:39:18.054186" elapsed="0.000186"/>
 </kw>
 <kw name="Start Oesearch NewUi" owner="AnritsuLib">
-<msg time="2025-12-09T14:58:12.583256" level="INFO">Starting OE search for subscriber</msg>
-<msg time="2025-12-09T14:58:12.583356" level="INFO">Configuring template: Easy_Subscriber_Search</msg>
-<msg time="2025-12-09T14:58:18.585810" level="INFO">Successfully sent keys to 'Template input field'</msg>
-<msg time="2025-12-09T14:58:48.690512" level="INFO">Configuring time interval: 2025-12-09 14:56:00.000 to 2025-12-09 14:59:00.000</msg>
-<msg time="2025-12-09T14:58:48.690763" level="INFO">Start time type: &lt;class 'str'&gt;, repr: '2025-12-09 14:56:00.000'</msg>
-<msg time="2025-12-09T14:58:48.690907" level="INFO">End time type: &lt;class 'str'&gt;, repr: '2025-12-09 14:59:00.000'</msg>
-<msg time="2025-12-09T14:58:49.433104" level="INFO">Setting field value via JavaScript: '2025-12-09 14:56:00.000' (length: 23)</msg>
-<msg time="2025-12-09T14:58:49.443228" level="INFO">Verification: Field value after JS set: '2025-12-09 14:56:00.000'</msg>
-<msg time="2025-12-09T14:58:50.048582" level="INFO">Successfully set time field to: 2025-12-09 14:56:00.000</msg>
-<msg time="2025-12-09T14:58:50.768204" level="INFO">Setting field value via JavaScript: '2025-12-09 14:59:00.000' (length: 23)</msg>
-<msg time="2025-12-09T14:58:50.779224" level="INFO">Verification: Field value after JS set: '2025-12-09 14:59:00.000'</msg>
-<msg time="2025-12-09T14:58:51.376315" level="INFO">Successfully set time field to: 2025-12-09 14:59:00.000</msg>
-<msg time="2025-12-09T14:58:51.376435" level="INFO">Configuring standard filters (MSISDN, Calling/Called numbers, IMSI)</msg>
-<msg time="2025-12-09T14:59:01.300953" level="INFO">Populating MSISDN fields for both devices</msg>
-<msg time="2025-12-09T14:59:02.513908" level="INFO">Successfully sent keys to 'MSISDN field'</msg>
-<msg time="2025-12-09T14:59:03.693095" level="INFO">Successfully sent keys to 'MSISDN field'</msg>
-<msg time="2025-12-09T14:59:03.693205" level="INFO">Populating calling number fields</msg>
-<msg time="2025-12-09T14:59:04.899092" level="INFO">Successfully sent keys to 'Calling number field'</msg>
-<msg time="2025-12-09T14:59:06.080162" level="INFO">Successfully sent keys to 'Calling number field'</msg>
-<msg time="2025-12-09T14:59:06.080274" level="INFO">Populating called number fields</msg>
-<msg time="2025-12-09T14:59:07.266553" level="INFO">Successfully sent keys to 'Called number field'</msg>
-<msg time="2025-12-09T14:59:08.427206" level="INFO">Successfully sent keys to 'Called number field'</msg>
-<msg time="2025-12-09T14:59:08.427325" level="INFO">Both IMSIs are empty/UNKNOWN (Device 1: UNKNOWN_IMSI_A, Device 2: UNKNOWN_IMSI_B)</msg>
-<msg time="2025-12-09T14:59:08.427378" level="INFO">Removing IMSI filter field from Anritsu UI...</msg>
-<msg time="2025-12-09T14:59:09.086150" level="INFO">✓ IMSI filter field deleted successfully from Anritsu UI</msg>
-<msg time="2025-12-09T14:59:09.086266" level="INFO">Executing OE search</msg>
-<msg time="2025-12-09T14:59:12.269317" level="INFO">OE search initiated successfully</msg>
-<msg time="2025-12-09T14:59:12.269532" level="INFO">${oesearch_result} = True</msg>
+<msg time="2025-12-09T15:39:18.054965" level="INFO">Starting OE search for subscriber</msg>
+<msg time="2025-12-09T15:39:18.055029" level="INFO">Configuring template: Easy_Subscriber_Search</msg>
+<msg time="2025-12-09T15:39:24.071477" level="INFO">Successfully sent keys to 'Template input field'</msg>
+<msg time="2025-12-09T15:39:54.218932" level="INFO">Configuring time interval: 2025-12-09 15:38:00.000 to 2025-12-09 15:40:00.000</msg>
+<msg time="2025-12-09T15:39:54.219199" level="INFO">Start time type: &lt;class 'str'&gt;, repr: '2025-12-09 15:38:00.000'</msg>
+<msg time="2025-12-09T15:39:54.219344" level="INFO">End time type: &lt;class 'str'&gt;, repr: '2025-12-09 15:40:00.000'</msg>
+<msg time="2025-12-09T15:39:54.966078" level="INFO">Setting field value via JavaScript: '2025-12-09 15:38:00.000' (length: 23)</msg>
+<msg time="2025-12-09T15:39:54.979877" level="INFO">Verification: Field value after JS set: '2025-12-09 15:38:00.000'</msg>
+<msg time="2025-12-09T15:39:55.576794" level="INFO">Successfully set time field to: 2025-12-09 15:38:00.000</msg>
+<msg time="2025-12-09T15:39:56.325499" level="INFO">Setting field value via JavaScript: '2025-12-09 15:40:00.000' (length: 23)</msg>
+<msg time="2025-12-09T15:39:56.335018" level="INFO">Verification: Field value after JS set: '2025-12-09 15:40:00.000'</msg>
+<msg time="2025-12-09T15:39:56.931160" level="INFO">Successfully set time field to: 2025-12-09 15:40:00.000</msg>
+<msg time="2025-12-09T15:39:56.931556" level="INFO">Configuring standard filters (MSISDN, Calling/Called numbers, IMSI)</msg>
+<msg time="2025-12-09T15:40:06.877235" level="INFO">Populating MSISDN fields for both devices</msg>
+<msg time="2025-12-09T15:40:08.075058" level="INFO">Successfully sent keys to 'MSISDN field'</msg>
+<msg time="2025-12-09T15:40:09.257208" level="INFO">Successfully sent keys to 'MSISDN field'</msg>
+<msg time="2025-12-09T15:40:09.257313" level="INFO">Populating calling number fields</msg>
+<msg time="2025-12-09T15:40:10.439343" level="INFO">Successfully sent keys to 'Calling number field'</msg>
+<msg time="2025-12-09T15:40:11.626854" level="INFO">Successfully sent keys to 'Calling number field'</msg>
+<msg time="2025-12-09T15:40:11.626965" level="INFO">Populating called number fields</msg>
+<msg time="2025-12-09T15:40:12.851958" level="INFO">Successfully sent keys to 'Called number field'</msg>
+<msg time="2025-12-09T15:40:14.008959" level="INFO">Successfully sent keys to 'Called number field'</msg>
+<msg time="2025-12-09T15:40:14.009078" level="INFO">Populating IMSI fields</msg>
+<msg time="2025-12-09T15:40:14.009133" level="INFO">Sending Device 1 IMSI: 004402458587775</msg>
+<msg time="2025-12-09T15:40:15.108213" level="INFO">Successfully sent keys to 'IMSI field'</msg>
+<msg time="2025-12-09T15:40:15.108319" level="INFO">Skipping Device 2 IMSI (value: UNKNOWN_IMSI_B)</msg>
+<msg time="2025-12-09T15:40:15.108371" level="INFO">Executing OE search</msg>
+<msg time="2025-12-09T15:40:18.693269" level="INFO">OE search initiated successfully</msg>
+<msg time="2025-12-09T15:40:18.693512" level="INFO">${oesearch_result} = True</msg>
 <var>${oesearch_result}</var>
 <arg>${Oesearch_NewUi}</arg>
 <arg>${start_time}</arg>
@@ -1129,103 +1084,101 @@ STEP 6: Call in progress...
 <arg>${ANRITSU_TEMPLATE}</arg>
 <arg>${FALSE}</arg>
 <doc>Initiates an OE search for a subscriber using the new UI interface.</doc>
-<status status="PASS" start="2025-12-09T14:58:12.582594" elapsed="59.686971"/>
+<status status="PASS" start="2025-12-09T15:39:18.054516" elapsed="60.639089"/>
 </kw>
 <kw name="Should Be True" owner="BuiltIn">
 <arg>${oesearch_result}</arg>
 <arg>OESearch trace initiation failed</arg>
 <doc>Fails if the given condition is not true.</doc>
-<status status="PASS" start="2025-12-09T14:59:12.269844" elapsed="0.000256"/>
+<status status="PASS" start="2025-12-09T15:40:18.693828" elapsed="0.000257"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>✓ Anritsu trace initiated successfully</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:59:12.270238" elapsed="0.000163"/>
+<status status="PASS" start="2025-12-09T15:40:18.694228" elapsed="0.000175"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n[3/3] Waiting for trace to complete and downloading PCAP...</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:59:12.270527" elapsed="0.000153"/>
+<status status="PASS" start="2025-12-09T15:40:18.694532" elapsed="0.000142"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>This may take several minutes...</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T14:59:12.270801" elapsed="0.000125"/>
+<status status="PASS" start="2025-12-09T15:40:18.694795" elapsed="0.000121"/>
 </kw>
 <kw name="Download Oesearch Pcap NewUi" owner="AnritsuLib">
-<msg time="2025-12-09T14:59:12.271235" level="INFO">Waiting for Oesearch trace to complete...</msg>
-<msg time="2025-12-09T14:59:12.271294" level="INFO">Checking for Export button - Attempt 1/40</msg>
-<msg time="2025-12-09T14:59:22.638658" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T14:59:32.762409" level="INFO">Checking for Export button - Attempt 2/40</msg>
-<msg time="2025-12-09T14:59:42.822296" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T14:59:54.088917" level="INFO">Checking for Export button - Attempt 3/40</msg>
-<msg time="2025-12-09T15:00:04.117647" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:00:14.220592" level="INFO">Checking for Export button - Attempt 4/40</msg>
-<msg time="2025-12-09T15:00:24.261916" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:00:34.394456" level="INFO">Checking for Export button - Attempt 5/40</msg>
-<msg time="2025-12-09T15:00:44.515028" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:00:54.614449" level="INFO">Checking for Export button - Attempt 6/40</msg>
-<msg time="2025-12-09T15:01:04.632070" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:01:14.726808" level="INFO">Checking for Export button - Attempt 7/40</msg>
-<msg time="2025-12-09T15:01:24.778693" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:01:34.879101" level="INFO">Checking for Export button - Attempt 8/40</msg>
-<msg time="2025-12-09T15:01:44.917188" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:01:55.030536" level="INFO">Checking for Export button - Attempt 9/40</msg>
-<msg time="2025-12-09T15:02:05.092950" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:02:15.190429" level="INFO">Checking for Export button - Attempt 10/40</msg>
-<msg time="2025-12-09T15:02:25.207231" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:02:35.306426" level="INFO">Checking for Export button - Attempt 11/40</msg>
-<msg time="2025-12-09T15:02:45.334260" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:02:55.434519" level="INFO">Checking for Export button - Attempt 12/40</msg>
-<msg time="2025-12-09T15:03:05.478612" level="INFO">Trace not complete yet, refreshing page...</msg>
-<msg time="2025-12-09T15:03:15.582469" level="INFO">Checking for Export button - Attempt 13/40</msg>
-<msg time="2025-12-09T15:03:24.397773" level="INFO">Oesearch trace completed after 65 seconds</msg>
-<msg time="2025-12-09T15:03:50.834446" level="INFO">.pcap file downloaded successfully to path: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir</msg>
-<msg time="2025-12-09T15:04:00.909043" level="INFO">${download_result} = True</msg>
+<msg time="2025-12-09T15:40:18.695226" level="INFO">Waiting for Oesearch trace to complete...</msg>
+<msg time="2025-12-09T15:40:18.695284" level="INFO">Checking for Export button - Attempt 1/40</msg>
+<msg time="2025-12-09T15:40:29.029792" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:40:39.159835" level="INFO">Checking for Export button - Attempt 2/40</msg>
+<msg time="2025-12-09T15:40:49.177352" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:40:59.275945" level="INFO">Checking for Export button - Attempt 3/40</msg>
+<msg time="2025-12-09T15:41:09.337161" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:41:19.434572" level="INFO">Checking for Export button - Attempt 4/40</msg>
+<msg time="2025-12-09T15:41:29.475651" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:41:39.566469" level="INFO">Checking for Export button - Attempt 5/40</msg>
+<msg time="2025-12-09T15:41:49.595545" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:41:59.698492" level="INFO">Checking for Export button - Attempt 6/40</msg>
+<msg time="2025-12-09T15:42:09.736608" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:42:19.834450" level="INFO">Checking for Export button - Attempt 7/40</msg>
+<msg time="2025-12-09T15:42:29.886876" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:42:39.986635" level="INFO">Checking for Export button - Attempt 8/40</msg>
+<msg time="2025-12-09T15:42:50.049033" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:43:00.146550" level="INFO">Checking for Export button - Attempt 9/40</msg>
+<msg time="2025-12-09T15:43:10.212127" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:43:20.484068" level="INFO">Checking for Export button - Attempt 10/40</msg>
+<msg time="2025-12-09T15:43:30.526770" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:43:40.618574" level="INFO">Checking for Export button - Attempt 11/40</msg>
+<msg time="2025-12-09T15:43:50.654516" level="INFO">Trace not complete yet, refreshing page...</msg>
+<msg time="2025-12-09T15:44:00.756744" level="INFO">Checking for Export button - Attempt 12/40</msg>
+<msg time="2025-12-09T15:44:05.885949" level="INFO">Oesearch trace completed after 60 seconds</msg>
+<msg time="2025-12-09T15:44:32.286273" level="INFO">.pcap file downloaded successfully to path: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir</msg>
+<msg time="2025-12-09T15:44:42.355505" level="INFO">${download_result} = True</msg>
 <var>${download_result}</var>
 <arg>${Oesearch_pcap_download_NewUi}</arg>
 <doc>Downloads PCAP file from OESearch UI.
 Refreshes page periodically until trace is complete.</doc>
-<status status="PASS" start="2025-12-09T14:59:12.271052" elapsed="288.638048"/>
+<status status="PASS" start="2025-12-09T15:40:18.695040" elapsed="263.660524"/>
 </kw>
 <kw name="Should Be True" owner="BuiltIn">
 <arg>${download_result}</arg>
 <arg>PCAP download failed</arg>
 <doc>Fails if the given condition is not true.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.909306" elapsed="0.000259"/>
+<status status="PASS" start="2025-12-09T15:44:42.355768" elapsed="0.000260"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>✓ PCAP downloaded successfully</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.909715" elapsed="0.000161"/>
+<status status="PASS" start="2025-12-09T15:44:42.356174" elapsed="0.000163"/>
 </kw>
 <kw name="Get Pcap Path" owner="AnritsuLib">
-<msg time="2025-12-09T15:04:00.910521" level="INFO">${pcap_path} = /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-150327-425.pcap</msg>
+<msg time="2025-12-09T15:44:42.357041" level="INFO">${pcap_path} = /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-153330-767.pcap</msg>
 <var>${pcap_path}</var>
 <arg>${ANRITSU_TEMPLATE}</arg>
-<status status="PASS" start="2025-12-09T15:04:00.910013" elapsed="0.000544"/>
+<status status="PASS" start="2025-12-09T15:44:42.356477" elapsed="0.000600"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>PCAP file location: ${pcap_path}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.910697" elapsed="0.000208"/>
+<status status="PASS" start="2025-12-09T15:44:42.357219" elapsed="0.000231"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T15:04:00.911212" level="INFO">PCAP file downloaded to: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-150327-425.pcap</msg>
+<msg time="2025-12-09T15:44:42.357773" level="INFO">PCAP file downloaded to: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-153330-767.pcap</msg>
 <arg>PCAP file downloaded to: ${pcap_path}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.911047" elapsed="0.000215"/>
+<status status="PASS" start="2025-12-09T15:44:42.357597" elapsed="0.000228"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>=============================================</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.911379" elapsed="0.000157"/>
+<status status="PASS" start="2025-12-09T15:44:42.357950" elapsed="0.000150"/>
 </kw>
 <return>
 <value>${pcap_path}</value>
-<status status="PASS" start="2025-12-09T15:04:00.911624" elapsed="0.000082"/>
+<status status="PASS" start="2025-12-09T15:44:42.358170" elapsed="0.000066"/>
 </return>
-<msg time="2025-12-09T15:04:00.911954" level="INFO">${pcap_path} = /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-150327-425.pcap</msg>
+<msg time="2025-12-09T15:44:42.358433" level="INFO">${pcap_path} = /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-153330-767.pcap</msg>
 <var>${pcap_path}</var>
 <arg>${anritsu_start}</arg>
 <arg>${anritsu_end}</arg>
@@ -1234,28 +1187,28 @@ Refreshes page periodically until trace is complete.</doc>
 <arg>${phone_a_imsi}</arg>
 <arg>${phone_b_imsi}</arg>
 <doc>Initialize Anritsu driver and collect PCAP trace for the call session</doc>
-<status status="PASS" start="2025-12-09T14:58:11.251559" elapsed="349.660434"/>
+<status status="PASS" start="2025-12-09T15:39:16.706166" elapsed="325.652298"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Anritsu trace collection completed</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.912196" elapsed="0.000172"/>
+<status status="PASS" start="2025-12-09T15:44:42.358618" elapsed="0.000141"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-12-09T15:04:00.912751" level="INFO">PCAP file saved to: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-150327-425.pcap</msg>
+<msg time="2025-12-09T15:44:42.359045" level="INFO">PCAP file saved to: /DATA/bjadoui/MSS-AUTOMATION/tc_output_dir/Easy_Subscriber_Search-20251209-153330-767.pcap</msg>
 <arg>PCAP file saved to: ${pcap_path}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.912542" elapsed="0.000277"/>
+<status status="PASS" start="2025-12-09T15:44:42.358890" elapsed="0.000205"/>
 </kw>
 <return>
 <value>${pcap_path}</value>
-<status status="PASS" start="2025-12-09T15:04:00.912887" elapsed="0.000045"/>
+<status status="PASS" start="2025-12-09T15:44:42.359146" elapsed="0.000037"/>
 </return>
 <arg>${result}</arg>
 <arg>${START_TIME}</arg>
 <arg>${END_TIME}</arg>
 <doc>Extract device info and collect Anritsu trace</doc>
-<status status="PASS" start="2025-12-09T14:58:11.243824" elapsed="349.669271"/>
+<status status="PASS" start="2025-12-09T15:39:16.698296" elapsed="325.661011"/>
 </kw>
 <arg>${TRACE_ENABLED} and ${success}</arg>
 <arg>Collect And Process Anritsu Trace</arg>
@@ -1263,49 +1216,50 @@ Refreshes page periodically until trace is complete.</doc>
 <arg>${START_TIME}</arg>
 <arg>${END_TIME}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2025-12-09T14:58:11.243104" elapsed="349.670088"/>
+<status status="PASS" start="2025-12-09T15:39:16.697651" elapsed="325.661729"/>
 </kw>
 <kw name="Set Variable If" owner="BuiltIn">
-<msg time="2025-12-09T15:04:00.913740" level="INFO">${TRACE_STATUS} = ENABLED</msg>
+<msg time="2025-12-09T15:44:42.359826" level="INFO">${TRACE_STATUS} = ENABLED</msg>
 <var>${TRACE_STATUS}</var>
 <arg>${TRACE_ENABLED}</arg>
 <arg>ENABLED</arg>
 <arg>DISABLED</arg>
 <doc>Sets variable based on the given condition.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.913482" elapsed="0.000298"/>
+<status status="PASS" start="2025-12-09T15:44:42.359607" elapsed="0.000250"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n${\n}========== FINAL TEST SUMMARY ==========</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.914213" elapsed="0.000702"/>
+<status status="PASS" start="2025-12-09T15:44:42.360096" elapsed="0.000288"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Call Status: ${STATUS}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.915308" elapsed="0.000381"/>
+<status status="PASS" start="2025-12-09T15:44:42.360540" elapsed="0.000182"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Trace Collection: ${TRACE_STATUS}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.916111" elapsed="0.000416"/>
+<status status="PASS" start="2025-12-09T15:44:42.360867" elapsed="0.000170"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>Total Duration: ${DURATION} seconds</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.916977" elapsed="0.000424"/>
+<status status="PASS" start="2025-12-09T15:44:42.361186" elapsed="0.000168"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>========================================</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-12-09T15:04:00.917911" elapsed="0.001378"/>
+<status status="PASS" start="2025-12-09T15:44:42.361493" elapsed="0.000129"/>
 </kw>
 <doc>Execute automated call scenario with two auto-selected STF devices
-Directly calls the Python run_custom_scenario() function.</doc>
+Directly calls the Python run_custom_scenario() function.
+Trace times are captured AFTER airplane mode toggle to include Location Update.</doc>
 <tag>2G</tag>
 <tag>call-test</tag>
 <tag>phone-automation</tag>
 <tag>stf</tag>
-<status status="PASS" start="2025-12-09T14:56:52.186220" elapsed="428.733763"/>
+<status status="PASS" start="2025-12-09T15:37:57.351797" elapsed="405.010008"/>
 </test>
 <doc>Custom Call Automation Test Suite
 Automated phone call scenario using STF devices:
@@ -1319,11 +1273,11 @@ Automated phone call scenario using STF devices:
 
 This test simply calls the Python function from custom_call.py
 which contains all the scenario logic.</doc>
-<status status="PASS" start="2025-12-09T14:56:52.041361" elapsed="428.880729"/>
+<status status="PASS" start="2025-12-09T15:37:57.210054" elapsed="405.152259"/>
 </suite>
-<status status="PASS" start="2025-12-09T14:56:52.040287" elapsed="428.885303"/>
+<status status="PASS" start="2025-12-09T15:37:57.208958" elapsed="405.154402"/>
 </suite>
-<status status="PASS" start="2025-12-09T14:56:52.019317" elapsed="428.907133"/>
+<status status="PASS" start="2025-12-09T15:37:57.188035" elapsed="405.175820"/>
 </suite>
 <statistics>
 <total>
@@ -1342,9 +1296,7 @@ which contains all the scenario logic.</doc>
 </suite>
 </statistics>
 <errors>
-<msg time="2025-12-09T14:57:01.881980" level="WARN">⚠ Phone A IMSI could not be extracted via ADB</msg>
-<msg time="2025-12-09T14:57:01.882299" level="WARN">  Check debug logs above for detailed extraction attempts</msg>
-<msg time="2025-12-09T14:57:03.376564" level="WARN">⚠ Phone B IMSI could not be extracted via ADB</msg>
-<msg time="2025-12-09T14:57:03.376988" level="WARN">  Check debug logs above for detailed extraction attempts</msg>
+<msg time="2025-12-09T15:38:07.004653" level="WARN">⚠ Phone B IMSI could not be extracted via ADB</msg>
+<msg time="2025-12-09T15:38:07.004958" level="WARN">  Check debug logs above for detailed extraction attempts</msg>
 </errors>
 </robot>

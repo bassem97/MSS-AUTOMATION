@@ -586,6 +586,14 @@ def run_custom_scenario():
             log_and_print("Waiting for network to stabilize (15 seconds)...")
             time.sleep(15)
 
+        # Capture trace start time AFTER airplane mode toggle
+        # This ensures Location Update procedure is included in the PCAP
+        from datetime import datetime
+        trace_start_time_raw = datetime.now()
+        trace_start_time = trace_start_time_raw.strftime('%Y-%m-%d %H:%M:00.000')
+        log_and_print(f"📊 Trace Start Time (after 2G switch): {trace_start_time}")
+        log_and_print("   This includes Location Update procedure in PCAP")
+
         # Step 4: Phone A calls Phone B
         log_and_print("\n" + "=" * 60)
         log_and_print(
@@ -698,6 +706,14 @@ def run_custom_scenario():
         else:
             log_and_print("⚠ Call end command sent (may have already ended)", "WARNING")
 
+        # Capture trace end time (round up to next minute)
+        trace_end_time_raw = datetime.now()
+        # Add 1 minute and round down to get the next minute mark
+        from datetime import timedelta
+        trace_end_time_rounded = trace_end_time_raw + timedelta(minutes=1)
+        trace_end_time = trace_end_time_rounded.strftime('%Y-%m-%d %H:%M:00.000')
+        log_and_print(f"📊 Trace End Time (after call end): {trace_end_time}")
+
         # Final summary
         log_and_print("\n" + "=" * 60)
         log_and_print("=" * 17 + " SCENARIO COMPLETE " + "=" * 24)
@@ -719,7 +735,9 @@ def run_custom_scenario():
             "phone_a_serial": phone_a_serial,
             "phone_b_serial": phone_b_serial,
             "phone_a_imsi": phone_a_imsi,
-            "phone_b_imsi": phone_b_imsi
+            "phone_b_imsi": phone_b_imsi,
+            "trace_start_time": trace_start_time,
+            "trace_end_time": trace_end_time
         }
 
         log_and_print(output)
