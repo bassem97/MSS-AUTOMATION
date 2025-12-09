@@ -305,27 +305,61 @@ class AnritsuServer:
                 sendkeys(self.driver, oesearch_path['Called_number_field'],
                          self.device_2["sims"]["sim_slot_1"]["sim_MSISDN"], "Called number field")
 
-                # Populate IMSI fields (skip if UNKNOWN_IMSI)
-                logging.info("Populating IMSI fields")
-
+                # Populate IMSI fields (skip entire section if both are empty/UNKNOWN)
                 device_1_imsi = self.device_1["sims"]["sim_slot_1"]["sim_IMSI"]
                 device_2_imsi = self.device_2["sims"]["sim_slot_1"]["sim_IMSI"]
 
-                # Send device_1 IMSI if not UNKNOWN
-                if device_1_imsi and "UNKNOWN_IMSI" not in device_1_imsi:
-                    logging.info(f"Sending Device 1 IMSI: {device_1_imsi}")
-                    sendkeys(self.driver, oesearch_path['IMSI_field'],
-                             device_1_imsi + Keys.RETURN, "IMSI field")
-                else:
-                    logging.info(f"Skipping Device 1 IMSI (value: {device_1_imsi})")
+                # Check if we have any valid IMSI
+                has_device_1_imsi = device_1_imsi and "UNKNOWN_IMSI" not in device_1_imsi
+                has_device_2_imsi = device_2_imsi and "UNKNOWN_IMSI" not in device_2_imsi
 
-                # Send device_2 IMSI if not UNKNOWN
-                if device_2_imsi and "UNKNOWN_IMSI" not in device_2_imsi:
-                    logging.info(f"Sending Device 2 IMSI: {device_2_imsi}")
-                    sendkeys(self.driver, oesearch_path['IMSI_field'],
-                             device_2_imsi + ' ', "IMSI field")
+                if has_device_1_imsi or has_device_2_imsi:
+                    logging.info("Populating IMSI fields")
+
+                    # Send device_1 IMSI if valid
+                    if has_device_1_imsi:
+                        logging.info(f"Sending Device 1 IMSI: {device_1_imsi}")
+                        sendkeys(self.driver, oesearch_path['IMSI_field'],
+                                 device_1_imsi + Keys.RETURN, "IMSI field")
+                    else:
+                        logging.info(f"Skipping Device 1 IMSI (value: {device_1_imsi})")
+
+                    # Send device_2 IMSI if valid
+                    if has_device_2_imsi:
+                        logging.info(f"Sending Device 2 IMSI: {device_2_imsi}")
+                        sendkeys(self.driver, oesearch_path['IMSI_field'],
+                                 device_2_imsi + ' ', "IMSI field")
+                    else:
+                        logging.info(f"Skipping Device 2 IMSI (value: {device_2_imsi})")
                 else:
-                    logging.info(f"Skipping Device 2 IMSI (value: {device_2_imsi})")
+                    # Both IMSIs are empty/UNKNOWN - delete the IMSI filter field from UI
+                    logging.info(f"Both IMSIs are empty/UNKNOWN (Device 1: {device_1_imsi}, Device 2: {device_2_imsi})")
+                    logging.info("Removing IMSI filter field from Anritsu UI...")
+
+                    try:
+                        # Find IMSI filter container by label text
+                        imsi_filter_xpath = "//label[contains(text(), 'IMSI')]/ancestor::div[@class='filter-container-advanced ng-star-inserted']"
+
+                        # Wait for IMSI filter to be present
+                        imsi_filter = WebDriverWait(self.driver, 10).until(
+                            EC.presence_of_element_located((By.XPATH, imsi_filter_xpath))
+                        )
+
+                        # Find the delete button (pi pi-times icon) within this filter
+                        delete_button_xpath = ".//button[@aria-label='Delete field']"
+                        delete_button = imsi_filter.find_element(By.XPATH, delete_button_xpath)
+
+                        # Click the delete button
+                        delete_button.click()
+                        time.sleep(0.5)
+
+                        logging.info("✓ IMSI filter field deleted successfully from Anritsu UI")
+
+                    except TimeoutException:
+                        logging.warning("IMSI filter field not found in UI - may have been already removed or not present")
+                    except Exception as e:
+                        logging.error(f"Failed to delete IMSI filter field: {str(e)}")
+                        logging.info("Continuing without IMSI filter...")
 
             # Step 4: Execute search
             logging.info("Executing OE search")
