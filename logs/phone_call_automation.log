@@ -1,284 +1,300 @@
-2025-12-05 15:30:09 [INFO] ============================================================
-2025-12-05 15:30:09 [INFO] =============== CUSTOM CALL SCENARIO =======================
-2025-12-05 15:30:09 [INFO] ============================================================
-2025-12-05 15:30:09 [INFO] Scenario Steps:
-2025-12-05 15:30:09 [INFO]   1. Restart ADB server
-2025-12-05 15:30:09 [INFO]   2. Auto-select two available STF devices
-2025-12-05 15:30:09 [INFO]   3. Connect both via STF (serial → IP:PORT)
-2025-12-05 15:30:09 [INFO]   4. Switch Phone A to 2G
-2025-12-05 15:30:09 [INFO]   5. Phone A calls Phone B
-2025-12-05 15:30:09 [INFO]   6. Phone B answers after 5 seconds of ringing
-2025-12-05 15:30:09 [INFO]   7. Call lasts 30 seconds then ends
-2025-12-05 15:30:09 [INFO] ============================================================
-2025-12-05 15:30:09 [DEBUG] Found 23 devices in STF
-2025-12-05 15:30:09 [INFO] Total devices in STF: 23
-2025-12-05 15:30:09 [DEBUG] Device QV70006W1B: present=True, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [INFO] ✓ Device QV70006W1B (H8216) is available
-2025-12-05 15:30:09 [DEBUG] Device R5CR217D85N: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CR217D85N unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device RZCX20HCQQW: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device RZCX20HCQQW unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R38MB03ZNYJ: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R38MB03ZNYJ unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R3CW70CMBJH: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R3CW70CMBJH unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device 2791689f0822: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device 2791689f0822 unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CR217D8AR: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CR217D8AR unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device BH90017AAX: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device BH90017AAX unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CWA1TBCYZ: present=True, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [INFO] ✓ Device R5CWA1TBCYZ (SM-A546B) is available
-2025-12-05 15:30:09 [DEBUG] Device R5CR2184PXT: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CR2184PXT unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CWA1TBC2F: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CWA1TBC2F unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CR217E16N: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CR217E16N unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R3CTC079E8V: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R3CTC079E8V unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device RZCY22CQ4FE: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device RZCY22CQ4FE unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device RZCY22CQ3ZZ: present=False, ready=False, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device RZCY22CQ3ZZ unavailable: not present, not ready
-2025-12-05 15:30:09 [DEBUG] Device R5CX130T0YK: present=True, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [INFO] ✓ Device R5CX130T0YK (SM-A546U) is available
-2025-12-05 15:30:09 [DEBUG] Device R5CWA1TAA6R: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CWA1TAA6R unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CWA1TAAXX: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CWA1TAAXX unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CWA2RSCTV: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CWA2RSCTV unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device RZCX20HC60M: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device RZCX20HC60M unavailable: not present
-2025-12-05 15:30:09 [DEBUG] Device R5CWA1TBD9Y: present=True, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [INFO] ✓ Device R5CWA1TBD9Y (SM-A546B) is available
-2025-12-05 15:30:09 [DEBUG] Device RZCX20HCFEF: present=True, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [INFO] ✓ Device RZCX20HCFEF (SM-A546B) is available
-2025-12-05 15:30:09 [DEBUG] Device R5CWA1TBDQF: present=False, ready=True, using=False, owner=None
-2025-12-05 15:30:09 [DEBUG] ✗ Device R5CWA1TBDQF unavailable: not present
-2025-12-05 15:30:09 [INFO] Selected STF devices:
-2025-12-05 15:30:09 [INFO]   Phone A: QV70006W1B - H8216 (OS 8.0.0)
-2025-12-05 15:30:09 [INFO]   Phone B: R5CWA1TBCYZ - SM-A546B (OS 15)
-2025-12-05 15:30:09 [INFO] 
+2025-12-09 12:45:04 [INFO] ============================================================
+2025-12-09 12:45:04 [INFO] =============== CUSTOM CALL SCENARIO =======================
+2025-12-09 12:45:04 [INFO] ============================================================
+2025-12-09 12:45:04 [INFO] Scenario Steps:
+2025-12-09 12:45:04 [INFO]   1. Restart ADB server
+2025-12-09 12:45:04 [INFO]   2. Auto-select two available STF devices
+2025-12-09 12:45:04 [INFO]   3. Connect both via STF (serial → IP:PORT)
+2025-12-09 12:45:04 [INFO]   4. Switch Phone A to 2G
+2025-12-09 12:45:04 [INFO]   5. Phone A calls Phone B
+2025-12-09 12:45:04 [INFO]   6. Phone B answers after 5 seconds of ringing
+2025-12-09 12:45:04 [INFO]   7. Call lasts 30 seconds then ends
+2025-12-09 12:45:04 [INFO] ============================================================
+2025-12-09 12:45:04 [DEBUG] Found 23 devices in STF
+2025-12-09 12:45:04 [INFO] Total devices in STF: 23
+2025-12-09 12:45:04 [DEBUG] Device QV70006W1B: present=True, ready=True, using=True, owner={'email': 'bassem.jadoui@spie-network-services.com', 'group': 'N4ESMZQoT3Con4OP5AWOLQ==', 'name': 'bjadoui'}
+2025-12-09 12:45:04 [DEBUG] ✗ Device QV70006W1B unavailable: in use, owned by {'email': 'bassem.jadoui@spie-network-services.com', 'group': 'N4ESMZQoT3Con4OP5AWOLQ==', 'name': 'bjadoui'}
+2025-12-09 12:45:04 [DEBUG] Device R5CR217D85N: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CR217D85N unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device RZCX20HCQQW: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device RZCX20HCQQW unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R38MB03ZNYJ: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R38MB03ZNYJ unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R3CW70CMBJH: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R3CW70CMBJH unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device 2791689f0822: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device 2791689f0822 unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CR217D8AR: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CR217D8AR unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device BH90017AAX: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device BH90017AAX unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CWA1TBCYZ: present=True, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [INFO] ✓ Device R5CWA1TBCYZ (SM-A546B) is available
+2025-12-09 12:45:04 [DEBUG] Device R5CR2184PXT: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CR2184PXT unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CWA1TBC2F: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CWA1TBC2F unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CR217E16N: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CR217E16N unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R3CTC079E8V: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R3CTC079E8V unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device RZCY22CQ4FE: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device RZCY22CQ4FE unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device RZCY22CQ3ZZ: present=False, ready=False, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device RZCY22CQ3ZZ unavailable: not present, not ready
+2025-12-09 12:45:04 [DEBUG] Device R5CX130T0YK: present=True, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [INFO] ✓ Device R5CX130T0YK (SM-A546U) is available
+2025-12-09 12:45:04 [DEBUG] Device R5CWA1TAA6R: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CWA1TAA6R unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CWA1TAAXX: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CWA1TAAXX unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CWA2RSCTV: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CWA2RSCTV unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device RZCX20HC60M: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device RZCX20HC60M unavailable: not present
+2025-12-09 12:45:04 [DEBUG] Device R5CWA1TBD9Y: present=True, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [INFO] ✓ Device R5CWA1TBD9Y (SM-A546B) is available
+2025-12-09 12:45:04 [DEBUG] Device RZCX20HCFEF: present=True, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [INFO] ✓ Device RZCX20HCFEF (SM-A546B) is available
+2025-12-09 12:45:04 [DEBUG] Device R5CWA1TBDQF: present=False, ready=True, using=False, owner=None
+2025-12-09 12:45:04 [DEBUG] ✗ Device R5CWA1TBDQF unavailable: not present
+2025-12-09 12:45:04 [INFO] Selected STF devices:
+2025-12-09 12:45:04 [INFO]   Phone A: R5CWA1TBCYZ - SM-A546B (OS 15)
+2025-12-09 12:45:04 [INFO]   Phone B: R5CWA1TBD9Y - SM-A546B (OS 15)
+2025-12-09 12:45:04 [INFO] 
 ============================================================
-2025-12-05 15:30:09 [INFO] STEP 0: Determining MSISDNs for the devices...
-2025-12-05 15:30:09 [INFO] ============================================================
-2025-12-05 15:30:09 [INFO] Using MSISDN for Phone A: 4915781993213
-2025-12-05 15:30:09 [INFO] Using MSISDN for Phone B: 4915900104513
-2025-12-05 15:30:09 [INFO] ✓ STF Manager initialized
-2025-12-05 15:30:09 [INFO] 
+2025-12-09 12:45:04 [INFO] STEP 0: Determining MSISDNs for the devices...
+2025-12-09 12:45:04 [INFO] ============================================================
+2025-12-09 12:45:04 [INFO] Using MSISDN for Phone A: 4915900104513
+2025-12-09 12:45:04 [INFO] Using MSISDN for Phone B: 4915900103141
+2025-12-09 12:45:04 [INFO] ✓ STF Manager initialized
+2025-12-09 12:45:04 [INFO] 
 ============================================================
-2025-12-05 15:30:09 [INFO] STEP 0: Connecting selected STF devices via serial...
-2025-12-05 15:30:09 [INFO] ============================================================
-2025-12-05 15:30:09 [INFO] Verifying Phone A (QV70006W1B) availability...
-2025-12-05 15:30:09 [INFO] Connecting to STF device QV70006W1B...
-2025-12-05 15:30:09 [INFO] ✓ Device QV70006W1B added to user
-2025-12-05 15:30:09 [INFO] ✓ Remote connect URL for QV70006W1B: 172.29.42.44:7413
-2025-12-05 15:30:09 [DEBUG] Connecting to 172.29.42.44:7413 via ADB (attempt 1/2)...
-2025-12-05 15:30:09 [DEBUG] connected to 172.29.42.44:7413
-2025-12-05 15:30:09 [DEBUG] Connecting to 172.29.42.44:7413 via ADB (attempt 2/2)...
-2025-12-05 15:30:09 [DEBUG] already connected to 172.29.42.44:7413
-2025-12-05 15:30:09 [INFO] ✓ Successfully connected to device QV70006W1B at 172.29.42.44:7413
-2025-12-05 15:30:09 [INFO] Verifying Phone B (R5CWA1TBCYZ) availability...
-2025-12-05 15:30:09 [INFO] Connecting to STF device R5CWA1TBCYZ...
-2025-12-05 15:30:09 [INFO] ✓ Device R5CWA1TBCYZ added to user
-2025-12-05 15:30:09 [INFO] ✓ Remote connect URL for R5CWA1TBCYZ: 172.29.42.44:7477
-2025-12-05 15:30:09 [DEBUG] Connecting to 172.29.42.44:7477 via ADB (attempt 1/2)...
-2025-12-05 15:30:09 [DEBUG] connected to 172.29.42.44:7477
-2025-12-05 15:30:09 [DEBUG] Connecting to 172.29.42.44:7477 via ADB (attempt 2/2)...
-2025-12-05 15:30:09 [DEBUG] already connected to 172.29.42.44:7477
-2025-12-05 15:30:09 [INFO] ✓ Successfully connected to device R5CWA1TBCYZ at 172.29.42.44:7477
-2025-12-05 15:30:09 [INFO] Phone A ADB target: 172.29.42.44:7413
-2025-12-05 15:30:09 [INFO] Phone B ADB target: 172.29.42.44:7477
-2025-12-05 15:30:09 [INFO] Phone A: 4915781993213 @ 172.29.42.44:7413 (serial QV70006W1B)
-2025-12-05 15:30:09 [INFO] Phone B: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)
-2025-12-05 15:30:09 [INFO] 
+2025-12-09 12:45:04 [INFO] STEP 0: Connecting selected STF devices via serial...
+2025-12-09 12:45:04 [INFO] ============================================================
+2025-12-09 12:45:04 [INFO] Verifying Phone A (R5CWA1TBCYZ) availability...
+2025-12-09 12:45:04 [INFO] Connecting to STF device R5CWA1TBCYZ...
+2025-12-09 12:45:04 [INFO] ✓ Device R5CWA1TBCYZ added to user
+2025-12-09 12:45:04 [INFO] ✓ Remote connect URL for R5CWA1TBCYZ: 172.29.42.44:7477
+2025-12-09 12:45:04 [DEBUG] Connecting to 172.29.42.44:7477 via ADB (attempt 1/2)...
+2025-12-09 12:45:04 [DEBUG] connected to 172.29.42.44:7477
+2025-12-09 12:45:04 [DEBUG] Connecting to 172.29.42.44:7477 via ADB (attempt 2/2)...
+2025-12-09 12:45:04 [DEBUG] already connected to 172.29.42.44:7477
+2025-12-09 12:45:04 [INFO] ✓ Successfully connected to device R5CWA1TBCYZ at 172.29.42.44:7477
+2025-12-09 12:45:04 [INFO] Verifying Phone B (R5CWA1TBD9Y) availability...
+2025-12-09 12:45:04 [INFO] Connecting to STF device R5CWA1TBD9Y...
+2025-12-09 12:45:04 [INFO] ✓ Device R5CWA1TBD9Y added to user
+2025-12-09 12:45:04 [INFO] ✓ Remote connect URL for R5CWA1TBD9Y: 172.29.42.44:7457
+2025-12-09 12:45:04 [DEBUG] Connecting to 172.29.42.44:7457 via ADB (attempt 1/2)...
+2025-12-09 12:45:04 [DEBUG] connected to 172.29.42.44:7457
+2025-12-09 12:45:04 [DEBUG] Connecting to 172.29.42.44:7457 via ADB (attempt 2/2)...
+2025-12-09 12:45:04 [DEBUG] already connected to 172.29.42.44:7457
+2025-12-09 12:45:04 [INFO] ✓ Successfully connected to device R5CWA1TBD9Y at 172.29.42.44:7457
+2025-12-09 12:45:04 [INFO] Phone A ADB target: 172.29.42.44:7477
+2025-12-09 12:45:04 [INFO] Phone B ADB target: 172.29.42.44:7457
+2025-12-09 12:45:04 [INFO] Phone A: 4915900104513 @ 172.29.42.44:7477 (serial R5CWA1TBCYZ)
+2025-12-09 12:45:04 [INFO] Phone B: 4915900103141 @ 172.29.42.44:7457 (serial R5CWA1TBD9Y)
+2025-12-09 12:45:04 [INFO] 
 ============================================================
-2025-12-05 15:30:09 [INFO] STEP 1: Restarting ADB server...
-2025-12-05 15:30:09 [INFO] ============================================================
-2025-12-05 15:30:09 [INFO] Killing ADB server...
-2025-12-05 15:30:09 [INFO] ✓ ADB server killed successfully
-2025-12-05 15:30:10 [INFO] Starting ADB server...
-2025-12-05 15:30:13 [INFO] ✓ ADB server started successfully
-2025-12-05 15:30:13 [INFO] Note: You may need to authorize the connection on your device(s)
-2025-12-05 15:30:13 [INFO] ✓ ADB server restarted successfully
-2025-12-05 15:30:15 [INFO] 
+2025-12-09 12:45:04 [INFO] STEP 1: Restarting ADB server...
+2025-12-09 12:45:04 [INFO] ============================================================
+2025-12-09 12:45:04 [INFO] Killing ADB server...
+2025-12-09 12:45:04 [INFO] ✓ ADB server killed successfully
+2025-12-09 12:45:05 [INFO] Starting ADB server...
+2025-12-09 12:45:08 [INFO] ✓ ADB server started successfully
+2025-12-09 12:45:08 [INFO] Note: You may need to authorize the connection on your device(s)
+2025-12-09 12:45:08 [INFO] ✓ ADB server restarted successfully
+2025-12-09 12:45:10 [INFO] 
 ============================================================
-2025-12-05 15:30:15 [INFO] STEP 2: Connecting to both phones (via ADB)...
-2025-12-05 15:30:15 [INFO] ============================================================
-2025-12-05 15:30:15 [INFO] Connecting to Phone A (4915781993213)...
-2025-12-05 15:30:15 [INFO] Connecting to device at 172.29.42.44:7413...
-2025-12-05 15:30:15 [INFO] ✓ Successfully connected to 172.29.42.44:7413
-2025-12-05 15:30:15 [DEBUG] Output: connected to 172.29.42.44:7413
-2025-12-05 15:30:15 [INFO] Connecting to Phone B (4915900104513)...
-2025-12-05 15:30:15 [INFO] Connecting to device at 172.29.42.44:7477...
-2025-12-05 15:30:15 [INFO] ✓ Successfully connected to 172.29.42.44:7477
-2025-12-05 15:30:15 [DEBUG] Output: connected to 172.29.42.44:7477
-2025-12-05 15:30:15 [INFO] ✓ Both phones connected successfully
-2025-12-05 15:30:17 [INFO] 
+2025-12-09 12:45:10 [INFO] STEP 2: Connecting to both phones (via ADB)...
+2025-12-09 12:45:10 [INFO] ============================================================
+2025-12-09 12:45:10 [INFO] Connecting to Phone A (4915900104513)...
+2025-12-09 12:45:10 [INFO] Connecting to device at 172.29.42.44:7477...
+2025-12-09 12:45:10 [INFO] ✓ Successfully connected to 172.29.42.44:7477
+2025-12-09 12:45:10 [DEBUG] Output: connected to 172.29.42.44:7477
+2025-12-09 12:45:10 [INFO] Connecting to Phone B (4915900103141)...
+2025-12-09 12:45:10 [INFO] Connecting to device at 172.29.42.44:7457...
+2025-12-09 12:45:10 [INFO] ✓ Successfully connected to 172.29.42.44:7457
+2025-12-09 12:45:10 [DEBUG] Output: connected to 172.29.42.44:7457
+2025-12-09 12:45:10 [INFO] ✓ Both phones connected successfully
+2025-12-09 12:45:12 [INFO] 
 ============================================================
-2025-12-05 15:30:17 [INFO] STEP 2.5: Extracting IMSIs via ADB...
-2025-12-05 15:30:17 [INFO] ============================================================
-2025-12-05 15:30:17 [INFO] Attempting to extract IMSI for Phone A (QV70006W1B)...
-2025-12-05 15:30:17 [DEBUG] Starting IMSI extraction for device QV70006W1B (IP:PORT=172.29.42.44:7413)
-2025-12-05 15:30:17 [DEBUG] Device notes: SONY UE  -  Ericsson Device  epdg2   MSISDN: 4915781993213
-2025-12-05 15:30:17 [DEBUG] Attempting ADB extraction methods for 172.29.42.44:7413
-2025-12-05 15:30:17 [DEBUG] Method 1: Trying getprop gsm.sim.operator.imsi...
-2025-12-05 15:30:17 [DEBUG] Method 1 return code: 0
-2025-12-05 15:30:17 [DEBUG] Method 1 failed: No valid IMSI in output
-2025-12-05 15:30:17 [DEBUG] Method 2: Trying service call iphonesubinfo 1...
-2025-12-05 15:30:17 [DEBUG] Method 2 return code: 0
-2025-12-05 15:30:17 [DEBUG] Method 2 output (first 200 chars): Result: Parcel(
-  0x00000000: 00000000 0000000f 00300030 00340034 '........0.0.4.4.'
-  0x00000010: 00320030 00350034 00350038 00370038 '0.2.4.5.8.5.8.7.'
-  0x00000020: 00370037 00000035               
-2025-12-05 15:30:17 [DEBUG] Method 2 Strategy 1 extracted: '004402458587775'
-2025-12-05 15:30:17 [DEBUG] ✓ Method 2 SUCCESS (Strategy 1): 004402458587775
-2025-12-05 15:30:17 [INFO] ✓ Phone A IMSI: 004402458587775
-2025-12-05 15:30:17 [INFO] Attempting to extract IMSI for Phone B (R5CWA1TBCYZ)...
-2025-12-05 15:30:17 [DEBUG] Starting IMSI extraction for device R5CWA1TBCYZ (IP:PORT=172.29.42.44:7477)
-2025-12-05 15:30:17 [DEBUG] Device notes: SPIE 3: IMS HAM 1+2: 4915900104513 & 4915900104514  (UE SN: R5CWA1TBCYZ)
-2025-12-05 15:30:17 [DEBUG] Attempting ADB extraction methods for 172.29.42.44:7477
-2025-12-05 15:30:17 [DEBUG] Method 1: Trying getprop gsm.sim.operator.imsi...
-2025-12-05 15:30:17 [DEBUG] Method 1 return code: 0
-2025-12-05 15:30:17 [DEBUG] Method 1 failed: No valid IMSI in output
-2025-12-05 15:30:17 [DEBUG] Method 2: Trying service call iphonesubinfo 1...
-2025-12-05 15:30:17 [DEBUG] Method 2 return code: 0
-2025-12-05 15:30:17 [DEBUG] Method 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
+2025-12-09 12:45:12 [INFO] STEP 2.5: Extracting IMSIs via ADB...
+2025-12-09 12:45:12 [INFO] ============================================================
+2025-12-09 12:45:12 [INFO] Attempting to extract IMSI for Phone A (R5CWA1TBCYZ)...
+2025-12-09 12:45:12 [DEBUG] Starting IMSI extraction for device R5CWA1TBCYZ (IP:PORT=172.29.42.44:7477)
+2025-12-09 12:45:12 [DEBUG] Device notes: SPIE 3: IMS HAM 1+2: 4915900104513 & 4915900104514  (UE SN: R5CWA1TBCYZ)
+2025-12-09 12:45:12 [DEBUG] Attempting ADB extraction methods for 172.29.42.44:7477
+2025-12-09 12:45:12 [DEBUG] Method 1: Trying getprop gsm.sim.operator.imsi...
+2025-12-09 12:45:12 [DEBUG] Method 1 return code: 0
+2025-12-09 12:45:12 [DEBUG] Method 1 failed: No valid IMSI in output
+2025-12-09 12:45:12 [DEBUG] Method 2: Trying service call iphonesubinfo 1...
+2025-12-09 12:45:13 [DEBUG] Method 2 return code: 0
+2025-12-09 12:45:13 [DEBUG] Method 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
 
-2025-12-05 15:30:17 [DEBUG] Method 2 Strategy 1 extracted: ''
-2025-12-05 15:30:17 [DEBUG] Method 2 failed: Could not parse IMSI from output
-2025-12-05 15:30:17 [DEBUG] Method 3: Trying dumpsys telephony.registry...
-2025-12-05 15:30:17 [DEBUG] Method 3 return code: 0
-2025-12-05 15:30:17 [DEBUG] Method 3 output length: 268250 chars
-2025-12-05 15:30:17 [DEBUG] Method 3 failed: No IMSI pattern found in dumpsys output
-2025-12-05 15:30:17 [DEBUG] Method 4: Trying dumpsys iphonesubinfo...
-2025-12-05 15:30:17 [DEBUG] Method 4 return code: 0
-2025-12-05 15:30:17 [DEBUG] Method 4 output (first 500 chars): 
-2025-12-05 15:30:17 [DEBUG] Method 4 failed: No IMSI found
-2025-12-05 15:30:17 [DEBUG] Method 5: Trying content query...
-2025-12-05 15:30:19 [DEBUG] Method 5 return code: 0
-2025-12-05 15:30:19 [DEBUG] Method 5 output: Error while accessing provider:telephony
+2025-12-09 12:45:13 [DEBUG] Method 2 Strategy 1 extracted: ''
+2025-12-09 12:45:13 [DEBUG] Method 2 failed: Could not parse IMSI from output
+2025-12-09 12:45:13 [DEBUG] Method 3: Trying dumpsys telephony.registry...
+2025-12-09 12:45:13 [DEBUG] Method 3 return code: 0
+2025-12-09 12:45:13 [DEBUG] Method 3 output length: 359071 chars
+2025-12-09 12:45:13 [DEBUG] Method 3 failed: No IMSI pattern found in dumpsys output
+2025-12-09 12:45:13 [DEBUG] Method 4: Trying dumpsys iphonesubinfo...
+2025-12-09 12:45:13 [DEBUG] Method 4 return code: 0
+2025-12-09 12:45:13 [DEBUG] Method 4 output (first 500 chars): 
+2025-12-09 12:45:13 [DEBUG] Method 4 failed: No IMSI found
+2025-12-09 12:45:13 [DEBUG] Method 5: Trying content query...
+2025-12-09 12:45:14 [DEBUG] Method 5 return code: 0
+2025-12-09 12:45:14 [DEBUG] Method 5 output: Error while accessing provider:telephony
 java.lang.SecurityException: Access SIMINFO table from not phone/system UID
 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3257)
 	at android.os.Parcel.createException(Parcel.java:3241)
 	at android.os.Parcel.readException(Parcel.java:3224)
 	at android
-2025-12-05 15:30:19 [DEBUG] Method 5 failed: No IMSI in content query output
-2025-12-05 15:30:19 [DEBUG] ❌ All IMSI extraction methods failed for device R5CWA1TBCYZ
-2025-12-05 15:30:19 [WARNING] ⚠ Phone B IMSI could not be extracted via ADB
-2025-12-05 15:30:19 [WARNING]   Check debug logs above for detailed extraction attempts
-2025-12-05 15:30:19 [INFO] 
+2025-12-09 12:45:14 [DEBUG] Method 5 failed: No IMSI in content query output
+2025-12-09 12:45:14 [DEBUG] ❌ All IMSI extraction methods failed for device R5CWA1TBCYZ
+2025-12-09 12:45:14 [WARNING] ⚠ Phone A IMSI could not be extracted via ADB
+2025-12-09 12:45:14 [WARNING]   Check debug logs above for detailed extraction attempts
+2025-12-09 12:45:14 [INFO] Attempting to extract IMSI for Phone B (R5CWA1TBD9Y)...
+2025-12-09 12:45:14 [DEBUG] Starting IMSI extraction for device R5CWA1TBD9Y (IP:PORT=172.29.42.44:7457)
+2025-12-09 12:45:14 [DEBUG] Device notes: SPIE 2: IMS MUC 2+HAM 3: 4915900103141 & 4917607019222  (UE SN: R5CWA1TBD9Y)
+2025-12-09 12:45:14 [DEBUG] Attempting ADB extraction methods for 172.29.42.44:7457
+2025-12-09 12:45:14 [DEBUG] Method 1: Trying getprop gsm.sim.operator.imsi...
+2025-12-09 12:45:14 [DEBUG] Method 1 return code: 0
+2025-12-09 12:45:14 [DEBUG] Method 1 failed: No valid IMSI in output
+2025-12-09 12:45:14 [DEBUG] Method 2: Trying service call iphonesubinfo 1...
+2025-12-09 12:45:14 [DEBUG] Method 2 return code: 0
+2025-12-09 12:45:14 [DEBUG] Method 2 output (first 200 chars): Result: Parcel(	fffffffc ffffffff 00000000  '............')
+
+2025-12-09 12:45:14 [DEBUG] Method 2 Strategy 1 extracted: ''
+2025-12-09 12:45:14 [DEBUG] Method 2 failed: Could not parse IMSI from output
+2025-12-09 12:45:14 [DEBUG] Method 3: Trying dumpsys telephony.registry...
+2025-12-09 12:45:14 [DEBUG] Method 3 return code: 0
+2025-12-09 12:45:14 [DEBUG] Method 3 output length: 179595 chars
+2025-12-09 12:45:14 [DEBUG] Method 3 failed: No IMSI pattern found in dumpsys output
+2025-12-09 12:45:14 [DEBUG] Method 4: Trying dumpsys iphonesubinfo...
+2025-12-09 12:45:14 [DEBUG] Method 4 return code: 0
+2025-12-09 12:45:14 [DEBUG] Method 4 output (first 500 chars): 
+2025-12-09 12:45:14 [DEBUG] Method 4 failed: No IMSI found
+2025-12-09 12:45:14 [DEBUG] Method 5: Trying content query...
+2025-12-09 12:45:16 [DEBUG] Method 5 return code: 0
+2025-12-09 12:45:16 [DEBUG] Method 5 output: Error while accessing provider:telephony
+java.lang.SecurityException: Access SIMINFO table from not phone/system UID
+	at android.os.Parcel.createExceptionOrNull(Parcel.java:3257)
+	at android.os.Parcel.createException(Parcel.java:3241)
+	at android.os.Parcel.readException(Parcel.java:3224)
+	at android
+2025-12-09 12:45:16 [DEBUG] Method 5 failed: No IMSI in content query output
+2025-12-09 12:45:16 [DEBUG] ❌ All IMSI extraction methods failed for device R5CWA1TBD9Y
+2025-12-09 12:45:16 [WARNING] ⚠ Phone B IMSI could not be extracted via ADB
+2025-12-09 12:45:16 [WARNING]   Check debug logs above for detailed extraction attempts
+2025-12-09 12:45:16 [INFO] 
 ============================================================
-2025-12-05 15:30:19 [INFO] STEP 3: Switching Phone A (4915781993213) to 2G...
-2025-12-05 15:30:19 [INFO] ============================================================
-2025-12-05 15:30:19 [INFO] Setting network type to 2G (value: 1)...
-2025-12-05 15:30:19 [INFO] Current mode value: 1, changing to: 1
-2025-12-05 15:30:19 [DEBUG] Attempting Method 1: settings command...
-2025-12-05 15:30:19 [DEBUG] Attempting Method 2: settings with subscription ID...
-2025-12-05 15:30:19 [DEBUG] Attempting Method 3: service call...
-2025-12-05 15:30:19 [DEBUG] Attempting Method 4: Samsung-specific service call...
-2025-12-05 15:30:19 [DEBUG] ✓ Method 1 succeeded
-2025-12-05 15:30:19 [DEBUG] ✓ Method 2 succeeded
-2025-12-05 15:30:19 [DEBUG] ✓ Method 3 succeeded
-2025-12-05 15:30:19 [DEBUG] ✓ Method 4 succeeded
-2025-12-05 15:30:19 [INFO] ✓ Network type setting commands executed successfully
-2025-12-05 15:30:19 [INFO] Applying changes by toggling airplane mode...
-2025-12-05 15:30:19 [INFO] Airplane mode enabled, waiting 3 seconds...
-2025-12-05 15:30:23 [INFO] Airplane mode disabled, waiting for network to reconnect...
-2025-12-05 15:30:28 [INFO] Verifying network mode change...
-2025-12-05 15:30:28 [INFO] ✓ Network mode successfully changed and applied!
-2025-12-05 15:30:28 [INFO] Current network type: 2G only (GSM)
-2025-12-05 15:30:28 [INFO] ✓ Successfully switched Phone A to 2G
-2025-12-05 15:30:28 [INFO] Waiting for network to stabilize (15 seconds)...
-2025-12-05 15:30:43 [INFO] 
+2025-12-09 12:45:16 [INFO] STEP 3: Switching Phone A (4915900104513) to 2G...
+2025-12-09 12:45:16 [INFO] ============================================================
+2025-12-09 12:45:16 [INFO] Setting network type to 2G (value: 1)...
+2025-12-09 12:45:16 [INFO] Current mode value: 1, changing to: 1
+2025-12-09 12:45:16 [DEBUG] Attempting Method 1: settings command...
+2025-12-09 12:45:16 [DEBUG] Attempting Method 2: settings with subscription ID...
+2025-12-09 12:45:16 [DEBUG] Attempting Method 3: service call...
+2025-12-09 12:45:16 [DEBUG] Attempting Method 4: Samsung-specific service call...
+2025-12-09 12:45:16 [DEBUG] ✓ Method 1 succeeded
+2025-12-09 12:45:16 [DEBUG] ✓ Method 2 succeeded
+2025-12-09 12:45:16 [DEBUG] ✓ Method 3 succeeded
+2025-12-09 12:45:16 [DEBUG] ✓ Method 4 succeeded
+2025-12-09 12:45:16 [INFO] ✓ Network type setting commands executed successfully
+2025-12-09 12:45:16 [INFO] Applying changes by toggling airplane mode...
+2025-12-09 12:45:16 [INFO] Airplane mode enabled, waiting 3 seconds...
+2025-12-09 12:45:19 [INFO] Airplane mode disabled, waiting for network to reconnect...
+2025-12-09 12:45:24 [INFO] Verifying network mode change...
+2025-12-09 12:45:25 [INFO] ✓ Network mode successfully changed and applied!
+2025-12-09 12:45:25 [INFO] Current network type: 2G only (GSM)
+2025-12-09 12:45:25 [INFO] ✓ Successfully switched Phone A to 2G
+2025-12-09 12:45:25 [INFO] Waiting for network to stabilize (15 seconds)...
+2025-12-09 12:45:40 [INFO] 
 ============================================================
-2025-12-05 15:30:43 [INFO] STEP 4: Phone A (4915781993213) calling Phone B (4915900104513)...
-2025-12-05 15:30:43 [INFO] ============================================================
-2025-12-05 15:30:43 [INFO] Initiating call from 4915781993213 to +4915900104513...
-2025-12-05 15:30:43 [INFO] ✓ Call initiated successfully!
-2025-12-05 15:30:43 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
-2025-12-05 15:30:43 [INFO] ✓ Call initiated successfully
-2025-12-05 15:30:43 [INFO] 
+2025-12-09 12:45:40 [INFO] STEP 4: Phone A (4915900104513) calling Phone B (4915900103141)...
+2025-12-09 12:45:40 [INFO] ============================================================
+2025-12-09 12:45:40 [INFO] Initiating call from 4915900104513 to +4915900103141...
+2025-12-09 12:45:40 [INFO] ✓ Call initiated successfully!
+2025-12-09 12:45:40 [DEBUG] Output: Starting: Intent { act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxxx }
+2025-12-09 12:45:40 [INFO] ✓ Call initiated successfully
+2025-12-09 12:45:40 [INFO] 
 ============================================================
-2025-12-05 15:30:43 [INFO] STEP 5: Waiting for Phone B to ring...
-2025-12-05 15:30:43 [INFO] ============================================================
-2025-12-05 15:30:44 [DEBUG] Call state for +4915900104513: IDLE
-2025-12-05 15:30:45 [DEBUG] Call state for +4915900104513: IDLE
-2025-12-05 15:30:46 [DEBUG] Call state for +4915900104513: IDLE
-2025-12-05 15:30:46 [INFO] ⏳ Still waiting for ring... (3/30s)
-2025-12-05 15:30:47 [DEBUG] Call state for +4915900104513: IDLE
-2025-12-05 15:30:48 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:48 [INFO] 📞 Phone B (4915900104513) is ringing! (after 5 seconds)
-2025-12-05 15:30:48 [INFO] ⏳ Waiting to answer... (5.0s remaining)
-2025-12-05 15:30:49 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:49 [INFO] ⏳ Waiting to answer... (3.9s remaining)
-2025-12-05 15:30:51 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:51 [INFO] ⏳ Waiting to answer... (2.8s remaining)
-2025-12-05 15:30:52 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:52 [INFO] ⏳ Waiting to answer... (1.7s remaining)
-2025-12-05 15:30:53 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:53 [INFO] ⏳ Waiting to answer... (0.6s remaining)
-2025-12-05 15:30:54 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:54 [INFO] 
+2025-12-09 12:45:40 [INFO] STEP 5: Waiting for Phone B to ring...
+2025-12-09 12:45:40 [INFO] ============================================================
+2025-12-09 12:45:41 [DEBUG] Call state for +4915900103141: IDLE
+2025-12-09 12:45:42 [DEBUG] Call state for +4915900103141: IDLE
+2025-12-09 12:45:43 [DEBUG] Call state for +4915900103141: IDLE
+2025-12-09 12:45:43 [INFO] ⏳ Still waiting for ring... (3/30s)
+2025-12-09 12:45:44 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:44 [INFO] 📞 Phone B (4915900103141) is ringing! (after 4 seconds)
+2025-12-09 12:45:44 [INFO] ⏳ Waiting to answer... (5.0s remaining)
+2025-12-09 12:45:45 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:45 [INFO] ⏳ Waiting to answer... (3.9s remaining)
+2025-12-09 12:45:46 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:46 [INFO] ⏳ Waiting to answer... (2.8s remaining)
+2025-12-09 12:45:47 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:47 [INFO] ⏳ Waiting to answer... (1.7s remaining)
+2025-12-09 12:45:48 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:48 [INFO] ⏳ Waiting to answer... (0.6s remaining)
+2025-12-09 12:45:50 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:50 [INFO] 
 ⏱️  Phone B has been ringing for 5.5 seconds
-2025-12-05 15:30:54 [INFO] Answering call on Phone B (4915900104513)...
-2025-12-05 15:30:54 [DEBUG] Call state for +4915900104513: RINGING
-2025-12-05 15:30:54 [INFO] Answering call on +4915900104513...
-2025-12-05 15:30:54 [INFO] ✓ Call answered successfully on +4915900104513
-2025-12-05 15:30:55 [DEBUG] Call state for 172.29.42.44:7477: OFFHOOK
-2025-12-05 15:30:55 [INFO] ✓ Call is now active (state: OFFHOOK)
-2025-12-05 15:30:55 [INFO] ✓ Call answered successfully!
-2025-12-05 15:30:55 [INFO] 
+2025-12-09 12:45:50 [INFO] Answering call on Phone B (4915900103141)...
+2025-12-09 12:45:50 [DEBUG] Call state for +4915900103141: RINGING
+2025-12-09 12:45:50 [INFO] Answering call on +4915900103141...
+2025-12-09 12:45:50 [INFO] ✓ Call answered successfully on +4915900103141
+2025-12-09 12:45:51 [DEBUG] Call state for 172.29.42.44:7457: OFFHOOK
+2025-12-09 12:45:51 [INFO] ✓ Call is now active (state: OFFHOOK)
+2025-12-09 12:45:51 [INFO] ✓ Call answered successfully!
+2025-12-09 12:45:51 [INFO] 
 ============================================================
-2025-12-05 15:30:55 [INFO] Waiting for call to be fully connected...
-2025-12-05 15:30:55 [INFO] ============================================================
-2025-12-05 15:30:56 [DEBUG] Call state for +4915781993213: OFFHOOK
-2025-12-05 15:30:56 [DEBUG] Call state for +4915900104513: OFFHOOK
-2025-12-05 15:30:56 [INFO] ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
-2025-12-05 15:30:56 [INFO] 
+2025-12-09 12:45:51 [INFO] Waiting for call to be fully connected...
+2025-12-09 12:45:51 [INFO] ============================================================
+2025-12-09 12:45:52 [DEBUG] Call state for +4915900104513: OFFHOOK
+2025-12-09 12:45:52 [DEBUG] Call state for +4915900103141: OFFHOOK
+2025-12-09 12:45:52 [INFO] ✓ Call is now fully connected! (OFFHOOK on both sides after 1s)
+2025-12-09 12:45:52 [INFO] 
 ============================================================
-2025-12-05 15:30:56 [INFO] STEP 6: Call in progress...
-2025-12-05 15:30:56 [INFO] ============================================================
-2025-12-05 15:30:56 [INFO] ⏱️  Call timer started! Call will last 30 seconds...
-2025-12-05 15:30:56 [INFO] ⏳ Call in progress... 30s remaining
-2025-12-05 15:31:01 [INFO] ⏳ Call in progress... 25s remaining
-2025-12-05 15:31:06 [INFO] ⏳ Call in progress... 20s remaining
-2025-12-05 15:31:11 [INFO] ⏳ Call in progress... 15s remaining
-2025-12-05 15:31:16 [INFO] ⏳ Call in progress... 10s remaining
-2025-12-05 15:31:21 [INFO] ⏳ Call in progress... 5s remaining
-2025-12-05 15:31:26 [INFO] 
+2025-12-09 12:45:52 [INFO] STEP 6: Call in progress...
+2025-12-09 12:45:52 [INFO] ============================================================
+2025-12-09 12:45:52 [INFO] ⏱️  Call timer started! Call will last 30 seconds...
+2025-12-09 12:45:52 [INFO] ⏳ Call in progress... 30s remaining
+2025-12-09 12:45:57 [INFO] ⏳ Call in progress... 25s remaining
+2025-12-09 12:46:02 [INFO] ⏳ Call in progress... 20s remaining
+2025-12-09 12:46:07 [INFO] ⏳ Call in progress... 15s remaining
+2025-12-09 12:46:12 [INFO] ⏳ Call in progress... 10s remaining
+2025-12-09 12:46:17 [INFO] ⏳ Call in progress... 5s remaining
+2025-12-09 12:46:22 [INFO] 
 ⏱️  30 seconds elapsed. Ending call...
-2025-12-05 15:31:26 [DEBUG] Call state for +4915781993213: OFFHOOK
-2025-12-05 15:31:26 [INFO] Ending call on +4915781993213...
-2025-12-05 15:31:27 [INFO] ✓ Call ended successfully on +4915781993213
-2025-12-05 15:31:27 [DEBUG] Call state for +4915900104513: OFFHOOK
-2025-12-05 15:31:27 [INFO] Also ending call on +4915900104513...
-2025-12-05 15:31:27 [INFO] ✓ Call ended on +4915900104513
-2025-12-05 15:31:28 [DEBUG] Call state for 172.29.42.44:7413: IDLE
-2025-12-05 15:31:28 [INFO] ✓ Phone is now idle (state: IDLE)
-2025-12-05 15:31:28 [INFO] ✓ Call ended successfully
-2025-12-05 15:31:28 [INFO] 
+2025-12-09 12:46:22 [DEBUG] Call state for +4915900104513: OFFHOOK
+2025-12-09 12:46:22 [INFO] Ending call on +4915900104513...
+2025-12-09 12:46:22 [INFO] ✓ Call ended successfully on +4915900104513
+2025-12-09 12:46:22 [DEBUG] Call state for +4915900103141: OFFHOOK
+2025-12-09 12:46:22 [INFO] Also ending call on +4915900103141...
+2025-12-09 12:46:22 [INFO] ✓ Call ended on +4915900103141
+2025-12-09 12:46:23 [DEBUG] Call state for 172.29.42.44:7477: IDLE
+2025-12-09 12:46:23 [INFO] ✓ Phone is now idle (state: IDLE)
+2025-12-09 12:46:23 [INFO] ✓ Call ended successfully
+2025-12-09 12:46:23 [INFO] 
 ============================================================
-2025-12-05 15:31:28 [INFO] ================= SCENARIO COMPLETE ========================
-2025-12-05 15:31:28 [INFO] ============================================================
-2025-12-05 15:31:28 [INFO] ✓ All steps completed successfully!
-2025-12-05 15:31:28 [INFO]   • Both phones connected via STF (serial-based)
-2025-12-05 15:31:28 [INFO]   • Phone A switched to 2G
-2025-12-05 15:31:28 [INFO]   • Call initiated from Phone A to Phone B
-2025-12-05 15:31:28 [INFO]   • Phone B answered after 5 seconds of ringing
-2025-12-05 15:31:28 [INFO]   • Call lasted 30 seconds and ended
-2025-12-05 15:31:28 [INFO] ============================================================
-2025-12-05 15:31:28 [INFO] {'success': True, 'phone_a_msisdn': '4915781993213', 'phone_b_msisdn': '4915900104513', 'phone_a_serial': 'QV70006W1B', 'phone_b_serial': 'R5CWA1TBCYZ', 'phone_a_imsi': '004402458587775', 'phone_b_imsi': 'UNKNOWN_IMSI_B'}
-2025-12-05 15:31:28 [INFO] Disconnecting STF device QV70006W1B...
-2025-12-05 15:31:28 [DEBUG] Disconnecting 172.29.42.44:7413 from ADB...
-2025-12-05 15:31:28 [INFO] ✓ Device QV70006W1B disconnected
-2025-12-05 15:31:28 [INFO] ✓ Device QV70006W1B removed from user
-2025-12-05 15:31:28 [INFO] ✓ Successfully disconnected device QV70006W1B
-2025-12-05 15:31:28 [INFO] Disconnecting STF device R5CWA1TBCYZ...
-2025-12-05 15:31:28 [DEBUG] Disconnecting 172.29.42.44:7477 from ADB...
-2025-12-05 15:31:28 [INFO] ✓ Device R5CWA1TBCYZ disconnected
-2025-12-05 15:31:28 [INFO] ✓ Device R5CWA1TBCYZ removed from user
-2025-12-05 15:31:28 [INFO] ✓ Successfully disconnected device R5CWA1TBCYZ
+2025-12-09 12:46:23 [INFO] ================= SCENARIO COMPLETE ========================
+2025-12-09 12:46:23 [INFO] ============================================================
+2025-12-09 12:46:23 [INFO] ✓ All steps completed successfully!
+2025-12-09 12:46:23 [INFO]   • Both phones connected via STF (serial-based)
+2025-12-09 12:46:23 [INFO]   • Phone A switched to 2G
+2025-12-09 12:46:23 [INFO]   • Call initiated from Phone A to Phone B
+2025-12-09 12:46:23 [INFO]   • Phone B answered after 5 seconds of ringing
+2025-12-09 12:46:23 [INFO]   • Call lasted 30 seconds and ended
+2025-12-09 12:46:23 [INFO] ============================================================
+2025-12-09 12:46:23 [INFO] {'success': True, 'phone_a_msisdn': '4915900104513', 'phone_b_msisdn': '4915900103141', 'phone_a_serial': 'R5CWA1TBCYZ', 'phone_b_serial': 'R5CWA1TBD9Y', 'phone_a_imsi': 'UNKNOWN_IMSI_A', 'phone_b_imsi': 'UNKNOWN_IMSI_B'}
+2025-12-09 12:46:23 [INFO] Disconnecting STF device R5CWA1TBCYZ...
+2025-12-09 12:46:23 [DEBUG] Disconnecting 172.29.42.44:7477 from ADB...
+2025-12-09 12:46:23 [INFO] ✓ Device R5CWA1TBCYZ disconnected
+2025-12-09 12:46:23 [INFO] ✓ Device R5CWA1TBCYZ removed from user
+2025-12-09 12:46:23 [INFO] ✓ Successfully disconnected device R5CWA1TBCYZ
+2025-12-09 12:46:23 [INFO] Disconnecting STF device R5CWA1TBD9Y...
+2025-12-09 12:46:23 [DEBUG] Disconnecting 172.29.42.44:7457 from ADB...
+2025-12-09 12:46:23 [INFO] ✓ Device R5CWA1TBD9Y disconnected
+2025-12-09 12:46:23 [INFO] ✓ Device R5CWA1TBD9Y removed from user
+2025-12-09 12:46:23 [INFO] ✓ Successfully disconnected device R5CWA1TBD9Y

@@ -39,6 +39,7 @@ class ValidationCheck:
 class BSSAPMAPValidator:
     """
     Validates BSSAP/MAP flows in PCAP files for 2G call scenarios
+    Also supports VoLTE/IMS (4G/5G) call validation
     """
     
     def __init__(self, pcap_path: str):
@@ -50,8 +51,56 @@ class BSSAPMAPValidator:
         """
         self.pcap_path = pcap_path
         self.validation_results: List[ValidationCheck] = []
+        self.call_type = None  # Will be detected: '2G' or 'VoLTE'
         logging.info(f"Initialized BSSAPMAPValidator with PCAP: {pcap_path}")
     
+    def detect_call_type(self) -> str:
+        """
+        Detect if the PCAP contains 2G (BSSAP) or VoLTE/IMS (SIP) call
+
+        Returns:
+            'BSSAP' for 2G calls, 'VoLTE' for 4G/5G calls, 'UNKNOWN' if neither
+        """
+        logging.info("Detecting call type in PCAP...")
+
+        try:
+            # Quick scan to detect protocols
+            cap = pyshark.FileCapture(
+                self.pcap_path,
+                display_filter='bssap || sip.Method',
+                keep_packets=False
+            )
+
+            has_bssap = False
+            has_sip = False
+
+            for pkt in cap:
+                if hasattr(pkt, 'bssap'):
+                    has_bssap = True
+                    break
+                if hasattr(pkt, 'sip'):
+                    has_sip = True
+                    break
+
+            cap.close()
+
+            if has_bssap:
+                self.call_type = 'BSSAP'
+                logging.info("Detected 2G/BSSAP call")
+            elif has_sip:
+                self.call_type = 'VoLTE'
+                logging.info("Detected VoLTE/IMS call")
+            else:
+                self.call_type = 'UNKNOWN'
+                logging.warning("Could not detect call type")
+
+            return self.call_type
+
+        except Exception as e:
+            logging.error(f"Error detecting call type: {e}")
+            self.call_type = 'UNKNOWN'
+            return self.call_type
+
     def validate_location_update_procedure(self) -> ValidationCheck:
         """
         Validate BSSAP/MAP flow in Location Update Procedure (LuP)
@@ -362,10 +411,193 @@ class BSSAPMAPValidator:
             self.validation_results.append(result)
             return result
     
+    def validate_volte_registration(self) -> ValidationCheck:
+        """
+        Validate VoLTE/IMS Registration
+
+        Checks for:
+        - SIP REGISTER (IMS registration)
+        - 200 OK response
+
+        Returns:
+            ValidationCheck with result
+        """
+        logging.info("Validating VoLTE Registration...")
+
+        try:
+            cap = pyshark.FileCapture(
+                self.pcap_path,
+                display_filter='sip.Method == "REGISTER" || sip.Status-Code == 200',
+                keep_packets=False
+            )
+
+            found_messages = {
+                'register': False,
+                'register_ok': False
+            }
+            packet_numbers = []
+
+            for pkt in cap:
+                pkt_num = int(pkt.number)
+
+                if hasattr(pkt, 'sip'):
+                    # Check for REGISTER
+                    if hasattr(pkt.sip, 'method') and 'REGISTER' in str(pkt.sip.method):
+                        found_messages['register'] = True
+                        packet_numbers.append(pkt_num)
+                        logging.info(f"Found SIP REGISTER in packet {pkt_num}")
+
+                    # Check for 200 OK (registration success)
+                    if hasattr(pkt.sip, 'status_code') and pkt.sip.status_code == '200':
+                        if hasattr(pkt.sip, 'cseq_method') and 'REGISTER' in str(pkt.sip.cseq_method):
+                            found_messages['register_ok'] = True
+                            packet_numbers.append(pkt_num)
+                            logging.info(f"Found REGISTER 200 OK in packet {pkt_num}")
+
+            cap.close()
+
+            all_found = all(found_messages.values())
+
+            if all_found:
+                status = ValidationResult.PASS
+                details = "✓ VoLTE/IMS Registration completed successfully"
+            else:
+                missing = [k for k, v in found_messages.items() if not v]
+                status = ValidationResult.FAIL
+                details = f"✗ Missing VoLTE registration: {', '.join(missing)}"
+
+            result = ValidationCheck(
+                check_name="VoLTE/IMS Registration",
+                status=status,
+                details=details,
+                packet_numbers=packet_numbers
+            )
+
+            self.validation_results.append(result)
+            return result
+
+        except Exception as e:
+            logging.error(f"Error validating VoLTE registration: {e}")
+            result = ValidationCheck(
+                check_name="VoLTE/IMS Registration",
+                status=ValidationResult.FAIL,
+                details=f"✗ Error during validation: {str(e)}"
+            )
+            self.validation_results.append(result)
+            return result
+
+    def validate_volte_call_setup_release(self) -> ValidationCheck:
+        """
+        Validate VoLTE Call Setup and Release
+
+        Checks for:
+        - SIP INVITE (call origination)
+        - SIP 200 OK (call answered)
+        - SIP ACK (call connected)
+        - SIP BYE (call release)
+        - 200 OK for BYE
+
+        Returns:
+            ValidationCheck with result
+        """
+        logging.info("Validating VoLTE Call Setup and Release...")
+
+        try:
+            cap = pyshark.FileCapture(
+                self.pcap_path,
+                display_filter='sip.Method == "INVITE" || sip.Method == "ACK" || sip.Method == "BYE" || sip.Status-Code == 200',
+                keep_packets=False
+            )
+
+            found_messages = {
+                'invite': False,
+                'invite_ok': False,
+                'ack': False,
+                'bye': False,
+                'bye_ok': False
+            }
+            packet_numbers = []
+            caller = None
+            callee = None
+
+            for pkt in cap:
+                pkt_num = int(pkt.number)
+
+                if hasattr(pkt, 'sip'):
+                    # Check for INVITE
+                    if hasattr(pkt.sip, 'method') and pkt.sip.method == 'INVITE':
+                        found_messages['invite'] = True
+                        packet_numbers.append(pkt_num)
+
+                        # Extract caller/callee
+                        if hasattr(pkt.sip, 'from_user'):
+                            caller = pkt.sip.from_user
+                        if hasattr(pkt.sip, 'to_user'):
+                            callee = pkt.sip.to_user
+
+                        logging.info(f"Found SIP INVITE in packet {pkt_num} (From: {caller}, To: {callee})")
+
+                    # Check for 200 OK to INVITE
+                    if hasattr(pkt.sip, 'status_code') and pkt.sip.status_code == '200':
+                        if hasattr(pkt.sip, 'cseq_method') and pkt.sip.cseq_method == 'INVITE':
+                            found_messages['invite_ok'] = True
+                            packet_numbers.append(pkt_num)
+                            logging.info(f"Found INVITE 200 OK in packet {pkt_num}")
+                        elif hasattr(pkt.sip, 'cseq_method') and pkt.sip.cseq_method == 'BYE':
+                            found_messages['bye_ok'] = True
+                            packet_numbers.append(pkt_num)
+                            logging.info(f"Found BYE 200 OK in packet {pkt_num}")
+
+                    # Check for ACK
+                    if hasattr(pkt.sip, 'method') and pkt.sip.method == 'ACK':
+                        found_messages['ack'] = True
+                        packet_numbers.append(pkt_num)
+                        logging.info(f"Found SIP ACK in packet {pkt_num}")
+
+                    # Check for BYE
+                    if hasattr(pkt.sip, 'method') and pkt.sip.method == 'BYE':
+                        found_messages['bye'] = True
+                        packet_numbers.append(pkt_num)
+                        logging.info(f"Found SIP BYE in packet {pkt_num}")
+
+            cap.close()
+
+            # Check results
+            essential_found = found_messages['invite'] and found_messages['invite_ok'] and found_messages['bye']
+
+            if essential_found:
+                status = ValidationResult.PASS
+                details = f"✓ VoLTE call properly setup and released (Caller: {caller}, Callee: {callee})"
+            else:
+                missing = [k for k, v in found_messages.items() if not v and k in ['invite', 'invite_ok', 'bye']]
+                status = ValidationResult.FAIL
+                details = f"✗ Missing VoLTE call messages: {', '.join(missing)}"
+
+            result = ValidationCheck(
+                check_name="VoLTE Call Setup and Release",
+                status=status,
+                details=details,
+                packet_numbers=packet_numbers
+            )
+
+            self.validation_results.append(result)
+            return result
+
+        except Exception as e:
+            logging.error(f"Error validating VoLTE call: {e}")
+            result = ValidationCheck(
+                check_name="VoLTE Call Setup and Release",
+                status=ValidationResult.FAIL,
+                details=f"✗ Error during validation: {str(e)}"
+            )
+            self.validation_results.append(result)
+            return result
+
     def validate_all(self) -> Dict[str, ValidationCheck]:
         """
         Run all validations and return results
-        
+        Runs BOTH 2G/BSSAP and VoLTE validations to show complete picture
+
         Returns:
             Dictionary of validation results keyed by check name
         """
@@ -373,18 +605,35 @@ class BSSAPMAPValidator:
         logging.info("Starting Complete PCAP Validation")
         logging.info("=" * 60)
         
-        # Run all validations
+        # Detect call type for informational purposes
+        call_type = self.detect_call_type()
+        logging.info(f"Detected primary call type: {call_type}")
+
+        results = {}
+
+        # Always run 2G/BSSAP validations
+        logging.info("\n" + "=" * 60)
+        logging.info("Running 2G/BSSAP validations...")
+        logging.info("=" * 60)
         lup_result = self.validate_location_update_procedure()
         mo_result = self.validate_mo_call_setup_release()
         mt_result = self.validate_mt_call_setup_release()
-        
-        results = {
-            'location_update': lup_result,
-            'mo_call': mo_result,
-            'mt_call': mt_result
-        }
-        
+
+        results['2g_location_update'] = lup_result
+        results['2g_mo_call'] = mo_result
+        results['2g_mt_call'] = mt_result
+
+        # Always run VoLTE/IMS validations
+        logging.info("\n" + "=" * 60)
+        logging.info("Running VoLTE/IMS validations...")
         logging.info("=" * 60)
+        reg_result = self.validate_volte_registration()
+        call_result = self.validate_volte_call_setup_release()
+
+        results['volte_registration'] = reg_result
+        results['volte_call'] = call_result
+
+        logging.info("\n" + "=" * 60)
         logging.info("Validation Complete")
         logging.info("=" * 60)
         
@@ -402,14 +651,45 @@ class BSSAPMAPValidator:
         report.append("PCAP VALIDATION REPORT".center(80))
         report.append("=" * 80)
         report.append(f"PCAP File: {self.pcap_path}")
-        report.append("")
-        
-        for result in self.validation_results:
-            report.append(f"\n[{result.status.value}] {result.check_name}")
-            report.append(f"  {result.details}")
-            if result.packet_numbers:
-                report.append(f"  Packets: {', '.join(map(str, result.packet_numbers))}")
-        
+
+        # Separate 2G and VoLTE results
+        bssap_results = [r for r in self.validation_results if '2G' in r.check_name or 'BSSAP' in r.check_name or 'Location' in r.check_name or 'MO Call' in r.check_name or 'MT Call' in r.check_name]
+        volte_results = [r for r in self.validation_results if 'VoLTE' in r.check_name or 'IMS' in r.check_name]
+
+        # 2G/BSSAP Section
+        if bssap_results:
+            report.append("\n" + "-" * 80)
+            report.append("2G / BSSAP / GSM-MAP VALIDATIONS".center(80))
+            report.append("-" * 80)
+
+            for result in bssap_results:
+                report.append(f"\n[{result.status.value}] {result.check_name}")
+                report.append(f"  {result.details}")
+                if result.packet_numbers:
+                    # Show first 10 packet numbers to keep report readable
+                    pkt_list = result.packet_numbers[:10]
+                    pkt_str = ', '.join(map(str, pkt_list))
+                    if len(result.packet_numbers) > 10:
+                        pkt_str += f", ... (+{len(result.packet_numbers) - 10} more)"
+                    report.append(f"  Packets: {pkt_str}")
+
+        # VoLTE/IMS Section
+        if volte_results:
+            report.append("\n" + "-" * 80)
+            report.append("VoLTE / IMS / SIP VALIDATIONS".center(80))
+            report.append("-" * 80)
+
+            for result in volte_results:
+                report.append(f"\n[{result.status.value}] {result.check_name}")
+                report.append(f"  {result.details}")
+                if result.packet_numbers:
+                    # Show first 10 packet numbers to keep report readable
+                    pkt_list = result.packet_numbers[:10]
+                    pkt_str = ', '.join(map(str, pkt_list))
+                    if len(result.packet_numbers) > 10:
+                        pkt_str += f", ... (+{len(result.packet_numbers) - 10} more)"
+                    report.append(f"  Packets: {pkt_str}")
+
         report.append("\n" + "=" * 80)
         
         # Summary
@@ -417,7 +697,16 @@ class BSSAPMAPValidator:
         failed = sum(1 for r in self.validation_results if r.status == ValidationResult.FAIL)
         warnings = sum(1 for r in self.validation_results if r.status == ValidationResult.WARNING)
         
-        report.append(f"SUMMARY: {passed} Passed, {failed} Failed, {warnings} Warnings")
+        # Separate summaries
+        bssap_passed = sum(1 for r in bssap_results if r.status == ValidationResult.PASS)
+        bssap_failed = sum(1 for r in bssap_results if r.status == ValidationResult.FAIL)
+        volte_passed = sum(1 for r in volte_results if r.status == ValidationResult.PASS)
+        volte_failed = sum(1 for r in volte_results if r.status == ValidationResult.FAIL)
+
+        report.append("SUMMARY:")
+        report.append(f"  2G/BSSAP:   {bssap_passed} Passed, {bssap_failed} Failed")
+        report.append(f"  VoLTE/IMS:  {volte_passed} Passed, {volte_failed} Failed")
+        report.append(f"  TOTAL:      {passed} Passed, {failed} Failed, {warnings} Warnings")
         report.append("=" * 80 + "\n")
         
         return "\n".join(report)
